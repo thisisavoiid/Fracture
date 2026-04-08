@@ -8,22 +8,24 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(RigidbodyMovement))]
 [RequireComponent(typeof(CameraMovement))]
 [RequireComponent(typeof(OverlapBoxDetector))]
-[RequireComponent(typeof(HeadBob))]
+[RequireComponent(typeof(Inventory))]
+[RequireComponent(typeof(ItemSlotController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _cameraSensitivity;
     [SerializeField] private float _cameraAngleClamp = 90.0f;
     [SerializeField] private LayerMask _groundLayers;
 
-    [SerializeField] private GunController _gun; // Testing! Change this to a loadout system later!
     [SerializeField] private float _idleHeadbobStrength;
     [SerializeField] private float _walkingHeadbobStrength;
 
     private PlayerInputController _inputController;
+    private ItemSlotController _itemSlotController;
     private RigidbodyMovement _rbMovement;
     private CameraMovement _cameraMovement;
     private OverlapBoxDetector _overlapBoxDetector;
-    private HeadBob _headBob;
+    private Inventory _inventory;
+    private Usable _activeItem;
     private bool _isJumpQueued = false;
 
     private void Awake()
@@ -32,6 +34,10 @@ public class PlayerController : MonoBehaviour
         _rbMovement = GetComponent<RigidbodyMovement>();
         _cameraMovement = GetComponent<CameraMovement>();
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
+        _inventory = GetComponent<Inventory>();
+        _itemSlotController = GetComponent<ItemSlotController>();
+
+        _itemSlotController.OnItemEquipped.AddListener((newItem) => { _activeItem = newItem; });
     }
 
     private void HandleMovement(Vector3 moveDir)
@@ -41,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
         _rbMovement.Move(transform.TransformDirection(moveDir));
     }
-    
+
     private void Update()
     {
         #region Movement
@@ -52,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         #region Jump
 
-            bool jumpPressed = _inputController.Jump;
+        bool jumpPressed = _inputController.Jump;
 
         if (jumpPressed && !_isJumpQueued)
         {
@@ -91,12 +97,36 @@ public class PlayerController : MonoBehaviour
         {
             Transform cameraTransform = _cameraMovement.GetTransform();
 
-            _gun.HandleShooting(
-                cameraTransform.position,
-                cameraTransform.forward.normalized,
-                isPrimaryGadgetActionHeldDown,
-                wasPrimaryGadgetActionPressed
-            );
+            if (_activeItem != null)
+            {
+                _activeItem.Use(
+                    cameraTransform.position,
+                    cameraTransform.forward.normalized,
+                    isPrimaryGadgetActionHeldDown,
+                    wasPrimaryGadgetActionPressed
+                );
+
+                Debug.Log($"[PLAYER CONTROLLER] Using item: {_activeItem.gameObject.name} -");
+            }
+            else
+            {
+                Debug.LogWarning("[PLAYER CONTROLLER] Active item is null! -");
+            }
+        }
+
+        #endregion
+
+        #region Inventory
+
+        if (_inputController.ShuffleInventorySlots != 0)
+        {
+            int currentIndex = _inventory.GetActiveSlot();
+            int targetIndex = currentIndex + (int)_inputController.ShuffleInventorySlots;
+            _inventory.SetActiveSlot(targetIndex);
+
+            _activeItem = _itemSlotController.EquipItem(_inventory.GetActiveItem());
+
+            Debug.Log($"[PLAYER CONTROLLER] Shuffled to item: {_inventory.GetActiveItem().gameObject.name} -");
         }
 
         #endregion

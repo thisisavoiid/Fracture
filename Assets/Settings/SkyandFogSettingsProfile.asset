@@ -72,7 +72,7 @@ MonoBehaviour:
     m_Value: 55261.973
   aerosolDensity:
     m_OverrideState: 0
-    m_Value: 0.01192826
+    m_Value: 0.996
   aerosolTint:
     m_OverrideState: 0
     m_Value: {r: 0.9, g: 0.9, b: 0.9, a: 1}
@@ -132,7 +132,7 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   horizonZenithShift:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: -1
   m_SkyVersion: 2
   m_ObsoleteEarthPreset:
     m_OverrideState: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   maxFogDistance:
     m_OverrideState: 0
-    m_Value: 5000
+    m_Value: 3676.8
   mipFogMaxMip:
     m_OverrideState: 0
     m_Value: 0.5
@@ -191,7 +191,7 @@ MonoBehaviour:
     m_Value: 50
   meanFreePath:
     m_OverrideState: 0
-    m_Value: 400
+    m_Value: 580.5
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
@@ -268,14 +268,14 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 4
   cloudType:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   skyAmbientMode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   planetRadius:
     m_OverrideState: 0
-    m_Value: 6378.1
+    m_Value: 8703
   renderingSpace:
     m_OverrideState: 0
     m_Value: 1
@@ -287,10 +287,10 @@ MonoBehaviour:
     m_Value: {x: 0, y: -6378.1, z: 0}
   windOrientation:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 360
   windSpeed:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 710.72
   fogType:
     m_OverrideState: 1
     m_Value: 0

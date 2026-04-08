@@ -24,6 +24,9 @@ public class PlayerInputController : MonoBehaviour
     private InputAction _primaryGadgetAction;
     public InputAction PrimaryGadgetAction => _primaryGadgetAction;
 
+    private InputAction _shuffleInventorySlots;
+    public float ShuffleInventorySlots => _shuffleInventorySlots.ReadValue<float>();
+
     private void Awake()
     {
         _gameInput = new GameInput();
@@ -33,6 +36,8 @@ public class PlayerInputController : MonoBehaviour
 
         _primaryGadgetAction = _gameInput.Gadgets.PrimaryAction;
 
+        _shuffleInventorySlots = _gameInput.Inventory.Shuffle;
+        
         Cursor.lockState = CursorLockMode.Locked;
     }
 

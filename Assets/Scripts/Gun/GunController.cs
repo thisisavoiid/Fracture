@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(RayCastDetector))]
 [RequireComponent(typeof(GunBehaviourLoader))]
-public class GunController : MonoBehaviour
+public class GunController : Usable
 {
     [SerializeField] private Gun _gun;
     private GunConfig _gunStats;
@@ -43,10 +43,10 @@ public class GunController : MonoBehaviour
 
     public void HandleShooting(Vector3 origin, Vector3 dir, bool isHeldDown, bool wasPressedThisFrame)
     {
-        double durationAfterShot = CalculateDurationAfterShot(_gunStats.ShotsPerMinute);
+        // double durationAfterShot = CalculateDurationAfterShot(_gunStats.ShotsPerMinute);
 
-        if (_timePassedSinceLastShot < durationAfterShot)
-            return;
+        // if (_timePassedSinceLastShot < durationAfterShot)
+        //     return;
 
         switch (_gun.Type)
         {
@@ -59,12 +59,9 @@ public class GunController : MonoBehaviour
                 break;
 
             case GunType.Automatic:
-                if (wasPressedThisFrame)
-                    ResetBulletTimer();
-
                 Shoot(origin, dir);
                 ResetBulletTimer();
-                
+
                 break;
         }
     }
@@ -76,7 +73,6 @@ public class GunController : MonoBehaviour
 
     private void Shoot(Vector3 origin, Vector3 dir)
     {
-
         if (_gunBehaviour == null)
         {
             Debug.LogError("[GUN CONTROLLER] Couldn't execute shot because the specified gun behaviour doesn't exist -");
@@ -84,12 +80,22 @@ public class GunController : MonoBehaviour
         }
 
         Debug.Log($"[GUN CONTROLLER] Executing shot for gun: {_gun.Type} -");
-        
+
         _gunBehaviour.Shoot(
             origin,
             dir,
             _gunStats.Range,
             _gunStats.DamagePerShot
         );
+    }
+
+    public override void Use(Vector3 origin, Vector3 direction, bool held, bool pressed)
+    {
+        HandleShooting(origin, direction, held, pressed);
+    }
+
+    public override void Reload()
+    {
+        _gunBehaviour.Reload();
     }
 }
