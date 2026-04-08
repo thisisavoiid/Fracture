@@ -41,16 +41,14 @@ public class OverlapBoxDetector : MonoBehaviour
         return true;
     }
 
-    public Collider[] GetColliders<T>(LayerMask layerMask)
+    public Collider[] GetColliders(LayerMask layerMask)
     {
         List<Collider> results = Physics.OverlapBox(
             transform.position + _boxOffset,
             _boxDimensions,
             Quaternion.identity,
             layerMask
-        )
-        .Where(obj => obj.GetComponent<T>() != null)
-        .ToList();
+        ).ToList();
 
         if (results == null || results.Count == 0)
             return null;

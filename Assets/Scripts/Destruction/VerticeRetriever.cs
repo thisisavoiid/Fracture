@@ -26,17 +26,17 @@ public class VerticeRetriever : MonoBehaviour
         _renderer = GetComponent<MeshRenderer>();
     }
 
-    public int[] GetTriangles()
+    private int[] GetTriangles()
     {
         return _mesh.triangles.ToArray();
     }
 
-    public Vector3[] GetVertices()
+    private Vector3[] GetVertices()
     {
         return _mesh.vertices;
     }
 
-    public List<List<Vector3>> GetAllTriangles()
+    private List<List<Vector3>> GetAllTriangles()
     {
         int[] triangles = GetTriangles();
         Vector3[] vertices = GetVertices();
@@ -57,7 +57,7 @@ public class VerticeRetriever : MonoBehaviour
         return triangleBounds;
     }
 
-    public Mesh BuildMesh(Vector3[] vertices)
+    private Mesh BuildMesh(Vector3[] vertices)
     {
         int meshHash = 16;
 
@@ -86,7 +86,7 @@ public class VerticeRetriever : MonoBehaviour
         return mesh;
     }
 
-    public void BuildGameObject(Mesh mesh, Material[] materials, out GameObject newObj, bool isActiveByDefault = true)
+    private void BuildGameObject(Mesh mesh, Material[] materials, out GameObject newObj, bool isActiveByDefault = true)
     {
         GameObject go = new($"{gameObject.name} Fraction");
         go.SetActive(isActiveByDefault);

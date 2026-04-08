@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 111e64bd5f023d143bfaceb48d590b81, type: 3}
-  m_Name: TEST GUN
+  m_Name: Revolver
   m_EditorClassIdentifier: 
-  Name: Test Gun
+  Name: Revolver
   Stats:
-    ShotsPerMinute: 100
-    DamagePerShot: 14
-    TotalRounds: 0
-    ReloadTime: 5
-    EquipTime: 2
-    Range: 20
+    ShotsPerMinute: 90
+    DamagePerShot: 15
+    TotalRounds: 15
+    ReloadTime: 0
+    EquipTime: 0
+    Range: 10
   Sound: {fileID: 0}
   Type: 2

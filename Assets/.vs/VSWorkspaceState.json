@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Guns"
+    "\\Guns",
+    "\\Input",
+    "\\Prefabs"
   ],
+  "SelectedNode": "\\Prefabs",
   "PreviewInSolutionExplorer": false
 }

@@ -17,9 +17,9 @@ public class GunBehaviourLoader : MonoBehaviour
             //     behaviour = gameObject.AddComponent<BurstBehaviour>();
             //     return;
 
-            // case GunType.Automatic:
-            //     behaviour = gameObject.AddComponent<AutomaticBehaviour>();
-            //     return;
+            case GunType.Automatic:
+                behaviour = gameObject.AddComponent<AutomaticBehaviour>();
+                return;
         }
     }
 }

@@ -11,7 +11,7 @@ public class RayCastDetector : MonoBehaviour
         );
     }
 
-    public bool Check(Vector3 origin, Vector3 dir, float range=Mathf.Infinity)
+    public bool Check(Vector3 origin, Vector3 dir, float range)
     {
         Ray ray = BuildRay(origin, dir);
 

@@ -25,7 +25,7 @@ public class HeadBob : MonoBehaviour
         _targetTransform.localPosition = new Vector3(
             _basePos.x, 
             _basePos.y + Mathf.Sin(Time.time * _speed) * _strength, 
-            _basePos.z
+            _basePos.z + Mathf.Cos(Time.time * _speed) * _strength
         );
     }
 

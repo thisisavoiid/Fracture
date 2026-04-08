@@ -22,7 +22,7 @@ public class PlayerInputController : MonoBehaviour
     #endregion
 
     private InputAction _primaryGadgetAction;
-    public bool PrimaryGadgetAction => _primaryGadgetAction.WasPressedThisFrame();
+    public InputAction PrimaryGadgetAction => _primaryGadgetAction;
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class PlayerInputController : MonoBehaviour
         _jump = _gameInput.Movement.Jump;
 
         _primaryGadgetAction = _gameInput.Gadgets.PrimaryAction;
-        
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 

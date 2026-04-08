@@ -84,13 +84,18 @@ public class PlayerController : MonoBehaviour
 
         #region Shooting / Interaction
 
-        if (_inputController.PrimaryGadgetAction)
+        bool wasPrimaryGadgetActionPressed = _inputController.PrimaryGadgetAction.WasPressedThisFrame();
+        bool isPrimaryGadgetActionHeldDown = _inputController.PrimaryGadgetAction.IsPressed();
+
+        if (isPrimaryGadgetActionHeldDown)
         {
             Transform cameraTransform = _cameraMovement.GetTransform();
 
-            _gun.Shoot(
+            _gun.HandleShooting(
                 cameraTransform.position,
-                cameraTransform.forward.normalized
+                cameraTransform.forward.normalized,
+                isPrimaryGadgetActionHeldDown,
+                wasPrimaryGadgetActionPressed
             );
         }
 
