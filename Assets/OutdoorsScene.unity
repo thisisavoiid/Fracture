@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -1702,7 +1702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 3
+  _explosionForce: 10
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3

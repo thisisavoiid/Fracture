@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Rifle
   Stats:
-    ShotsPerMinute: 355
+    ShotsPerMinute: 360
     DamagePerShot: 14
     TotalRounds: 0
     ReloadTime: 5

@@ -43,10 +43,10 @@ public class GunController : Usable
 
     public void HandleShooting(Vector3 origin, Vector3 dir, bool isHeldDown, bool wasPressedThisFrame)
     {
-        // double durationAfterShot = CalculateDurationAfterShot(_gunStats.ShotsPerMinute);
+        double durationAfterShot = CalculateDurationAfterShot(_gunStats.ShotsPerMinute);
 
-        // if (_timePassedSinceLastShot < durationAfterShot)
-        //     return;
+        if (_timePassedSinceLastShot < durationAfterShot)
+            return;
 
         switch (_gun.Type)
         {
