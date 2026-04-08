@@ -14,7 +14,7 @@ public class HeadBob : MonoBehaviour
 
     private void Awake()
     {
-        _basePos = _targetTransform.position;
+        _basePos = _targetTransform.localPosition;
     }
 
     void Update()
@@ -22,9 +22,9 @@ public class HeadBob : MonoBehaviour
         if (!_isActive)
             return;
         
-        _targetTransform.position = new Vector3(
+        _targetTransform.localPosition = new Vector3(
             _basePos.x, 
-            Mathf.Sin(Time.time * _speed) * _strength, 
+            _basePos.y + Mathf.Sin(Time.time * _speed) * _strength, 
             _basePos.z
         );
     }
