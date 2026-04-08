@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(RigidbodyMovement))]
 [RequireComponent(typeof(CameraMovement))]
 [RequireComponent(typeof(OverlapBoxDetector))]
+[RequireComponent(typeof(HeadBob))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _cameraSensitivity;
@@ -15,12 +16,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayers;
 
     [SerializeField] private GunController _gun; // Testing! Change this to a loadout system later!
-    
+    [SerializeField] private float _idleHeadbobStrength;
+    [SerializeField] private float _walkingHeadbobStrength;
+
     private PlayerInputController _inputController;
     private RigidbodyMovement _rbMovement;
     private CameraMovement _cameraMovement;
     private OverlapBoxDetector _overlapBoxDetector;
-    
+    private HeadBob _headBob;
     private bool _isJumpQueued = false;
 
     private void Awake()
@@ -31,20 +34,25 @@ public class PlayerController : MonoBehaviour
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
     }
 
+    private void HandleMovement(Vector3 moveDir)
+    {
+        if (moveDir == Vector3.zero)
+            return;
+
+        _rbMovement.Move(transform.TransformDirection(moveDir));
+    }
+    
     private void Update()
     {
         #region Movement
 
-        Vector3 moveDir = _inputController.Move;
-
-        if (moveDir != Vector3.zero)
-            _rbMovement.Move(transform.TransformDirection(moveDir));
+        HandleMovement(_inputController.Move);
 
         #endregion
 
         #region Jump
 
-        bool jumpPressed = _inputController.Jump;
+            bool jumpPressed = _inputController.Jump;
 
         if (jumpPressed && !_isJumpQueued)
         {
@@ -73,7 +81,9 @@ public class PlayerController : MonoBehaviour
         _cameraMovement.SetLocalRotation(Quaternion.Euler(pitch, 0f, 0f));
 
         #endregion
-    
+
+        #region Shooting / Interaction
+
         if (_inputController.PrimaryGadgetAction)
         {
             Transform cameraTransform = _cameraMovement.GetTransform();
@@ -83,6 +93,8 @@ public class PlayerController : MonoBehaviour
                 cameraTransform.forward.normalized
             );
         }
+
+        #endregion
     }
 
     private void FixedUpdate()

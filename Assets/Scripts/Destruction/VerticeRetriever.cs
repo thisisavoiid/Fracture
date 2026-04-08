@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework.Internal;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
@@ -58,11 +59,6 @@ public class VerticeRetriever : MonoBehaviour
 
     public Mesh BuildMesh(Vector3[] vertices)
     {
-        int[] meshTriangles = new int[vertices.Count()];
-
-        for (int i = 0; i < vertices.Count(); i++)
-            meshTriangles[i] = i;
-
         int meshHash = 16;
 
         for (int i = 0; i < vertices.Length; i++)
@@ -77,7 +73,7 @@ public class VerticeRetriever : MonoBehaviour
         Mesh mesh = new();
 
         mesh.vertices = vertices;
-        mesh.triangles = new int[3] { 0, 1, 2 };
+        mesh.triangles = Enumerable.Range(0, vertices.Length).ToArray(); // Outputs a new array with integers sorted in ascending order
 
         _meshCache.Add(
             meshHash,
@@ -132,40 +128,29 @@ public class VerticeRetriever : MonoBehaviour
     {
         List<List<Vector3>> allTriangles = GetAllTriangles();
 
-        for (int i = 0; i < allTriangles.Count; i+=_trianglesPerFraction)
+        for (int i = 0; i < allTriangles.Count; i += _trianglesPerFraction)
         {
             var chunk = allTriangles
                 .Skip(i)
-                .Take(8)
+                .Take(_trianglesPerFraction)
                 .SelectMany(t => t)
                 .ToArray();
 
             Mesh mesh = BuildMesh(chunk);
             Material[] materials = GetComponent<MeshRenderer>().materials;
+
             BuildGameObject(mesh, _renderer.materials, out _, true);
         }
     }
 
     public void TriggerFractureExplosions()
     {
-        BuildAllMeshFractions(); 
+        BuildAllMeshFractions();
         Debug.Log($"[VERTICE RETRIEVER] Avoided building {_duplicateCount} meshes due to duplicate occurences -");
-        
+
         foreach (var obj in _meshFractionObjects)
             obj.GetComponent<MeshFraction>().Explosion(_explosionForce);
-            
+
         Destroy(gameObject);
     }
-
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.green;
-    //     List<List<Vector3>> bounds = GetAllTriangles();
-
-    //     foreach (var bound in bounds)
-    //     {
-    //         Gizmos.DrawLineStrip(bound.ToArray(), false);
-    //     }
-    // }
-
 }

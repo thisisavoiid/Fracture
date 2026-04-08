@@ -17,7 +17,7 @@ public class HeadBob : MonoBehaviour
         _basePos = _targetTransform.localPosition;
     }
 
-    void Update()
+    private void Update()
     {
         if (!_isActive)
             return;
@@ -28,4 +28,15 @@ public class HeadBob : MonoBehaviour
             _basePos.z
         );
     }
+
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
+    }
+
+    public void SetStrength(float strength)
+    {
+        _strength = strength;
+    }
+
 }

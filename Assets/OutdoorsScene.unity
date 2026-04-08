@@ -421,7 +421,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &216709818
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -559,7 +559,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &380198287
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -756,7 +756,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!135 &401438169
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -945,7 +945,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &752618622
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1083,7 +1083,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &1279025551
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &1512375715
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1506,7 +1506,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &1891987796
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1644,7 +1644,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &1951859430
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1782,7 +1782,7 @@ MonoBehaviour:
   _explosionForce: 3
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
-  _trianglesPerFraction: 4
+  _trianglesPerFraction: 3
 --- !u!23 &1966747500
 MeshRenderer:
   m_ObjectHideFlags: 0
