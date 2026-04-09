@@ -88,23 +88,20 @@ public class VerticeRetriever : MonoBehaviour
 
     private void BuildGameObject(Mesh mesh, Material[] materials, out GameObject newObj, bool isActiveByDefault = true)
     {
-        GameObject go = new($"{gameObject.name} Fraction");
-        go.SetActive(isActiveByDefault);
+        GameObject newGo = new($"{gameObject.name} Fraction");
+        newGo.SetActive(isActiveByDefault);
 
-        Vector3 currGoPos = go.transform.position;
-        Vector3 targetGoPos = currGoPos + gameObject.transform.position;
+        newGo.transform.position = gameObject.transform.position;
+        newGo.transform.rotation = gameObject.transform.rotation;
+        newGo.transform.localScale = gameObject.transform.localScale;
 
-        go.transform.position = targetGoPos;
-        go.transform.rotation = gameObject.transform.rotation;
-        go.transform.localScale = gameObject.transform.localScale;
+        MeshRenderer renderer = newGo.AddComponent<MeshRenderer>();
+        renderer.sharedMaterials = materials;
 
-        MeshRenderer renderer = go.AddComponent<MeshRenderer>();
-        renderer.materials = materials;
-
-        MeshFilter filter = go.AddComponent<MeshFilter>();
+        MeshFilter filter = newGo.AddComponent<MeshFilter>();
         filter.mesh = mesh;
 
-        Rigidbody rb = go.AddComponent<Rigidbody>();
+        Rigidbody rb = newGo.AddComponent<Rigidbody>();
         rb.mass = Random.Range(1.0f, 3.0f);
         rb.useGravity = _useFractionGravity;
         rb.sleepThreshold = 0.5f;
@@ -112,16 +109,16 @@ public class VerticeRetriever : MonoBehaviour
 
         if (_addBoxColliderToFractionObjects)
         {
-            BoxCollider boxCollider = go.AddComponent<BoxCollider>();
+            BoxCollider boxCollider = newGo.AddComponent<BoxCollider>();
             boxCollider.size = mesh.bounds.size / 2;
         }
 
 
-        MeshFraction meshFraction = go.AddComponent<MeshFraction>();
+        MeshFraction meshFraction = newGo.AddComponent<MeshFraction>();
 
-        newObj = go;
+        newObj = newGo;
 
-        _meshFractionObjects.Add(go);
+        _meshFractionObjects.Add(newGo);
     }
 
     private void BuildAllMeshFractions()
@@ -137,9 +134,8 @@ public class VerticeRetriever : MonoBehaviour
                 .ToArray();
 
             Mesh mesh = BuildMesh(chunk);
-            Material[] materials = GetComponent<MeshRenderer>().materials;
 
-            BuildGameObject(mesh, _renderer.materials, out _, true);
+            BuildGameObject(mesh, _renderer.sharedMaterials, out _, true);
         }
     }
 
