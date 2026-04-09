@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Revolver
   Stats:
-    ShotsPerMinute: 120
+    ShotsPerMinute: 475
     DamagePerShot: 15
     TotalRounds: 15
     ReloadTime: 0
     EquipTime: 0
     Range: 10
-  Sound: {fileID: 0}
+  Sound: {fileID: 11400000, guid: e74540ffa0e81c9449403d3c85f1b800, type: 2}
   Type: 2

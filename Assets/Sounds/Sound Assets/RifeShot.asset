@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb200b882c026434e8cef914fa2dd056, type: 3}
-  m_Name: Sound
+  m_Name: RifeShot
   m_EditorClassIdentifier: 
   _soundConfig:
-    Clip: {fileID: 0}
-    Loop: 0
-    DefaultVolume: 0
-    DefaultPitch: 0
-    UseRandomVolume: 0
-    MaxRandomVolume: 0
-    MinRandomVolume: 0
-    UseRandomPitch: 0
-    RandomPitchRange: 0
+    Clip: {fileID: 8300000, guid: 85a8f76426fa94d4087f7f1018eac895, type: 3}
+    MixerChannel: {fileID: 5158986390200742491, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
+    DefaultVolume: 0.5
+    DefaultPitch: 1
+    UseRandomVolume: 1
+    RandomVolumeRange: 0.075
+    UseRandomPitch: 1
+    RandomPitchRange: 0.12

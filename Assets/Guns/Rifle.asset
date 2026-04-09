@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Rifle
   Stats:
-    ShotsPerMinute: 360
+    ShotsPerMinute: 510
     DamagePerShot: 14
     TotalRounds: 0
     ReloadTime: 5
     EquipTime: 2
     Range: 20
-  Sound: {fileID: 0}
+  Sound: {fileID: 11400000, guid: f4e88553d7e7d234393eae9e651ec36b, type: 2}
   Type: 1

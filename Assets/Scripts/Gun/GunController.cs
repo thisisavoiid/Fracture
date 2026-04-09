@@ -6,6 +6,7 @@ using UnityEngine;
 public class GunController : Usable
 {
     [SerializeField] private Gun _gun;
+    [SerializeField] private WeaponRecoil _weaponRecoilObject;
     private GunConfig _gunStats;
     private Transform _transform;
     private RayCastDetector _rayCastDetector;
@@ -80,13 +81,20 @@ public class GunController : Usable
         }
 
         Debug.Log($"[GUN CONTROLLER] Executing shot for gun: {_gun.Type} -");
-
+        
+        
         _gunBehaviour.Shoot(
             origin,
             dir,
             _gunStats.Range,
             _gunStats.DamagePerShot
         );
+
+        if (_gun.Sound == null || _gun.Sound?.Data.Clip == null)
+            return;
+
+        AudioManager.Instance.PlaySound(_gun.Sound);
+        _weaponRecoilObject?.ApplyRecoil();
     }
 
     public override void Use(Vector3 origin, Vector3 direction, bool held, bool pressed)
