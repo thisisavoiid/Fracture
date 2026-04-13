@@ -1,4 +1,3 @@
-
 using System.Collections;
 using UnityEngine;
 
@@ -7,7 +6,6 @@ public class MeshFraction : MonoBehaviour
     private Rigidbody _rb;
     private BoxCollider _boxCollider;
     private Transform _transform;
-    private Vector3 _baseSize;
 
     private void Awake()
     {
@@ -23,7 +21,6 @@ public class MeshFraction : MonoBehaviour
         if (!isActive)
             gameObject.SetActive(true); 
 
-        _baseSize = _transform.localScale; 
         _rb.AddForce(UnityEngine.Random.onUnitSphere * explosionForce, ForceMode.Impulse);
 
         Destroy(gameObject, Random.Range(1.0f, 3.5f));

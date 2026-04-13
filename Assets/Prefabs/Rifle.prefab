@@ -58,9 +58,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9200255548477020763}
   - component: {fileID: 3618009947577210035}
-  - component: {fileID: 5110082872019221256}
   - component: {fileID: 3147329875274025170}
   - component: {fileID: 5439490621770990076}
+  - component: {fileID: 3328060714678355515}
+  - component: {fileID: 7014768826546004527}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -100,18 +101,6 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 128
---- !u!114 &5110082872019221256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8862294826724661740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16f997c21bbfa3243a17cfb0a523943d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3147329875274025170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +115,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gun: {fileID: 11400000, guid: c340d135ff7de3d4e8b45e06b34c84e7, type: 2}
   _weaponRecoilObject: {fileID: 1387769968603318489}
+  OnShoot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1387769968603318489}
+        m_TargetAssemblyTypeName: WeaponRecoil, Assembly-CSharp
+        m_MethodName: ApplyRecoil
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5439490621770990076}
+        m_TargetAssemblyTypeName: GunBulletTracker, Assembly-CSharp
+        m_MethodName: DecreaseRemainingBulletCount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5439490621770990076}
+        m_TargetAssemblyTypeName: GunBulletTracker, Assembly-CSharp
+        m_MethodName: ResetBullets
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnGunInitialized:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5439490621770990076}
+        m_TargetAssemblyTypeName: GunBulletTracker, Assembly-CSharp
+        m_MethodName: ResetBullets
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5439490621770990076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +187,32 @@ MonoBehaviour:
   OnBulletCountChange:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3328060714678355515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862294826724661740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 973dd1dfd58d3014cbce9ee5b950a829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioChannelCount: 5
+--- !u!114 &7014768826546004527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862294826724661740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b02a6570c7ed984781914916d5df31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultTime: 0
 --- !u!1001 &1694935169509493947
 PrefabInstance:
   m_ObjectHideFlags: 0

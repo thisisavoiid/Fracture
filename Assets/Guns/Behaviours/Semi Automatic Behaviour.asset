@@ -9,14 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 111e64bd5f023d143bfaceb48d590b81, type: 3}
-  m_Name: Rifle
+  m_Script: {fileID: 11500000, guid: c870f5504964e7046bf39331138ec73f, type: 3}
+  m_Name: Semi Automatic Behaviour
   m_EditorClassIdentifier: 
-  Name: Rifle
-  Stats:
-    ShotsPerMinute: 510
-    DamagePerShot: 14
-    TotalRounds: 32
-    Range: 20
-  Sound: {fileID: 11400000, guid: f4e88553d7e7d234393eae9e651ec36b, type: 2}
-  Type: 1

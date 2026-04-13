@@ -7,5 +7,5 @@ public class Gun : ScriptableObject
     public string Name;
     public GunConfig Stats;
     public Sound Sound;
-    public GunType Type;
+    public GunBehaviour Behaviour;
 }

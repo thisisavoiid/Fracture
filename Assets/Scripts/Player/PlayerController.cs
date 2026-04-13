@@ -85,9 +85,6 @@ public class PlayerController : MonoBehaviour
         bool wasPrimaryGadgetActionPressed = _inputController.PrimaryGadgetAction.WasPressedThisFrame();
         bool isPrimaryGadgetActionHeldDown = _inputController.PrimaryGadgetAction.IsPressed();
 
-        if (!isPrimaryGadgetActionHeldDown)
-            return;
-
         Transform cameraTransform = _cameraMovement.GetTransform();
 
         if (_activeItem != null)

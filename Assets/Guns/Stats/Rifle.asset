@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 111e64bd5f023d143bfaceb48d590b81, type: 3}
-  m_Name: Revolver
+  m_Name: Rifle
   m_EditorClassIdentifier: 
-  Name: Revolver
+  Name: Rifle
   Stats:
     ShotsPerMinute: 475
-    DamagePerShot: 15
-    TotalRounds: 15
-    ReloadTime: 0
-    EquipTime: 0
-    Range: 10
-  Sound: {fileID: 11400000, guid: e74540ffa0e81c9449403d3c85f1b800, type: 2}
-  Type: 2
+    DamagePerShot: 14
+    TotalRounds: 32
+    Range: 20
+  Sound: {fileID: 11400000, guid: f4e88553d7e7d234393eae9e651ec36b, type: 2}
+  Behaviour: {fileID: 11400000, guid: 3c88b7576301bee4087e151089dabd6a, type: 2}

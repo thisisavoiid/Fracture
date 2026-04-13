@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance => _instance;
-    private static AudioManager _instance;
     [SerializeField] private int _audioChannelCount;
     private List<AudioSource> _audioSources = new();
     private void Awake()
@@ -13,18 +11,10 @@ public class AudioManager : MonoBehaviour
         for (int i = 0; i < _audioChannelCount; i++)
         {
             AudioSource newSource = gameObject.AddComponent<AudioSource>();
+            newSource.playOnAwake = false;  
             _audioSources.Add(newSource);
-
             Debug.Log($"[AUDIO MANAGER] Created audio source {i + 1} -");
         }
-
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        _instance = this;
     }
 
     private void SetupAudioSourceConfig(SoundConfig config, AudioSource source)

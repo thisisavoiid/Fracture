@@ -1,10 +1,48 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Gun/Behaviours/Automatic")]
 public class AutomaticBehaviour : GunBehaviour
 {
-    public override void Shoot(Vector3 origin, Vector3 dir, float range, float dmg)
+    private bool CanShoot(
+        bool isPressed, 
+        bool isHeld, 
+        bool bulletsLeft, 
+        float remainingTime
+    ) => isHeld && bulletsLeft && remainingTime <= 0;
+
+    public override bool Shoot(GunContext gunCtx)
     {
-        // Debug.Log($"[SEMI AUTOMATIC BEHAVIOUR] Semi-automatic gun '{gameObject.name}' fired a shot -");
-        base.Shoot(origin, dir, range, dmg);
+        if (!CanShoot(gunCtx.IsPressed, gunCtx.IsHeld, gunCtx.BulletTracker.HasBulletsLeft(), gunCtx.Timer.GetRemainingTime()))
+            return false;
+
+        gunCtx.Timer.Reset();
+        
+        RaycastHit hit;
+
+        gunCtx.RayCastDetector.Check(
+            gunCtx.Origin,
+            gunCtx.Direction,
+            out hit,
+            gunCtx.Gun.Stats.Range
+        );
+
+        Debug.DrawRay(
+            gunCtx.Origin,
+            gunCtx.Direction * gunCtx.Gun.Stats.Range,
+            hit.collider == null ? Color.red : Color.green,
+            3.0f
+        );
+
+        if (hit.collider == null)
+            return true;
+
+        IShootable shootable = hit.collider.gameObject.GetComponent<IShootable>();
+
+        if (shootable == null)
+            return true;
+
+        shootable.Hit(gunCtx.Gun.Stats.DamagePerShot);
+
+        return true;
     }
 }

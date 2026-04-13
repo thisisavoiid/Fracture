@@ -1,4 +1,3 @@
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,17 +8,14 @@ public class GunBulletTracker : MonoBehaviour
     private int _totalBullets;
     private int _bulletsRemaining;
 
-    public void ResetBullets()
+    public void ResetBullets(Gun gun)
     {
         if (_gun == null)
-        {
-            Debug.LogError("[GUN BULLET TRACKER] Couldn't reset bullets as Gun is still null. Use LoadGunStats() inside a GunController to counter this issue -");
-            return;
-        }
+            LoadGunData(gun);
 
-        _bulletsRemaining = _totalBullets;
+        _bulletsRemaining = _gun.Stats.TotalRounds;
 
-        OnBulletCountChange.Invoke(_bulletsRemaining);
+        OnBulletCountChange?.Invoke(_bulletsRemaining);
 
         Debug.Log($"[GUN BULLET TRACKER] Resetting bullets of {_gun.Name} to default: {_totalBullets}");
     }
@@ -28,13 +24,17 @@ public class GunBulletTracker : MonoBehaviour
     {
         return _bulletsRemaining > 0;
     }
-    public void DecreaseRemainingBulletCount()
+    
+    private void LoadGunData(Gun gun)
+    {
+        _gun = gun;
+        _bulletsRemaining = _gun.Stats.TotalRounds;
+    }
+
+    public void DecreaseRemainingBulletCount(Gun gun)
     {
         if (_gun == null)
-        {
-            Debug.LogError("[GUN BULLET TRACKER] Couldn't decrease bullets as Gun is still null. Use LoadGunStats() inside a GunController to counter this issue -");
-            return;
-        }
+            LoadGunData(gun);
 
         if (_bulletsRemaining <= 0)
         {
@@ -46,12 +46,5 @@ public class GunBulletTracker : MonoBehaviour
         OnBulletCountChange.Invoke(_bulletsRemaining);
         
         Debug.Log($"[GUN BULLET TRACKER] {_gun.Name} fired a shot: {_bulletsRemaining} / {_totalBullets} bullets remaining -");
-    }
-
-    public void LoadGunStats(Gun gun)
-    {
-        _gun = gun;
-        _totalBullets = _gun.Stats.TotalRounds;
-        _bulletsRemaining = _totalBullets;
     }
 }
