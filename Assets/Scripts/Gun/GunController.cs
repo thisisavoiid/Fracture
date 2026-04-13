@@ -1,9 +1,11 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(RayCastDetector))]
 [RequireComponent(typeof(GunBehaviourLoader))]
-public class GunController : Usable
+[RequireComponent(typeof(GunBulletTracker))]
+public class GunController : Weapon
 {
     [SerializeField] private Gun _gun;
     [SerializeField] private WeaponRecoil _weaponRecoilObject;
@@ -12,6 +14,7 @@ public class GunController : Usable
     private RayCastDetector _rayCastDetector;
     private GunBehaviour _gunBehaviour;
     private GunBehaviourLoader _gunBehaviourLoader;
+    private GunBulletTracker _gunBulletTracker;
 
     private double _timePassedSinceLastShot;
 
@@ -20,6 +23,7 @@ public class GunController : Usable
         _gunStats = _gun.Stats;
         _rayCastDetector = GetComponent<RayCastDetector>();
         _transform = GetComponent<Transform>();
+        _gunBulletTracker = GetComponent<GunBulletTracker>();
 
         Debug.Log($"[GUN CONTROLLER] Loading behaviour for {_gun.Name} -");
 
@@ -37,6 +41,9 @@ public class GunController : Usable
         Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gunStats.ToString()} -");
 
         _timePassedSinceLastShot = 60 / _gunStats.ShotsPerMinute;
+
+        _gunBulletTracker.LoadGunStats(_gun);
+        _gunBulletTracker.ResetBullets();
     }
 
     private double CalculateDurationAfterShot(int shotsPerMinute) => 60.0d / (double)shotsPerMinute;
@@ -49,6 +56,12 @@ public class GunController : Usable
         if (_timePassedSinceLastShot < durationAfterShot)
             return;
 
+        if (!_gunBulletTracker.HasBulletsLeft())
+        {
+            Debug.Log($"[GUN CONTROLLER] Couldn't decrease remaining bullets count on {_gun.name} because the gun doesn't have any bullets left -");
+            return;
+        }
+            
         switch (_gun.Type)
         {
             case GunType.Semi_Automatic:
@@ -90,6 +103,8 @@ public class GunController : Usable
             _gunStats.DamagePerShot
         );
 
+        _gunBulletTracker.DecreaseRemainingBulletCount();
+
         if (_gun.Sound == null || _gun.Sound?.Data.Clip == null)
             return;
 
@@ -97,13 +112,18 @@ public class GunController : Usable
         _weaponRecoilObject?.ApplyRecoil();
     }
 
-    public override void Use(Vector3 origin, Vector3 direction, bool held, bool pressed)
+    public override void Use(Vector3 origin, Vector3 dir, bool held, bool pressed)
     {
-        HandleShooting(origin, direction, held, pressed);
+        HandleShooting(
+            origin,
+            dir,
+            held,
+            pressed
+        );
     }
 
     public override void Reload()
     {
-        _gunBehaviour.Reload();
+        _gunBulletTracker.ResetBullets();
     }
 }

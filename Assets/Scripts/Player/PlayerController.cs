@@ -40,38 +40,31 @@ public class PlayerController : MonoBehaviour
         _itemSlotController.OnItemEquipped.AddListener((newItem) => { _activeItem = newItem; });
     }
 
-    private void HandleMovement(Vector3 moveDir)
+    private void HandleMovement()
     {
+        Vector3 moveDir = _inputController.Move;
+
         if (moveDir == Vector3.zero)
             return;
 
         _rbMovement.Move(transform.TransformDirection(moveDir));
     }
 
-    private void Update()
+    private void HandleJump()
     {
-        #region Movement
-
-        HandleMovement(_inputController.Move);
-
-        #endregion
-
-        #region Jump
-
         bool jumpPressed = _inputController.Jump;
 
-        if (jumpPressed && !_isJumpQueued)
-        {
-            bool isPlayerGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
+        if (!(jumpPressed && !_isJumpQueued))
+            return;
 
-            if (isPlayerGrounded)
-                _isJumpQueued = true;
-        }
+        bool isPlayerGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
 
-        #endregion
+        if (isPlayerGrounded)
+            _isJumpQueued = true;
+    }
 
-        #region Camera Look (Mouse Movement)
-
+    private void HandleCameraLook()
+    {
         Vector2 mouseDelta = _inputController.Look;
         float mouseX = mouseDelta.x * _cameraSensitivity * Time.deltaTime;
         float mouseY = mouseDelta.y * _cameraSensitivity * Time.deltaTime;
@@ -85,51 +78,67 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, -_cameraAngleClamp, _cameraAngleClamp);
 
         _cameraMovement.SetLocalRotation(Quaternion.Euler(pitch, 0f, 0f));
+    }
 
-        #endregion
-
-        #region Shooting / Interaction
-
+    private void HandleItemUse()
+    {
         bool wasPrimaryGadgetActionPressed = _inputController.PrimaryGadgetAction.WasPressedThisFrame();
         bool isPrimaryGadgetActionHeldDown = _inputController.PrimaryGadgetAction.IsPressed();
 
-        if (isPrimaryGadgetActionHeldDown)
+        if (!isPrimaryGadgetActionHeldDown)
+            return;
+
+        Transform cameraTransform = _cameraMovement.GetTransform();
+
+        if (_activeItem != null)
         {
-            Transform cameraTransform = _cameraMovement.GetTransform();
-
-            if (_activeItem != null)
-            {
-                _activeItem.Use(
-                    cameraTransform.position,
-                    cameraTransform.forward.normalized,
-                    isPrimaryGadgetActionHeldDown,
-                    wasPrimaryGadgetActionPressed
-                );
-
-                Debug.Log($"[PLAYER CONTROLLER] Using item: {_activeItem.gameObject.name} -");
-            }
-            else
-            {
-                Debug.LogWarning("[PLAYER CONTROLLER] Active item is null! -");
-            }
+            _activeItem.Use(
+                cameraTransform.position,
+                cameraTransform.forward.normalized,
+                isPrimaryGadgetActionHeldDown,
+                wasPrimaryGadgetActionPressed
+            );
         }
-
-        #endregion
-
-        #region Inventory
-
-        if (_inputController.ShuffleInventorySlots != 0)
+        else
         {
-            int currentIndex = _inventory.GetActiveSlot();
-            int targetIndex = currentIndex + (int)_inputController.ShuffleInventorySlots;
-            _inventory.SetActiveSlot(targetIndex);
-
-            _activeItem = _itemSlotController.EquipItem(_inventory.GetActiveItem());
-
-            Debug.Log($"[PLAYER CONTROLLER] Shuffled to item: {_inventory.GetActiveItem().gameObject.name} -");
+            Debug.LogWarning("[PLAYER CONTROLLER] Active item is null! -");
         }
+    }
 
-        #endregion
+    private void HandleGunReload()
+    {
+        bool wasReloadPressed = _inputController.ReloadWeapon.WasPressedThisFrame();
+
+        if (!wasReloadPressed)
+            return;
+
+        if (_activeItem is not Weapon)
+            return;
+
+        Weapon weapon = _activeItem as Weapon;
+        weapon.Reload();
+    }
+
+    private void HandleInventory()
+    {
+        if (_inputController.ShuffleInventorySlots == 0)
+            return;
+
+        int currentIndex = _inventory.GetActiveSlot();
+        int targetIndex = currentIndex + (int)_inputController.ShuffleInventorySlots;
+        _inventory.SetActiveSlot(targetIndex);
+
+        // _activeItem = _itemSlotController.EquipItem(_inventory.GetActiveItem());
+    }
+
+    private void Update()
+    {
+        HandleMovement();
+        HandleJump();
+        HandleCameraLook();
+        HandleItemUse();
+        HandleGunReload();
+        HandleInventory();
     }
 
     private void FixedUpdate()

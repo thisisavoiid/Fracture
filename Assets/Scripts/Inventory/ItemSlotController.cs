@@ -16,19 +16,23 @@ public class ItemSlotController : MonoBehaviour
         _inventory.OnSlotChange.AddListener(() => { EquipItem(_inventory.GetActiveItem()); });
     }
 
+    private void Start()
+    {
+        EquipItem(_inventory.GetActiveItem());
+    }
+
     public Usable EquipItem(Usable item)
     {
+        Debug.Log($"[ITEM SLOT CONTROLLER] Equipping item: {item.gameObject.name} -");
         UnequipActiveItem();
 
-        Usable handheldItem = Instantiate(item, _itemSlotTransform);
-        handheldItem.gameObject.name = item.name;
-        
-        handheldItem.transform.localPosition = Vector3.zero;
-        _activeItemSlotItem = handheldItem;
+        item.gameObject.SetActive(true);
 
-        OnItemEquipped?.Invoke(handheldItem);
+        _activeItemSlotItem = item;
 
-        return handheldItem;
+        OnItemEquipped?.Invoke(item);
+
+        return item;
     }
 
     public void UnequipActiveItem()
@@ -36,8 +40,9 @@ public class ItemSlotController : MonoBehaviour
         if (_activeItemSlotItem == null)
             return;
 
-        Destroy(_activeItemSlotItem.gameObject);
+        Debug.Log($"[ITEM SLOT CONTROLLER] Unequipping item: {_activeItemSlotItem.gameObject.name} -");
 
+        _activeItemSlotItem.gameObject.SetActive(false);
         _activeItemSlotItem = null;
 
         OnItemEquipped?.Invoke(null);

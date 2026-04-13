@@ -10,7 +10,7 @@ public class DestructibleObject : MonoBehaviour, IShootable
         _vertRetriever = GetComponent<VerticeRetriever>();
     }
 
-    public void Damage(float dmg)
+    public void Hit(float dmg)
     {
         _vertRetriever.TriggerFractureExplosions();
     }

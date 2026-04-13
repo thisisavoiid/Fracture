@@ -10,19 +10,21 @@ public class PlayerInputController : MonoBehaviour
 {
     private GameInput _gameInput;
 
-    #region Movement Controls
-
     private InputAction _move;
     public Vector3 Move => _move.ReadValue<Vector3>().normalized;
 
     private InputAction _jump;
     public bool Jump => _jump.WasPressedThisFrame();
     public Vector2 Look => Mouse.current.delta.ReadValue();
-    
-    #endregion
 
     private InputAction _primaryGadgetAction;
     public InputAction PrimaryGadgetAction => _primaryGadgetAction;
+
+    private InputAction _secondaryGadgetAction;
+    public InputAction SecondaryGadgetAction => _secondaryGadgetAction;
+
+    private InputAction _reloadWeapon;
+    public InputAction ReloadWeapon => _reloadWeapon;
 
     private InputAction _shuffleInventorySlots;
     public float ShuffleInventorySlots => _shuffleInventorySlots.ReadValue<float>();
@@ -35,6 +37,9 @@ public class PlayerInputController : MonoBehaviour
         _jump = _gameInput.Movement.Jump;
 
         _primaryGadgetAction = _gameInput.Gadgets.PrimaryAction;
+        _secondaryGadgetAction = _gameInput.Gadgets.SecondaryAction;
+
+        _reloadWeapon = _gameInput.Gadgets.Reload;
 
         _shuffleInventorySlots = _gameInput.Inventory.Shuffle;
         

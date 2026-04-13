@@ -40,14 +40,9 @@ public class GunBehaviour : MonoBehaviour
         if (shootable == null)
             return;
 
-        shootable.Damage(dmg);
+        shootable.Hit(dmg);
         
         Debug.Log($"[GUN BEHAVIOUR] Gun '{gameObject.name}' hit a target: {hit.collider.gameObject.name} -");
 
-    }
-
-    public virtual void Reload()
-    {
-        Debug.Log("[GUN BEHAVIOUR] Gun reloaded -");
     }
 }
