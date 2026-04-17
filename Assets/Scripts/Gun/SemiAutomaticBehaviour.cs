@@ -10,15 +10,14 @@ public class SemiAutomaticBehaviour : GunBehaviour
         float remainingTime
     ) => isPressed && bulletsLeft && remainingTime <= 0.0f;
 
-    public override bool Shoot(GunContext gunCtx)
+    public override bool Shoot(GunContext gunCtx, out RaycastHit hit)
     {
+        hit = new RaycastHit();
 
         if (!CanShoot(gunCtx.IsPressed, gunCtx.IsHeld, gunCtx.BulletTracker.HasBulletsLeft(), gunCtx.Timer.GetRemainingTime()))
             return false;
 
         gunCtx.Timer.Reset();
-
-        RaycastHit hit;
 
         gunCtx.RayCastDetector.Check(
             gunCtx.Origin,

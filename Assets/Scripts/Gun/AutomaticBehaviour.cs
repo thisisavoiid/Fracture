@@ -4,20 +4,20 @@ using UnityEngine;
 public class AutomaticBehaviour : GunBehaviour
 {
     private bool CanShoot(
-        bool isPressed, 
-        bool isHeld, 
-        bool bulletsLeft, 
+        bool isPressed,
+        bool isHeld,
+        bool bulletsLeft,
         float remainingTime
     ) => isHeld && bulletsLeft && remainingTime <= 0;
 
-    public override bool Shoot(GunContext gunCtx)
+    public override bool Shoot(GunContext gunCtx, out RaycastHit hit)
     {
+        hit = new RaycastHit();
+
         if (!CanShoot(gunCtx.IsPressed, gunCtx.IsHeld, gunCtx.BulletTracker.HasBulletsLeft(), gunCtx.Timer.GetRemainingTime()))
             return false;
 
         gunCtx.Timer.Reset();
-        
-        RaycastHit hit;
 
         gunCtx.RayCastDetector.Check(
             gunCtx.Origin,

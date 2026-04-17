@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(RigidbodyMovement))]
 [RequireComponent(typeof(CameraMovement))]
 [RequireComponent(typeof(OverlapBoxDetector))]
-[RequireComponent(typeof(Inventory))]
 [RequireComponent(typeof(ItemSlotController))]
 public class PlayerController : MonoBehaviour
 {
@@ -20,12 +19,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _walkingHeadbobStrength;
 
     private PlayerInputController _inputController;
-    private ItemSlotController _itemSlotController;
     private RigidbodyMovement _rbMovement;
     private CameraMovement _cameraMovement;
     private OverlapBoxDetector _overlapBoxDetector;
-    private Inventory _inventory;
-    private Usable _activeItem;
+    private ItemSlotController _itemSlotController;
     private bool _isJumpQueued = false;
 
     private void Awake()
@@ -34,10 +31,12 @@ public class PlayerController : MonoBehaviour
         _rbMovement = GetComponent<RigidbodyMovement>();
         _cameraMovement = GetComponent<CameraMovement>();
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
-        _inventory = GetComponent<Inventory>();
         _itemSlotController = GetComponent<ItemSlotController>();
+    }
 
-        _itemSlotController.OnItemEquipped.AddListener((newItem) => { _activeItem = newItem; });
+    private void Start()
+    {
+        _itemSlotController.SetSlot(0);
     }
 
     private void HandleMovement()
@@ -85,11 +84,17 @@ public class PlayerController : MonoBehaviour
         bool wasPrimaryGadgetActionPressed = _inputController.PrimaryGadgetAction.WasPressedThisFrame();
         bool isPrimaryGadgetActionHeldDown = _inputController.PrimaryGadgetAction.IsPressed();
 
+        if (!(wasPrimaryGadgetActionPressed || isPrimaryGadgetActionHeldDown))
+            return;
+
         Transform cameraTransform = _cameraMovement.GetTransform();
 
-        if (_activeItem != null)
+        Usable equippedItem = _itemSlotController.GetEquippedItem();
+
+        if (equippedItem != null)
         {
-            _activeItem.Use(
+            if (_inputController)
+            equippedItem.Use(
                 cameraTransform.position,
                 cameraTransform.forward.normalized,
                 isPrimaryGadgetActionHeldDown,
@@ -104,15 +109,20 @@ public class PlayerController : MonoBehaviour
 
     private void HandleGunReload()
     {
+        Usable equippedItem = _itemSlotController.GetEquippedItem();
+
+        if (equippedItem == null)
+            return;
+
         bool wasReloadPressed = _inputController.ReloadWeapon.WasPressedThisFrame();
 
         if (!wasReloadPressed)
             return;
 
-        if (_activeItem is not Weapon)
+        if (equippedItem is not Weapon)
             return;
 
-        Weapon weapon = _activeItem as Weapon;
+        Weapon weapon = equippedItem as Weapon;
         weapon.Reload();
     }
 
@@ -121,11 +131,9 @@ public class PlayerController : MonoBehaviour
         if (_inputController.ShuffleInventorySlots == 0)
             return;
 
-        int currentIndex = _inventory.GetActiveSlot();
+        int currentIndex = _itemSlotController.CurrentSlot;
         int targetIndex = currentIndex + (int)_inputController.ShuffleInventorySlots;
-        _inventory.SetActiveSlot(targetIndex);
-
-        // _activeItem = _itemSlotController.EquipItem(_inventory.GetActiveItem());
+        _itemSlotController.SetSlot(targetIndex);
     }
 
     private void Update()

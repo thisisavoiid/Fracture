@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 5439490621770990076}
   - component: {fileID: 7056437117379995153}
   - component: {fileID: 7014768826546004527}
+  - component: {fileID: 6737102823447454592}
   m_Layer: 8
   m_Name: Revolver
   m_TagString: Untagged
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4294967295
 --- !u!114 &3147329875274025170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,10 +119,10 @@ MonoBehaviour:
   OnShoot:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5439490621770990076}
-        m_TargetAssemblyTypeName: GunBulletTracker, Assembly-CSharp
-        m_MethodName: DecreaseRemainingBulletCount
-        m_Mode: 0
+      - m_Target: {fileID: 7699962158441757579}
+        m_TargetAssemblyTypeName: WeaponRecoil, Assembly-CSharp
+        m_MethodName: ApplyRecoil
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -130,10 +131,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7699962158441757579}
-        m_TargetAssemblyTypeName: WeaponRecoil, Assembly-CSharp
-        m_MethodName: ApplyRecoil
-        m_Mode: 1
+      - m_Target: {fileID: 5439490621770990076}
+        m_TargetAssemblyTypeName: GunBulletTracker, Assembly-CSharp
+        m_MethodName: DecreaseRemainingBulletCount
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -213,6 +214,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultTime: 0
+--- !u!114 &6737102823447454592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862294826724661740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a09f8066e599d884083bca1e1c0f8c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _decalConfig:
+    Material: {fileID: 2100000, guid: 3fc987517c2c1ba468b896d77c97789d, type: 2}
+    DestroyAfter: 20
+    StayVisibleForever: 0
+    DefaultSize: 0.275
+    RandomRange: 0.075
+  _decalObject: {fileID: 8515384468049020223, guid: 2d29a651da9687148adb45a22511d003, type: 3}
 --- !u!1001 &3722576753062223388
 PrefabInstance:
   m_ObjectHideFlags: 0

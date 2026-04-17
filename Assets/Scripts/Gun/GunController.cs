@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,6 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(AudioManager))]
 [RequireComponent(typeof(GunBulletTracker))]
 [RequireComponent(typeof(Timer))]
+[RequireComponent(typeof(DecalSpawner))]
 public class GunController : Weapon
 {
     [SerializeField] private Gun _gun;
@@ -13,25 +15,25 @@ public class GunController : Weapon
     private RayCastDetector _rayCastDetector;
     private GunBulletTracker _gunBulletTracker;
     private AudioManager _audioManager;
+    private DecalSpawner _decalSpawner;
     private Timer _timer;
 
     public UnityEvent<Gun> OnShoot;
     public UnityEvent<Gun> OnReload;
     public UnityEvent<Gun> OnGunInitialized;
 
-    private float _timePassedSinceLastShot;
-
     private void Awake()
     {
         _rayCastDetector = GetComponent<RayCastDetector>();
         _gunBulletTracker = GetComponent<GunBulletTracker>();
-        _audioManager = GetComponent<AudioManager>();
         _timer = GetComponent<Timer>();
+        _decalSpawner = GetComponent<DecalSpawner>();
+        _audioManager = GetComponent<AudioManager>();
 
         _timer.SetTime(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute));
         _timer.Start();
 
-        Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gunStats.ToString()} -");
+        Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gun.Stats.ToString()} -");
     }
 
     private void OnEnable()
@@ -51,50 +53,12 @@ public class GunController : Weapon
 
     private float CalculateDurationAfterShot(int shotsPerMinute) => 60.0f / (float)shotsPerMinute;
 
-    // private void ResetBulletTimer() => _timePassedSinceLastShot = 0.0f;
-
-    // public void HandleShooting(Vector3 origin, Vector3 dir, bool isHeldDown, bool wasPressedThisFrame)
-    // {
-    //     double durationAfterShot = CalculateDurationAfterShot(_gunStats.ShotsPerMinute);
-
-    //     if (_timePassedSinceLastShot < durationAfterShot)
-    //         return;
-
-    //     if (!_gunBulletTracker.HasBulletsLeft())
-    //     {
-    //         Debug.Log($"[GUN CONTROLLER] Couldn't decrease remaining bullets count on {_gun.name} because the gun doesn't have any bullets left -");
-    //         return;
-    //     }
-
-    //     switch (_gun.Type)
-    //     {
-    //         case GunType.Semi_Automatic:
-    //             if (!wasPressedThisFrame)
-    //                 return;
-
-    //             Shoot(origin, dir);
-    //             ResetBulletTimer();
-    //             break;
-
-    //         case GunType.Automatic:
-    //             Shoot(origin, dir);
-    //             ResetBulletTimer();
-
-    //             break;
-    //     }
-    // }
-
-    private void Update()
-    {
-        _timePassedSinceLastShot += Time.deltaTime;
-    }
-
     public override void Use(Vector3 origin, Vector3 dir, bool held, bool pressed)
     {
         GunContext gunContext = new GunContext()
         {
             Gun = _gun,
-            Direction = dir,
+            Direction = dir.normalized,
             Origin = origin,
             RayCastDetector = _rayCastDetector,
             BulletTracker = _gunBulletTracker,
@@ -103,12 +67,18 @@ public class GunController : Weapon
             Timer = _timer
         };
 
-        bool shotSuccess = _gun.Behaviour.Shoot(gunContext);
+        bool wasShotSuccessful = _gun.Behaviour.Shoot(gunContext, out RaycastHit hit);
 
-        if (!shotSuccess)
+        if (!wasShotSuccessful)
             return;
 
         OnShoot?.Invoke(_gun);
+
+        if (hit.collider == null)
+            return;
+
+        Debug.Log($"[GUN CONTROLLER] Shot object: {hit.collider.gameObject.name} at point: {hit.point.ToString()} -");
+        _decalSpawner.SpawnDecal(hit.point, Quaternion.LookRotation(-hit.normal), hit.collider.gameObject.transform);
     }
 
     public override void Reload() => OnReload?.Invoke(_gun);
