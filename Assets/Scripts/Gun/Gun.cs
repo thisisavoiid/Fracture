@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "Gun", menuName = "ScriptableObjects/Gun", order = 1)]
+[CreateAssetMenu(fileName = "Gun", menuName = "Gun/New Gun", order = 1)]
 public class Gun : ScriptableObject
 {
     public string Name;

@@ -15,7 +15,7 @@ public class HeadBob : MonoBehaviour
     {
         _basePos = _targetTransform.localPosition;
     }
-
+    
     private void Update()
     {
         if (!_isActive)

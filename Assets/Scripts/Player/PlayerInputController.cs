@@ -14,6 +14,10 @@ public class PlayerInputController : MonoBehaviour
 
     private InputAction _jump;
     public bool Jump => _jump.WasPressedThisFrame();
+
+    private InputAction _sprint;
+    public bool Sprint => _sprint.IsPressed();
+
     public Vector2 Look => Mouse.current.delta.ReadValue();
 
     private InputAction _primaryGadgetAction;
@@ -33,6 +37,7 @@ public class PlayerInputController : MonoBehaviour
         _gameInput = new GameInput();
 
         _move = _gameInput.Movement.Move;
+        _sprint = _gameInput.Movement.Sprint;
         _jump = _gameInput.Movement.Jump;
 
         _primaryGadgetAction = _gameInput.Gadgets.PrimaryAction;

@@ -16,6 +16,12 @@ public class ItemFactory : MonoBehaviour
 
     public GameObject InstantiateItem(Usable item, bool createAsEnabled)
     {
+        if (item == null)
+        {
+            Debug.LogError("[ITEM FACTORY] An item couldn't be instantiated as it was null -");
+            return null;
+        }
+
         Usable createdItemObject = Instantiate(item);
         createdItemObject.gameObject.SetActive(createAsEnabled);
         _instantiatedItems.Add(createdItemObject);
@@ -24,6 +30,12 @@ public class ItemFactory : MonoBehaviour
 
     public GameObject InstantiateItem(Usable item, Transform transform, bool createAsEnabled)
     {
+        if (item == null)
+        {
+            Debug.LogError("[ITEM FACTORY] An item couldn't be instantiated as it was null -");
+            return null;
+        }
+        
         Usable createdItemObject = Instantiate(item, transform, createAsEnabled);
         createdItemObject.gameObject.SetActive(createAsEnabled);
         _instantiatedItems.Add(createdItemObject);

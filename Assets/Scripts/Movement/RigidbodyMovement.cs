@@ -6,8 +6,6 @@ public class RigidbodyMovement : MonoBehaviour
 {
     private Rigidbody _rb;
     private Transform _transform;
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _jumpStrength;
 
     private void Awake()
     {
@@ -15,18 +13,19 @@ public class RigidbodyMovement : MonoBehaviour
         _transform = GetComponent<Transform>();
     }
 
-    public void Move(Vector3 dir)
+    public void Move(Vector3 dir, float speed)
     {
-        Vector3 normalizedDir = dir.normalized;
-        Vector3 targetDir = normalizedDir * _moveSpeed;
+        Vector3 currentVelocity = _rb.linearVelocity;
+        Vector3 targetVelocity = dir.normalized * speed;
+        targetVelocity.y = currentVelocity.y;
 
-        _rb.MovePosition(_transform.position + targetDir * Time.deltaTime);
+        _rb.linearVelocity = targetVelocity;
     }
 
-    public void Jump()
+    public void Jump(float strength)
     {
         float currentVerticalForce = _rb.linearVelocity.y;
-        float difference = Mathf.Max(0, _jumpStrength - currentVerticalForce);
+        float difference = Mathf.Max(0, strength - currentVerticalForce);
 
         _rb.AddForce(_transform.up * difference, ForceMode.Impulse);
 

@@ -1,12 +1,15 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [SerializeField] private bool _useMainCamera = false;
     [SerializeField] private Camera _camera;
-    public Camera Camera => _camera;
+    [SerializeField] private float _baseFov;
+    [SerializeField] private float _fovLerpSpeed;
 
+    public Camera Camera => _camera;
+    private float _targetFov;
     private Transform _cameraTransform;
 
     private void Awake()
@@ -22,6 +25,23 @@ public class CameraMovement : MonoBehaviour
 
         _cameraTransform = _camera.GetComponent<Transform>();
     }
+
+    private void Update()
+    {
+        if (_camera == null)
+            return;
+        
+        float currentFOV = _camera.fieldOfView;
+
+        _camera.fieldOfView = Mathf.Lerp(
+            currentFOV,
+            _targetFov,
+            Time.deltaTime * _fovLerpSpeed
+        );
+    }
+
+    public void SetTargetFOV(float fov) => _targetFov = fov;
+    public void SetFOVLerpSpeed(float speed) => _fovLerpSpeed = speed;
 
     public Quaternion GetRotation() => _cameraTransform.rotation;
 

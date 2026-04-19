@@ -807,6 +807,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useMainCamera: 0
   _camera: {fileID: 4302687206860350062}
+  _baseFov: 0
+  _fovLerpSpeed: 0
 --- !u!114 &3850673831037293335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,8 +833,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce8a5350dbe5e24e8a55595d75d2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 9.5
-  _jumpStrength: 12
 --- !u!114 &2409212850851219203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,11 +847,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraSensitivity: 4
   _cameraAngleClamp: 90
+  _baseFov: 90
+  _walkFovMultiplicator: 1.075
+  _sprintFovMultiplicator: 1.175
+  _lerpSpeed: 10
   _groundLayers:
     serializedVersion: 2
     m_Bits: 8
-  _idleHeadbobStrength: 0
-  _walkingHeadbobStrength: 0
+  _baseHeadbobStrength: 0.01
+  _baseHeadbobSpeed: 2.5
+  _walkHeadbobStrengthMultiplicator: 2
+  _walkHeadbobSpeedMultiplicator: 7
+  _sprintHeadbobStrengthMultiplicator: 3
+  _sprintHeadbobSpeedMultiplicator: 12.5
+  _defaultMoveSpeed: 10
+  _sprintMultiplicator: 1.25
+  _jumpStrength: 12.5
 --- !u!114 &1106298265593718078
 MonoBehaviour:
   m_ObjectHideFlags: 0
