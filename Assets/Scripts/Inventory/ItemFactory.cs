@@ -1,7 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(IItemProvider))]
