@@ -4,8 +4,8 @@ public class WeaponRecoil : MonoBehaviour
 {
     private Transform _transform;
 
-    private Quaternion _baseRotation;
-    private Quaternion _targetRotation;
+    private Vector3 _basePosition;
+    private Vector3 _targetPosition;
 
     [SerializeField] private float _recoilStrength;
     [SerializeField] private float _returnSpeed;
@@ -14,17 +14,17 @@ public class WeaponRecoil : MonoBehaviour
     private void Awake()
     {
         _transform = GetComponent<Transform>();
-        _baseRotation = _transform.localRotation; // Set base rotation to have a default value to return to
+        _basePosition = _transform.localPosition; // Set base rotation to have a default value to return to
     }
 
     public void ApplyRecoil()
     {
-        _targetRotation *= Quaternion.Euler(_recoilStrength, 0f, 0f); // "Adding" rotation values onto eachother
+        _targetPosition.z += _recoilStrength;
     }
 
     private void Update()
     {
-        _targetRotation = Quaternion.Slerp(_targetRotation, _baseRotation, _returnSpeed * Time.deltaTime); // Constant force to get back to the default rotation
-        _transform.localRotation = Quaternion.Slerp(_transform.localRotation, _targetRotation, _snappiness * Time.deltaTime); // Snappiness = How fast to reach the target rotation
+        _targetPosition = Vector3.Lerp(_targetPosition, _basePosition, _returnSpeed * Time.deltaTime); // Constant force to get back to the default rotation
+        _transform.localPosition = Vector3.Lerp(_transform.localPosition, _targetPosition, _snappiness * Time.deltaTime); // Snappiness = How fast to reach the target rotation
     }
 }

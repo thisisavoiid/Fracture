@@ -10,7 +10,6 @@ using UnityEngine.Events;
 public class GunController : Weapon
 {
     [SerializeField] private Gun _gun;
-    [SerializeField] private WeaponRecoil _weaponRecoilObject;
     private GunConfig _gunStats;
     private RayCastDetector _rayCastDetector;
     private GunBulletTracker _gunBulletTracker;

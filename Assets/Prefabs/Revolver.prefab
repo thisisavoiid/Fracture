@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 632928898632134653}
-  - component: {fileID: 7699962158441757579}
   m_Layer: 8
   m_Name: RecoilParent
   m_TagString: Untagged
@@ -33,21 +32,6 @@ Transform:
   - {fileID: 3726913064938824022}
   m_Father: {fileID: 9200255548477020763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7699962158441757579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5659334978913560862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3beebcebd13a6104bad56086317d1333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _recoilStrength: 25
-  _returnSpeed: 25
-  _snappiness: 30
 --- !u!1 &8862294826724661740
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,8 +67,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2273246571554160495}
   - {fileID: 632928898632134653}
+  - {fileID: 2273246571554160495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3618009947577210035
@@ -115,11 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gun: {fileID: 11400000, guid: 9ade37a96609d5749ade1effcd6bfc74, type: 2}
-  _weaponRecoilObject: {fileID: 7699962158441757579}
   OnShoot:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7699962158441757579}
+      - m_Target: {fileID: 1758755348669519817}
         m_TargetAssemblyTypeName: WeaponRecoil, Assembly-CSharp
         m_MethodName: ApplyRecoil
         m_Mode: 1
@@ -353,8 +336,31 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 1620780442430432, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1765096765920448, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1758755348669519817}
   m_SourcePrefab: {fileID: 100100000, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+--- !u!1 &3724330166807988956 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1765096765920448, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+  m_PrefabInstance: {fileID: 3722576753062223388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1758755348669519817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3724330166807988956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beebcebd13a6104bad56086317d1333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recoilStrength: 0.075
+  _returnSpeed: 25
+  _snappiness: 30
 --- !u!4 &3726913064938824022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
@@ -368,6 +374,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9200255548477020763}
     m_Modifications:
+    - target: {fileID: 3480245028137069142, guid: ba55e51b308a822498638b527a33c64b, type: 3}
+      propertyPath: m_text
+      value: 00
+      objectReference: {fileID: 0}
     - target: {fileID: 6638402560781984647, guid: ba55e51b308a822498638b527a33c64b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
