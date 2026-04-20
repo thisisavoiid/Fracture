@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb200b882c026434e8cef914fa2dd056, type: 3}
+  m_Name: ExplosionDetonation
+  m_EditorClassIdentifier: 
+  _soundConfig:
+    Clip: {fileID: 8300000, guid: 5b510835e1949a64fac77bcc0c530256, type: 3}
+    MixerChannel: {fileID: 24300002, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
+    DefaultVolume: 1
+    DefaultPitch: 1
+    UseRandomVolume: 0
+    RandomVolumeRange: 0
+    UseRandomPitch: 0
+    RandomPitchRange: 0
+    UseSpatialAudio: 1

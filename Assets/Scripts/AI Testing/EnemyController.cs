@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(RayCastDetector))]
+
 public class EnemyController : MonoBehaviour
 {
     private RayCastDetector _raycastDetector;

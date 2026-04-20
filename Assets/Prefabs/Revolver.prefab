@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 3618009947577210035}
   - component: {fileID: 3147329875274025170}
   - component: {fileID: 5439490621770990076}
-  - component: {fileID: 7056437117379995153}
   - component: {fileID: 7014768826546004527}
   - component: {fileID: 6737102823447454592}
   m_Layer: 8
@@ -171,19 +170,6 @@ MonoBehaviour:
   OnBulletCountChange:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7056437117379995153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8862294826724661740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 973dd1dfd58d3014cbce9ee5b950a829, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioChannelCount: 5
 --- !u!114 &7014768826546004527
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 190cadcf78c677641bd598cfb8d1fc00, type: 3}
+  m_Name: ExplosiveTank
+  m_EditorClassIdentifier: 
+  Name: Explosive Tank
+  Config:
+    Radius: 10
+    Damage: 0
+    DetonationTime: 0.2
+    TargetLayers:
+      serializedVersion: 2
+      m_Bits: 128
+  DetonationCycleStartSound: {fileID: 11400000, guid: 07b942a6d2fda9e499b49f205bacb1cc, type: 2}
+  ExplodeSound: {fileID: 11400000, guid: 51cbf245689003447a6fc976ce15cc86, type: 2}

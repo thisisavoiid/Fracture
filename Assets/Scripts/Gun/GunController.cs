@@ -1,9 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(RayCastDetector))]
-[RequireComponent(typeof(AudioManager))]
 [RequireComponent(typeof(GunBulletTracker))]
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(DecalSpawner))]
@@ -13,7 +11,6 @@ public class GunController : Weapon
     private GunConfig _gunStats;
     private RayCastDetector _rayCastDetector;
     private GunBulletTracker _gunBulletTracker;
-    private AudioManager _audioManager;
     private DecalSpawner _decalSpawner;
     private Timer _timer;
 
@@ -27,7 +24,6 @@ public class GunController : Weapon
         _gunBulletTracker = GetComponent<GunBulletTracker>();
         _timer = GetComponent<Timer>();
         _decalSpawner = GetComponent<DecalSpawner>();
-        _audioManager = GetComponent<AudioManager>();
 
         _timer.SetTime(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute));
         _timer.Start();
@@ -37,7 +33,8 @@ public class GunController : Weapon
 
     private void OnEnable()
     {
-        OnShoot.AddListener((_gun) => _audioManager.PlaySound(_gun.Sound));
+        if (_gun.Sound != null)
+            OnShoot.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.Sound, transform.position));
     }
 
     private void OnDisable()
@@ -72,7 +69,7 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-
+        
         if (hit.collider == null)
             return;
 

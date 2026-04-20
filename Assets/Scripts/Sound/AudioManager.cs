@@ -1,19 +1,43 @@
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private int _audioChannelCount;
-    private List<AudioSource> _audioSources = new();
+    private List<AudioSource> _audioSourcePool = new();
+    private static AudioManager _instance;
+    public static AudioManager Instance => _instance;
+
     private void Awake()
+    {
+        InitializeAudioPool();
+
+        if (_instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void InitializeAudioPool()
     {
         for (int i = 0; i < _audioChannelCount; i++)
         {
-            AudioSource newSource = gameObject.AddComponent<AudioSource>();
-            newSource.playOnAwake = false;  
-            _audioSources.Add(newSource);
-            Debug.Log($"[AUDIO MANAGER] Created audio source {i + 1} -");
+            GameObject newPooledAudioSource = new GameObject($"PooledAudioSource_{i}");
+            newPooledAudioSource.transform.parent = this.transform;
+
+            AudioSource audioSource = newPooledAudioSource.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+
+            _audioSourcePool.Add(audioSource);
+
+            Debug.Log($"[AUDIO MANAGER] Created audio pool source {i + 1} -");
         }
     }
 
@@ -46,13 +70,19 @@ public class AudioManager : MonoBehaviour
                     config.DefaultPitch + config.RandomPitchRange
             );
         }
+
+        if (config.UseSpatialAudio)
+            source.spatialBlend = 1.0f;
+        else
+            source.spatialBlend = 0.0f;
+
     }
 
     private AudioSource FindUnoccupiedAudioSource()
     {
         AudioSource targetSource = null;
 
-        foreach (AudioSource source in _audioSources)
+        foreach (AudioSource source in _audioSourcePool)
         {
             if (source.isPlaying)
                 continue;
@@ -82,4 +112,26 @@ public class AudioManager : MonoBehaviour
 
         targetSource.Play();
     }
+
+    public void PlaySound(Sound sound, Vector3 position)
+    {
+        Debug.Log($"[AUDIO MANAGER] Checking and setting up sound configuration -");
+
+        AudioSource targetSource = FindUnoccupiedAudioSource();
+
+        if (targetSource == null)
+        {
+            Debug.LogError($"[AUDIO MANAGER] No unoccupied AudioSource objects found. Increase AudioSource pool size to resolve this issue -");
+            return;
+        }
+
+        targetSource.gameObject.transform.position = position;
+
+        SetupAudioSourceConfig(sound.Data, targetSource);
+
+        Debug.Log($"[AUDIO MANAGER] Playing sound '{sound.Data.Clip.name}' -");
+
+        targetSource.Play();
+    }
+
 }

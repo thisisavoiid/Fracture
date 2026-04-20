@@ -21,3 +21,4 @@ MonoBehaviour:
     RandomVolumeRange: 0.075
     UseRandomPitch: 1
     RandomPitchRange: 0.12
+    UseSpatialAudio: 0

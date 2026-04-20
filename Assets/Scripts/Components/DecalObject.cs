@@ -15,6 +15,9 @@ public class DecalObject : MonoBehaviour
 
     public void Initialize(DecalConfig config)
     {
+        if (_projector == null)
+            return;
+            
         if (_hasBeenInitialized)
             return;
 

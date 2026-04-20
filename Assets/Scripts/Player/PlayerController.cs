@@ -212,7 +212,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
         HandleJump();
         HandleCameraLook();
         HandleItemUse();

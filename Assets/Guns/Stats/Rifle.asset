@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Rifle
   Stats:
     ShotsPerMinute: 475
-    DamagePerShot: 14
+    DamagePerShot: 25
     TotalRounds: 32
     Range: 20
   Sound: {fileID: 11400000, guid: f4e88553d7e7d234393eae9e651ec36b, type: 2}

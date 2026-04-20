@@ -22,6 +22,9 @@ public class ItemFactory : MonoBehaviour
         Usable createdItemObject = Instantiate(item);
         createdItemObject.gameObject.SetActive(createAsEnabled);
         _instantiatedItems.Add(createdItemObject);
+
+        Debug.Log($"[ITEM FACTORY] Instantiating item: {item.name}. Active: {createAsEnabled} -");
+
         return createdItemObject.gameObject;
     }
 
@@ -36,6 +39,9 @@ public class ItemFactory : MonoBehaviour
         Usable createdItemObject = Instantiate(item, transform, createAsEnabled);
         createdItemObject.gameObject.SetActive(createAsEnabled);
         _instantiatedItems.Add(createdItemObject);
+
+        Debug.Log($"[ITEM FACTORY] Instantiating item: {item.name} at {transform.position}. Active: {createAsEnabled} -");
+
         return createdItemObject.gameObject;
     }
 

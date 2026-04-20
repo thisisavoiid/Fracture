@@ -1,12 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class StateMachineController : MonoBehaviour
+public class StateMachineController : MonoBehaviour, IStateMachine
 {
     [SerializeField] private State _defaultState;
     [SerializeField] private List<StateTransition> _stateTransitions;
+
     private State _currentState;
+    private NavMeshAgent _agent;
+    public NavMeshAgent Agent => _agent ??= GetComponent<NavMeshAgent>();
+    [SerializeField] private Transform _targetTransform;
+    public Transform TargetTransform => _targetTransform;
 
     private void Awake()
     {
@@ -17,11 +24,11 @@ public class StateMachineController : MonoBehaviour
     {
         if (_currentState == null)
         {
-            Debug.LogError($"[STATE MACHINE CONTROLLER] Couldn't execute current state on GameObject '{gameObject.name}' because the current state is null -");
+            Debug.LogError($"[{this.GetType().Name.ToUpper()}] Couldn't execute current state on GameObject '{gameObject.name}' because the current state is null -");
             return;
         }
 
-        _currentState.Update();
+        _currentState.Run(this);
 
         if (!_stateTransitions.Select(entry => entry.State).Contains(_currentState))
             return;
@@ -64,14 +71,14 @@ public class StateMachineController : MonoBehaviour
         }
     }
 
-    private void SetState(State state)
+    public void SetState(State state)
     {
         if (_currentState != null)
-            _currentState.Exit();
+            _currentState.Exit(this);
 
         _currentState = state;
 
         if (_currentState != null)
-            _currentState.Enter();
+            _currentState.Enter(this);
     }
 }

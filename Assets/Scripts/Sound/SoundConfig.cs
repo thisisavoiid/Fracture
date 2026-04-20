@@ -13,4 +13,5 @@ public struct SoundConfig
     public float RandomVolumeRange;
     public bool UseRandomPitch;
     public float RandomPitchRange;
+    public bool UseSpatialAudio;
 }
