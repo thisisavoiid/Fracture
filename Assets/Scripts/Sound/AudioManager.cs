@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour
     {
         for (int i = 0; i < _audioChannelCount; i++)
         {
-            GameObject newPooledAudioSource = new GameObject($"PooledAudioSource_{i}");
+            GameObject newPooledAudioSource = new GameObject($"PooledAudioSource_{i+1}");
             newPooledAudioSource.transform.parent = this.transform;
 
             AudioSource audioSource = newPooledAudioSource.AddComponent<AudioSource>();
