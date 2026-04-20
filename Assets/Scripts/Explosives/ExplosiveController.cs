@@ -33,7 +33,7 @@ public class ExplosiveController : MonoBehaviour, IShootable
         OnDetonationCycleStart.RemoveAllListeners();
     }
 
-    public void Hit(float dmg)
+    public void Hit(float dmg, Vector3 point)
     {
         if (_isAlreadyExploded)
             return;

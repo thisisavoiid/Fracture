@@ -14,14 +14,16 @@ public class MeshFraction : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider>();
     }
 
-    public void Explosion(float explosionForce)
+    public void Explosion(float explosionForce, Vector3 origin)
     {
         bool isActive = gameObject.activeInHierarchy;
 
         if (!isActive)
             gameObject.SetActive(true); 
 
-        _rb.AddForce(UnityEngine.Random.onUnitSphere * explosionForce, ForceMode.Impulse);
+        Vector3 dir = (_transform.position - origin).normalized;
+
+        _rb.AddForce(explosionForce * dir, ForceMode.Impulse);
 
         Destroy(gameObject, Random.Range(1.0f, 3.5f));
     }

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ExplosionHiss
   m_EditorClassIdentifier: 
   _soundConfig:
-    Clip: {fileID: 8300000, guid: c012a2ecdae65794ea23ff15d7658ea1, type: 3}
-    MixerChannel: {fileID: 24300002, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
-    DefaultVolume: 1
+    Clip: {fileID: 8300000, guid: 9a4c8344fc521d74aa1f93b4ad25e977, type: 3}
+    MixerChannel: {fileID: 6504823309962035962, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
+    DefaultVolume: 0.2
     DefaultPitch: 1
     UseRandomVolume: 0
     RandomVolumeRange: 0
-    UseRandomPitch: 0
-    RandomPitchRange: 0
+    UseRandomPitch: 1
+    RandomPitchRange: 0.3
     UseSpatialAudio: 1

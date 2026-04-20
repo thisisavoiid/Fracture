@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ExplosionDetonation
   m_EditorClassIdentifier: 
   _soundConfig:
-    Clip: {fileID: 8300000, guid: 5b510835e1949a64fac77bcc0c530256, type: 3}
-    MixerChannel: {fileID: 24300002, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
-    DefaultVolume: 1
+    Clip: {fileID: 8300000, guid: dde687b8dba4bdb4db4ac6b56921646c, type: 3}
+    MixerChannel: {fileID: 6504823309962035962, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
+    DefaultVolume: 2
     DefaultPitch: 1
     UseRandomVolume: 0
     RandomVolumeRange: 0

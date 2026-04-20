@@ -139,13 +139,13 @@ public class VerticeRetriever : MonoBehaviour
         }
     }
 
-    public void TriggerFractureExplosions()
+    public void TriggerFractureExplosions(Vector3 origin)
     {
         BuildAllMeshFractions();
         Debug.Log($"[VERTICE RETRIEVER] Avoided building {_duplicateCount} meshes due to duplicate occurences -");
 
         foreach (var obj in _meshFractionObjects)
-            obj.GetComponent<MeshFraction>().Explosion(_explosionForce);
+            obj.GetComponent<MeshFraction>().Explosion(_explosionForce, origin);
 
         Destroy(gameObject);
     }

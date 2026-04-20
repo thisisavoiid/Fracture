@@ -13,7 +13,7 @@ public class ExplosiveTankBehaviour : ExplosionBehaviour
 
             if (shootable != null && obj.gameObject != ctx.GameObject)
             {
-                shootable.Hit(ctx.Explosive.Config.Damage);
+                shootable.Hit(ctx.Explosive.Config.Damage, ctx.GameObject.transform.position);
             }
         }
     }

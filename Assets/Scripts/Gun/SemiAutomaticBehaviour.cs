@@ -41,7 +41,7 @@ public class SemiAutomaticBehaviour : GunBehaviour
         if (shootable == null)
             return true;
 
-        shootable.Hit(gunCtx.Gun.Stats.DamagePerShot);
+        shootable.Hit(gunCtx.Gun.Stats.DamagePerShot, hit.point);
 
         return true;
     }
