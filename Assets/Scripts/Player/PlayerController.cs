@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         if (moveDir == Vector3.zero)
             return;
-
+        
         float targetSpeed = _defaultMoveSpeed;
 
         if (_inputController.Sprint)

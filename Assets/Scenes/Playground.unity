@@ -1821,7 +1821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -2506,7 +2506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -2813,7 +2813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -3108,7 +3108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -3430,7 +3430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -3872,7 +3872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -3884,7 +3884,7 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 307ba38b111893b45a3529541b8a68ca, type: 2}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50
+      value: 43.36
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3892,7 +3892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.8
+      value: -6.97
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4228,7 +4228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -4240,7 +4240,7 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 307ba38b111893b45a3529541b8a68ca, type: 2}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50
+      value: 51.71
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4248,7 +4248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.8
+      value: 5.91
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5132,7 +5132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
@@ -5216,8 +5216,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _addDynamicDetonationTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3926071038572419572, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: a30ec5aa203a28f4e8ca2d5c24355b3f, type: 3}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
       value: 10
@@ -6625,6 +6629,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveTank
       objectReference: {fileID: 0}
+    - target: {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: _addDynamicDetonationTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3926071038572419572, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 410cd8677d96c1446adc2b8c3fe66338, type: 2}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.32
@@ -6692,7 +6704,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4302687206860350062, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 767
+      value: 1791
       objectReference: {fileID: 0}
     - target: {fileID: 6048532856845576340, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: fullscreenPassthrough
@@ -6818,6 +6830,10 @@ PrefabInstance:
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
       value: EnemyRobot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299678092718921307, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _damageMultiplier
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

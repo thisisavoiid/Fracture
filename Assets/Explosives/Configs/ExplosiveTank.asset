@@ -16,7 +16,7 @@ MonoBehaviour:
   Config:
     Radius: 10
     Damage: 0
-    DetonationTime: 0.2
+    DetonationTime: 0.5
     TargetLayers:
       serializedVersion: 2
       m_Bits: 128

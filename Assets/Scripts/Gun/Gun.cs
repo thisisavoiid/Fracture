@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,4 +9,5 @@ public class Gun : ScriptableObject
     public GunConfig Stats;
     public Sound Sound;
     public GunBehaviour Behaviour;
+    public ProjectileController Projectile;
 }

@@ -20,3 +20,4 @@ MonoBehaviour:
     Range: 10
   Sound: {fileID: 11400000, guid: e74540ffa0e81c9449403d3c85f1b800, type: 2}
   Behaviour: {fileID: 11400000, guid: 999d9fbc825409e49ae1e66e0d3aeb22, type: 2}
+  Projectile: {fileID: 4265047215336941440, guid: 9b28bd513266fe248a9ae989f090e8d5, type: 3}

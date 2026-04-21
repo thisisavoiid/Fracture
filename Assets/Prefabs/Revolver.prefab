@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gun: {fileID: 11400000, guid: 9ade37a96609d5749ade1effcd6bfc74, type: 2}
+  _projectileSpawnTransform: {fileID: 3726925472631438872}
   OnShoot:
     m_PersistentCalls:
       m_Calls:
@@ -350,6 +351,11 @@ MonoBehaviour:
 --- !u!4 &3726913064938824022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+  m_PrefabInstance: {fileID: 3722576753062223388}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3726925472631438872 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4940302572560388, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
   m_PrefabInstance: {fileID: 3722576753062223388}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4876384936617581800
