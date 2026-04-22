@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInputController))]
@@ -41,6 +42,11 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float _jumpStrength;
 
+    [Header("Event Endpoints")]
+    public UnityEvent<Vector2> OnMouseLook;
+    public UnityEvent<Vector3> OnMove;
+    public UnityEvent OnJump;
+
     private PlayerInputController _inputController;
     private RigidbodyMovement _rbMovement;
     private CameraController _cameraController;
@@ -79,6 +85,8 @@ public class PlayerController : MonoBehaviour
             targetSpeed *= _sprintMultiplicator;
 
         _rbMovement.Move(transform.TransformDirection(moveDir), targetSpeed);
+
+        OnMove?.Invoke(moveDir);
     }
 
     private void HandleJump()
@@ -90,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
         bool isPlayerGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
 
-        if (isPlayerGrounded)
+        if (isPlayerGrounded) 
             _isJumpQueued = true;
     }
 
@@ -109,6 +117,8 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, -_cameraAngleClamp, _cameraAngleClamp);
 
         _cameraController.SetLocalRotation(Quaternion.Euler(pitch, 0f, 0f));
+
+        OnMouseLook?.Invoke(mouseDelta);
     }
 
     private void HandleHeadbob()
@@ -228,6 +238,7 @@ public class PlayerController : MonoBehaviour
         {
             _isJumpQueued = false;
             _rbMovement.Jump(_jumpStrength);
+            OnJump?.Invoke();
         }
     }
 }
