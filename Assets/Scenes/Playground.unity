@@ -6462,6 +6462,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5732077199095150193, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
+      propertyPath: _swaySnappiness
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5732077199095150193, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
+      propertyPath: _lookSwayStrength
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 6210448504147597702, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

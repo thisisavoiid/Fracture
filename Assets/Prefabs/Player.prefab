@@ -401,7 +401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSwayStrength: 5
   _moveSwaySpeed: 7.5
-  _moveSwaySnappiness: 20
+  _swaySnappiness: 15
+  _lookSwayStrength: 0.075
 --- !u!1 &6809084745924718759
 GameObject:
   m_ObjectHideFlags: 0
