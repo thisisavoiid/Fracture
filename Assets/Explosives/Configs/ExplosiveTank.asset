@@ -15,10 +15,10 @@ MonoBehaviour:
   Name: Explosive Tank
   Config:
     Radius: 10
-    Damage: 0
+    Damage: 25
     DetonationTime: 0.5
     TargetLayers:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 640
   DetonationCycleStartSound: {fileID: 11400000, guid: 07b942a6d2fda9e499b49f205bacb1cc, type: 2}
   ExplodeSound: {fileID: 11400000, guid: 51cbf245689003447a6fc976ce15cc86, type: 2}

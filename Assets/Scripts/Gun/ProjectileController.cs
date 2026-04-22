@@ -36,9 +36,10 @@ public class ProjectileController : MonoBehaviour
     {
         _moveDir = dir;
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if ((_layerMask & (1 << other.gameObject.layer)) != 0)
+        if ((_layerMask & (1 << collision.gameObject.layer)) != 0)
             Destroy(this.gameObject);
     }
 }

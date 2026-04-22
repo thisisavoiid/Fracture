@@ -41,7 +41,7 @@ public class OverlapSphereDetector : MonoBehaviour
         return true;
     }
 
-    public Collider[] GetColliders(LayerMask layerMask)
+    public List<Collider> GetColliders(LayerMask layerMask)
     {
         List<Collider> results = Physics.OverlapSphere(
             transform.position + _sphereOffset,
@@ -52,7 +52,7 @@ public class OverlapSphereDetector : MonoBehaviour
         if (results == null || results.Count == 0)
             return null;
 
-        return results.ToArray();
+        return results;
     }
 
     private void OnDrawGizmos()

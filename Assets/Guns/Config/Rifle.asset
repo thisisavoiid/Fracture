@@ -17,7 +17,7 @@ MonoBehaviour:
     ShotsPerMinute: 475
     DamagePerShot: 25
     TotalRounds: 32
-    Range: 20
+    Range: 40
   ShootSound: {fileID: 11400000, guid: f4e88553d7e7d234393eae9e651ec36b, type: 2}
   ReloadSound: {fileID: 11400000, guid: 1511089e63010134a888d0b0ceb4b3ae, type: 2}
   Behaviour: {fileID: 11400000, guid: 3c88b7576301bee4087e151089dabd6a, type: 2}

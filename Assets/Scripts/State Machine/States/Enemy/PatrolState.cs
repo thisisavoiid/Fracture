@@ -8,8 +8,6 @@ public class PatrolState : State
     {
         controller.Agent.destination = controller.transform.position;
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
-
-        Debug.Log("Enemy is now going to patrol...");
     }
 
     public override void Exit(StateMachineController controller)

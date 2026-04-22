@@ -13,6 +13,8 @@ public class ExplosiveController : MonoBehaviour, IShootable
     public UnityEvent OnExplode;
     public UnityEvent OnDetonationCycleStart;
 
+
+
     private void Awake()
     {
         _sphereDetector = GetComponent<OverlapSphereDetector>();
@@ -67,6 +69,7 @@ public class ExplosiveController : MonoBehaviour, IShootable
         yield return new WaitForSeconds(timeToWait);
 
         _behaviour.Explode(ctx);
+
         OnExplode?.Invoke();
 
         Debug.Log($"[EXPLOSIVE CONTROLLER] Exploding {ctx.GameObject.name} at {ctx.Transform.position} -");

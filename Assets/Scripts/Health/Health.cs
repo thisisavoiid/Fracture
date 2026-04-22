@@ -6,6 +6,8 @@ public class Health : MonoBehaviour
     [SerializeField] private float _defaultHealth;
     [SerializeField] private bool _autoInvokeDie;
     private float _health;
+    public float CurrentHealth => _health;
+    
     public UnityEvent OnDeath;
     public UnityEvent<float> OnHealthRefresh;
 

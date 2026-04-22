@@ -190,6 +190,51 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 1456700585400689198}
   m_maskType: 0
+--- !u!1 &5096376406294797327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8312686740610279099}
+  - component: {fileID: 416571301185130031}
+  m_Layer: 9
+  m_Name: ItemHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8312686740610279099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096376406294797327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.3339498, y: 0.15, z: -0.45792198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1251677467475955574}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!114 &416571301185130031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096376406294797327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f304bd9381d91dd4eba9c21d772af69c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: 0.25
 --- !u!1 &6102089558249333164
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +247,12 @@ GameObject:
   - component: {fileID: 149556644862734679}
   - component: {fileID: 5016657742499789245}
   - component: {fileID: 5332500538640598709}
+  - component: {fileID: 3591695248929805565}
   - component: {fileID: 3027047587871496513}
+  - component: {fileID: 541971510077413476}
+  - component: {fileID: 1838723400835819566}
+  - component: {fileID: 5163090298573493686}
+  - component: {fileID: 5740615923885643527}
   - component: {fileID: 3376664846415105161}
   m_Layer: 9
   m_Name: EnemyRobot
@@ -227,6 +277,7 @@ Transform:
   - {fileID: 8086832868833658420}
   - {fileID: 1923880947506412318}
   - {fileID: 7374889659647282787}
+  - {fileID: 8312686740610279099}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &149556644862734679
@@ -267,7 +318,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPlayerInSight: {fileID: 11400000, guid: 5c3bd4a0a858c1c448593a3b069b58ac, type: 2}
-  _viewDistance: 20
+  _viewDistance: 60
+  _targetLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &5332500538640598709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +336,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
+--- !u!114 &3591695248929805565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102089558249333164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 50
 --- !u!114 &3027047587871496513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +367,18 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 3591695248929805565}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6102089558249333164}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -315,6 +394,63 @@ MonoBehaviour:
   OnHealthRefresh:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &541971510077413476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102089558249333164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sphereRadius: 0
+  _sphereOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &1838723400835819566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102089558249333164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7513416b96d1ec947b5004f7d9855aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventoryContent:
+  - {fileID: 3147329875274025170, guid: 3488832e32f342e4cb8cfb3cd45eae1f, type: 3}
+--- !u!114 &5163090298573493686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102089558249333164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba2e6ea7826be74099a2afd41b795c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5740615923885643527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102089558249333164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9029d54a48306de4390b6173f6bc4a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemSlotTransform: {fileID: 8312686740610279099}
+  _defaultSlot: 0
+  OnItemEquipped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!195 &3376664846415105161
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -325,10 +461,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 7
-  m_Acceleration: 20.56
+  m_Speed: 3.5
+  m_Acceleration: 50
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 750
   m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -347,6 +483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923880947506412318}
   - component: {fileID: 2577809852220639108}
+  - component: {fileID: 1942877566157429213}
   - component: {fileID: 6564975971612683477}
   - component: {fileID: 518306258435892536}
   - component: {fileID: 5621437983220991020}
@@ -400,6 +537,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1942877566157429213}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1942877566157429213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596185006665782606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 5
 --- !u!33 &6564975971612683477
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -484,6 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8086832868833658420}
   - component: {fileID: 8299678092718921307}
+  - component: {fileID: 5632325648013994354}
   - component: {fileID: 4239833788125291238}
   - component: {fileID: 9146394840218162538}
   - component: {fileID: 3362939375130131323}
@@ -521,7 +684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ab2ebfb0e7ed14798af11bb2c02a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageMultiplier: 1.2
+  _damageMultiplier: 2
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls:
@@ -537,6 +700,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5632325648013994354}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5632325648013994354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8423656958753025125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 15
 --- !u!33 &4239833788125291238
 MeshFilter:
   m_ObjectHideFlags: 0

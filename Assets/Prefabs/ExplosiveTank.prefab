@@ -10,11 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8720454802042832341}
   - component: {fileID: 3523894698881964607}
+  - component: {fileID: 465775692461912834}
   - component: {fileID: 7018942107471305355}
   - component: {fileID: 734406371448827353}
   - component: {fileID: 3926071038572419572}
   - component: {fileID: 8262242622026651914}
   - component: {fileID: 8388970850269223612}
+  - component: {fileID: 8668611548542451648}
   m_Layer: 7
   m_Name: ExplosiveTank
   m_TagString: Untagged
@@ -52,13 +54,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _behaviour: {fileID: 11400000, guid: 56813c08cecb9d04fbbf31cc258afc81, type: 2}
   _explosive: {fileID: 11400000, guid: 86b9c76219c5b344d8316a5721379114, type: 2}
-  _addDynamicDetonationTime: 1
+  _addDynamicDetonationTime: 0
   OnExplode:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 465775692461912834}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDetonationCycleStart:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &465775692461912834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456031327218277800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 5
 --- !u!114 &7018942107471305355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +202,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!208 &8668611548542451648
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456031327218277800}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &3679190090976685426
 GameObject:
   m_ObjectHideFlags: 0

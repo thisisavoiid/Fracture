@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Explosives/Behaviours/Explosive Tank Behaviour", fileName = "Explosive Tank Behaviour")]
@@ -5,7 +6,7 @@ public class ExplosiveTankBehaviour : ExplosionBehaviour
 {
     public override void Explode(ExplosionContext ctx)
     {
-        Collider[] colliders = ctx.OverlapSphereDetector.GetColliders(ctx.Explosive.Config.TargetLayers);
+        List<Collider> colliders = ctx.OverlapSphereDetector.GetColliders(ctx.Explosive.Config.TargetLayers);
 
         foreach (var obj in colliders)
         {

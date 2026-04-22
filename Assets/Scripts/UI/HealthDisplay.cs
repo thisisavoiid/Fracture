@@ -17,6 +17,11 @@ public class HealthDisplay : MonoBehaviour
         );
     }
 
+    private void Start()
+    {
+        RefreshLabelText(_health.CurrentHealth.ToString());
+    }
+    
     private void RefreshLabelText(string text)
     {
         _label.text = text;

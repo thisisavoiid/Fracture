@@ -52,4 +52,26 @@ public class RayCastDetector : MonoBehaviour
 
         return hasHit;
     }
+
+    public bool Check(Vector3 origin, Vector3 dir, out RaycastHit hit, LayerMask layerMask, float range=Mathf.Infinity)
+    {
+        Ray ray = BuildRay(origin, dir);
+
+        bool hasHit = Physics.Raycast(
+            ray,
+            out hit,
+            range,
+            layerMask
+        );
+
+        float drawRange = hasHit ? hit.distance : range;
+
+        Debug.DrawLine(
+            origin,
+            origin + dir.normalized * drawRange,
+            hasHit ? Color.green : Color.red
+        );
+
+        return hasHit;
+    }
 }
