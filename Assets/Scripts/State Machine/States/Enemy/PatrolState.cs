@@ -1,22 +1,32 @@
 using System.Buffers.Text;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "State Machine/States/Enemy/Patrol State", fileName = "Patrol State")]
 public class PatrolState : State
 {
-    public override void Enter(StateMachineController controller)
+    private EnemyBrain _brain;
+    public override void Enter(GameObject gameObject)
     {
-        controller.Agent.destination = controller.transform.position;
+        _brain = gameObject.GetComponent<EnemyBrain>();
+        _brain.Agent.ResetPath();
+
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
 
-    public override void Exit(StateMachineController controller)
+    public override void Exit(GameObject gameObject)
     {
         Debug.Log($"[STATE] {GetType().Name} Exit invoked -");
     }
 
-    public override void Run(StateMachineController controller)
+    public override void Run(GameObject gameObject)
     {
-        // Debug.Log($"[STATE] {GetType().Name} Update invoked -");
+        bool canSeePlayer = _brain.CanSeePlayer();
+
+        if (canSeePlayer)
+        {
+            _brain.SetState(new ChaseState());
+            return;
+        }
     }
 }

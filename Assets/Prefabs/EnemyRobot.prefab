@@ -216,7 +216,7 @@ Transform:
   m_GameObject: {fileID: 5096376406294797327}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.3339498, y: 0.15, z: -0.45792198}
+  m_LocalPosition: {x: -0.3339498, y: 0.15, z: 0.486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -245,7 +245,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1251677467475955574}
   - component: {fileID: 149556644862734679}
-  - component: {fileID: 5016657742499789245}
   - component: {fileID: 5332500538640598709}
   - component: {fileID: 3591695248929805565}
   - component: {fileID: 3027047587871496513}
@@ -292,36 +291,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ff4e76fb7ef99408b97d1e3b1eac5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultState: {fileID: 11400000, guid: 2dda7485b97058f47b8c9331251bd624, type: 2}
-  _stateTransitions:
-  - State: {fileID: 11400000, guid: 2dda7485b97058f47b8c9331251bd624, type: 2}
-    TargetStateConditions:
-    - State: {fileID: 11400000, guid: 0004cd47d26bb724d80f42f6338549fb, type: 2}
-      Condition: {fileID: 11400000, guid: 5567af470f70ee44cb6be90b413719bd, type: 2}
-      Modifier: 0
-  - State: {fileID: 11400000, guid: 0004cd47d26bb724d80f42f6338549fb, type: 2}
-    TargetStateConditions:
-    - State: {fileID: 11400000, guid: 2dda7485b97058f47b8c9331251bd624, type: 2}
-      Condition: {fileID: 11400000, guid: 5567af470f70ee44cb6be90b413719bd, type: 2}
-      Modifier: 1
   _targetTransform: {fileID: 0}
---- !u!114 &5016657742499789245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6102089558249333164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8b2523afdef9654abd74c8a5a015901, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isPlayerInSight: {fileID: 11400000, guid: 5c3bd4a0a858c1c448593a3b069b58ac, type: 2}
-  _viewDistance: 60
-  _targetLayers:
+  _targetMask:
     serializedVersion: 2
     m_Bits: 64
+  _viewDistance: 30
+  _calmDownDistance: 35
+  _minAttackDistance: 5
+  _headTransform: {fileID: 8086832868833658420}
 --- !u!114 &5332500538640598709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inventoryContent:
-  - {fileID: 3147329875274025170, guid: 3488832e32f342e4cb8cfb3cd45eae1f, type: 3}
+  - {fileID: 3147329875274025170, guid: 66f1e035207f4764a8f5cb63d2364a33, type: 3}
 --- !u!114 &5163090298573493686
 MonoBehaviour:
   m_ObjectHideFlags: 0

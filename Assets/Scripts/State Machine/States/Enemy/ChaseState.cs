@@ -1,21 +1,36 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "State Machine/States/Enemy/Chase State", fileName = "Chase State")]
 public class ChaseState : State
 {
-    public override void Enter(StateMachineController controller)
+    private EnemyBrain _brain;
+    public override void Enter(GameObject gameObject)
     {
+        _brain = gameObject.GetComponent<EnemyBrain>();
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
 
-    public override void Exit(StateMachineController controller)
+    public override void Exit(GameObject gameObject)
     {
         Debug.Log($"[STATE] {GetType().Name} Exit invoked -");
     }
 
-    public override void Run(StateMachineController controller)
+    public override void Run(GameObject gameObject)
     {
-        controller.Agent.SetDestination(controller.TargetTransform.position);
-        controller.transform.LookAt(controller.TargetTransform.position);
+        _brain.Agent.SetDestination(_brain.TargetTransform.position);
+        _brain.Transform.LookAt(_brain.TargetTransform.position);
+
+        float distance = (_brain.TargetTransform.position - _brain.Transform.position).magnitude;
+
+        if (distance >= _brain.CalmDownDistance)
+        {
+            _brain.SetState(new PatrolState());
+            return;
+        }
+
+        if (distance < _brain.MinAttackDistance)
+        {
+            _brain.SetState(new AttackState());
+            return;
+        }
     }
 }

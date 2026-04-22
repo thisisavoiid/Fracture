@@ -175,13 +175,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRobot_2
       objectReference: {fileID: 0}
+    - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1 &87202026
 GameObject:
@@ -2139,9 +2140,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveTank_7
       objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.9
+      value: 13.01
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2149,7 +2154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.7
+      value: -18.86
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2872,6 +2877,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveTank_9
       objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.4
@@ -2973,13 +2982,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRobot_3
       objectReference: {fileID: 0}
+    - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1001 &962079689
 PrefabInstance:
@@ -2992,6 +3002,10 @@ PrefabInstance:
     - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_Name
       value: ExplosiveTank_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3372,6 +3386,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveTank_4
       objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.75
@@ -3687,6 +3705,10 @@ PrefabInstance:
     - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_Name
       value: ExplosiveTank_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4103,13 +4125,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRobot_4
       objectReference: {fileID: 0}
+    - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1 &1331912934
 GameObject:
@@ -4204,6 +4227,10 @@ PrefabInstance:
     - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_Name
       value: ExplosiveTank_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4575,6 +4602,10 @@ PrefabInstance:
     - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_Name
       value: ExplosiveTank_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5571,6 +5602,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveTank_3
       objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.38
@@ -5627,6 +5662,10 @@ PrefabInstance:
     - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_Name
       value: ExplosiveTank_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6040,13 +6079,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRobot_1
       objectReference: {fileID: 0}
+    - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1 &1729452848
 GameObject:
@@ -7252,6 +7292,10 @@ PrefabInstance:
     - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_Name
       value: ExplosiveTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x

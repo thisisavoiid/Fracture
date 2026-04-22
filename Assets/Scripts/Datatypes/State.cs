@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public abstract class State : ScriptableObject
+public abstract class State
 { 
-    public abstract void Enter(StateMachineController controller);
-    public abstract void Run(StateMachineController controller);
-    public abstract void Exit(StateMachineController controller);
+    public abstract void Enter(GameObject gameObject);
+    public abstract void Run(GameObject gameObject);
+    public abstract void Exit(GameObject gameObject);
 }

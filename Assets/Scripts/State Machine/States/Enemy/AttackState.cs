@@ -1,25 +1,56 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
-[CreateAssetMenu(menuName = "State Machine/States/Enemy/Attack State", fileName = "Attack State")]
 public class AttackState : State
 {
-    private Transform _targetTransform;
-    private RayCastDetector _rayCastDetector;
-    public override void Enter(StateMachineController controller)
+    private EnemyBrain _brain;
+    private GunBulletTracker _bulletTracker;
+    public override void Enter(GameObject gameObject)
     {
+        _brain = gameObject.GetComponent<EnemyBrain>();
+
+        Usable activeGun = _brain.ItemSlotController.GetEquippedItem();
+        _bulletTracker = activeGun.GetComponent<GunBulletTracker>();
+    
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
-        _rayCastDetector = controller.gameObject.GetComponent<RayCastDetector>();
-        _targetTransform = controller.TargetTransform;
     }
 
-    public override void Exit(StateMachineController controller)
+    public override void Exit(GameObject gameObject)
     {
         Debug.Log($"[STATE] {GetType().Name} Exit invoked -");
     }
 
-    public override void Run(StateMachineController controller)
+    public override void Run(GameObject gameObject)
     {
-        controller.Agent.SetDestination(controller.TargetTransform.position);
-        controller.transform.LookAt(controller.TargetTransform.position);
+        Usable equippedItem = _brain.ItemSlotController.GetEquippedItem();
+
+        if (equippedItem == null)
+            return;
+
+        if (_brain.HeadTransform == null)
+            return;
+
+        _brain.Transform.LookAt(_brain.TargetTransform.position);
+
+        equippedItem.Use(
+            _brain.HeadTransform.position,
+            _brain.HeadTransform.forward.normalized,
+            true,
+            false
+        );
+
+        // Reload-Logik => Wird noch verbessert!!
+        
+        // if (equippedItem is Weapon && _bulletTracker != null)
+        // {
+        //     Weapon weaponItem = equippedItem as Weapon;
+
+        //     bool canShoot = _bulletTracker.HasBulletsLeft();
+
+        //     if (!canShoot) 
+        //         weaponItem.Reload();
+        // }
+
     }
 }
