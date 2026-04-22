@@ -7,7 +7,8 @@ public class Gun : ScriptableObject
 {
     public string Name;
     public GunConfig Stats;
-    public Sound Sound;
+    public Sound ShootSound;
+    public Sound ReloadSound;
     public GunBehaviour Behaviour;
     public ProjectileController Projectile;
 }

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb200b882c026434e8cef914fa2dd056, type: 3}
-  m_Name: RevolverShoot
+  m_Name: Reload
   m_EditorClassIdentifier: 
   _soundConfig:
-    Clip: {fileID: 8300000, guid: e0937a4470153ab45a9d4c757f7d2d40, type: 3}
+    Clip: {fileID: 8300000, guid: d2d9a13ff07117d4883f3b73d8d1f8f3, type: 3}
     MixerChannel: {fileID: 5158986390200742491, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
-    DefaultVolume: 0.6
+    DefaultVolume: 0.0275
     DefaultPitch: 1
     UseRandomVolume: 1
-    RandomVolumeRange: 0.03
-    UseRandomPitch: 1
-    RandomPitchRange: 0.025
+    RandomVolumeRange: 0.005
+    UseRandomPitch: 0
+    RandomPitchRange: 0.06
     UseSpatialAudio: 0

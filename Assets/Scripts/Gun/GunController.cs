@@ -38,8 +38,11 @@ public class GunController : Weapon
 
     private void OnEnable()
     {
-        if (_gun.Sound != null)
-            OnShoot.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.Sound, transform.position));
+        if (_gun.ShootSound != null)
+            OnShoot.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.ShootSound, transform.position));
+
+        if (_gun.ReloadSound != null)
+            OnReload.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.ReloadSound, transform.position));
     }
 
     private void OnDisable()
@@ -74,7 +77,7 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-        
+
         if (_gun.Projectile != null)
         {
             var projectile = Instantiate(_gun.Projectile, _projectileSpawnTransform.position, Quaternion.identity);
@@ -82,16 +85,22 @@ public class GunController : Weapon
             if (hit.collider == null)
                 projectile.Init(dir);
             else
-                projectile.Init((hit.point-_projectileSpawnTransform.position).normalized);
+                projectile.Init((hit.point - _projectileSpawnTransform.position).normalized);
         }
-        
+
         if (hit.collider == null)
             return;
 
         Debug.Log($"[GUN CONTROLLER] Shot object: {hit.collider.gameObject.name} at point: {hit.point.ToString()} -");
         _decalSpawner.SpawnDecal(hit.point, Quaternion.LookRotation(-hit.normal), hit.collider.gameObject.transform);
-  
+
     }
 
-    public override void Reload() => OnReload?.Invoke(_gun);
+    public override void Reload()
+    {
+        if (_gunBulletTracker.BulletsRemaining >= _gun.Stats.TotalRounds)
+            return;
+
+        OnReload?.Invoke(_gun);
+    }
 }

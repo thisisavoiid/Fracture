@@ -6,7 +6,8 @@ public class GunBulletTracker : MonoBehaviour
     public UnityEvent<int> OnBulletCountChange;
     private Gun _gun;
     private int _bulletsRemaining;
-
+    public int BulletsRemaining => _bulletsRemaining;
+    
     public void ResetBullets(Gun gun)
     {
         if (_gun == null)
@@ -16,7 +17,7 @@ public class GunBulletTracker : MonoBehaviour
 
         OnBulletCountChange?.Invoke(_bulletsRemaining);
 
-        Debug.Log($"[GUN BULLET TRACKER] Resetting bullets of {_gun.Name} to default: {_gun.Stats.TotalRounds}");
+        Debug.Log($"[GUN BULLET TRACKER] Resetting bullets of {_gun.Name} to default: {_gun.Stats.TotalRounds} -");
     }
 
     public bool HasBulletsLeft()
