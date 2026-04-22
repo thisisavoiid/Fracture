@@ -65,7 +65,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 703
-  _speed: 450
+  _speed: 750
 --- !u!33 &2650370432180346794
 MeshFilter:
   m_ObjectHideFlags: 0

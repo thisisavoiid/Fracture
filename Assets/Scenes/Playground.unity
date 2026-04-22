@@ -4993,7 +4993,7 @@ PrefabInstance:
     - target: {fileID: 3926071038572419572, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: -876546973899608171, guid: a30ec5aa203a28f4e8ca2d5c24355b3f, type: 3}
+      objectReference: {fileID: 2100000, guid: 9a9e6f78e13057346969b4ab18c757a0, type: 2}
     - target: {fileID: 7018942107471305355, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: _sphereRadius
       value: 10
@@ -6408,7 +6408,7 @@ PrefabInstance:
     - target: {fileID: 3926071038572419572, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 410cd8677d96c1446adc2b8c3fe66338, type: 2}
+      objectReference: {fileID: 2100000, guid: 9a9e6f78e13057346969b4ab18c757a0, type: 2}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.32
@@ -6462,14 +6462,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5732077199095150193, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _swaySnappiness
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5732077199095150193, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _lookSwayStrength
-      value: 0.075
-      objectReference: {fileID: 0}
     - target: {fileID: 6210448504147597702, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
