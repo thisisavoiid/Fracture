@@ -39,7 +39,15 @@ public class AttackState : State
             true,
             false
         );
+        
+        float distance = (_brain.TargetTransform.position - _brain.Transform.position).magnitude;
 
+        if (distance > _brain.MinAttackDistance)
+        {
+            _brain.SetState(new ChaseState());
+            return;
+        }
+        
         // Reload-Logik => Wird noch verbessert!!
         
         // if (equippedItem is Weapon && _bulletTracker != null)

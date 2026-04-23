@@ -22,3 +22,4 @@ MonoBehaviour:
       m_Bits: 640
   DetonationCycleStartSound: {fileID: 11400000, guid: 07b942a6d2fda9e499b49f205bacb1cc, type: 2}
   ExplodeSound: {fileID: 11400000, guid: 51cbf245689003447a6fc976ce15cc86, type: 2}
+  CollideSound: {fileID: 11400000, guid: 522454f04a883614a9558ce5fb137244, type: 2}

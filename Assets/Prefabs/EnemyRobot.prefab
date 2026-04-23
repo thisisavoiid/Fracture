@@ -297,7 +297,7 @@ MonoBehaviour:
     m_Bits: 64
   _viewDistance: 30
   _calmDownDistance: 35
-  _minAttackDistance: 5
+  _minAttackDistance: 10
   _headTransform: {fileID: 8086832868833658420}
 --- !u!114 &5332500538640598709
 MonoBehaviour:

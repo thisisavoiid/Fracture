@@ -6,10 +6,10 @@ PhysicsMaterial:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Objects
+  m_Name: Movable Objects
   serializedVersion: 2
-  m_DynamicFriction: 20
+  m_DynamicFriction: 40
   m_StaticFriction: 15
-  m_Bounciness: 0.75
-  m_FrictionCombine: 0
+  m_Bounciness: 0.35
+  m_FrictionCombine: 3
   m_BounceCombine: 0
