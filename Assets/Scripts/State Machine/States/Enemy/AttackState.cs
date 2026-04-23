@@ -15,17 +15,17 @@ public class AttackState : State
         _targetTransform = targetTransform;
     }
 
-    public override void Enter(GameObject gameObject)
+    public override void Enter()
     {
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
 
-    public override void Exit(GameObject gameObject)
+    public override void Exit()
     {
         Debug.Log($"[STATE] {GetType().Name} Exit invoked -");
     }
 
-    public override void Run(GameObject gameObject)
+    public override void Run()
     {
         Usable equippedItem = _itemSlotController.GetEquippedItem();
 

@@ -14,7 +14,7 @@ public class MeshFraction : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider>();
     }
 
-    public void Explosion(float explosionForce, Vector3 origin)
+    public void Explosion(float explosionForce, Vector3 origin, float minRandomDestroyTime, float maxRandomDestroyTime)
     {
         bool isActive = gameObject.activeInHierarchy;
 
@@ -25,7 +25,7 @@ public class MeshFraction : MonoBehaviour
 
         _rb.AddForce(explosionForce * dir, ForceMode.Impulse);
 
-        Destroy(gameObject, Random.Range(1.0f, 3.5f));
+        Destroy(gameObject, Random.Range(minRandomDestroyTime, maxRandomDestroyTime));
     }
 
     // private void OnCollisionEnter(Collision collision)

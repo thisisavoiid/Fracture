@@ -11,20 +11,11 @@ public class PatrolState : State
         _agent = agent;
     }
 
-    public override void Enter(GameObject gameObject)
+    public override void Enter()
     {
         _agent.ResetPath();
-
-        Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
 
-    public override void Exit(GameObject gameObject)
-    {
-        Debug.Log($"[STATE] {GetType().Name} Exit invoked -");
-    }
-
-    public override void Run(GameObject gameObject)
-    {
-
-    }
+    public override void Exit() {}
+    public override void Run( ) {}
 }

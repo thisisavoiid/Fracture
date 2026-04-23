@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 8125264393912508910}
   - component: {fileID: 7745134766876428837}
   - component: {fileID: 5732077199095150193}
+  - component: {fileID: 135839061949802169}
   m_Layer: 6
   m_Name: ItemHand
   m_TagString: Untagged
@@ -144,13 +145,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6250222538639603872}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.001877389, y: -0.9631391, z: 0.0067240517, w: 0.2689133}
-  m_LocalPosition: {x: 0.53, y: -0.196, z: 0.31}
+  m_LocalRotation: {x: 0.0029950868, y: -0.994748, z: 0.0063237464, w: 0.10211536}
+  m_LocalPosition: {x: 0.39533564, y: -0.19782244, z: 0.24456386}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5863167056286266651}
-  m_LocalEulerAnglesHint: {x: 0.8, y: -148.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.756, y: -168.279, z: -0.267}
 --- !u!114 &7745134766876428837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,10 +177,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546bfe2a63aa45546991de7c480be42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSwayStrength: 5
-  _moveSwaySpeed: 7.5
+  _moveSwayStrength: 10
+  _moveSwaySpeed: 7
   _swaySnappiness: 15
-  _lookSwayStrength: 0.075
+  _lookSwayStrength: 0.12
+--- !u!95 &135839061949802169
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6250222538639603872}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e01bc3487b63aa047988d5e29d65e628, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6809084745924718759
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraSensitivity: 4
   _cameraAngleClamp: 90
+  _itemAnimator: {fileID: 135839061949802169}
   _baseFov: 90
   _walkFovMultiplicator: 1.075
   _sprintFovMultiplicator: 1.175

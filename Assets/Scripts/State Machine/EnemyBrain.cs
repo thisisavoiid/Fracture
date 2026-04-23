@@ -105,26 +105,26 @@ public class EnemyBrain : MonoBehaviour
             return;
         }
 
-        _currentState.Run(gameObject);
+        _currentState.Run();
 
         _distanceToPlayer = (TargetTransform.position - Transform.position).magnitude;
 
         foreach (Transition transition in _states[_currentState])
         {
             if (transition.Condition() == true)
-                SetState(transition.Target);
+                SetState(transition.TargetState);
         }
     }
 
     public void SetState(State state)
     {
         if (_currentState != null)
-            _currentState.Exit(gameObject);
+            _currentState.Exit();
 
         _currentState = state;
 
         if (_currentState != null)
-            _currentState.Enter(gameObject);
+            _currentState.Enter();
     }
 
     public bool CanSeePlayer()

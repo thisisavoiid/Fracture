@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class State
 { 
-    public abstract void Enter(GameObject gameObject);
-    public abstract void Run(GameObject gameObject);
-    public abstract void Exit(GameObject gameObject);
+    public abstract void Enter();
+    public abstract void Run();
+    public abstract void Exit();
 }

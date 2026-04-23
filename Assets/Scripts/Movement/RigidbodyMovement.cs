@@ -3,7 +3,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class RigidbodyMovement : MonoBehaviour
-{
+{    
+    public Vector3 CurrentVelocity => _rb.linearVelocity;
     private Rigidbody _rb;
     private Transform _transform;
 

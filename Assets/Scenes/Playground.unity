@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3027047587871496513, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _defaultHealth
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
       value: EnemyRobot_2
@@ -691,6 +695,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &125239777
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1178,6 +1184,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &216709818
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1861,6 +1869,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 1
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &380198287
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2096,6 +2106,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!136 &401438169
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2754,6 +2766,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &752618622
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2988,6 +3002,10 @@ PrefabInstance:
     - target: {fileID: 1251677467475955574, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3027047587871496513, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _defaultHealth
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
@@ -3807,6 +3825,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1279025551
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4139,6 +4159,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3027047587871496513, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _defaultHealth
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
       value: EnemyRobot_4
@@ -4298,6 +4322,66 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+--- !u!1 &1423829866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1423829868}
+  - component: {fileID: 1423829867}
+  m_Layer: 0
+  m_Name: EventListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1423829867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423829866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: d6fe3dbcb484af54b8849b5e88f6de71, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1423829866}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1423829868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423829866}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.597866, y: 3.2227125, z: -19.847921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1432352076
 GameObject:
   m_ObjectHideFlags: 0
@@ -5182,6 +5266,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 1
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1512375715
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5515,6 +5601,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1535673550
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5792,6 +5880,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1630164071
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5960,6 +6050,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1680740826
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6100,6 +6192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3027047587871496513, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _defaultHealth
+      value: 350
+      objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
       value: EnemyRobot_1
@@ -6175,6 +6271,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1729452851
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6628,6 +6726,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1891987796
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6784,6 +6884,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1951859430
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6941,6 +7043,8 @@ MonoBehaviour:
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 1
+  _minRandomDestroyTime: 1
+  _maxRandomDestroyTime: 3.5
 --- !u!23 &1966747500
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7152,6 +7256,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2081605844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2081605846}
+  - component: {fileID: 2081605845}
+  m_Layer: 0
+  m_Name: EventInvoker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2081605845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081605844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05e83af519c29f84ebf5802004a7f9c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: d6fe3dbcb484af54b8849b5e88f6de71, type: 2}
+--- !u!4 &2081605846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081605844}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.597866, y: 3.2227125, z: -19.847921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2110569850
 GameObject:
   m_ObjectHideFlags: 0
@@ -7321,6 +7470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplosiveTank
       objectReference: {fileID: 0}
+    - target: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8720454802042832341, guid: a06ee08862053644aab4c329699c60cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.32
@@ -7418,46 +7571,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.39533564
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.19782244
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.24456386
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.10211536
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.0029950868
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.994748
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.0063237464
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.756
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -168.279
-      objectReference: {fileID: 0}
-    - target: {fileID: 8125264393912508910, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -0.267
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7518,6 +7631,10 @@ PrefabInstance:
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
       value: EnemyRobot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7671,3 +7788,5 @@ SceneRoots:
   - {fileID: 782622141}
   - {fileID: 1474397239}
   - {fileID: 1364068309}
+  - {fileID: 2081605846}
+  - {fileID: 1423829868}

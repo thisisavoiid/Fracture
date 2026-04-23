@@ -4,9 +4,11 @@ public struct Transition
 {
     public Transition(State state, Func<bool> condition)
     {
-        Target = state;
-        Condition = condition;
+        _targetState = state;
+        _condition = condition;
     }
-    public State Target;
-    public Func<bool> Condition;
+    private State _targetState;
+    public State TargetState => _targetState;
+    private Func<bool> _condition;
+    public Func<bool> Condition => _condition;
 }

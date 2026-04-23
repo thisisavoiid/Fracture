@@ -11,17 +11,10 @@ public class ChaseState : State
         _targetTransform = targetTransform;
     }
 
-    public override void Enter(GameObject gameObject)
-    {
-        Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
-    }
+    public override void Enter() {}
+    public override void Exit() {}
 
-    public override void Exit(GameObject gameObject)
-    {
-        Debug.Log($"[STATE] {GetType().Name} Exit invoked -");
-    }
-
-    public override void Run(GameObject gameObject)
+    public override void Run()
     {
         _agent.SetDestination(_targetTransform.position);
         _agent.transform.LookAt(_targetTransform.position);

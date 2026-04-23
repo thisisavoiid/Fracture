@@ -18,7 +18,8 @@ public class VerticeRetriever : MonoBehaviour
     [SerializeField] private bool _useFractionGravity;
     [SerializeField] private bool _addBoxColliderToFractionObjects;
     [SerializeField] private int _trianglesPerFraction;
-
+    [SerializeField] private float _minRandomDestroyTime;
+    [SerializeField] private float _maxRandomDestroyTime;
     private MeshRenderer _renderer;
     private void Awake()
     {
@@ -145,7 +146,7 @@ public class VerticeRetriever : MonoBehaviour
         Debug.Log($"[VERTICE RETRIEVER] Avoided building {_duplicateCount} meshes due to duplicate occurences -");
 
         foreach (var obj in _meshFractionObjects)
-            obj.GetComponent<MeshFraction>().Explosion(_explosionForce, origin);
+            obj.GetComponent<MeshFraction>().Explosion(_explosionForce, origin, _minRandomDestroyTime, _maxRandomDestroyTime);
 
         Destroy(gameObject);
     }

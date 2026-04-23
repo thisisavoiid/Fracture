@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _cameraSensitivity;
     [SerializeField] private float _cameraAngleClamp = 90.0f;
 
+    [Header("Animators")]
+    [SerializeField] private Animator _itemAnimator;
+
     [Header("Field Of View")]
     [SerializeField] private float _baseFov;
     [SerializeField] private float _walkFovMultiplicator;
@@ -240,5 +243,15 @@ public class PlayerController : MonoBehaviour
             _rbMovement.Jump(_jumpStrength);
             OnJump?.Invoke();
         }
+
+        if (_itemAnimator != null)
+            _itemAnimator.SetFloat("Speed", Mathf.Round(_rbMovement.CurrentVelocity.magnitude));
+
+        if (_itemAnimator != null)
+        {
+            bool isPlayerGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
+            _itemAnimator.SetBool("IsInAir", !isPlayerGrounded);
+        }
+            
     }
 }
