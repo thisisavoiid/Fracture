@@ -4,15 +4,19 @@ using UnityEngine.AI;
 
 public class AttackState : State
 {
-    private EnemyBrain _brain;
-    private GunBulletTracker _bulletTracker;
+    private ItemSlotController _itemSlotController;
+    private Transform _headTransform;
+    private Transform _targetTransform;
+
+    public AttackState(ItemSlotController slotController, Transform headTransform, Transform targetTransform)
+    {
+        _itemSlotController = slotController;
+        _headTransform = headTransform;
+        _targetTransform = targetTransform;
+    }
+
     public override void Enter(GameObject gameObject)
     {
-        _brain = gameObject.GetComponent<EnemyBrain>();
-
-        Usable activeGun = _brain.ItemSlotController.GetEquippedItem();
-        _bulletTracker = activeGun.GetComponent<GunBulletTracker>();
-    
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
 
@@ -23,33 +27,25 @@ public class AttackState : State
 
     public override void Run(GameObject gameObject)
     {
-        Usable equippedItem = _brain.ItemSlotController.GetEquippedItem();
+        Usable equippedItem = _itemSlotController.GetEquippedItem();
 
         if (equippedItem == null)
             return;
 
-        if (_brain.HeadTransform == null)
+        if (_headTransform == null)
             return;
 
-        _brain.Transform.LookAt(_brain.TargetTransform.position);
+        _itemSlotController.transform.LookAt(_targetTransform.position);
 
         equippedItem.Use(
-            _brain.HeadTransform.position,
-            _brain.HeadTransform.forward.normalized,
+            _headTransform.position,
+            _headTransform.forward.normalized,
             true,
             false
         );
-        
-        float distance = (_brain.TargetTransform.position - _brain.Transform.position).magnitude;
 
-        if (distance > _brain.MinAttackDistance)
-        {
-            _brain.SetState(new ChaseState());
-            return;
-        }
-        
         // Reload-Logik => Wird noch verbessert!!
-        
+
         // if (equippedItem is Weapon && _bulletTracker != null)
         // {
         //     Weapon weaponItem = equippedItem as Weapon;

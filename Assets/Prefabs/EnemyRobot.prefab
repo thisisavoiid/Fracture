@@ -295,7 +295,7 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 64
-  _viewDistance: 30
+  _viewDistance: 50
   _calmDownDistance: 35
   _minAttackDistance: 10
   _headTransform: {fileID: 8086832868833658420}

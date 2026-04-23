@@ -128,6 +128,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _viewDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: _targetTransform
       value: 
       objectReference: {fileID: 1744338371}
@@ -2938,6 +2942,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _viewDistance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: _targetTransform
       value: 
       objectReference: {fileID: 1744338371}
@@ -4083,6 +4091,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _viewDistance
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: _targetTransform
       value: 
@@ -6040,6 +6052,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
+      propertyPath: _viewDistance
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: _targetTransform
       value: 

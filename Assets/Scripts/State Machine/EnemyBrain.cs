@@ -52,6 +52,9 @@ public class EnemyBrain : MonoBehaviour
     public Transform Transform => _transform;
     #endregion
 
+    private Dictionary<State, List<Transition>> _states = new();
+    private float _distanceToPlayer;
+
     private void Awake()
     {
         _transform = transform;
@@ -62,10 +65,36 @@ public class EnemyBrain : MonoBehaviour
         _inventoryController = GetComponent<InventoryController>();
         _itemFactory = GetComponent<ItemFactory>();
         _itemSlotController = GetComponent<ItemSlotController>();
-        
+
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
-        SetState(new PatrolState());
+        State patrolState = new PatrolState(_navmeshAgent);
+        State chaseState = new ChaseState(_navmeshAgent, _targetTransform);
+        State attackState = new AttackState(_itemSlotController, _headTransform, _targetTransform);
+
+        _states.Add(
+            patrolState, new()
+            {
+                new Transition(chaseState, () => CanSeePlayer())
+            }
+        );
+
+        _states.Add(
+            chaseState, new()
+            {
+                new Transition(attackState, () => _distanceToPlayer <= MinAttackDistance),
+                new Transition(patrolState, () => _distanceToPlayer >= CalmDownDistance)
+            }
+        );
+
+        _states.Add(
+           attackState, new()
+           {
+                new Transition(chaseState, () => _distanceToPlayer > MinAttackDistance),
+           }
+       );
+
+        SetState(patrolState);
     }
 
     private void Update()
@@ -77,6 +106,14 @@ public class EnemyBrain : MonoBehaviour
         }
 
         _currentState.Run(gameObject);
+
+        _distanceToPlayer = (TargetTransform.position - Transform.position).magnitude;
+
+        foreach (Transition transition in _states[_currentState])
+        {
+            if (transition.Condition() == true)
+                SetState(transition.Target);
+        }
     }
 
     public void SetState(State state)

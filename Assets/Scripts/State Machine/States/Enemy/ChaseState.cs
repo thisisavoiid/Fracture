@@ -1,11 +1,18 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChaseState : State
 {
-    private EnemyBrain _brain;
+    private NavMeshAgent _agent;
+    private Transform _targetTransform;
+    public ChaseState(NavMeshAgent agent, Transform targetTransform)
+    {
+        _agent = agent;
+        _targetTransform = targetTransform;
+    }
+
     public override void Enter(GameObject gameObject)
     {
-        _brain = gameObject.GetComponent<EnemyBrain>();
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
 
@@ -16,21 +23,7 @@ public class ChaseState : State
 
     public override void Run(GameObject gameObject)
     {
-        _brain.Agent.SetDestination(_brain.TargetTransform.position);
-        _brain.Transform.LookAt(_brain.TargetTransform.position);
-
-        float distance = (_brain.TargetTransform.position - _brain.Transform.position).magnitude;
-
-        if (distance >= _brain.CalmDownDistance)
-        {
-            _brain.SetState(new PatrolState());
-            return;
-        }
-
-        if (distance < _brain.MinAttackDistance)
-        {
-            _brain.SetState(new AttackState());
-            return;
-        }
+        _agent.SetDestination(_targetTransform.position);
+        _agent.transform.LookAt(_targetTransform.position);
     }
 }

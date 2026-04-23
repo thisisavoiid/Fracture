@@ -5,11 +5,15 @@ using UnityEngine.AI;
 
 public class PatrolState : State
 {
-    private EnemyBrain _brain;
+    private NavMeshAgent _agent;
+    public PatrolState(NavMeshAgent agent)
+    {
+        _agent = agent;
+    }
+
     public override void Enter(GameObject gameObject)
     {
-        _brain = gameObject.GetComponent<EnemyBrain>();
-        _brain.Agent.ResetPath();
+        _agent.ResetPath();
 
         Debug.Log($"[STATE] {GetType().Name} Enter invoked -");
     }
@@ -21,12 +25,6 @@ public class PatrolState : State
 
     public override void Run(GameObject gameObject)
     {
-        bool canSeePlayer = _brain.CanSeePlayer();
 
-        if (canSeePlayer)
-        {
-            _brain.SetState(new ChaseState());
-            return;
-        }
     }
 }
