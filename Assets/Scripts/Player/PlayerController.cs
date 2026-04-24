@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float _jumpStrength;
 
+    [Header("Scriptable Variables")]
+    [SerializeField] private TransformVariable _transformVariable;
+
     [Header("Event Endpoints")]
     public UnityEvent<Vector2> OnMouseLook;
     public UnityEvent<Vector3> OnMove;
@@ -66,6 +69,9 @@ public class PlayerController : MonoBehaviour
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
         _itemSlotController = GetComponent<ItemSlotController>();
         _headbob = GetComponent<HeadBob>();
+
+        if (_transformVariable != null)
+            _transformVariable.SetValue(transform);
 
         _cameraController.SetFOVLerpSpeed(_lerpSpeed);
     }
