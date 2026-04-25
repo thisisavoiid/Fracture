@@ -13,11 +13,9 @@ public class SwarmContainerController : MonoBehaviour
     [SerializeField] private LayerMask _attackTriggerLayers;
 
     private UnityAction<Swarm> OnSwarmDeath;
-    private UnityEvent<Swarm> OnSwarmLeaderChange;
     private List<Swarm> _swarmInstances = new();
     private List<Vector3> _startPositions = new();
     private OverlapSphereDetector _overlapSphereDetector;
-    private Swarm _swarmLeader;
 
     private void Awake()
     {
@@ -25,7 +23,11 @@ public class SwarmContainerController : MonoBehaviour
         _overlapSphereDetector = GetComponent<OverlapSphereDetector>();
 
         SetStartPositions();
+        SpawnSwarmObjects();
+    }
 
+    private void SpawnSwarmObjects()
+    {
         if (_swarmPrefab == null)
         {
             Debug.LogWarning($"[SWARM CONTAINER CONTROLLER] Swarm prefab is null, therefore, nothing can be instantiated -");
@@ -37,33 +39,13 @@ public class SwarmContainerController : MonoBehaviour
             Swarm swarmInstance = Instantiate(_swarmPrefab);
             swarmInstance.gameObject.name = $"{_swarmPrefab.gameObject.name}_{i + 1}";
             _swarmInstances.Add(swarmInstance);
-        }
-
-        _swarmLeader = _swarmInstances[Random.Range(0, _swarmInstances.Count - 1)];
-
-        for (int i = 0; i < _swarmInstances.Count; i++)
-        {
-            SwarmContext ctx = new SwarmContext(
-                OnSwarmDeath,
-                _targetTransform,
-                _startPositions[i],
-                _swarmLeader
-            );
-
-            _swarmInstances[i].Init(ctx);
-
+            swarmInstance.Init(_startPositions[i]);
         }
     }
 
     public void RemoveSwarm(Swarm swarm)
     {
-        _swarmInstances.Remove(swarm);
-        if (swarm == _swarmLeader)
-        {
-            _swarmLeader = _swarmInstances[Random.Range(0, _swarmInstances.Count - 1)];
-            OnSwarmLeaderChange?.Invoke(_swarmLeader);
-        }
-            
+        _swarmInstances.Remove(swarm); 
     }
 
     private void SetStartPositions()
@@ -99,15 +81,9 @@ public class SwarmContainerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool targetFound = _overlapSphereDetector.CheckForAnyObjects(_attackTriggerLayers);
-
-        if (!targetFound)
-            return;
-
         foreach (Swarm swarm in _swarmInstances)
         {
-            if (!swarm.IsAttacking)
-                swarm.StartAttack();
+            swarm.SwarmTick();
         }
     }
 }

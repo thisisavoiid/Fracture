@@ -55,9 +55,6 @@ MonoBehaviour:
   _behaviour: {fileID: 11400000, guid: 56813c08cecb9d04fbbf31cc258afc81, type: 2}
   _explosive: {fileID: 11400000, guid: 86b9c76219c5b344d8316a5721379114, type: 2}
   _addDynamicDetonationTime: 0
-  _collisionSoundLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   OnExplode:
     m_PersistentCalls:
       m_Calls:
