@@ -18,38 +18,19 @@ public class EnemyBrain : MonoBehaviour
     #region Dependencies
     [Header("Detection Settings")]
     [SerializeField] private Transform _targetTransform;
-    public Transform TargetTransform => _targetTransform;
     [SerializeField] private LayerMask _targetMask;
-    public LayerMask TargetMask => _targetMask;
     [SerializeField] private float _viewDistance;
-    public float ViewDistance => _viewDistance;
     [SerializeField] private float _calmDownDistance;
-    public float CalmDownDistance => _calmDownDistance;
     [SerializeField] private float _minAttackDistance;
-    public float MinAttackDistance => _minAttackDistance;
 
-    // References to Required Components
     private NavMeshAgent _navmeshAgent;
-    public NavMeshAgent Agent => _navmeshAgent;
-
     private OverlapSphereDetector _overlapSphereDetector;
-    public OverlapSphereDetector OverlapSphereDetector => _overlapSphereDetector;
-
     private RayCastDetector _raycastDetector;
-    public RayCastDetector RaycastDetector => _raycastDetector;
-
     private InventoryController _inventoryController;
-    public InventoryController InventoryController => _inventoryController;
-
     private ItemFactory _itemFactory;
-    public ItemFactory ItemFactory => _itemFactory;
-
     private ItemSlotController _itemSlotController;
-    public ItemSlotController ItemSlotController => _itemSlotController;
     [SerializeField] private Transform _headTransform;
-    public Transform HeadTransform => _headTransform;
     private Transform _transform;
-    public Transform Transform => _transform;
     #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
@@ -82,15 +63,15 @@ public class EnemyBrain : MonoBehaviour
         _states.Add(
             chaseState, new()
             {
-                new Transition(attackState, () => _distanceToPlayer <= MinAttackDistance),
-                new Transition(patrolState, () => _distanceToPlayer >= CalmDownDistance)
+                new Transition(attackState, () => _distanceToPlayer <= _minAttackDistance),
+                new Transition(patrolState, () => _distanceToPlayer >= _calmDownDistance)
             }
         );
 
         _states.Add(
            attackState, new()
            {
-                new Transition(chaseState, () => _distanceToPlayer > MinAttackDistance),
+                new Transition(chaseState, () => _distanceToPlayer > _minAttackDistance),
            }
        );
 
@@ -107,7 +88,7 @@ public class EnemyBrain : MonoBehaviour
 
         _currentState.Run();
 
-        _distanceToPlayer = (TargetTransform.position - Transform.position).magnitude;
+        _distanceToPlayer = (_targetTransform.position - _transform.position).magnitude;
 
         foreach (Transition transition in _states[_currentState])
         {

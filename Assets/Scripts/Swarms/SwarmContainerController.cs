@@ -13,9 +13,11 @@ public class SwarmContainerController : MonoBehaviour
     [SerializeField] private LayerMask _attackTriggerLayers;
 
     private UnityAction<Swarm> OnSwarmDeath;
+    private UnityEvent<Swarm> OnSwarmLeaderChange;
     private List<Swarm> _swarmInstances = new();
     private List<Vector3> _startPositions = new();
     private OverlapSphereDetector _overlapSphereDetector;
+    private Swarm _swarmLeader;
 
     private void Awake()
     {
@@ -30,24 +32,39 @@ public class SwarmContainerController : MonoBehaviour
             return;
         }
 
-        for (int i=0; i<_amount; i++)
+        for (int i = 0; i < _amount; i++)
         {
             Swarm swarmInstance = Instantiate(_swarmPrefab);
-            swarmInstance.gameObject.name = $"{_swarmPrefab.gameObject.name}_{i+1}";
+            swarmInstance.gameObject.name = $"{_swarmPrefab.gameObject.name}_{i + 1}";
+            _swarmInstances.Add(swarmInstance);
+        }
 
+        _swarmLeader = _swarmInstances[Random.Range(0, _swarmInstances.Count - 1)];
+
+        for (int i = 0; i < _swarmInstances.Count; i++)
+        {
             SwarmContext ctx = new SwarmContext(
                 OnSwarmDeath,
                 _targetTransform,
-                _startPositions[i]
+                _startPositions[i],
+                _swarmLeader
             );
 
-            swarmInstance.Init(ctx);
+            _swarmInstances[i].Init(ctx);
 
-            _swarmInstances.Add(swarmInstance);
         }
     }
 
-    public void RemoveSwarm(Swarm swarm) => _swarmInstances.Remove(swarm);
+    public void RemoveSwarm(Swarm swarm)
+    {
+        _swarmInstances.Remove(swarm);
+        if (swarm == _swarmLeader)
+        {
+            _swarmLeader = _swarmInstances[Random.Range(0, _swarmInstances.Count - 1)];
+            OnSwarmLeaderChange?.Invoke(_swarmLeader);
+        }
+            
+    }
 
     private void SetStartPositions()
     {
@@ -83,10 +100,10 @@ public class SwarmContainerController : MonoBehaviour
     private void FixedUpdate()
     {
         bool targetFound = _overlapSphereDetector.CheckForAnyObjects(_attackTriggerLayers);
-        
+
         if (!targetFound)
             return;
-        
+
         foreach (Swarm swarm in _swarmInstances)
         {
             if (!swarm.IsAttacking)

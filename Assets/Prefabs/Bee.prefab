@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4860943984525221803}
   - component: {fileID: 1612275744664563990}
   - component: {fileID: 7877226334640338729}
+  - component: {fileID: 2210731571051147605}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
@@ -125,7 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e95a8584e616bd44af564365fc197e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _viewDistance: 10
+  _groupCheckSphere: {fileID: 2210731571051147605}
 --- !u!114 &7798059607218371746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +197,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -224,3 +229,17 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &2210731571051147605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sphereRadius: 0
+  _sphereOffset: {x: 0, y: 0, z: 0}
