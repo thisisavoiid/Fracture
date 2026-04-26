@@ -7,7 +7,21 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 public class BeeBrain : Swarm
 {
+    [Header("Debugging")]
     [SerializeField] private Swarm _leaderSwarm;
+    [SerializeField] private bool _showNeighbourBees = false;
+    [SerializeField] private LayerMask _beeLayers;
+
+    [Header("Settings")]
+    [SerializeField] private float _seperationForceMultiplier = 1.0f;
+    [SerializeField] private float _seperationCheckRadius = 2.5f;
+
+    [Header("Force Weighting")]
+    [SerializeField] private float _perlinNoiseWeight = 0.35f;
+    [SerializeField] private float _directionToLeaderSwarmWeight = 1.25f;
+    [SerializeField] private float _leaderSwarmForwardWeight = 0.75f;
+    [SerializeField] private float _seperationForceWeight = 1.5f;
+
     private OverlapSphereDetector _sphereDetector;
     private Rigidbody _rb;
 
@@ -16,6 +30,7 @@ public class BeeBrain : Swarm
     {
         _rb = GetComponent<Rigidbody>();
         _sphereDetector = GetComponent<OverlapSphereDetector>();
+        _sphereDetector.SetRadius(_seperationCheckRadius);
     }
     public override void Init(Vector3 startPos)
     {
@@ -37,11 +52,8 @@ public class BeeBrain : Swarm
         if (_leaderSwarm == null)
             return;
 
-
         if (_leaderSwarm.gameObject != this.gameObject)
         {
-            Debug.Log($"Following leader swarm: {_leaderSwarm.gameObject.name} -");
-
             Vector3 leaderSwarmPosition = _leaderSwarm.transform.position;
             Vector3 leaderSwarmDir = leaderSwarmPosition - transform.position;
             Vector3 leaderSwarmForward = _leaderSwarm.transform.forward;
@@ -54,7 +66,7 @@ public class BeeBrain : Swarm
 
             float distanceToLeaderSwarm = (leaderSwarmPosition - transform.position).magnitude;
 
-            List<Collider> swarmColliders = _sphereDetector.GetColliders(this.gameObject.layer);
+            List<Collider> swarmColliders = _sphereDetector.GetColliders(_beeLayers);
 
             Vector3 seperationForce = Vector3.zero;
 
@@ -69,12 +81,16 @@ public class BeeBrain : Swarm
                 Vector3 diff = swarmCollider.gameObject.transform.position - transform.position;
                 float distance = diff.magnitude;
 
-                seperationForce += diff.normalized / distance;
+                seperationForce += _seperationForceMultiplier * (diff.normalized * -1) / Mathf.Max(1.0f, distance);
             }
 
-            Vector3 targetForce = (leaderSwarmDir * 1.25f) + (leaderSwarmForward * 0.5f) + (perlinNoise * 0.35f) + (seperationForce * 1.5f);
+            Vector3 targetForce = (leaderSwarmDir * _directionToLeaderSwarmWeight) + (leaderSwarmForward * _leaderSwarmForwardWeight) + (perlinNoise * _perlinNoiseWeight) + (seperationForce * _seperationForceWeight);
 
-            _rb.linearVelocity = targetForce * distanceToLeaderSwarm;
+            _rb.linearVelocity = targetForce;
+
+            if (_showNeighbourBees)
+                Debug.Log($"[BEE BRAIN] Neighbours of {this.gameObject.name}: {string.Join(", ", swarmColliders.Select(item => item.gameObject.name))}");
+
         }
         else
         {
