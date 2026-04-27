@@ -96,7 +96,7 @@ public class SwarmContainerController : MonoBehaviour
 
         _currentLeaderSwarm = _swarmInstances[Random.Range(0, _swarmInstances.Count)];
         _currentLeaderSwarm.gameObject.layer = LayerMask.NameToLayer(_invincibleLayerName);
-        
+
         MeshRenderer leaderMeshRenderer = _currentLeaderSwarm.GetComponent<MeshRenderer>();
         if (leaderMeshRenderer != null)
             leaderMeshRenderer.enabled = false;
@@ -109,6 +109,15 @@ public class SwarmContainerController : MonoBehaviour
     public void RemoveSwarm(Swarm swarm)
     {
         _swarmInstances.Remove(swarm);
+        
+        if (swarm.gameObject != null)
+            Destroy(swarm.gameObject);
+        
+        if (_swarmInstances.Count == 1)
+        {
+            Destroy(_swarmInstances[0].gameObject);
+            _swarmInstances.RemoveAt(0);
+        }
     }
 
     private void CalculateStartPositions()
