@@ -11,19 +11,23 @@ public class SwarmContainerController : MonoBehaviour
     [SerializeField] private Swarm _swarmPrefab;
     [SerializeField] private TransformVariable _targetTransform;
     [SerializeField] private LayerMask _attackTriggerLayers;
-
+    [SerializeField] private LayerMask _swarmLayers;
     private UnityAction<Swarm> OnSwarmDeath;
     private List<Swarm> _swarmInstances = new();
     private List<Vector3> _startPositions = new();
-    private OverlapSphereDetector _overlapSphereDetector;
+    private Swarm _currentLeaderSwarm;
+    private OverlapSphereDetector _targetCheckDetector;
 
     private void Awake()
     {
         OnSwarmDeath += (swarm) => RemoveSwarm(swarm);
-        _overlapSphereDetector = GetComponent<OverlapSphereDetector>();
+        _targetCheckDetector = GetComponent<OverlapSphereDetector>();
 
-        SetStartPositions();
+        CalculateStartPositions();
         SpawnSwarmObjects();
+        SetNewLeaderSwarm();
+        SetSwarmData();
+        MoveSwarmsToDefaultPositions();
     }
 
     private void SpawnSwarmObjects()
@@ -39,16 +43,53 @@ public class SwarmContainerController : MonoBehaviour
             Swarm swarmInstance = Instantiate(_swarmPrefab);
             swarmInstance.gameObject.name = $"{_swarmPrefab.gameObject.name}_{i + 1}";
             _swarmInstances.Add(swarmInstance);
-            swarmInstance.Init(_startPositions[i]);
         }
     }
 
-    public void RemoveSwarm(Swarm swarm)
+    private void MoveSwarmsToDefaultPositions()
     {
-        _swarmInstances.Remove(swarm); 
+        for (int i = 0; i < _swarmInstances.Count; i++)
+            _swarmInstances[i].SetPosition(_startPositions[i]);
     }
 
-    private void SetStartPositions()
+    private void SetSwarmData()
+    {
+        for (int i = 0; i < _swarmInstances.Count; i++)
+            _swarmInstances[i].SetData(
+                _swarmInstances,
+                _swarmLayers,
+                _targetTransform,
+                OnSwarmDeath,
+                _currentLeaderSwarm
+            );
+    }
+
+    private void SetNewLeaderSwarm()
+    {
+        if (_swarmInstances.Count == 0)
+            return;
+
+        if (_swarmInstances.Count == 1)
+        {
+            _currentLeaderSwarm = _swarmInstances[0];
+            return;
+        }
+
+        _currentLeaderSwarm = _swarmInstances[Random.Range(0, _swarmInstances.Count - 1)];
+    }
+    public void RemoveSwarm(Swarm swarm)
+    {
+        _swarmInstances.Remove(swarm);
+
+        if (swarm == _currentLeaderSwarm)
+        {
+            SetNewLeaderSwarm();
+            SetSwarmData();
+        }
+
+    }
+
+    private void CalculateStartPositions()
     {
         for (int i = 0; i < _amount; i++)
         {
@@ -81,9 +122,13 @@ public class SwarmContainerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        bool isTargetInRange = _targetCheckDetector.CheckForAnyObjects(_attackTriggerLayers);
         foreach (Swarm swarm in _swarmInstances)
         {
             swarm.SwarmTick();
+
+            if (isTargetInRange)
+                swarm.StartChase();
         }
     }
 }

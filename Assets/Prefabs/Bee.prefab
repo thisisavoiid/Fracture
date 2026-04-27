@@ -9,14 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7765758993073093911}
+  - component: {fileID: 7877226334640338729}
   - component: {fileID: 245529128316309274}
+  - component: {fileID: 2210731571051147605}
+  - component: {fileID: 8734999054813260110}
+  - component: {fileID: 7798059607218371746}
+  - component: {fileID: 3497543876481708489}
   - component: {fileID: 4054088334021634699}
   - component: {fileID: 8812710261385040145}
   - component: {fileID: 6824678464837416904}
-  - component: {fileID: 7798059607218371746}
   - component: {fileID: 4860943984525221803}
-  - component: {fileID: 7877226334640338729}
-  - component: {fileID: 2210731571051147605}
   m_Layer: 9
   m_Name: Bee
   m_TagString: Untagged
@@ -39,6 +41,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7877226334640338729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74de137aad0c36942a87aaefd6bdf2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &245529128316309274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,15 +70,117 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leaderSwarm: {fileID: 0}
   _showNeighbourBees: 0
-  _beeLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  _seperationForceMultiplier: 1
-  _seperationCheckRadius: 5
-  _perlinNoiseWeight: 0.35
-  _directionToLeaderSwarmWeight: 1.25
-  _leaderSwarmForwardWeight: 0.75
-  _seperationForceWeight: 1.5
+  _separationForceMultiplier: 1
+  _separationCheckRadius: 2.5
+  _targetCheckRadius: 20
+  _swarmSpeed: 6
+  _leaderSpeed: 6
+  _perlinNoiseWeight: 0.25
+  _directionToLeaderSwarmWeight: 1.5
+  _leaderSwarmForwardWeight: 0.45
+  _separationForceWeight: 1.5
+  _separationSphereDetector: {fileID: 2210731571051147605}
+  _targetSearchSphereDetector: {fileID: 8734999054813260110}
+--- !u!114 &2210731571051147605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sphereRadius: 5
+  _sphereOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &8734999054813260110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sphereRadius: 20
+  _sphereOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &7798059607218371746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultHealth: 150
+  _autoInvokeDie: 1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 245529128316309274}
+        m_TargetAssemblyTypeName: BeeController, Assembly-CSharp
+        m_MethodName: InvokeDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7989654029766163149}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHealthRefresh:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3497543876481708489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ab2ebfb0e7ed14798af11bb2c02a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageMultiplier: 1
+  OnDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7798059607218371746}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!33 &4054088334021634699
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -136,50 +255,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7798059607218371746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7989654029766163149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultHealth: 150
-  _autoInvokeDie: 1
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 245529128316309274}
-        m_TargetAssemblyTypeName: BeeController, Assembly-CSharp
-        m_MethodName: InvokeDeath
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7989654029766163149}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnHealthRefresh:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!54 &4860943984525221803
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -205,34 +280,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &7877226334640338729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7989654029766163149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74de137aad0c36942a87aaefd6bdf2e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &2210731571051147605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7989654029766163149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sphereRadius: 2.5
-  _sphereOffset: {x: 0, y: 0, z: 0}

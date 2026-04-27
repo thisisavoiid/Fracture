@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SocialPlatforms;
 
-public class BodyPart : MonoBehaviour, IShootable
+public class DamageableComponent : MonoBehaviour, IShootable
 {
     [SerializeField] private float _damageMultiplier = 1.0f;
     public UnityEvent<float> OnDamageTaken;
