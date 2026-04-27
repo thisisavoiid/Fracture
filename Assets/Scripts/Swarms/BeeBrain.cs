@@ -14,10 +14,7 @@ public class BeeBrain : Swarm
     [Header("Debugging")]
     [Tooltip("The designated leader of this specific swarm group.")]
     [SerializeField] private Swarm _leaderSwarm;
-
-    [Tooltip("If enabled, debug gizmos or logic will highlight neighboring bees.")]
-    [SerializeField] private bool _showNeighbourBees = false;
-
+    
     [Header("Movement Settings")]
     [Tooltip("Movement speed for regular swarm members.")]
     [SerializeField] private float _swarmSpeed;

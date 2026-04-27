@@ -70,8 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leaderSwarm: {fileID: 0}
   _showNeighbourBees: 0
-  _swarmSpeed: 6
-  _leaderSpeed: 6
+  _swarmSpeed: 3
+  _leaderSpeed: 3
   _yOffset: 4.75
   _separationCheckRadius: 2.5
   _targetCheckRadius: 20
