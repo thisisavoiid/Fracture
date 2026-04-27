@@ -566,6 +566,7 @@ MonoBehaviour:
   _defaultMoveSpeed: 10
   _sprintMultiplicator: 1.25
   _jumpStrength: 12.5
+  _transformVariable: {fileID: 0}
   OnMouseLook:
     m_PersistentCalls:
       m_Calls:

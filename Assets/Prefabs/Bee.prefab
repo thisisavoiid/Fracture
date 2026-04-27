@@ -70,12 +70,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leaderSwarm: {fileID: 0}
   _showNeighbourBees: 0
-  _separationForceMultiplier: 1
-  _separationCheckRadius: 2.5
-  _targetCheckRadius: 20
   _swarmSpeed: 6
   _leaderSpeed: 6
-  _perlinNoiseWeight: 0.25
+  _yOffset: 4.75
+  _separationCheckRadius: 2.5
+  _targetCheckRadius: 20
+  _swarmLayers:
+    serializedVersion: 2
+    m_Bits: 2560
+  _separationForceMultiplier: 1
+  _perlinNoiseWeight: 1
   _directionToLeaderSwarmWeight: 1.5
   _leaderSwarmForwardWeight: 0.45
   _separationForceWeight: 1.5
@@ -121,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 150
+  _defaultHealth: 5
   _autoInvokeDie: 1
   OnDeath:
     m_PersistentCalls:
@@ -212,7 +216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: adee2865f22ff814480945f0582d99a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,7 +245,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7989654029766163149}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 7d155d36cbecb2d438ab633158713498, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -280,5 +284,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0

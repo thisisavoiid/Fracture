@@ -14,7 +14,6 @@ public abstract class Swarm : MonoBehaviour
 
     public abstract void SetData(
         List<Swarm> swarmInstances,
-        LayerMask swarmLayers,
         TransformVariable targetTransform,
         UnityAction<Swarm> onSwarmDeathEvent,
         Swarm leaderSwarm

@@ -1,17 +1,37 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(OverlapSphereDetector))]
-
 public class SwarmContainerController : MonoBehaviour
 {
+    [Header("Spawn Settings")]
+    [Tooltip("The number of swarm members to spawn (in addition to the leader).")]
+    [Range(1, 30)]
     [SerializeField] private int _amount;
+
+    [Tooltip("The dimensions of the area where swarm members will initially spawn.")]
     [SerializeField] private Vector3 _spawnContainerSize;
+
+    [Tooltip("The prefab used to instantiate each swarm member.")]
     [SerializeField] private Swarm _swarmPrefab;
+
+    [Header("Targeting & Detection")]
+    [Tooltip("ScriptableObject or reference containing the target's transform data.")]
     [SerializeField] private TransformVariable _targetTransform;
+
+    [Tooltip("Layers that, when detected, will trigger the swarm to start chasing.")]
     [SerializeField] private LayerMask _attackTriggerLayers;
-    [SerializeField] private LayerMask _swarmLayers;
+
+    [Header("Leader Configuration")]
+    [Tooltip("The name of the layer to assign to the leader to make them uninteractable/invincible.")]
+    [SerializeField] private string _invincibleLayerName;
+
+    [Tooltip("Layers that the leader swarm member is allowed to pass through without collision.")]
+    [SerializeField] private LayerMask _leaderPassthroughLayers;
+
     private UnityAction<Swarm> OnSwarmDeath;
     private List<Swarm> _swarmInstances = new();
     private List<Vector3> _startPositions = new();
@@ -25,7 +45,7 @@ public class SwarmContainerController : MonoBehaviour
 
         CalculateStartPositions();
         SpawnSwarmObjects();
-        SetNewLeaderSwarm();
+        SetLeaderSwarm();
         SetSwarmData();
         MoveSwarmsToDefaultPositions();
     }
@@ -38,7 +58,7 @@ public class SwarmContainerController : MonoBehaviour
             return;
         }
 
-        for (int i = 0; i < _amount; i++)
+        for (int i = 0; i < _amount + 1; i++)
         {
             Swarm swarmInstance = Instantiate(_swarmPrefab);
             swarmInstance.gameObject.name = $"{_swarmPrefab.gameObject.name}_{i + 1}";
@@ -57,14 +77,13 @@ public class SwarmContainerController : MonoBehaviour
         for (int i = 0; i < _swarmInstances.Count; i++)
             _swarmInstances[i].SetData(
                 _swarmInstances,
-                _swarmLayers,
                 _targetTransform,
                 OnSwarmDeath,
                 _currentLeaderSwarm
             );
     }
 
-    private void SetNewLeaderSwarm()
+    private void SetLeaderSwarm()
     {
         if (_swarmInstances.Count == 0)
             return;
@@ -75,23 +94,26 @@ public class SwarmContainerController : MonoBehaviour
             return;
         }
 
-        _currentLeaderSwarm = _swarmInstances[Random.Range(0, _swarmInstances.Count - 1)];
+        _currentLeaderSwarm = _swarmInstances[Random.Range(0, _swarmInstances.Count)];
+        _currentLeaderSwarm.gameObject.layer = LayerMask.NameToLayer(_invincibleLayerName);
+        
+        MeshRenderer leaderMeshRenderer = _currentLeaderSwarm.GetComponent<MeshRenderer>();
+        if (leaderMeshRenderer != null)
+            leaderMeshRenderer.enabled = false;
+
+        Collider leaderSwarmCollider = _currentLeaderSwarm.GetComponent<Collider>();
+        if (leaderSwarmCollider != null)
+            leaderSwarmCollider.excludeLayers = _leaderPassthroughLayers;
     }
+
     public void RemoveSwarm(Swarm swarm)
     {
         _swarmInstances.Remove(swarm);
-
-        if (swarm == _currentLeaderSwarm)
-        {
-            SetNewLeaderSwarm();
-            SetSwarmData();
-        }
-
     }
 
     private void CalculateStartPositions()
     {
-        for (int i = 0; i < _amount; i++)
+        for (int i = 0; i < _amount + 1; i++)
         {
             Vector3 offset = new Vector3(
                 Random.Range(-_spawnContainerSize.x / 2, _spawnContainerSize.x / 2),
