@@ -22,4 +22,4 @@ MonoBehaviour:
     UseRandomPitch: 0
     RandomPitchRange: 0.06
     UseSpatialAudio: 1
-    SpatialBlend: 0.5
+    SpatialBlend: 0.75

@@ -346,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 3839
+    m_Bits: 3327
 --- !u!114 &245529128316309274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,11 +360,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _leaderSwarm: {fileID: 0}
-  _swarmSpeed: 3
-  _leaderSpeed: 3
-  _yOffset: 4.75
+  _swarmSpeed: 7.5
+  _leaderSpeed: 7.5
+  _yOffset: 7.5
   _separationCheckRadius: 2.5
-  _targetCheckRadius: 20
+  _targetCheckRadius: 7.5
   _swarmLayers:
     serializedVersion: 2
     m_Bits: 2560
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sphereRadius: 20
+  _sphereRadius: 7.5
   _sphereOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &7798059607218371746
 MonoBehaviour:

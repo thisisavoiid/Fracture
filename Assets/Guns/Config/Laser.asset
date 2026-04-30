@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Laser
   Stats:
-    ShotsPerMinute: 100
+    ShotsPerMinute: 50
     DamagePerShot: 5
     TotalRounds: 1000
-    Range: 10
+    Range: 5
   ShootSound: {fileID: 11400000, guid: 355feb403aa96f94a8608773fe7aeb6a, type: 2}
   ReloadSound: {fileID: 0}
   Behaviour: {fileID: 11400000, guid: e38aa66eb4d52724ca1209f93dccca45, type: 2}

@@ -34,23 +34,22 @@ public class GunController : Weapon
         Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gun.Stats.ToString()} -");
     }
 
-    private void OnEnable()
+
+    // private void OnDisable()
+    // {
+    //     OnShoot.RemoveAllListeners();
+    //     OnReload.RemoveAllListeners();
+    // }
+
+    private void Start()
     {
+        OnGunInitialized?.Invoke(_gun);
+
         if (_gun.ShootSound != null && AudioManager.Instance != null)
             OnShoot.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.ShootSound, transform.position));
 
         if (_gun.ReloadSound != null && AudioManager.Instance != null)
             OnReload.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.ReloadSound, transform.position));
-    }
-
-    private void OnDisable()
-    {
-        OnShoot.RemoveAllListeners();
-    }
-
-    private void Start()
-    {
-        OnGunInitialized?.Invoke(_gun);
     }
 
     private float CalculateDurationAfterShot(int shotsPerMinute) => 60.0f / (float)shotsPerMinute;
@@ -76,6 +75,8 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
+
+        Debug.Log($"{gameObject.name} invoked onshoot");
 
         if (hit.collider == null)
             return;
