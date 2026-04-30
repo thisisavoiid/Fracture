@@ -45,8 +45,6 @@ public class VerticeRetriever : MonoBehaviour
 
         for (int i = 0; i < triangles.Length - 2; i += 3)
         {
-            // triangleBounds.Add(new Vector3[3] { vertices[triangles[i]], vertices[triangles[i + 1]], vertices[triangles[i + 2]] }.ToList());
-
             triangleBounds.Add(new List<Vector3>
             {
                 vertices[triangles[i]],

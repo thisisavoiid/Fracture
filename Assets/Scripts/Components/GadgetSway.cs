@@ -46,12 +46,6 @@ public class GadgetSway : MonoBehaviour
 
         _transform.localRotation = Quaternion.Lerp(_transform.localRotation, Quaternion.Euler(targetRotation), Time.deltaTime * _moveSwaySpeed);
 
-        // targetPosition.x = _basePosition.x + mouseX * _horizontalSwayStrength;
-        // targetPosition.y = _basePosition.y + mouseY * _verticalSwayStrength;
-
-        
-        // _transform.localPosition = Vector3.Lerp(_transform.localPosition, targetPosition, _swaySpeed * Time.deltaTime);
-
         _lastMoveValue = Vector3.Lerp(_lastMoveValue, Vector3.zero, Time.deltaTime * _swaySnappiness);
     }
 }

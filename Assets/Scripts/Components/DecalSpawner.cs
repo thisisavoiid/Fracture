@@ -8,6 +8,7 @@ public class DecalSpawner : MonoBehaviour
 
     public DecalObject SpawnDecal(Vector3 pos, Quaternion dir, Transform parent)
     {
+        
         if (_decalObject == null)
         {
             Debug.LogWarning($"[DECAL SPAWNER] You tried spawning a decal while it was null (On object: {this.gameObject.name}) -");

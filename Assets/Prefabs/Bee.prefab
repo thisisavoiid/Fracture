@@ -346,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3839
 --- !u!114 &245529128316309274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,12 +517,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _decalConfig:
-    Material: {fileID: 0}
-    DestroyAfter: 0
+    Material: {fileID: 2100000, guid: 3fc987517c2c1ba468b896d77c97789d, type: 2}
+    DestroyAfter: 20
     StayVisibleForever: 0
-    DefaultSize: 0
-    RandomRange: 0
-  _decalObject: {fileID: 0}
+    DefaultSize: 0.275
+    RandomRange: 0.075
+  _decalObject: {fileID: 8515384468049020223, guid: 2d29a651da9687148adb45a22511d003, type: 3}
 --- !u!114 &3970336835165427383
 MonoBehaviour:
   m_ObjectHideFlags: 0

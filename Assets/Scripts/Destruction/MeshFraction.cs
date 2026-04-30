@@ -27,14 +27,4 @@ public class MeshFraction : MonoBehaviour
 
         Destroy(gameObject, Random.Range(minRandomDestroyTime, maxRandomDestroyTime));
     }
-
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     if (!collision.gameObject.CompareTag("floor"))
-    //         return;
-
-    //     Destroy(_boxCollider);
-    //     _rb.isKinematic = true;
-
-    // }
 }

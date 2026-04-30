@@ -9,6 +9,7 @@ public struct GunContext
     public Gun Gun;
     public Vector3 Direction;
     public Vector3 Origin;
+    public Transform ProjectileSpawnTransform;
     public bool IsPressed;
     public bool IsHeld;
 }

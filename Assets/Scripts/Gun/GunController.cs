@@ -15,7 +15,7 @@ public class GunController : Weapon
     private GunBulletTracker _gunBulletTracker;
     private DecalSpawner _decalSpawner;
     private Timer _timer;
-    private Transform _transform;
+
 
     public UnityEvent<Gun> OnShoot;
     public UnityEvent<Gun> OnReload;
@@ -31,17 +31,15 @@ public class GunController : Weapon
         _timer.SetTime(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute));
         _timer.Start();
 
-        _transform = GetComponent<Transform>();
-
         Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gun.Stats.ToString()} -");
     }
 
     private void OnEnable()
     {
-        if (_gun.ShootSound != null)
+        if (_gun.ShootSound != null && AudioManager.Instance != null)
             OnShoot.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.ShootSound, transform.position));
 
-        if (_gun.ReloadSound != null)
+        if (_gun.ReloadSound != null && AudioManager.Instance != null)
             OnReload.AddListener((_gun) => AudioManager.Instance.PlaySound(_gun.ReloadSound, transform.position));
     }
 
@@ -68,7 +66,8 @@ public class GunController : Weapon
             BulletTracker = _gunBulletTracker,
             IsHeld = held,
             IsPressed = pressed,
-            Timer = _timer
+            Timer = _timer,
+            ProjectileSpawnTransform = _projectileSpawnTransform
         };
 
         bool wasShotSuccessful = _gun.Behaviour.Shoot(gunContext, out RaycastHit hit);
@@ -77,16 +76,6 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-
-        if (_gun.Projectile != null)
-        {
-            var projectile = Instantiate(_gun.Projectile, _projectileSpawnTransform.position, Quaternion.identity);
-
-            if (hit.collider == null)
-                projectile.Init(dir);
-            else
-                projectile.Init((hit.point - _projectileSpawnTransform.position).normalized);
-        }
 
         if (hit.collider == null)
             return;

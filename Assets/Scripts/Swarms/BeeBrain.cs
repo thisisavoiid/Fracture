@@ -93,6 +93,11 @@ public class BeeBrain : Swarm
         _path = new NavMeshPath();
         _timer = GetComponent<Timer>();
         _rayCastDetector = GetComponent<RayCastDetector>();
+
+        if (_gun == null)
+        {
+            Debug.LogWarning($"[{this.GetType().Name.ToUpper()}] No Gun (Usable) assigned to {gameObject.name}. Bee will not be able to attack. -");
+        }
     }
 
     public override void SetPosition(Vector3 startPos)
@@ -111,20 +116,26 @@ public class BeeBrain : Swarm
         _targetTransform = targetTransform;
         _leaderSwarm = leaderSwarm;
         _containerSwarmDeathEvent = onSwarmDeathEvent;
+
+        Debug.Log($"[{this.GetType().Name.ToUpper()}] Data set for {gameObject.name}. Leader is: {(_leaderSwarm != null ? _leaderSwarm.name : "NULL")} -");
     }
 
     public override void InvokeDeath()
     {
+        Debug.Log($"[{this.GetType().Name.ToUpper()}] InvokeDeath called for {gameObject.name}. -");
         _containerSwarmDeathEvent?.Invoke(this);
     }
 
     public override void StartChase()
     {
+        Debug.Log($"[{this.GetType().Name.ToUpper()}] {gameObject.name} changing state from {_currentState} to Chase. -");
         _currentState = Swarm.State.Chase;
     }
 
     private Vector3 CalculateSwarmForce()
     {
+        if (_leaderSwarm == null) return Vector3.zero;
+
         Vector3 leaderSwarmPosition = _leaderSwarm.transform.position;
         leaderSwarmPosition.y += _yOffset;
 
@@ -133,22 +144,23 @@ public class BeeBrain : Swarm
         Vector3 perlinNoise = CalculateVectorPerlinNoise();
         Vector3 separationForce = Vector3.zero;
 
-        float distanceToLeaderSwarm = (leaderSwarmPosition - transform.position).magnitude;
-
         List<Collider> swarmColliders = _separationSphereDetector.GetColliders(_swarmLayers);
 
-        foreach (Collider swarmCollider in swarmColliders)
+        if (swarmColliders != null && swarmColliders.Count != 0)
         {
-            if (swarmCollider.gameObject == this.gameObject)
-                continue;
+            foreach (Collider swarmCollider in swarmColliders)
+            {
+                if (swarmCollider.gameObject == this.gameObject)
+                    continue;
 
-            if (!_swarmInstances.Select(instance => instance.gameObject).Contains(swarmCollider.gameObject))
-                continue;
+                if (!_swarmInstances.Select(instance => instance.gameObject).Contains(swarmCollider.gameObject))
+                    continue;
 
-            Vector3 diff = swarmCollider.gameObject.transform.position - transform.position;
-            float distance = diff.magnitude;
+                Vector3 diff = swarmCollider.gameObject.transform.position - transform.position;
+                float distance = diff.magnitude;
 
-            separationForce += _separationForceMultiplier * (diff.normalized * -1) / Mathf.Max(1.0f, distance);
+                separationForce += _separationForceMultiplier * (diff.normalized * -1) / Mathf.Max(1.0f, distance);
+            }
         }
 
         Vector3 targetForce = (leaderSwarmDir.normalized * _directionToLeaderSwarmWeight) + (leaderSwarmForward * _leaderSwarmForwardWeight) + (perlinNoise * _perlinNoiseWeight) + (separationForce * _separationForceWeight);
@@ -169,12 +181,10 @@ public class BeeBrain : Swarm
 
     private Vector3 CalculateNextWaypoint(Vector3 origin, Vector3 targetPosition, NavMeshPath path)
     {
-        NavMesh.CalculatePath(
-            origin,
-            targetPosition,
-            NavMesh.AllAreas,
-            path
-        );
+        if (!NavMesh.CalculatePath(origin, targetPosition, NavMesh.AllAreas, path))
+        {
+            Debug.LogWarning($"[{this.GetType().Name.ToUpper()}] NavMesh path calculation failed for {gameObject.name} -");
+        }
 
         if (path == null)
             return transform.position;
@@ -193,6 +203,10 @@ public class BeeBrain : Swarm
         switch (_currentState)
         {
             case Swarm.State.Idle:
+                if (this.gameObject != _leaderSwarm.gameObject)
+                {
+                    _rb.linearVelocity = CalculateSwarmForce() * _swarmSpeed;
+                }
                 break;
 
             case Swarm.State.Chase:
@@ -210,6 +224,8 @@ public class BeeBrain : Swarm
                 {
                     _rb.linearVelocity = CalculateSwarmForce() * _swarmSpeed;
 
+                    if (_targetTransform == null || _targetTransform.Value == null) break;
+
                     float distanceToTarget = (_targetTransform.Value.position - transform.position).magnitude;
                     Vector3 targetDir = _targetTransform.Value.position - transform.position;
 
@@ -226,10 +242,10 @@ public class BeeBrain : Swarm
                         if (hit.collider.gameObject != _targetTransform.Value.gameObject)
                             break;
 
+                        Debug.Log($"[{this.GetType().Name.ToUpper()}] {gameObject.name} is firing at {_targetTransform.Value.gameObject.name}! -");
                         _gun.Use(transform.position, targetDir, true, false);
                     }
                 }
-
                 break;
         }
     }
@@ -242,10 +258,7 @@ public class BeeBrain : Swarm
         if (this.gameObject != _leaderSwarm.gameObject)
             return;
 
-        if (_path == null)
-            return;
-
-        if (_path.corners.Length == 0)
+        if (_path == null || _path.corners.Length == 0)
             return;
 
         Gizmos.color = Color.magenta;

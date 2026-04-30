@@ -33,6 +33,23 @@ public class SemiAutomaticBehaviour : GunBehaviour
             3.0f
         );
 
+        if (gunCtx.Gun.Projectile != null)
+        {
+            var projectile = Instantiate(gunCtx.Gun.Projectile, gunCtx.ProjectileSpawnTransform.position, Quaternion.identity);
+
+            if (hit.collider == null)
+            {
+                projectile.Init(gunCtx.Direction, gunCtx.Gun.Stats.DamagePerShot);
+            }
+            else
+            {
+                projectile.Init(
+                    (hit.point - gunCtx.ProjectileSpawnTransform.position).normalized,
+                    (hit.point - gunCtx.Origin).magnitude
+                );
+            }
+        }
+        
         if (hit.collider == null)
             return true;
 

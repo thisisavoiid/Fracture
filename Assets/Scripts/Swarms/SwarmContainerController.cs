@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -104,15 +105,20 @@ public class SwarmContainerController : MonoBehaviour
         Collider leaderSwarmCollider = _currentLeaderSwarm.GetComponent<Collider>();
         if (leaderSwarmCollider != null)
             leaderSwarmCollider.excludeLayers = _leaderPassthroughLayers;
+
+        Light[] lights = _currentLeaderSwarm.GetComponentsInChildren<Light>();
+        if (lights.Length > 0)
+            foreach (Light light in lights)
+                light.enabled = false;
     }
 
     public void RemoveSwarm(Swarm swarm)
     {
         _swarmInstances.Remove(swarm);
-        
+
         if (swarm.gameObject != null)
             Destroy(swarm.gameObject);
-        
+
         if (_swarmInstances.Count == 1)
         {
             Destroy(_swarmInstances[0].gameObject);

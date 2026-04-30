@@ -176,6 +176,7 @@ public class PlayerController : MonoBehaviour
     {
         bool wasPrimaryGadgetActionPressed = _inputController.PrimaryGadgetAction.WasPressedThisFrame();
         bool isPrimaryGadgetActionHeldDown = _inputController.PrimaryGadgetAction.IsPressed();
+        // bool isSecondaryGadgetActionHeldDown = _inputController.SecondaryGadgetAction.IsPressed();
 
         if (!(wasPrimaryGadgetActionPressed || isPrimaryGadgetActionHeldDown))
             return;
@@ -183,6 +184,9 @@ public class PlayerController : MonoBehaviour
         Transform cameraTransform = _cameraController.GetTransform();
 
         Usable equippedItem = _itemSlotController.GetEquippedItem();
+
+        // if (isSecondaryGadgetActionHeldDown)
+        //     Debug.Log("aiming");
 
         if (equippedItem != null)
         {

@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private int _audioChannelCount;
+    [Header("Audio Channel Pool Size")]
+    [Tooltip("The amount of audio channel pool sources to be generated.")]
+    [SerializeField] [Range(1, 200)] private int _audioChannelCount;
     private List<AudioSource> _audioSourcePool = new();
     private static AudioManager _instance;
     public static AudioManager Instance => _instance;
@@ -72,7 +74,7 @@ public class AudioManager : MonoBehaviour
         }
 
         if (config.UseSpatialAudio)
-            source.spatialBlend = 1.0f;
+            source.spatialBlend = config.SpatialBlend;
         else
             source.spatialBlend = 0.0f;
 
