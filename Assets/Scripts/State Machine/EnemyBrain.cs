@@ -17,7 +17,7 @@ public class EnemyBrain : MonoBehaviour
 
     #region Dependencies
     [Header("Detection Settings")]
-    [SerializeField] private Transform _targetTransform;
+    [SerializeField] private TransformVariable _targetTransform;
     [SerializeField] private LayerMask _targetMask;
     [SerializeField] private float _viewDistance;
     [SerializeField] private float _calmDownDistance;
@@ -50,8 +50,8 @@ public class EnemyBrain : MonoBehaviour
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
         State patrolState = new PatrolState(_navmeshAgent);
-        State chaseState = new ChaseState(_navmeshAgent, _targetTransform);
-        State attackState = new AttackState(_itemSlotController, _headTransform, _targetTransform);
+        State chaseState = new ChaseState(_navmeshAgent, _targetTransform.Value);
+        State attackState = new AttackState(_itemSlotController, _headTransform, _targetTransform.Value);
 
         _states.Add(
             patrolState, new()
@@ -74,7 +74,7 @@ public class EnemyBrain : MonoBehaviour
                 new Transition(chaseState, () => _distanceToPlayer > _minAttackDistance),
            }
        );
-
+       
         SetState(patrolState);
     }
 
@@ -88,7 +88,7 @@ public class EnemyBrain : MonoBehaviour
 
         _currentState.Run();
 
-        _distanceToPlayer = (_targetTransform.position - _transform.position).magnitude;
+        _distanceToPlayer = (_targetTransform.Value.position - _transform.position).magnitude;
 
         foreach (Transition transition in _states[_currentState])
         {

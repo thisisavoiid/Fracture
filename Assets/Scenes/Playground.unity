@@ -185,15 +185,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1 &87202026
 GameObject:
@@ -691,7 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -894,13 +891,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.37620193, y: -0.604883, z: 0.18544488, w: -0.67690396}
-  m_LocalPosition: {x: -0.0018121004, y: 3.000503, z: -0.00078064203}
+  m_LocalRotation: {x: -0.50365824, y: -0.608711, z: 0.015914483, w: -0.61281824}
+  m_LocalPosition: {x: -0.001954317, y: 3.0005054, z: -0.0008226633}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1349926021}
-  m_LocalEulerAnglesHint: {x: 132.807, y: 1351.25, z: 557.475}
+  m_LocalEulerAnglesHint: {x: 140.456, y: 1368.792, z: 590.341}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1180,7 +1177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -1865,7 +1862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 1
@@ -2102,7 +2099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -2713,7 +2710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -2964,15 +2961,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1001 &962079689
 PrefabInstance:
@@ -3776,7 +3770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -4124,15 +4118,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1453120059048945457, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
 --- !u!1 &1331912934
 GameObject:
@@ -5157,7 +5148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 1
@@ -5492,7 +5483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -5771,7 +5762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -5990,7 +5981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -6088,14 +6079,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      propertyPath: _viewDistance
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 149556644862734679, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      propertyPath: _targetTransform
-      value: 
-      objectReference: {fileID: 1744338371}
     - target: {fileID: 1251677467475955574, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.4
@@ -6136,17 +6119,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3027047587871496513, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      propertyPath: _defaultHealth
-      value: 350
-      objectReference: {fileID: 0}
     - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
       propertyPath: m_Name
       value: EnemyRobot_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6102089558249333164, guid: aeb5ad9a8e490a1408a1ec683b7708a6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6211,7 +6186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -6666,7 +6641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -6824,7 +6799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 3
@@ -6983,7 +6958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267db12bc6562bb4eaa6e453e912cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionForce: 15
+  _explosionForce: 30
   _useFractionGravity: 1
   _addBoxColliderToFractionObjects: 1
   _trianglesPerFraction: 1
@@ -7562,7 +7537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6210448504147597702, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.58
+      value: 28.2
       objectReference: {fileID: 0}
     - target: {fileID: 6210448504147597702, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7570,7 +7545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6210448504147597702, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.12
+      value: -22.94
       objectReference: {fileID: 0}
     - target: {fileID: 6210448504147597702, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
       propertyPath: m_LocalRotation.w

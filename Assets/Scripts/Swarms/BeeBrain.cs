@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(OverlapSphereDetector))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(RayCastDetector))]
+[RequireComponent(typeof(Timer))]
 public class BeeBrain : Swarm
 {
     [Header("Debugging")]
@@ -55,12 +57,16 @@ public class BeeBrain : Swarm
     [Tooltip("The detector component used for finding targets.")]
     [SerializeField] private OverlapSphereDetector _targetSearchSphereDetector;
 
+    [SerializeField] private Usable _gun;
+
     private Rigidbody _rb;
     private Swarm.State _currentState = Swarm.State.Idle;
     private TransformVariable _targetTransform;
     private List<Swarm> _swarmInstances;
     private UnityAction<Swarm> _containerSwarmDeathEvent;
     private NavMeshPath _path;
+    private RayCastDetector _rayCastDetector;
+    private Timer _timer;
 
     private void Awake()
     {
@@ -85,6 +91,8 @@ public class BeeBrain : Swarm
         }
 
         _path = new NavMeshPath();
+        _timer = GetComponent<Timer>();
+        _rayCastDetector = GetComponent<RayCastDetector>();
     }
 
     public override void SetPosition(Vector3 startPos)
@@ -197,13 +205,32 @@ public class BeeBrain : Swarm
                     );
                     Vector3 dir = nextWaypoint - transform.position;
                     _rb.linearVelocity = dir.normalized * _leaderSpeed;
-                    break;
                 }
                 else
                 {
                     _rb.linearVelocity = CalculateSwarmForce() * _swarmSpeed;
-                    break;
+
+                    float distanceToTarget = (_targetTransform.Value.position - transform.position).magnitude;
+                    Vector3 targetDir = _targetTransform.Value.position - transform.position;
+
+                    if (distanceToTarget < _targetCheckRadius)
+                    {
+                        bool isObjectInLineOfSight = _rayCastDetector.Check(transform.position, targetDir.normalized, out RaycastHit hit, _targetCheckRadius);
+
+                        if (!isObjectInLineOfSight || hit.collider == null)
+                            break;
+
+                        if (_gun == null)
+                            break;
+
+                        if (hit.collider.gameObject != _targetTransform.Value.gameObject)
+                            break;
+
+                        _gun.Use(transform.position, targetDir, true, false);
+                    }
                 }
+
+                break;
         }
     }
 

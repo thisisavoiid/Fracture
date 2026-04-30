@@ -291,7 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ff4e76fb7ef99408b97d1e3b1eac5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetTransform: {fileID: 0}
+  _targetTransform: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
   _targetMask:
     serializedVersion: 2
     m_Bits: 64
