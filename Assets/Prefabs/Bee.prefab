@@ -364,7 +364,7 @@ MonoBehaviour:
   _leaderSpeed: 7.5
   _yOffset: 7.5
   _separationCheckRadius: 2.5
-  _targetCheckRadius: 7.5
+  _targetCheckRadius: 15
   _swarmLayers:
     serializedVersion: 2
     m_Bits: 2560

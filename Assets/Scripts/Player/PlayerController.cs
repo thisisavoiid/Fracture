@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Animators")]
     [SerializeField] private Animator _itemAnimator;
+    [SerializeField] private Animator _weaponAdsAnimator;
 
     [Header("Field Of View")]
     [SerializeField] private float _baseFov;
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _walkHeadbobSpeedMultiplicator;
     [SerializeField] private float _sprintHeadbobStrengthMultiplicator;
     [SerializeField] private float _sprintHeadbobSpeedMultiplicator;
-    
+
     [Header("Movement")]
     [Header("Speed Settings")]
     [SerializeField] private float _defaultMoveSpeed;
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
         if (moveDir == Vector3.zero)
             return;
-        
+
         float targetSpeed = _defaultMoveSpeed;
 
         if (_inputController.Sprint)
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         bool isPlayerGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
 
-        if (isPlayerGrounded) 
+        if (isPlayerGrounded)
             _isJumpQueued = true;
     }
 
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
             _headbob.SetStrength(_baseHeadbobStrength);
             return;
         }
-            
+
         if (_inputController.Sprint)
         {
             _headbob.SetSpeed(_baseHeadbobSpeed * _sprintHeadbobSpeedMultiplicator);
@@ -150,8 +151,8 @@ public class PlayerController : MonoBehaviour
 
         _headbob.SetSpeed(_baseHeadbobSpeed * _walkHeadbobSpeedMultiplicator);
         _headbob.SetStrength(_baseHeadbobStrength * _walkHeadbobStrengthMultiplicator);
-        
-    }   
+
+    }
 
     private void HandleCameraFOV()
     {
@@ -162,7 +163,7 @@ public class PlayerController : MonoBehaviour
             _cameraController.SetTargetFOV(_baseFov);
             return;
         }
-            
+
         if (_inputController.Sprint)
         {
             _cameraController.SetTargetFOV(_baseFov * _sprintFovMultiplicator);
@@ -191,12 +192,12 @@ public class PlayerController : MonoBehaviour
         if (equippedItem != null)
         {
             if (_inputController)
-            equippedItem.Use(
-                cameraTransform.position,
-                cameraTransform.forward.normalized,
-                isPrimaryGadgetActionHeldDown,
-                wasPrimaryGadgetActionPressed
-            );
+                equippedItem.Use(
+                    cameraTransform.position,
+                    cameraTransform.forward.normalized,
+                    isPrimaryGadgetActionHeldDown,
+                    wasPrimaryGadgetActionPressed
+                );
         }
         else
         {
@@ -242,6 +243,8 @@ public class PlayerController : MonoBehaviour
         HandleInventory();
         HandleCameraFOV();
         HandleHeadbob();
+
+        _weaponAdsAnimator.SetBool("Scope", _inputController.SecondaryGadgetAction.IsPressed());
     }
 
     private void FixedUpdate()
@@ -262,6 +265,6 @@ public class PlayerController : MonoBehaviour
             bool isPlayerGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
             _itemAnimator.SetBool("IsInAir", !isPlayerGrounded);
         }
-            
+
     }
 }

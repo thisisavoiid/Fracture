@@ -42,6 +42,9 @@ public class ItemSlotController : MonoBehaviour
     {
         List<Usable> itemInstances = _itemFactory.GetAllItemInstances();
 
+        if (itemInstances.Count == 0)
+            return;
+            
         if (index < 0)
             index = itemInstances.Count - 1;
 

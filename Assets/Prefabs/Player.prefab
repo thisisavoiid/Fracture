@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3558773506972435086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5171588160121342501}
+  - component: {fileID: 7603530572936025373}
+  m_Layer: 6
+  m_Name: WeaponADSContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5171588160121342501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558773506972435086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.171}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8125264393912508910}
+  m_Father: {fileID: 5863167056286266651}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7603530572936025373
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558773506972435086}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 505fc75ac6db1ae49a2ea382a29caf77, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5068119476873434902
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,13 +200,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6250222538639603872}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0032234548, y: -0.990368, z: 0.006210448, w: 0.13828327}
-  m_LocalPosition: {x: 0.295, y: -0.19782245, z: 0.32199872}
+  m_LocalRotation: {x: 0.0023124162, y: -0.9999703, z: 0.0066040223, w: -0.0032193656}
+  m_LocalPosition: {x: 0.329, y: -0.266, z: 0.878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5863167056286266651}
-  m_LocalEulerAnglesHint: {x: 0.756, y: -164.104, z: -0.267}
+  m_Father: {fileID: 5171588160121342501}
+  m_LocalEulerAnglesHint: {x: 0.756, y: -180.371, z: -0.267}
 --- !u!114 &7745134766876428837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +290,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8125264393912508910}
+  - {fileID: 5171588160121342501}
   m_Father: {fileID: 709831377854056543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &4302687206860350062
@@ -445,11 +500,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6210448504147597702}
+  - component: {fileID: 2409212850851219203}
   - component: {fileID: 3829569383813201222}
   - component: {fileID: 2698765835989832443}
   - component: {fileID: 3850673831037293335}
   - component: {fileID: 3323122811258744869}
-  - component: {fileID: 2409212850851219203}
   - component: {fileID: 1106298265593718078}
   - component: {fileID: 8525804941694592617}
   - component: {fileID: 685308438115763218}
@@ -459,7 +514,7 @@ GameObject:
   - component: {fileID: 2152570397126749913}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -481,6 +536,72 @@ Transform:
   - {fileID: 709831377854056543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -88.86, z: 0}
+--- !u!114 &2409212850851219203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844992768335865853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a80707d5cda6094d8e09e2cd8d86f7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cameraSensitivity: 4
+  _cameraAngleClamp: 90
+  _itemAnimator: {fileID: 135839061949802169}
+  _weaponAdsAnimator: {fileID: 7603530572936025373}
+  _baseFov: 90
+  _walkFovMultiplicator: 1.075
+  _sprintFovMultiplicator: 1.175
+  _lerpSpeed: 10
+  _groundLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  _baseHeadbobStrength: 0.01
+  _baseHeadbobSpeed: 2.5
+  _walkHeadbobStrengthMultiplicator: 2
+  _walkHeadbobSpeedMultiplicator: 7
+  _sprintHeadbobStrengthMultiplicator: 3
+  _sprintHeadbobSpeedMultiplicator: 12.5
+  _defaultMoveSpeed: 10
+  _sprintMultiplicator: 1.25
+  _jumpStrength: 12.5
+  _transformVariable: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
+  OnMouseLook:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5732077199095150193}
+        m_TargetAssemblyTypeName: GadgetSway, Assembly-CSharp
+        m_MethodName: SetLookValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMove:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5732077199095150193}
+        m_TargetAssemblyTypeName: GadgetSway, Assembly-CSharp
+        m_MethodName: SetMoveValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3829569383813201222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,71 +656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce8a5350dbe5e24e8a55595d75d2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2409212850851219203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844992768335865853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a80707d5cda6094d8e09e2cd8d86f7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraSensitivity: 4
-  _cameraAngleClamp: 90
-  _itemAnimator: {fileID: 135839061949802169}
-  _baseFov: 90
-  _walkFovMultiplicator: 1.075
-  _sprintFovMultiplicator: 1.175
-  _lerpSpeed: 10
-  _groundLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  _baseHeadbobStrength: 0.01
-  _baseHeadbobSpeed: 2.5
-  _walkHeadbobStrengthMultiplicator: 2
-  _walkHeadbobSpeedMultiplicator: 7
-  _sprintHeadbobStrengthMultiplicator: 3
-  _sprintHeadbobSpeedMultiplicator: 12.5
-  _defaultMoveSpeed: 10
-  _sprintMultiplicator: 1.25
-  _jumpStrength: 12.5
-  _transformVariable: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
-  OnMouseLook:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5732077199095150193}
-        m_TargetAssemblyTypeName: GadgetSway, Assembly-CSharp
-        m_MethodName: SetLookValue
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnMove:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5732077199095150193}
-        m_TargetAssemblyTypeName: GadgetSway, Assembly-CSharp
-        m_MethodName: SetMoveValue
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnJump:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1106298265593718078
 MonoBehaviour:
   m_ObjectHideFlags: 0
