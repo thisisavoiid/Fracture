@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class WireCubeTransformGizmos : MonoBehaviour
+public class SphereTransformGizmos : MonoBehaviour
 {
-    [SerializeField] private Vector3 _dimensions;
+    [SerializeField] private float _radius;
     [SerializeField] private Color _color;
 
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(_color.r, _color.g, _color.b);
 
-        Gizmos.DrawWireCube(
+        Gizmos.DrawSphere(
             transform.position,
-            _dimensions
+            _radius
         );
     }
 }

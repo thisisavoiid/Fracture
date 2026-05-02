@@ -76,8 +76,6 @@ public class GunController : Weapon
 
         OnShoot?.Invoke(_gun);
 
-        Debug.Log($"{gameObject.name} invoked onshoot");
-
         if (hit.collider == null)
             return;
 

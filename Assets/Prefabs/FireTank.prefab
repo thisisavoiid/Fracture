@@ -48,7 +48,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042035171541392195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 8388970850269223612}
   - component: {fileID: 8668611548542451648}
   m_Layer: 7
-  m_Name: ExplosiveTank
+  m_Name: FireTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92180ccb13b136a4cb8fa06774b4401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behaviour: {fileID: 11400000, guid: 56813c08cecb9d04fbbf31cc258afc81, type: 2}
-  _explosive: {fileID: 11400000, guid: 86b9c76219c5b344d8316a5721379114, type: 2}
+  _behaviour: {fileID: 11400000, guid: 1f929dee0acefb8428a4da3cf0930007, type: 2}
+  _explosive: {fileID: 11400000, guid: 78bc647fc25b71444a0bf98757356d3e, type: 2}
   _addDynamicDetonationTime: 0
   OnExplode:
     m_PersistentCalls:
@@ -202,7 +202,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2456031327218277800}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -218,7 +218,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9a9e6f78e13057346969b4ab18c757a0, type: 2}
+  - {fileID: 2100000, guid: e812e277b17a1df4d942a2cb0cc4bd0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

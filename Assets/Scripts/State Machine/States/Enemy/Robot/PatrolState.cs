@@ -49,9 +49,11 @@ public class PatrolState : State
 
         _agent.acceleration = _acceleration;
         _agent.speed = _speed;
-        
+
         _agent.ResetPath();
-        _agent.SetDestination(_waypoints[_currentWaypointIdx].position);
+
+        if (_waypoints != null && _waypoints.Count != 0)
+            _agent.SetDestination(_waypoints[_currentWaypointIdx].position);
 
         Debug.Log($"[PATROL STATE] Destination set to waypoint index {_currentWaypointIdx} -");
     }

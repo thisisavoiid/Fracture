@@ -22,10 +22,10 @@ public class ExplosiveController : MonoBehaviour, IShootable
 
     private void OnEnable()
     {
-        if (_explosive.ExplodeSound != null)
+        if (_explosive.ExplodeSound != null && AudioManager.Instance != null)
             OnExplode.AddListener(() => AudioManager.Instance.PlaySound(_explosive.ExplodeSound, transform.position));
 
-        if (_explosive.DetonationCycleStartSound != null)
+        if (_explosive.DetonationCycleStartSound != null && AudioManager.Instance != null)
             OnDetonationCycleStart.AddListener(() => AudioManager.Instance.PlaySound(_explosive.DetonationCycleStartSound, transform.position));
     }
 
@@ -74,6 +74,7 @@ public class ExplosiveController : MonoBehaviour, IShootable
 
         Debug.Log($"[EXPLOSIVE CONTROLLER] Exploding {ctx.GameObject.name} at {ctx.Transform.position} -");
 
-        ctx.GameObject.SetActive(false);
+        // ctx.GameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
 }
