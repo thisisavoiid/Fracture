@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Explosives/Behaviours/Fire Tank Behaviour", fileName = "Fire Tank Behaviour")]
 public class FireTankBehaviour : ExplosionBehaviour
 {
-    // objekt was fire damage inflected!
     [SerializeField] private LingeringDamageInflector _damageInflector;
 
     public override void Explode(ExplosionContext ctx)

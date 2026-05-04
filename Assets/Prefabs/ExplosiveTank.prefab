@@ -97,6 +97,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8720454802042832341}
   - component: {fileID: 3523894698881964607}
+  - component: {fileID: 7912350999906844645}
+  - component: {fileID: 320090773179385071}
   - component: {fileID: 465775692461912834}
   - component: {fileID: 7018942107471305355}
   - component: {fileID: 734406371448827353}
@@ -160,6 +162,66 @@ MonoBehaviour:
   OnDetonationCycleStart:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7912350999906844645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456031327218277800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultHealth: 30
+  _autoInvokeDie: 1
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3523894698881964607}
+        m_TargetAssemblyTypeName: ExplosiveController, Assembly-CSharp
+        m_MethodName: TriggerExplosion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHealthRefresh:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &320090773179385071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456031327218277800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ab2ebfb0e7ed14798af11bb2c02a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageMultiplier: 1
+  OnDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7912350999906844645}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &465775692461912834
 MonoBehaviour:
   m_ObjectHideFlags: 0

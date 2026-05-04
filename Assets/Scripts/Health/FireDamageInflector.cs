@@ -18,7 +18,7 @@ public class FireDamageInflector : LingeringDamageInflector
     protected override IEnumerator LingeringLifeCycle()
     {
         float totalTimePassed = 0.0f;
-        float tickTimePassed = _timeAfterTick;
+        float tickTimePassed = 0.0f;
 
         while (totalTimePassed < _duration)
         {
@@ -31,7 +31,7 @@ public class FireDamageInflector : LingeringDamageInflector
             totalTimePassed += Time.deltaTime;
             tickTimePassed += Time.deltaTime;
 
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
 
         Destroy(this.gameObject);
@@ -39,7 +39,6 @@ public class FireDamageInflector : LingeringDamageInflector
 
     protected override void InflictDamage()
     {
-        Debug.Log("Dealing damage...");
         List<Collider> damageColliders = _sphereDetector.GetColliders(_damageableLayers);
 
         if (damageColliders == null || damageColliders.Count == 0)

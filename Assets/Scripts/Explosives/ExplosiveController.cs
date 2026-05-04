@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(OverlapSphereDetector))]
-public class ExplosiveController : MonoBehaviour, IShootable
+public class ExplosiveController : MonoBehaviour
 {
     [SerializeField] private ExplosionBehaviour _behaviour;
     [SerializeField] private Explosive _explosive;
@@ -12,7 +12,6 @@ public class ExplosiveController : MonoBehaviour, IShootable
     private bool _isAlreadyExploded = false;
     public UnityEvent OnExplode;
     public UnityEvent OnDetonationCycleStart;
-
 
 
     private void Awake()
@@ -35,7 +34,7 @@ public class ExplosiveController : MonoBehaviour, IShootable
         OnDetonationCycleStart.RemoveAllListeners();
     }
 
-    public void Hit(float dmg, Vector3 point)
+    public void TriggerExplosion()
     {
         if (_isAlreadyExploded)
             return;
@@ -47,8 +46,6 @@ public class ExplosiveController : MonoBehaviour, IShootable
         ctx.GameObject = this.gameObject;
 
         _sphereDetector.SetRadius(ctx.Explosive.Config.Radius);
-
-        Debug.Log($"[EXPLOSIVE CONTROLLER] Hit detected on {gameObject.name}. Damage: {dmg} -");
 
         StartCoroutine(DetonationCycle(ctx));
 

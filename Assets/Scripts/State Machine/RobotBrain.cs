@@ -83,7 +83,7 @@ public class RobotBrain : MonoBehaviour
 
     private Dictionary<State, List<Transition>> _states = new();
 
-    private void Awake()
+    private void Start()
     {
         _transform = transform;
 
