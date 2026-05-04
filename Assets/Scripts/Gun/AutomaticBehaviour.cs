@@ -14,7 +14,7 @@ public class AutomaticBehaviour : GunBehaviour
     {
         hit = new RaycastHit();
 
-        if (!CanShoot(gunCtx.IsPressed, gunCtx.IsHeld, gunCtx.BulletTracker.HasBulletsLeft(), gunCtx.Timer.GetRemainingTime()))
+        if (!CanShoot(gunCtx.IsPressed, gunCtx.IsHeld, gunCtx.BulletTracker.HasBulletsLeft(), gunCtx.Timer.GetRemainingTime().TotalSeconds))
             return false;
 
         gunCtx.Timer.Reset();

@@ -60,7 +60,7 @@ public class AttackState : State
         
         _itemSlotController.transform.LookAt(_targetTransform.position);
 
-        if (_reloadTimer != null && (_reloadTimer.GetRemainingTime() <= 0 || !_hasAlreadyAttackedBefore))
+        if (_reloadTimer != null && (_reloadTimer.GetRemainingTime().TotalSeconds <= 0 || !_hasAlreadyAttackedBefore))
         {
             equippedItem.Use(
                 _headTransform.position,

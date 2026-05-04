@@ -94,7 +94,7 @@ public class RobotBrain : MonoBehaviour
         _battery = GetComponent<Battery>();
         _reloadTimer = GetComponent<Timer>();
 
-        _reloadTimer.SetTime(_reloadTime);
+        _reloadTimer.SetTime(new TimeMS() );
         _reloadTimer.Start();
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);

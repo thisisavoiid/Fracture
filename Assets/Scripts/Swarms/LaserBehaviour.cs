@@ -12,7 +12,7 @@ public class LaserBehaviour : GunBehaviour
     {
         hit = new RaycastHit();
 
-        if (!CanShoot(gunCtx.IsHeld, gunCtx.Timer.GetRemainingTime()))
+        if (!CanShoot(gunCtx.IsHeld, gunCtx.Timer.GetRemainingTime().TotalSeconds))
             return false;
 
         gunCtx.Timer.Reset();

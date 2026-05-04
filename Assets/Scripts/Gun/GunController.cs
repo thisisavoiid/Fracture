@@ -28,7 +28,8 @@ public class GunController : Weapon
         _timer = GetComponent<Timer>();
         _decalSpawner = GetComponent<DecalSpawner>();
 
-        _timer.SetTime(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute));
+        Debug.Log($"time code: {CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute)}");
+        _timer.SetTime(new TimeMS(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute)));
         _timer.Start();
 
         Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gun.Stats.ToString()} -");
