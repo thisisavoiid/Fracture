@@ -7,7 +7,6 @@ public class FireDamageInflector : LingeringDamageInflector
 {
     public override void Init()
     {
-        Debug.Log("init!");
         if (_hasBeenInitiatedAlready)
             return;
 
