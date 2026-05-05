@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(TextMeshPro))]
-public class HealthDisplay : MonoBehaviour
+public class EnemyHealthDisplay : MonoBehaviour
 {
     [SerializeField] private Health _health;
     private TextMeshPro _label;

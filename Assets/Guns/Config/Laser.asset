@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111e64bd5f023d143bfaceb48d590b81, type: 3}
   m_Name: Laser
   m_EditorClassIdentifier: 
-  Name: Laser
+  _name: Laser
+  _sprite: {fileID: 21300000, guid: db2da91df2d19c34a8420c21028b67af, type: 3}
   Stats:
     ShotsPerMinute: 50
     DamagePerShot: 5

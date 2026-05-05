@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 377701877132837369}
   - component: {fileID: 3643981982445031004}
   - component: {fileID: 1546688536657246870}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8262242622026651914}
   - component: {fileID: 8668611548542451648}
   - component: {fileID: 8388970850269223612}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: FireTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}

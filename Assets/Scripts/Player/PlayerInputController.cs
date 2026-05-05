@@ -19,6 +19,9 @@ public class PlayerInputController : MonoBehaviour
     private InputAction _sprint;
     public bool Sprint => _sprint.IsPressed();
 
+    private InputAction _crouchSlide;
+    public bool CrouchSlide => _crouchSlide.IsPressed();
+
     public Vector2 Look => Mouse.current.delta.ReadValue();
 
     private InputAction _primaryGadgetAction;
@@ -40,7 +43,8 @@ public class PlayerInputController : MonoBehaviour
         _move = _gameInput.Movement.Move;
         _sprint = _gameInput.Movement.Sprint;
         _jump = _gameInput.Movement.Jump;
-
+        _crouchSlide = _gameInput.Movement.CrouchSlide;
+        
         _primaryGadgetAction = _gameInput.Gadgets.PrimaryAction;
         _secondaryGadgetAction = _gameInput.Gadgets.SecondaryAction;
 

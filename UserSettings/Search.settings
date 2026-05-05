@@ -13,9 +13,9 @@ scopes = {
 	"picker_visibility_flags.075BCD15" = "264"
 	"picker_item_size.075BCD15" = "96"
 	"picker_inspector.075BCD15" = "0"
-	"last_search.66F56946" = "renderer"
+	"last_search.66F56946" = "Shootable"
 	"OpenInspectorPreview.66F56946" = "0"
-	"currentGroup.66F56946" = "settings"
+	"currentGroup.66F56946" = "asset"
 }
 providers = {
 	asset = {
@@ -72,6 +72,9 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"h: Shootable"
+	"Shoo"
+	"alpha process"
 	"urp"
 	"HDRP Rend"
 	"renderer"
@@ -85,11 +88,11 @@ recentSearches = [
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
-showSavedSearchPanel = false
+showSavedSearchPanel = true
 hideTabs = false
 expandedQueries = [
 ]
-queryBuilder = true
+queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
 disabledIndexers = ""

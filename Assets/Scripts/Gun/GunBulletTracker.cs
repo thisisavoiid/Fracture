@@ -4,11 +4,11 @@ using UnityEngine.Events;
 public class GunBulletTracker : MonoBehaviour
 {
     public UnityEvent<int> OnBulletCountChange;
-    private Gun _gun;
+    private GunConfig _gun;
     private int _bulletsRemaining;
     public int BulletsRemaining => _bulletsRemaining;
     
-    public void ResetBullets(Gun gun)
+    public void ResetBullets(GunConfig gun)
     {
         if (_gun == null)
             LoadGunData(gun);
@@ -25,13 +25,13 @@ public class GunBulletTracker : MonoBehaviour
         return _bulletsRemaining > 0;
     }
     
-    private void LoadGunData(Gun gun)
+    private void LoadGunData(GunConfig gun)
     {
         _gun = gun;
         _bulletsRemaining = _gun.Stats.TotalRounds;
     }
 
-    public void DecreaseRemainingBulletCount(Gun gun)
+    public void DecreaseRemainingBulletCount(GunConfig gun)
     {
         if (_gun == null)
             LoadGunData(gun);

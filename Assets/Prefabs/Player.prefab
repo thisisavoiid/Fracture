@@ -219,7 +219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f304bd9381d91dd4eba9c21d772af69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 0.075
+  _dimensions: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: 0, z: 0}
+  _color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &5732077199095150193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,7 +569,7 @@ MonoBehaviour:
   _sprintHeadbobSpeedMultiplicator: 12.5
   _defaultMoveSpeed: 10
   _sprintMultiplicator: 1.25
-  _jumpStrength: 12.5
+  _jumpStrength: 30
   _transformVariable: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
   OnMouseLook:
     m_PersistentCalls:
@@ -732,8 +734,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6844992768335865853}
   serializedVersion: 4
-  m_Mass: 5
-  m_Drag: 0.25
+  m_Mass: 10
+  m_Drag: 0.075
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

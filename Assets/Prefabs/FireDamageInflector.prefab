@@ -50,7 +50,7 @@ MonoBehaviour:
   _timeAfterTick: 0.225
   _damageableLayers:
     serializedVersion: 2
-    m_Bits: 704
+    m_Bits: 4800
 --- !u!114 &3217104610280308024
 MonoBehaviour:
   m_ObjectHideFlags: 0

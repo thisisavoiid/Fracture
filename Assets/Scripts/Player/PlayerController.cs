@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting.APIUpdating;
 
 [RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(RigidbodyMovement))]
@@ -11,6 +12,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(OverlapBoxDetector))]
 [RequireComponent(typeof(ItemSlotController))]
 [RequireComponent(typeof(HeadBob))]
+[RequireComponent(typeof(PhysicsMaterialChanger))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Camera")]
@@ -42,6 +44,11 @@ public class PlayerController : MonoBehaviour
     [Header("Speed Settings")]
     [SerializeField] private float _defaultMoveSpeed;
     [SerializeField] private float _sprintMultiplicator;
+    [SerializeField] private float _slideStartSpeed;
+    [SerializeField] private float _slideDeceleration;
+
+    [Header("Slide")]
+    [SerializeField][Range(0.0f, 1.0f)] private float _cameraYPosChange = 0.5f;
 
     [Header("Jump")]
     [SerializeField] private float _jumpStrength;
@@ -54,13 +61,21 @@ public class PlayerController : MonoBehaviour
     public UnityEvent<Vector3> OnMove;
     public UnityEvent OnJump;
 
+    [Header("Phsyics Materials")]
+    [SerializeField] private PhysicsMaterial _generalPhysicsMaterial;
+    [SerializeField] private PhysicsMaterial _slidePhysicsMaterial;
+
     private PlayerInputController _inputController;
     private RigidbodyMovement _rbMovement;
     private CameraController _cameraController;
     private OverlapBoxDetector _overlapBoxDetector;
     private ItemSlotController _itemSlotController;
     private HeadBob _headbob;
+    private PhysicsMaterialChanger _physicsMaterialChanger;
     private bool _isJumpQueued = false;
+    private bool _isSliding = false;
+    private float _currentSlideSpeed;
+    private Vector3 _lastSlideDir;
 
     private void Awake()
     {
@@ -70,6 +85,7 @@ public class PlayerController : MonoBehaviour
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
         _itemSlotController = GetComponent<ItemSlotController>();
         _headbob = GetComponent<HeadBob>();
+        _physicsMaterialChanger = GetComponent<PhysicsMaterialChanger>();
 
         if (_transformVariable != null)
             _transformVariable.SetValue(transform);
@@ -86,21 +102,35 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 moveDir = _inputController.Move;
 
-        if (moveDir == Vector3.zero)
-            return;
+        if (_isSliding)
+        {
+            _currentSlideSpeed -= Time.fixedDeltaTime * _slideDeceleration;
+            _currentSlideSpeed = Mathf.Max(0.0f, _currentSlideSpeed);
 
-        float targetSpeed = _defaultMoveSpeed;
+            _rbMovement.Move(transform.TransformDirection(_lastSlideDir), _currentSlideSpeed);
+        }
+        else
+        {
+            if (moveDir == Vector3.zero)
+                return;
 
-        if (_inputController.Sprint)
-            targetSpeed *= _sprintMultiplicator;
+            float targetSpeed = _defaultMoveSpeed;
 
-        _rbMovement.Move(transform.TransformDirection(moveDir), targetSpeed);
+            if (_inputController.Sprint)
+                targetSpeed *= _sprintMultiplicator;
 
-        OnMove?.Invoke(moveDir);
+            _rbMovement.Move(transform.TransformDirection(moveDir), targetSpeed);
+
+            OnMove?.Invoke(moveDir);
+        }
+
     }
 
     private void HandleJump()
     {
+        if (_isSliding)
+            return;
+
         bool jumpPressed = _inputController.Jump;
 
         if (!(jumpPressed && !_isJumpQueued))
@@ -135,7 +165,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 moveDir = _inputController.Move;
 
-        if (moveDir == Vector3.zero)
+        if (moveDir == Vector3.zero || _isSliding)
         {
             _headbob.SetSpeed(_baseHeadbobSpeed);
             _headbob.SetStrength(_baseHeadbobStrength);
@@ -177,7 +207,6 @@ public class PlayerController : MonoBehaviour
     {
         bool wasPrimaryGadgetActionPressed = _inputController.PrimaryGadgetAction.WasPressedThisFrame();
         bool isPrimaryGadgetActionHeldDown = _inputController.PrimaryGadgetAction.IsPressed();
-        // bool isSecondaryGadgetActionHeldDown = _inputController.SecondaryGadgetAction.IsPressed();
 
         if (!(wasPrimaryGadgetActionPressed || isPrimaryGadgetActionHeldDown))
             return;
@@ -186,8 +215,6 @@ public class PlayerController : MonoBehaviour
 
         Usable equippedItem = _itemSlotController.GetEquippedItem();
 
-        // if (isSecondaryGadgetActionHeldDown)
-        //     Debug.Log("aiming");
 
         if (equippedItem != null)
         {
@@ -234,9 +261,40 @@ public class PlayerController : MonoBehaviour
         _itemSlotController.SetSlot(targetIndex);
     }
 
+    private void HandleSlide()
+    {
+        bool isCrouchSlidePressed = _inputController.CrouchSlide;
+
+        if (isCrouchSlidePressed != _isSliding)
+        {
+            _isSliding = isCrouchSlidePressed;
+
+            Vector3 targetCameraLocalPos = _cameraController.GetLocalPosition();
+
+            if (_isSliding)
+            {
+                _currentSlideSpeed = _slideStartSpeed;
+                targetCameraLocalPos.y -= _cameraYPosChange;
+
+                _cameraController.SetLocalPosition(targetCameraLocalPos);
+            }
+            else
+            {
+                targetCameraLocalPos.y += _cameraYPosChange;
+                _cameraController.SetLocalPosition(targetCameraLocalPos);
+            }
+
+            Vector3 moveDir = _inputController.Move;
+            _lastSlideDir = moveDir;
+        }
+
+        _physicsMaterialChanger.SetPhysicsMaterial(isCrouchSlidePressed ? _slidePhysicsMaterial : _generalPhysicsMaterial);
+    }
+
     private void Update()
     {
         HandleJump();
+        HandleSlide();
         HandleCameraLook();
         HandleItemUse();
         HandleGunReload();

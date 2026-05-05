@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 111e64bd5f023d143bfaceb48d590b81, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  Name: Rifle
+  _name: Rifle
+  _sprite: {fileID: 21300000, guid: 7b27384eebd0fb4498f5d412267f0004, type: 3}
   Stats:
     ShotsPerMinute: 475
     DamagePerShot: 25

@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f304bd9381d91dd4eba9c21d772af69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 0.1
+  _dimensions: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: 0, z: 0}
+  _color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &8862294826724661740
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 1791
+    m_Bits: 5887
 --- !u!114 &3147329875274025170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde34bde777f1a94dadf40b389e21be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 11400000, guid: c340d135ff7de3d4e8b45e06b34c84e7, type: 2}
+  _config: {fileID: 11400000, guid: c340d135ff7de3d4e8b45e06b34c84e7, type: 2}
   _projectileSpawnTransform: {fileID: 8167483963391213277}
   OnShoot:
     m_PersistentCalls:
@@ -197,7 +199,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b02a6570c7ed984781914916d5df31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultTime: 0
+  _defaultTime:
+    Minutes: 0
+    Seconds: 0
+  OnTimerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6737102823447454592
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,18 +8,17 @@ using UnityEngine.Events;
 [RequireComponent(typeof(DecalSpawner))]
 public class GunController : Weapon
 {
-    [SerializeField] private Gun _gun;
+    private GunConfig _gun => Config as GunConfig;
+
     [SerializeField] private Transform _projectileSpawnTransform;
-    private GunConfig _gunStats;
     private RayCastDetector _rayCastDetector;
     private GunBulletTracker _gunBulletTracker;
     private DecalSpawner _decalSpawner;
     private Timer _timer;
 
-
-    public UnityEvent<Gun> OnShoot;
-    public UnityEvent<Gun> OnReload;
-    public UnityEvent<Gun> OnGunInitialized;
+    public UnityEvent<GunConfig> OnShoot;
+    public UnityEvent<GunConfig> OnReload;
+    public UnityEvent<GunConfig> OnGunInitialized;
 
     private void Awake()
     {
@@ -34,13 +33,6 @@ public class GunController : Weapon
 
         Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gun.Stats.ToString()} -");
     }
-
-
-    // private void OnDisable()
-    // {
-    //     OnShoot.RemoveAllListeners();
-    //     OnReload.RemoveAllListeners();
-    // }
 
     private void Start()
     {
