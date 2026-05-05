@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AudioManager : MonoBehaviour
 {
@@ -48,6 +49,8 @@ public class AudioManager : MonoBehaviour
         if (config.Clip != source.clip)
             source.clip = config.Clip;
 
+        source.loop = config.Loop;
+
         if (config.MixerChannel != source.outputAudioMixerGroup)
             source.outputAudioMixerGroup = config.MixerChannel;
 
@@ -74,10 +77,18 @@ public class AudioManager : MonoBehaviour
         }
 
         if (config.UseSpatialAudio)
+        {
             source.spatialBlend = config.SpatialBlend;
+            source.rolloffMode = config.RolloffMode;
+            source.minDistance = config.MinDistance;
+            source.maxDistance = config.MaxDistance;
+            source.dopplerLevel = config.Doppler;
+            source.spread = config.Spread;
+            source.reverbZoneMix = config.ReverbZoneMix;
+        }
+            
         else
             source.spatialBlend = 0.0f;
-
     }
 
     private AudioSource FindUnoccupiedAudioSource()
@@ -108,6 +119,8 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        targetSource.transform.parent = transform;
+
         SetupAudioSourceConfig(sound.Data, targetSource);
 
         Debug.Log($"[AUDIO MANAGER] Playing sound '{sound.Data.Clip.name}' -");
@@ -116,6 +129,28 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlaySound(Sound sound, Vector3 position)
+    {   
+        Debug.Log($"[AUDIO MANAGER] Checking and setting up sound configuration -");
+
+        AudioSource targetSource = FindUnoccupiedAudioSource();
+
+        if (targetSource == null)
+        {
+            Debug.LogError($"[AUDIO MANAGER] No unoccupied AudioSource objects found. Increase AudioSource pool size to resolve this issue -");
+            return;
+        }
+
+        targetSource.transform.parent = transform;
+        targetSource.gameObject.transform.position = position;
+
+        SetupAudioSourceConfig(sound.Data, targetSource);
+
+        Debug.Log($"[AUDIO MANAGER] Playing sound '{sound.Data.Clip.name}' -");
+
+        targetSource.Play();
+    }
+
+    public void PlaySound(Sound sound, Transform targetTransform)
     {
         Debug.Log($"[AUDIO MANAGER] Checking and setting up sound configuration -");
 
@@ -127,13 +162,13 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        targetSource.gameObject.transform.position = position;
-
         SetupAudioSourceConfig(sound.Data, targetSource);
+
+        targetSource.transform.parent = targetTransform;
+        targetSource.transform.localPosition = Vector3.zero;
 
         Debug.Log($"[AUDIO MANAGER] Playing sound '{sound.Data.Clip.name}' -");
 
         targetSource.Play();
     }
-
 }

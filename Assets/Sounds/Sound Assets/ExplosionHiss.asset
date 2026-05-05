@@ -22,4 +22,11 @@ MonoBehaviour:
     UseRandomPitch: 1
     RandomPitchRange: 0.3
     UseSpatialAudio: 1
-    SpatialBlend: 0.75
+    SpatialBlend: 1
+    RolloffMode: 0
+    MinDistance: 1
+    MaxDistance: 50
+    Doppler: 1
+    Spread: 0
+    ReverbZoneMix: 1
+    Loop: 0

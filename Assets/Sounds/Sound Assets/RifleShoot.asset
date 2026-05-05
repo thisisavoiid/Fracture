@@ -15,11 +15,18 @@ MonoBehaviour:
   _soundConfig:
     Clip: {fileID: 8300000, guid: 85a8f76426fa94d4087f7f1018eac895, type: 3}
     MixerChannel: {fileID: 5158986390200742491, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
-    DefaultVolume: 0.5
+    DefaultVolume: 0.2
     DefaultPitch: 1
     UseRandomVolume: 1
     RandomVolumeRange: 0.075
     UseRandomPitch: 1
     RandomPitchRange: 0.12
     UseSpatialAudio: 1
-    SpatialBlend: 0.75
+    SpatialBlend: 1
+    RolloffMode: 0
+    MinDistance: 1
+    MaxDistance: 50
+    Doppler: 1
+    Spread: 0
+    ReverbZoneMix: 1
+    Loop: 0

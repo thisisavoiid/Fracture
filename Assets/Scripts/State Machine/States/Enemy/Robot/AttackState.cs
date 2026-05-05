@@ -57,7 +57,7 @@ public class AttackState : State
         if (_headTransform == null)
             return;
 
-        
+
         _itemSlotController.transform.LookAt(_targetTransform.position);
 
         if (_reloadTimer != null && (_reloadTimer.GetRemainingTime().TotalSeconds <= 0 || !_hasAlreadyAttackedBefore))
@@ -71,9 +71,6 @@ public class AttackState : State
 
             if (_battery != null)
                 _battery.Drain();
-
-            if (!_hasAlreadyAttackedBefore)
-                _hasAlreadyAttackedBefore = true;
         }
 
         if (equippedItem is not Weapon weapon)
@@ -89,6 +86,9 @@ public class AttackState : State
         {
             weapon.Reload();
             _reloadTimer.Reset();
+
+            if (!_hasAlreadyAttackedBefore)
+                _hasAlreadyAttackedBefore = true;
         }
     }
 }

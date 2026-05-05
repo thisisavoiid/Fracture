@@ -71,6 +71,7 @@ public class RobotBrain : MonoBehaviour
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
     [SerializeField] private float _reloadTime;
 
+    [SerializeField] private Sound _sound;
 
     private Battery _battery;
     private NavMeshAgent _navmeshAgent;
@@ -85,6 +86,8 @@ public class RobotBrain : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlaySound(_sound, transform);
+        
         _transform = transform;
 
         _navmeshAgent = GetComponent<NavMeshAgent>();
@@ -94,7 +97,7 @@ public class RobotBrain : MonoBehaviour
         _battery = GetComponent<Battery>();
         _reloadTimer = GetComponent<Timer>();
 
-        _reloadTimer.SetTime(new TimeMS() );
+        _reloadTimer.SetTime(new TimeMS(_reloadTime));
         _reloadTimer.Start();
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);

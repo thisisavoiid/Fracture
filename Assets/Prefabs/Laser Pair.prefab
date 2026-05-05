@@ -2112,7 +2112,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2817
+  m_VersionIndex: 2847
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4303,7 +4303,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2817
+  m_VersionIndex: 2847
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4686,6 +4686,7 @@ MonoBehaviour:
   _laserEnd: {fileID: 8387866142388550747}
   _laserRepositionDistance: 0.25
   _damageToDeal: 15
+  _sound: {fileID: 11400000, guid: fb8f8d0cea2d1514387b918b3cee643a, type: 2}
 --- !u!114 &8935818022287489983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7108,7 +7109,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 290
+  m_VersionIndex: 320
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

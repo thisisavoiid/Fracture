@@ -10,7 +10,7 @@ public class LaserStartController : MonoBehaviour
     [SerializeField] private Transform _laserEnd;
     [SerializeField] private float _laserRepositionDistance = 0.5f;
     [SerializeField] private float _damageToDeal = 10.0f;
-
+    [SerializeField] private Sound _sound;
     private LineRenderer _lineRenderer;
     private RayCastDetector _rayCastDetector;
     private Vector3 _lastEndPosition;
@@ -37,6 +37,8 @@ public class LaserStartController : MonoBehaviour
         SetCurrentStartPosition();
 
         RefreshLinePositions(_lastStartPosition, _lastEndPosition);
+
+        AudioManager.Instance.PlaySound(_sound, gameObject.transform);
     }
 
     private void FixedUpdate()

@@ -1,10 +1,6 @@
 using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using UnityEngine.Scripting.APIUpdating;
 
 [RequireComponent(typeof(PlayerInputController))]
 [RequireComponent(typeof(RigidbodyMovement))]

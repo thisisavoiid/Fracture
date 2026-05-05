@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb200b882c026434e8cef914fa2dd056, type: 3}
-  m_Name: ExplosionDetonation
+  m_Name: Laser Atmosphere
   m_EditorClassIdentifier: 
   _soundConfig:
-    Clip: {fileID: 8300000, guid: dde687b8dba4bdb4db4ac6b56921646c, type: 3}
-    MixerChannel: {fileID: 6504823309962035962, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
-    DefaultVolume: 0.85
-    DefaultPitch: 1
+    Clip: {fileID: 8300000, guid: 737767a57f965b648b3baaca7a652c76, type: 3}
+    MixerChannel: {fileID: 24300002, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
+    DefaultVolume: 1.6
+    DefaultPitch: 0.75
     UseRandomVolume: 1
-    RandomVolumeRange: 0.0075
+    RandomVolumeRange: 0.1
     UseRandomPitch: 1
-    RandomPitchRange: 0.075
+    RandomPitchRange: 0.1
     UseSpatialAudio: 1
     SpatialBlend: 1
     RolloffMode: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
     Doppler: 1
     Spread: 0
     ReverbZoneMix: 1
-    Loop: 0
+    Loop: 1
