@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 
+/// <summary>
+/// Base class defining the mandatory interface for any entity functioning as part of a swarm.
+/// </summary>
 public abstract class Swarm : MonoBehaviour
 {
-    public enum State
-    {
-        Idle,
-        Chase,
-        Attack
-    }
+    public enum State { Idle, Chase, Attack }
 
     public abstract void SetData(
         List<Swarm> swarmInstances,
@@ -18,6 +15,7 @@ public abstract class Swarm : MonoBehaviour
         UnityAction<Swarm> onSwarmDeathEvent,
         Swarm leaderSwarm
     );
+
     public abstract void SetPosition(Vector3 startPos);
     public abstract void StartChase();
     public abstract void InvokeDeath();

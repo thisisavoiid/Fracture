@@ -4,6 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// The central processing unit for the robot AI, implementing a Finite State Machine (FSM). 
+/// It manages transitions between states like Patrol, Chase, Attack, and Charging based on 
+/// environmental triggers, battery levels, and player visibility.
+/// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(OverlapSphereDetector))]
 [RequireComponent(typeof(RayCastDetector))]
@@ -12,7 +17,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(ItemSlotController))]
 [RequireComponent(typeof(Battery))]
 [RequireComponent(typeof(Timer))]
-
 public class RobotBrain : MonoBehaviour
 {
     #region FSM Variables
@@ -71,6 +75,8 @@ public class RobotBrain : MonoBehaviour
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
     [SerializeField] private float _reloadTime;
 
+    [Header("Audio")]
+    [Tooltip("Ambient or initialization sound played by the robot.")]
     [SerializeField] private Sound _sound;
 
     private Battery _battery;
@@ -84,6 +90,9 @@ public class RobotBrain : MonoBehaviour
 
     private Dictionary<State, List<Transition>> _states = new();
 
+    /// <summary>
+    /// Initializes dependencies, configures the state machine transitions, and sets the initial <see cref="PatrolState"/>.
+    /// </summary>
     private void Start()
     {
         AudioManager.Instance.PlaySound(_sound, transform);
@@ -177,6 +186,9 @@ public class RobotBrain : MonoBehaviour
         SetState(patrolState);
     }
 
+    /// <summary>
+    /// Executes the current state's logic and evaluates transitions to determine if a state switch is required.
+    /// </summary>
     private void Update()
     {
         if (_currentState == null)
@@ -202,6 +214,10 @@ public class RobotBrain : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles the transition logic by exiting the current <see cref="State"/> and entering the new target <see cref="State"/>.
+    /// </summary>
+    /// <param name="state">The new state to transition into.</param>
     public void SetState(State state)
     {
         if (_currentState != null)
@@ -213,6 +229,11 @@ public class RobotBrain : MonoBehaviour
             _currentState.Enter();
     }
 
+    /// <summary>
+    /// Performs a combined check using <see cref="OverlapSphereDetector"/> and <see cref="RayCastDetector"/> 
+    /// to determine if the target is within sight and range.
+    /// </summary>
+    /// <returns>True if the player is detected and visible; otherwise, false.</returns>
     public bool CanSeePlayer()
     {
         List<Collider> foundColliders = _overlapSphereDetector.GetColliders(_targetMask);
@@ -231,6 +252,12 @@ public class RobotBrain : MonoBehaviour
         return hit.collider.gameObject == closestTargetCollider.gameObject;
     }
 
+    /// <summary>
+    /// Filters a list of colliders to find the one closest to a specific origin point.
+    /// </summary>
+    /// <param name="origin">The starting point for the distance calculation.</param>
+    /// <param name="colliders">The list of colliders to evaluate.</param>
+    /// <returns>The closest <see cref="Collider"/> or null if the list is empty.</returns>
     private Collider GetClosestCollider(Vector3 origin, List<Collider> colliders)
     {
         if (colliders == null || colliders.Count == 0)
@@ -244,6 +271,9 @@ public class RobotBrain : MonoBehaviour
             .FirstOrDefault();
     }
 
+    /// <summary>
+    /// Visualizes patrol paths and the charging station position within the Unity Editor.
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (_patrolWaypoints.Count == 0 || _patrolWaypoints == null)
@@ -261,6 +291,10 @@ public class RobotBrain : MonoBehaviour
         Gizmos.DrawWireCube(_chargeStationTransform.position, Vector3.one);
     }
 
+    /// <summary>
+    /// Calculates the distance between the robot and the target transform.
+    /// </summary>
+    /// <returns>The magnitude of the distance as a <see cref="float"/>.</returns>
     private float GetDistanceToTarget()
     {
         if (_targetTransform == null)

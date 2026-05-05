@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Directs the agent to a specific charging station location.
+/// </summary>
 public class GoToChargeStationState : State
 {
     private Transform _chargeStationTransform;
@@ -16,13 +19,14 @@ public class GoToChargeStationState : State
     )
     {
         _chargeStationTransform = chargeStationTransform;
-
         _agent = agent;
-
         _speed = speed;
         _acceleration = acceleration;
     }
 
+    /// <summary>
+    /// Initiates pathfinding to the station immediately upon entering the state.
+    /// </summary>
     public override void Enter()
     {
         if (_chargeStationTransform == null)
@@ -33,13 +37,7 @@ public class GoToChargeStationState : State
         _agent.SetDestination(_chargeStationTransform.position);
     }
 
-    public override void Exit()
-    {
+    public override void Exit() { }
 
-    }
-
-    public override void Run()
-    {
-
-    }
+    public override void Run() { }
 }

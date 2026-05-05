@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// <summary>
+/// Controls individual bee behavior within a swarm, utilizing a flocking algorithm 
+/// (Separation, Alignment, and Cohesion towards a leader) combined with NavMesh pathfinding 
+/// for the leader bee and combat logic for followers.
+/// </summary>
 [RequireComponent(typeof(OverlapSphereDetector))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(RayCastDetector))]
@@ -57,6 +62,7 @@ public class BeeBrain : Swarm
     [Tooltip("The detector component used for finding targets.")]
     [SerializeField] private OverlapSphereDetector _targetSearchSphereDetector;
 
+    [Tooltip("The weapon component used by the bee to attack targets.")]
     [SerializeField] private Usable _gun;
 
     private Rigidbody _rb;
@@ -68,6 +74,9 @@ public class BeeBrain : Swarm
     private RayCastDetector _rayCastDetector;
     private Timer _timer;
 
+    /// <summary>
+    /// Initializes internal references and validates inspector assignments for detectors.
+    /// </summary>
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -100,11 +109,17 @@ public class BeeBrain : Swarm
         }
     }
 
+    /// <summary>
+    /// Teleports the bee to the specified starting position.
+    /// </summary>
     public override void SetPosition(Vector3 startPos)
     {
         transform.position = startPos;
     }
 
+    /// <summary>
+    /// Injects swarm-wide data including the list of peers, the target transform, and the death callback.
+    /// </summary>
     public override void SetData(
         List<Swarm> swarmObjects,
         TransformVariable targetTransform,
@@ -120,18 +135,29 @@ public class BeeBrain : Swarm
         Debug.Log($"[{this.GetType().Name.ToUpper()}] Data set for {gameObject.name}. Leader is: {(_leaderSwarm != null ? _leaderSwarm.name : "NULL")} -");
     }
 
+    /// <summary>
+    /// Notifies the swarm container of this individual's death.
+    /// </summary>
     public override void InvokeDeath()
     {
         Debug.Log($"[{this.GetType().Name.ToUpper()}] InvokeDeath called for {gameObject.name}. -");
         _containerSwarmDeathEvent?.Invoke(this);
     }
 
+    /// <summary>
+    /// Transitions the bee's state to Chase, enabling pursuit logic.
+    /// </summary>
     public override void StartChase()
     {
         Debug.Log($"[{this.GetType().Name.ToUpper()}] {gameObject.name} changing state from {_currentState} to Chase. -");
         _currentState = Swarm.State.Chase;
     }
 
+    /// <summary>
+    /// Calculates a composite steering force based on the leader's position, 
+    /// noise for natural movement, and separation from other bees.
+    /// </summary>
+    /// <returns>A normalized direction vector representing the swarm force.</returns>
     private Vector3 CalculateSwarmForce()
     {
         if (_leaderSwarm == null) return Vector3.zero;
@@ -163,11 +189,17 @@ public class BeeBrain : Swarm
             }
         }
 
-        Vector3 targetForce = (leaderSwarmDir.normalized * _directionToLeaderSwarmWeight) + (leaderSwarmForward * _leaderSwarmForwardWeight) + (perlinNoise * _perlinNoiseWeight) + (separationForce * _separationForceWeight);
+        Vector3 targetForce = (leaderSwarmDir.normalized * _directionToLeaderSwarmWeight) +
+                             (leaderSwarmForward * _leaderSwarmForwardWeight) +
+                             (perlinNoise * _perlinNoiseWeight) +
+                             (separationForce * _separationForceWeight);
 
         return targetForce.normalized;
     }
 
+    /// <summary>
+    /// Generates a pseudo-random jitter vector using Perlin noise for smoother, more organic movement.
+    /// </summary>
     private Vector3 CalculateVectorPerlinNoise()
     {
         Vector3 perlinNoise = new Vector3(
@@ -179,6 +211,9 @@ public class BeeBrain : Swarm
         return perlinNoise;
     }
 
+    /// <summary>
+    /// Calculates the next valid NavMesh corner towards the target position.
+    /// </summary>
     private Vector3 CalculateNextWaypoint(Vector3 origin, Vector3 targetPosition, NavMeshPath path)
     {
         if (!NavMesh.CalculatePath(origin, targetPosition, NavMesh.AllAreas, path))
@@ -195,6 +230,9 @@ public class BeeBrain : Swarm
         return transform.position;
     }
 
+    /// <summary>
+    /// Called every tick to process movement and combat logic based on the current <see cref="Swarm.State"/>.
+    /// </summary>
     public override void SwarmTick()
     {
         if (_leaderSwarm == null)
@@ -203,6 +241,7 @@ public class BeeBrain : Swarm
         switch (_currentState)
         {
             case Swarm.State.Idle:
+                // Followers drift around the leader in idle
                 if (this.gameObject != _leaderSwarm.gameObject)
                 {
                     _rb.linearVelocity = CalculateSwarmForce() * _swarmSpeed;
@@ -212,6 +251,7 @@ public class BeeBrain : Swarm
             case Swarm.State.Chase:
                 if (this.gameObject == _leaderSwarm.gameObject)
                 {
+                    // Leader follows NavMesh pathing
                     Vector3 nextWaypoint = CalculateNextWaypoint(
                         transform.position,
                         _targetTransform.Value.position,
@@ -222,6 +262,7 @@ public class BeeBrain : Swarm
                 }
                 else
                 {
+                    // Followers steer toward leader and attack target if in range
                     _rb.linearVelocity = CalculateSwarmForce() * _swarmSpeed;
 
                     if (_targetTransform == null || _targetTransform.Value == null) break;
@@ -250,12 +291,12 @@ public class BeeBrain : Swarm
         }
     }
 
+    /// <summary>
+    /// Renders the leader's NavMesh path and waypoints for debugging in the Editor.
+    /// </summary>
     private void OnDrawGizmos()
     {
-        if (_leaderSwarm == null)
-            return;
-
-        if (this.gameObject != _leaderSwarm.gameObject)
+        if (_leaderSwarm == null || this.gameObject != _leaderSwarm.gameObject)
             return;
 
         if (_path == null || _path.corners.Length == 0)

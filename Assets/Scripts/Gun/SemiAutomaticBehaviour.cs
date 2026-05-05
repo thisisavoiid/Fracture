@@ -49,17 +49,14 @@ public class SemiAutomaticBehaviour : GunBehaviour
                 );
             }
         }
-        
+
         if (hit.collider == null)
             return true;
 
-        IShootable shootable = hit.collider.gameObject.GetComponent<IShootable>();
-
-        if (shootable == null)
-            return true;
-
-        shootable.Hit(gunCtx.Gun.Stats.DamagePerShot, hit.point);
+        if (hit.collider.gameObject.TryGetComponent(out IShootable shootable))
+            shootable.Hit(gunCtx.Gun.Stats.DamagePerShot, hit.point);
 
         return true;
+
     }
 }

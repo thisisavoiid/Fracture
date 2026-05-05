@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f304bd9381d91dd4eba9c21d772af69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: 0.05
+  _dimensions: {x: 0, y: 0, z: 0}
+  _offset: {x: 0, y: 0, z: 0}
+  _color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3199620946688281048
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +490,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b02a6570c7ed984781914916d5df31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultTime: 0
+  _defaultTime:
+    Minutes: 0
+    Seconds: 0
+  OnTimerEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTimerUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7709662526279424935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,7 +545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde34bde777f1a94dadf40b389e21be1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 11400000, guid: 12690f1a9ebf74e41a18075fc3c71ce1, type: 2}
+  _config: {fileID: 11400000, guid: 12690f1a9ebf74e41a18075fc3c71ce1, type: 2}
   _projectileSpawnTransform: {fileID: 7015045667234291414}
   OnShoot:
     m_PersistentCalls:

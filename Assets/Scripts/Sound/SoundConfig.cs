@@ -2,6 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.Audio;
 
+/// <summary>
+/// A data container class that defines the playback parameters for a sound. 
+/// It includes settings for volume, pitch randomization, spatial blending, 
+/// and distance-based attenuation for 3D audio.
+/// </summary>
 [Serializable]
 public class SoundConfig
 {

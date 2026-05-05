@@ -1,18 +1,32 @@
-
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// A singleton-based manager that handles global audio playback using an object pooling system. 
+/// It optimizes performance by reusing <see cref="AudioSource"/> components and provides 
+/// multiple overloads for playing sounds at specific locations or attached to targets.
+/// </summary>
 public class AudioManager : MonoBehaviour
 {
-    [Header("Audio Channel Pool Size")]
+    [Header("Pool Configuration")]
     [Tooltip("The amount of audio channel pool sources to be generated.")]
     [SerializeField] [Range(1, 200)] private int _audioChannelCount;
+
     private List<AudioSource> _audioSourcePool = new();
     private static AudioManager _instance;
+
+    /// <summary>
+    /// Provides global access to the <see cref="AudioManager"/> singleton instance.
+    /// </summary>
+    /// <returns>The static instance of the <see cref="AudioManager"/>.</returns>
     public static AudioManager Instance => _instance;
 
+    /// <summary>
+    /// Initializes the audio pool and implements the singleton pattern to ensure only 
+    /// one instance exists across scenes.
+    /// </summary>
     private void Awake()
     {
         InitializeAudioPool();
@@ -28,6 +42,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instantiates and configures the initial set of <see cref="AudioSource"/> objects 
+    /// based on the <see cref="_audioChannelCount"/>.
+    /// </summary>
     private void InitializeAudioPool()
     {
         for (int i = 0; i < _audioChannelCount; i++)
@@ -44,6 +62,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies a <see cref="SoundConfig"/> to a specific <see cref="AudioSource"/>, 
+    /// handling pitch/volume randomization and spatial audio settings.
+    /// </summary>
+    /// <param name="config">The configuration data for the sound.</param>
+    /// <param name="source">The target source to configure.</param>
     private void SetupAudioSourceConfig(SoundConfig config, AudioSource source)
     {
         if (config.Clip != source.clip)
@@ -86,11 +110,14 @@ public class AudioManager : MonoBehaviour
             source.spread = config.Spread;
             source.reverbZoneMix = config.ReverbZoneMix;
         }
-            
         else
             source.spatialBlend = 0.0f;
     }
 
+    /// <summary>
+    /// Searches the pool for the first <see cref="AudioSource"/> that is not currently playing.
+    /// </summary>
+    /// <returns>An available <see cref="AudioSource"/> or null if all are occupied.</returns>
     private AudioSource FindUnoccupiedAudioSource()
     {
         AudioSource targetSource = null;
@@ -107,6 +134,10 @@ public class AudioManager : MonoBehaviour
         return targetSource;
     }
 
+    /// <summary>
+    /// Plays a sound globally (non-spatial) using an available pooled source.
+    /// </summary>
+    /// <param name="sound">The <see cref="Sound"/> object containing data to play.</param>
     public void PlaySound(Sound sound)
     {
         Debug.Log($"[AUDIO MANAGER] Checking and setting up sound configuration -");
@@ -128,6 +159,11 @@ public class AudioManager : MonoBehaviour
         targetSource.Play();
     }
 
+    /// <summary>
+    /// Plays a sound at a specific world position.
+    /// </summary>
+    /// <param name="sound">The <see cref="Sound"/> object containing data to play.</param>
+    /// <param name="position">The <see cref="Vector3"/> world coordinates for the sound.</param>
     public void PlaySound(Sound sound, Vector3 position)
     {   
         Debug.Log($"[AUDIO MANAGER] Checking and setting up sound configuration -");
@@ -150,6 +186,11 @@ public class AudioManager : MonoBehaviour
         targetSource.Play();
     }
 
+    /// <summary>
+    /// Plays a sound attached to a specific <see cref="Transform"/>, allowing it to move with the target.
+    /// </summary>
+    /// <param name="sound">The <see cref="Sound"/> object containing data to play.</param>
+    /// <param name="targetTransform">The parent transform to attach the audio source to.</param>
     public void PlaySound(Sound sound, Transform targetTransform)
     {
         Debug.Log($"[AUDIO MANAGER] Checking and setting up sound configuration -");

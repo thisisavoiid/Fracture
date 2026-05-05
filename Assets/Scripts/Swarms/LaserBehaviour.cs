@@ -1,22 +1,28 @@
 using UnityEngine;
 
+/// <summary>
+/// Implements a laser-style firing behavior for weapons, handling hit detection via raycasting 
+/// and projectile instantiation for visual or physical effects.
+/// </summary>
 [CreateAssetMenu(menuName = "Gun/Behaviours/LaserBehaviour")]
 public class LaserBehaviour : GunBehaviour
 {
-    private bool CanShoot(
-        bool isHeld,
-        float remainingTime
-    ) => isHeld && remainingTime <= 0;
+    /// <summary>
+    /// Determines if the weapon is in a state where it can fire based on input and cooldown.
+    /// </summary>
+    private bool CanShoot(bool isHeld, float remainingTime) => isHeld && remainingTime <= 0;
 
     public override bool Shoot(GunContext gunCtx, out RaycastHit hit)
     {
         hit = new RaycastHit();
 
+        // Validate cooldown and hold status
         if (!CanShoot(gunCtx.IsHeld, gunCtx.Timer.GetRemainingTime().TotalSeconds))
             return false;
 
         gunCtx.Timer.Reset();
 
+        // Perform the hit detection
         gunCtx.RayCastDetector.Check(
             gunCtx.Origin,
             gunCtx.Direction,
@@ -24,6 +30,7 @@ public class LaserBehaviour : GunBehaviour
             gunCtx.Gun.Stats.Range
         );
 
+        // Visual debug aid in the Scene view
         Debug.DrawRay(
             gunCtx.Origin,
             gunCtx.Direction * gunCtx.Gun.Stats.Range,
@@ -31,6 +38,7 @@ public class LaserBehaviour : GunBehaviour
             3.0f
         );
 
+        // Handle visual projectile spawning
         if (gunCtx.Gun.Projectile != null)
         {
             var projectile = Instantiate(gunCtx.Gun.Projectile, gunCtx.ProjectileSpawnTransform.position, Quaternion.identity);
@@ -51,12 +59,9 @@ public class LaserBehaviour : GunBehaviour
         if (hit.collider == null)
             return true;
 
-        IShootable shootable = hit.collider.gameObject.GetComponent<IShootable>();
-
-        if (shootable == null)
-            return true;
-
-        shootable.Hit(gunCtx.Gun.Stats.DamagePerShot, hit.point);
+        // Apply damage if the target is shootable
+        if (hit.collider.gameObject.TryGetComponent(out IShootable shootable))
+            shootable.Hit(gunCtx.Gun.Stats.DamagePerShot, hit.point);
 
         return true;
     }

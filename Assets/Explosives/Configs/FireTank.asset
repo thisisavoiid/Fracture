@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Fire Tank
   Config:
     Radius: 10
-    Damage: 25
+    Damage: 50
     DetonationTime: 0.5
     TargetLayers:
       serializedVersion: 2

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// <summary>
+/// Manages the lifecycle and collective behavior of a swarm group, including spawning, 
+/// leader assignment, and target tracking.
+/// </summary>
 [RequireComponent(typeof(OverlapSphereDetector))]
 public class SwarmContainerController : MonoBehaviour
 {
@@ -51,6 +52,9 @@ public class SwarmContainerController : MonoBehaviour
         MoveSwarmsToDefaultPositions();
     }
 
+    /// <summary>
+    /// Spawns the specified amount of swarm members based on the prefab.
+    /// </summary>
     private void SpawnSwarmObjects()
     {
         if (_swarmPrefab == null)
@@ -67,12 +71,18 @@ public class SwarmContainerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Positions each swarm member at its pre-calculated starting position.
+    /// </summary>
     private void MoveSwarmsToDefaultPositions()
     {
         for (int i = 0; i < _swarmInstances.Count; i++)
             _swarmInstances[i].SetPosition(_startPositions[i]);
     }
 
+    /// <summary>
+    /// Passes necessary references and data to each swarm instance.
+    /// </summary>
     private void SetSwarmData()
     {
         for (int i = 0; i < _swarmInstances.Count; i++)
@@ -84,6 +94,9 @@ public class SwarmContainerController : MonoBehaviour
             );
     }
 
+    /// <summary>
+    /// Randomly designates one swarm member as an invisible, invincible leader for others to follow.
+    /// </summary>
     private void SetLeaderSwarm()
     {
         if (_swarmInstances.Count == 0)
@@ -98,13 +111,9 @@ public class SwarmContainerController : MonoBehaviour
         _currentLeaderSwarm = _swarmInstances[Random.Range(0, _swarmInstances.Count)];
         _currentLeaderSwarm.gameObject.layer = LayerMask.NameToLayer(_invincibleLayerName);
 
-        MeshRenderer leaderMeshRenderer = _currentLeaderSwarm.GetComponent<MeshRenderer>();
-        if (leaderMeshRenderer != null)
-            leaderMeshRenderer.enabled = false;
-
-        Collider leaderSwarmCollider = _currentLeaderSwarm.GetComponent<Collider>();
-        if (leaderSwarmCollider != null)
-            leaderSwarmCollider.excludeLayers = _leaderPassthroughLayers;
+        // Hide leader visual and configure collision passthrough
+        if (_currentLeaderSwarm.TryGetComponent(out MeshRenderer mr)) mr.enabled = false;
+        if (_currentLeaderSwarm.TryGetComponent(out Collider col)) col.excludeLayers = _leaderPassthroughLayers;
 
         Light[] lights = _currentLeaderSwarm.GetComponentsInChildren<Light>();
         if (lights.Length > 0)
@@ -112,6 +121,9 @@ public class SwarmContainerController : MonoBehaviour
                 light.enabled = false;
     }
 
+    /// <summary>
+    /// Removes a swarm member from the simulation and handles group cleanup.
+    /// </summary>
     public void RemoveSwarm(Swarm swarm)
     {
         _swarmInstances.Remove(swarm);
@@ -126,6 +138,9 @@ public class SwarmContainerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Generates random start positions within the defined spawn container area.
+    /// </summary>
     private void CalculateStartPositions()
     {
         for (int i = 0; i < _amount + 1; i++)
@@ -140,23 +155,27 @@ public class SwarmContainerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Visualizes the spawn container and start positions in the Unity Editor.
+    /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-
         Gizmos.DrawWireCube(transform.position, _spawnContainerSize);
 
         if (_startPositions == null)
             return;
 
         Gizmos.color = Color.green;
-
         foreach (Vector3 startPos in _startPositions)
         {
             Gizmos.DrawSphere(startPos, 0.075f);
         }
     }
 
+    /// <summary>
+    /// Regularly checks for targets and updates swarm behavior states.
+    /// </summary>
     private void FixedUpdate()
     {
         bool isTargetInRange = _targetCheckDetector.CheckForAnyObjects(_attackTriggerLayers);
