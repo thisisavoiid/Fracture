@@ -569,11 +569,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1792347106}
+  - component: {fileID: 1792347101}
   - component: {fileID: 1792347105}
   - component: {fileID: 1792347104}
   - component: {fileID: 1792347103}
   - component: {fileID: 1792347102}
-  - component: {fileID: 1792347101}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -600,7 +600,7 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 32
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 150
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -610,8 +610,8 @@ MonoBehaviour:
     textureScale: {x: 1, y: 1}
     textureOffset: {x: 0, y: 0}
   refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
+    enableRefracturing: 1
+    maxRefractureCount: 2
     invokeCallbacks: 0
   callbackOptions:
     onFracture:
@@ -731,7 +731,7 @@ Transform:
   m_GameObject: {fileID: 1792347100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 174.35524, y: 181.5077, z: -0.079376966}
+  m_LocalPosition: {x: 175.10524, y: 181.5077, z: 1.9206231}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

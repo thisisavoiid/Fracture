@@ -8,9 +8,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(DecalSpawner))]
 public class GunController : Weapon
 {
-    private GunConfig _gun => Config as GunConfig;
-
     [SerializeField] private Transform _projectileSpawnTransform;
+    [SerializeField] private ScriptableEvent _onGunShotEvent;
+
+    private GunConfig _gun => Config as GunConfig;
     private RayCastDetector _rayCastDetector;
     private GunBulletTracker _gunBulletTracker;
     private DecalSpawner _decalSpawner;
@@ -27,7 +28,6 @@ public class GunController : Weapon
         _timer = GetComponent<Timer>();
         _decalSpawner = GetComponent<DecalSpawner>();
 
-        Debug.Log($"time code: {CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute)}");
         _timer.SetTime(new TimeMS(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute)));
         _timer.Start();
 
@@ -68,7 +68,8 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-
+        _onGunShotEvent.Invoke();
+        
         if (hit.collider == null)
             return;
 

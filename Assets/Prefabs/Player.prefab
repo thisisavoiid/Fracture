@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 3993649210457972446}
   - component: {fileID: 5370506809992784433}
   - component: {fileID: 2152570397126749913}
+  - component: {fileID: 914802079214223401}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -569,6 +570,9 @@ MonoBehaviour:
   _sprintHeadbobSpeedMultiplicator: 12.5
   _defaultMoveSpeed: 10
   _sprintMultiplicator: 1.25
+  _slideStartSpeed: 15
+  _slideDeceleration: 12.5
+  _cameraYPosChange: 0.5
   _jumpStrength: 30
   _transformVariable: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
   OnMouseLook:
@@ -604,6 +608,8 @@ MonoBehaviour:
   OnJump:
     m_PersistentCalls:
       m_Calls: []
+  _generalPhysicsMaterial: {fileID: 13400000, guid: 86dde7478db8d384a9c6291797adaf53, type: 2}
+  _slidePhysicsMaterial: {fileID: 13400000, guid: f39adaf8dd747574aad338a48b1c719e, type: 2}
 --- !u!114 &3829569383813201222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,6 +695,7 @@ MonoBehaviour:
   _inventoryContent:
   - {fileID: 3147329875274025170, guid: 66f1e035207f4764a8f5cb63d2364a33, type: 3}
   - {fileID: 3147329875274025170, guid: 3488832e32f342e4cb8cfb3cd45eae1f, type: 3}
+  _inventoryVariable: {fileID: 11400000, guid: 982da4e3e8d93214e9e7cfbce04ed723, type: 2}
 --- !u!114 &685308438115763218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -776,3 +783,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &914802079214223401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844992768335865853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a03ba1aedb8d9439fa0de7fbcc5e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: 9ade37a96609d5749ade1effcd6bfc74, type: 2}
   _projectileSpawnTransform: {fileID: 5981108494461261074}
+  _onGunShotEvent: {fileID: 11400000, guid: 81e59b51d1558454b817db753a78295b, type: 2}
   OnShoot:
     m_PersistentCalls:
       m_Calls:

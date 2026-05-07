@@ -3,11 +3,6 @@ using UnityEngine;
 /// <summary>
 /// Provides utility methods for performing raycast detection with integrated debug visualization.
 /// </summary>
-/// <remarks>
-/// This class simplifies <see cref="Physics.Raycast(Ray, out RaycastHit, float, int)"/> calls by 
-/// automatically handling ray construction and drawing <see cref="Debug.DrawLine(Vector3, Vector3, Color)"/> 
-/// to visualize hits in the editor.
-/// </remarks>
 public class RayCastDetector : MonoBehaviour
 {
     [Tooltip("The default layer mask used for raycast detection.")]

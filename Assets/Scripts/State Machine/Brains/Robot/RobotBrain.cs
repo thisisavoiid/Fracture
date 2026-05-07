@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// The central processing unit for the robot AI, implementing a Finite State Machine (FSM). 
+/// The central processing unit for the robot AI, implementing a Finite State Machine. 
 /// It manages transitions between states like Patrol, Chase, Attack, and Charging based on 
 /// environmental triggers, battery levels, and player visibility.
 /// </summary>

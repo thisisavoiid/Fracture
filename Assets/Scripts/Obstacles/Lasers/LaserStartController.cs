@@ -30,9 +30,6 @@ public class LaserStartController : MonoBehaviour
     private Vector3 _lastStartPosition;
     private bool _hasHitResetBeenValidated = false;
 
-    /// <summary>
-    /// Initializes component references and resets the <see cref="LineRenderer"/>.
-    /// </summary>
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
@@ -114,7 +111,7 @@ public class LaserStartController : MonoBehaviour
         if (hit.collider == null)
             return;
 
-        if (hit.collider.gameObject.TryGetComponent<IShootable>(out IShootable shootable))
+        if (hit.collider.gameObject.TryGetComponent(out IShootable shootable))
         {
             shootable.Hit(_damageToDeal, hit.point);
         }

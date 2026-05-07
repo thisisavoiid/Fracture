@@ -69,15 +69,11 @@ public class PlayerInputController : MonoBehaviour
 
     private InputAction _shuffleInventorySlots;
     /// <summary>
-    /// Reads the current scroll or button value for inventory shuffling.
+    /// Reads the current scroll value for inventory shuffling.
     /// </summary>
-    /// <returns>A <see cref="float"/> representing the shuffle direction or value.</returns>
+    /// <returns>A <see cref="float"/> representing the shuffle direction.</returns>
     public float ShuffleInventorySlots => _shuffleInventorySlots.ReadValue<float>();
 
-    /// <summary>
-    /// Initializes a new instance of <see cref="GameInput"/>, caches all movement, gadget, 
-    /// and inventory actions, and locks the system cursor.
-    /// </summary>
     private void Awake()
     {
         _gameInput = new GameInput();

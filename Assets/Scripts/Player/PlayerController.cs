@@ -81,10 +81,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 _moveDir;
     private bool _isGrounded;
 
-    /// <summary>
-    /// Initializes all required components using <see cref="GetComponent{T}"/>, sets the global 
-    /// <see cref="TransformVariable"/> and configures the <see cref="CameraController"/> FOV lerp speed.
-    /// </summary>
     private void Awake()
     {
         _inputController = GetComponent<PlayerInputController>();

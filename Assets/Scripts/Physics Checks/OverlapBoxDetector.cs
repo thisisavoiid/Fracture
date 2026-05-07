@@ -5,10 +5,6 @@ using UnityEngine;
 /// <summary>
 /// Provides utility methods for detecting colliders within a box-shaped area using <see cref="Physics.OverlapBox(Vector3, Vector3, Quaternion, int)"/>.
 /// </summary>
-/// <remarks>
-/// This component facilitates spatial queries using a box volume with configurable dimensions and offsets, 
-/// supporting type-based filtering via <see cref="GameObject.GetComponent{T}()"/>.
-/// </remarks>
 public class OverlapBoxDetector : MonoBehaviour
 {
     [Tooltip("The half-extents (half-size) of the detection box.")]
