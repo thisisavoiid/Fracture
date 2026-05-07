@@ -461,7 +461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8806b53315f27d1479d37ae78ff8cc0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnGunShootEvent: {fileID: 0}
 --- !u!114 &714240572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: 81e59b51d1558454b817db753a78295b, type: 2}
+  _event: {fileID: 11400000, guid: 724c572d595f3bb4e8ff8ac39a9c3c66, type: 2}
   _onEventInvoked:
     m_PersistentCalls:
       m_Calls:

@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     public Camera Camera => _camera;
     private float _targetFov;
     private Transform _cameraTransform;
-
+    
     private void Awake()
     {
         if (_camera == null)
