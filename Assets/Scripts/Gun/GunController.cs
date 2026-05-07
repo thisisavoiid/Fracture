@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class GunController : Weapon
 {
     [SerializeField] private Transform _projectileSpawnTransform;
-    [SerializeField] private ScriptableEvent _onGunShotEvent;
+    [SerializeField] private GunConfigEvent _onGunShotEvent;
 
     private GunConfig _gun => Config as GunConfig;
     private RayCastDetector _rayCastDetector;
@@ -68,7 +68,7 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-        _onGunShotEvent.Invoke();
+        _onGunShotEvent.Invoke(_gun);
         
         if (hit.collider == null)
             return;
