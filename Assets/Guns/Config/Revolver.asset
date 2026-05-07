@@ -19,6 +19,14 @@ MonoBehaviour:
     DamagePerShot: 15
     TotalRounds: 15
     Range: 40
+  RecoilConfig:
+    IntensityY: 8
+    RandomXRecoilRange:
+      Min: -1.25
+      Max: 1.25
+    ForceBackToDefault: 5
+    ForceToTargetForce: 12
+  UseRecoil: 1
   ShootSound: {fileID: 11400000, guid: e74540ffa0e81c9449403d3c85f1b800, type: 2}
   ReloadSound: {fileID: 11400000, guid: 1511089e63010134a888d0b0ceb4b3ae, type: 2}
   Behaviour: {fileID: 11400000, guid: 999d9fbc825409e49ae1e66e0d3aeb22, type: 2}

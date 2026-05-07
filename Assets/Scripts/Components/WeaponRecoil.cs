@@ -14,7 +14,7 @@ public class WeaponRecoil : MonoBehaviour
     private void Awake()
     {
         _transform = GetComponent<Transform>();
-        _basePosition = _transform.localPosition; // Set base rotation to have a default value to return to
+        _basePosition = _transform.localPosition;
     }
 
     public void ApplyRecoil()
@@ -24,7 +24,7 @@ public class WeaponRecoil : MonoBehaviour
 
     private void Update()
     {
-        _targetPosition = Vector3.Lerp(_targetPosition, _basePosition, _returnSpeed * Time.deltaTime); // Constant force to get back to the default rotation
-        _transform.localPosition = Vector3.Lerp(_transform.localPosition, _targetPosition, _snappiness * Time.deltaTime); // Snappiness = How fast to reach the target rotation
+        _targetPosition = Vector3.Lerp(_targetPosition, _basePosition, _returnSpeed * Time.deltaTime);
+        _transform.localPosition = Vector3.Lerp(_transform.localPosition, _targetPosition, _snappiness * Time.deltaTime);
     }
 }

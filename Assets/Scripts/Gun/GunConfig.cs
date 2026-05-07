@@ -9,6 +9,12 @@ public class GunConfig : ItemConfiguration
     [Tooltip("The core balance values like damage, range, and fire rate.")]
     public WeaponStats Stats;
 
+    [Header("Recoil Configuration")]
+    [Tooltip("Configuration for recoil behaviour when this gun is being shot.")]
+    public RecoilConfig RecoilConfig;
+    [Space(20)]
+    public bool UseRecoil = true;
+
     [Header("Audio")]
     [Tooltip("Configuration for the sound played when firing.")]
     public Sound ShootSound;
