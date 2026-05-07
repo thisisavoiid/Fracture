@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1f6c621df3dcae429237bed34dd170e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gunRecoilTransform: {fileID: 3319805013780014638}
 --- !u!114 &7429881810295456455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +65,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6956629845369079481}
         m_TargetAssemblyTypeName: RecoilTest, Assembly-CSharp
-        m_MethodName: Test
+        m_MethodName: ApplyRecoil
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

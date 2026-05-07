@@ -20,7 +20,7 @@ MonoBehaviour:
     TotalRounds: 15
     Range: 40
   RecoilConfig:
-    IntensityY: 8
+    IntensityY: 5
     RandomXRecoilRange:
       Min: -1.25
       Max: 1.25

@@ -433,107 +433,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _amount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _snapBack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _intensity
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _intensityY
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _forceBackToDefault
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _forceToTargetForce
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _gunRecoilTransform
-      value: 
-      objectReference: {fileID: 714240573}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _randomXRecoilRange.Max
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6956629845369079481, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _randomXRecoilRange.Min
-      value: -1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7429881810295456455, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      propertyPath: _onEventInvoked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ApplyRecoil
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6809084745924718759, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 714240572}
-    - targetCorrespondingSourceObject: {fileID: 6809084745924718759, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 714240571}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
---- !u!1 &714240570 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6809084745924718759, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-  m_PrefabInstance: {fileID: 714240569}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &714240571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714240570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8806b53315f27d1479d37ae78ff8cc0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &714240572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714240570}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: 724c572d595f3bb4e8ff8ac39a9c3c66, type: 2}
-  _onEventInvoked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 714240571}
-        m_TargetAssemblyTypeName: RecoilEffectComponent, Assembly-CSharp
-        m_MethodName: RecoilCallback
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!4 &714240573 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3319805013780014638, guid: 4ceb42aa2ad3eb946a46064144592424, type: 3}
-  m_PrefabInstance: {fileID: 714240569}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &828011358
 PrefabInstance:
   m_ObjectHideFlags: 0
