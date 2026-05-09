@@ -61,7 +61,7 @@ public class PatrolState : State
         if (_agent.hasPath)
             _battery.Drain();
 
-        if (distance <= _agent.stoppingDistance && !_agent.hasPath)
+        if (_agent.remainingDistance <= 0.25f && !_agent.hasPath)
         {
             _currentWaypointIdx = (_currentWaypointIdx + 1) % _waypoints.Count;
 

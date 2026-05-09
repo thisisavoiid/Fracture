@@ -53,7 +53,7 @@ public class RobotBrain : MonoBehaviour
 
     [Tooltip("List of waypoints for the robot to follow in sequence.")]
     [SerializeField] private List<Transform> _patrolWaypoints;
-    
+
     [Header("Chase State")]
     [Tooltip("Movement speed of the NavMeshAgent during pursuit.")]
     [SerializeField] private float _chaseSpeed;
@@ -73,19 +73,25 @@ public class RobotBrain : MonoBehaviour
 
     [Header("Reload Settings")]
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
-    [SerializeField] private float _reloadTime;
+    [SerializeField] private TimeMS _reloadDuration;
+
+    [SerializeField] private TimeMS _searchDuration;
 
     [Header("Audio")]
     [Tooltip("Ambient or initialization sound played by the robot.")]
     [SerializeField] private Sound _sound;
 
+    [SerializeField] private Timer _searchTimer;
+    [SerializeField] private Timer _reloadTimer;
+
+    [SerializeField] private Animator _animator;
+
     private Battery _battery;
-    private NavMeshAgent _navmeshAgent;
+    private NavMeshAgent _agent;
     private OverlapSphereDetector _overlapSphereDetector;
     private RayCastDetector _raycastDetector;
     private ItemSlotController _itemSlotController;
     private Transform _transform;
-    private Timer _reloadTimer;
     #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
@@ -95,24 +101,21 @@ public class RobotBrain : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        AudioManager.Instance.PlaySound(_sound, transform);
-        
+        if (AudioManager.Instance != null && _sound != null)
+            AudioManager.Instance.PlaySound(_sound, transform);
+
         _transform = transform;
 
-        _navmeshAgent = GetComponent<NavMeshAgent>();
+        _agent = GetComponent<NavMeshAgent>();
         _overlapSphereDetector = GetComponent<OverlapSphereDetector>();
         _raycastDetector = GetComponent<RayCastDetector>();
         _itemSlotController = GetComponent<ItemSlotController>();
         _battery = GetComponent<Battery>();
-        _reloadTimer = GetComponent<Timer>();
-
-        _reloadTimer.SetTime(new TimeMS(_reloadTime));
-        _reloadTimer.Start();
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
         State patrolState = new PatrolState(
-            _navmeshAgent,
+            _agent,
             _patrolWaypoints,
             _patrolSpeed,
             _patrolAcceleration,
@@ -120,7 +123,7 @@ public class RobotBrain : MonoBehaviour
         );
 
         State chaseState = new ChaseState(
-            _navmeshAgent,
+            _agent,
             _targetTransform.Value,
             _chaseSpeed,
             _chaseAcceleration,
@@ -131,18 +134,26 @@ public class RobotBrain : MonoBehaviour
             _itemSlotController,
             _headTransform,
             _targetTransform.Value,
+            _reloadDuration,
             _reloadTimer,
             _battery
         );
 
         State goToChargeStationState = new GoToChargeStationState(
             _chargeStationTransform,
-            _navmeshAgent,
+            _agent,
             _goToChargeStationSpeed,
             _goToChargeAcceleration
         );
 
         State chargeBatteryState = new ChargeBatteryState(_battery);
+
+        State searchState = new SearchState(
+            _targetTransform,
+            _agent,
+            _searchTimer,
+            _searchDuration
+        );
 
         _states.Add(
             patrolState, new()
@@ -155,7 +166,7 @@ public class RobotBrain : MonoBehaviour
         _states.Add(
             goToChargeStationState, new()
             {
-                new Transition(chargeBatteryState, () => (_chargeStationTransform.position -_transform.position).magnitude <= _navmeshAgent.stoppingDistance)
+                new Transition(chargeBatteryState, () => _agent.remainingDistance <= 0.25f)
             }
         );
 
@@ -170,7 +181,7 @@ public class RobotBrain : MonoBehaviour
             chaseState, new()
             {
                 new Transition(attackState, () => GetDistanceToTarget() <= _minAttackDistance),
-                new Transition(patrolState, () => GetDistanceToTarget() >= _calmDownDistance),
+                new Transition(searchState, () => CanSeePlayer() == false),
                 new Transition(goToChargeStationState, () => _battery.IsDrained)
             }
         );
@@ -182,6 +193,14 @@ public class RobotBrain : MonoBehaviour
                 new Transition(goToChargeStationState, () => _battery.IsDrained),
            }
        );
+
+        _states.Add(
+            searchState, new()
+            {
+                new Transition(patrolState, () => IsSearchTimeOver()),
+                new Transition(chaseState, () => CanSeePlayer())
+            }
+        );
 
         SetState(patrolState);
     }
@@ -198,6 +217,7 @@ public class RobotBrain : MonoBehaviour
         }
 
         _currentState.Run();
+        SetAnimatorValues();
 
         if (_states.ContainsKey(_currentState))
         {
@@ -214,6 +234,22 @@ public class RobotBrain : MonoBehaviour
         }
     }
 
+    private void SetAnimatorValues()
+    {
+        if (_animator == null)
+            return;
+
+        if (_agent == null)
+            return;
+
+        if (_currentState == null)
+            return;
+        
+        bool isInAttackState = _currentState.GetType() == typeof(AttackState);
+
+        _animator.SetBool("IsAttacking", isInAttackState);
+        _animator.SetFloat("Speed", _agent.velocity.magnitude);
+    }
     /// <summary>
     /// Handles the transition logic by exiting the current <see cref="State"/> and entering the new target <see cref="State"/>.
     /// </summary>
@@ -251,6 +287,8 @@ public class RobotBrain : MonoBehaviour
 
         return hit.collider.gameObject == closestTargetCollider.gameObject;
     }
+
+    public bool IsSearchTimeOver() => _searchTimer.GetRemainingTime().TotalSeconds <= 0.0f;
 
     /// <summary>
     /// Filters a list of colliders to find the one closest to a specific origin point.

@@ -16,10 +16,7 @@ public class InventoryController : MonoBehaviour, IItemProvider
         if (_inventoryVariable == null)
             return;
 
-        Debug.Log("refreshing list...");
-        Debug.Log(_inventoryContent.Count);
         _inventoryVariable.SetValue(_inventoryContent);
-        Debug.Log(_inventoryVariable.Value.Count);
     }
 
     public void AddItem(Usable item)

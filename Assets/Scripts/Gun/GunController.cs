@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class GunController : Weapon
 {
     [SerializeField] private Transform _projectileSpawnTransform;
-    [SerializeField] private GunConfigEvent _onGunShotEvent;
+    [SerializeField] private GunContextEvent _onGunShotEvent;
 
     private GunConfig _gun => Config as GunConfig;
     private RayCastDetector _rayCastDetector;
@@ -31,6 +31,8 @@ public class GunController : Weapon
         _timer.SetTime(new TimeMS(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute)));
         _timer.Start();
 
+        SetHolder(transform.root.gameObject);
+
         Debug.Log($"[GUN CONTROLLER] Initialized gun with the following configuration: \n{_gun.Stats.ToString()} -");
     }
 
@@ -51,6 +53,7 @@ public class GunController : Weapon
     {
         GunContext gunContext = new GunContext()
         {
+            Holder = _holder,
             Gun = _gun,
             Direction = dir.normalized,
             Origin = origin,
@@ -68,7 +71,7 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-        _onGunShotEvent.Invoke(_gun);
+        _onGunShotEvent.Invoke(gunContext);
         
         if (hit.collider == null)
             return;

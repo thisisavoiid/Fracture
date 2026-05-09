@@ -15,16 +15,16 @@ MonoBehaviour:
   _name: Rifle
   _sprite: {fileID: 21300000, guid: 7b27384eebd0fb4498f5d412267f0004, type: 3}
   Stats:
-    ShotsPerMinute: 475
-    DamagePerShot: 25
-    TotalRounds: 32
+    ShotsPerMinute: 375
+    DamagePerShot: 45
+    TotalRounds: 20
     Range: 40
   RecoilConfig:
-    IntensityY: 8
+    IntensityY: 6.75
     RandomXRecoilRange:
       Min: -1.75
       Max: 1.75
-    ForceBackToDefault: 5
+    ForceBackToDefault: 3.75
     ForceToTargetForce: 12
   UseRecoil: 1
   ShootSound: {fileID: 11400000, guid: f4e88553d7e7d234393eae9e651ec36b, type: 2}

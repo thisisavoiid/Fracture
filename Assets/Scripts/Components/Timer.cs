@@ -24,6 +24,7 @@ public class Timer : MonoBehaviour
     public void SetTime(TimeMS time)
     {
         _defaultTime = time;
+        _hasTimerEndEventInvoked = false;
         Debug.Log($"[TIMER] SetTime called (On object: {this.gameObject.name}), Value: {time.ToString()}s -");
         Reset();
     }

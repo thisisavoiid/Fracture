@@ -15,9 +15,15 @@ public class GunRecoilController : MonoBehaviour
         _targetRotation = _baseRotation;
     }
 
-    public void ApplyRecoil(GunConfig config)
+    public void ApplyRecoil(GunContext gunContext)
     {
-        _recoilConfig = config.RecoilConfig;
+        if (gunContext.Holder == null)
+            return;
+
+        if (gunContext.Holder != transform.root.gameObject)
+            return;
+        
+        _recoilConfig = gunContext.Gun.RecoilConfig;
 
         Quaternion additionalRotation = Quaternion.Euler(
             -_recoilConfig.IntensityY,

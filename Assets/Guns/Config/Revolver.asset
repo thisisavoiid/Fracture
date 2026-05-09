@@ -15,9 +15,9 @@ MonoBehaviour:
   _name: Revolver
   _sprite: {fileID: 21300000, guid: 55e4f2815cc20ce45b11f90144eca963, type: 3}
   Stats:
-    ShotsPerMinute: 450
-    DamagePerShot: 15
-    TotalRounds: 15
+    ShotsPerMinute: 500
+    DamagePerShot: 30
+    TotalRounds: 12
     Range: 40
   RecoilConfig:
     IntensityY: 5

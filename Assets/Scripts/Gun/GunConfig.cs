@@ -12,6 +12,7 @@ public class GunConfig : ItemConfiguration
     [Header("Recoil Configuration")]
     [Tooltip("Configuration for recoil behaviour when this gun is being shot.")]
     public RecoilConfig RecoilConfig;
+    
     [Space(20)]
     public bool UseRecoil = true;
 

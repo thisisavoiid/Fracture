@@ -11,6 +11,7 @@ public class AttackState : State
     private Transform _targetTransform;
     private GunBulletTracker _bulletTracker;
     private Timer _reloadTimer;
+    private TimeMS _reloadDuration;
     private Battery _battery;
     private bool _hasAlreadyAttackedBefore = false;
 
@@ -18,6 +19,7 @@ public class AttackState : State
         ItemSlotController slotController,
         Transform headTransform,
         Transform targetTransform,
+        TimeMS reloadDuration,
         Timer reloadTimer,
         Battery battery
     )
@@ -27,6 +29,10 @@ public class AttackState : State
         _targetTransform = targetTransform;
         _reloadTimer = reloadTimer;
         _battery = battery;
+        _reloadDuration = reloadDuration;
+
+        _reloadTimer.SetTime(_reloadDuration);
+        _reloadTimer.Start();
     }
 
     /// <summary>
@@ -37,8 +43,12 @@ public class AttackState : State
         if (_itemSlotController == null) return;
 
         Usable activeItem = _itemSlotController.GetEquippedItem();
+
         if (activeItem is Weapon weapon)
             _bulletTracker = weapon.GetComponent<GunBulletTracker>();
+
+        if (_reloadTimer == null)
+            return;
     }
 
     public override void Exit() { }
@@ -48,27 +58,70 @@ public class AttackState : State
     /// </summary>
     public override void Run()
     {
+        // Debug Checks für kritische Referenzen
+        if (_itemSlotController == null)
+        {
+            Debug.LogError("AttackState: _itemSlotController is null!");
+            return;
+        }
+
+        if (_headTransform == null)
+        {
+            Debug.LogError("AttackState: _headTransform is null!");
+            return;
+        }
+
+        if (_targetTransform == null)
+        {
+            Debug.LogError("AttackState: _targetTransform is null!");
+            return;
+        }
+
         Usable equippedItem = _itemSlotController.GetEquippedItem();
-        if (equippedItem == null || _headTransform == null) return;
+        if (equippedItem == null) 
+        {
+            Debug.LogWarning("AttackState: No equipped item found.");
+            return;
+        }
 
         // Aim at the target
         _itemSlotController.transform.LookAt(_targetTransform.position);
 
         // Handle firing frequency via timer
-        if (_reloadTimer != null && (_reloadTimer.GetRemainingTime().TotalSeconds <= 0 || !_hasAlreadyAttackedBefore))
+        if (_reloadTimer != null)
         {
-            equippedItem.Use(_headTransform.position, _headTransform.forward.normalized, true, false);
-            
-            if (_battery != null)
-                _battery.Drain();
+            if (_reloadTimer.GetRemainingTime().TotalSeconds <= 0 || !_hasAlreadyAttackedBefore)
+            {
+                equippedItem.Use(_headTransform.position, _headTransform.forward.normalized, true, false);
+                
+                if (_battery != null)
+                {
+                    _battery.Drain();
+                }
+                else
+                {
+                    Debug.LogWarning("AttackState: _battery is null while trying to drain.");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("AttackState: _reloadTimer is null!");
         }
 
         // Handle reload logic for Weapons
-        if (equippedItem is Weapon weapon && _bulletTracker != null && !_bulletTracker.HasBulletsLeft())
+        if (equippedItem is Weapon weapon)
         {
-            weapon.Reload();
-            _reloadTimer?.Reset();
-            _hasAlreadyAttackedBefore = true;
+            if (_bulletTracker == null)
+            {
+                Debug.LogWarning("AttackState: Item is weapon but _bulletTracker is null!");
+            }
+            else if (!_bulletTracker.HasBulletsLeft())
+            {
+                weapon.Reload();
+                _reloadTimer?.Reset();
+                _hasAlreadyAttackedBefore = true;
+            }
         }
     }
 }
