@@ -11,6 +11,4 @@ public abstract class ItemConfiguration : ScriptableObject
     [Tooltip("The sprite displayed for the item in the UI.")]
     [SerializeField] private Sprite _sprite;
     public Sprite Sprite => _sprite;
-
-    protected GameObject _holder;
 }

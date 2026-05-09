@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111e64bd5f023d143bfaceb48d590b81, type: 3}
+  m_Name: Vindicator
+  m_EditorClassIdentifier: 
+  _name: Vindicator
+  _sprite: {fileID: 21300000, guid: 55e4f2815cc20ce45b11f90144eca963, type: 3}
+  Stats:
+    ShotsPerMinute: 500
+    DamagePerShot: 30
+    TotalRounds: 12
+    Range: 40
+  RecoilConfig:
+    IntensityY: 5
+    RandomXRecoilRange:
+      Min: -1.25
+      Max: 1.25
+    ForceBackToDefault: 5
+    ForceToTargetForce: 12
+  UseRecoil: 1
+  ShootSound: {fileID: 11400000, guid: e74540ffa0e81c9449403d3c85f1b800, type: 2}
+  ReloadSound: {fileID: 11400000, guid: 1511089e63010134a888d0b0ceb4b3ae, type: 2}
+  Behaviour: {fileID: 11400000, guid: 999d9fbc825409e49ae1e66e0d3aeb22, type: 2}
+  Projectile: {fileID: 4265047215336941440, guid: 9b28bd513266fe248a9ae989f090e8d5, type: 3}
