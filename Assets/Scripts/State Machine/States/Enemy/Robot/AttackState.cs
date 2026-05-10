@@ -84,8 +84,10 @@ public class AttackState : State
             return;
         }
 
-        // Aim at the target
-        _itemSlotController.transform.LookAt(_targetTransform.position);
+        Vector3 lookDir = (_targetTransform.position - _headTransform.position).normalized;
+        lookDir.y = 0f;
+
+        _itemSlotController.transform.rotation = Quaternion.LookRotation(lookDir);
 
         // Handle firing frequency via timer
         if (_reloadTimer != null)

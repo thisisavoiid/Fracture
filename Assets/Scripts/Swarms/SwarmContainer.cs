@@ -89,7 +89,11 @@ public class SwarmContainer : MonoBehaviour
             Destroy(followerBee.gameObject);
 
         if (_followerBeeInstances.Count == 0)
+        {
             Destroy(_leaderBeeInstance.gameObject);
+            Destroy(this.gameObject);
+        }
+            
     }
 
     private void CalculateStartPositions()
