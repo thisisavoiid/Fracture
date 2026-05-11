@@ -114,6 +114,11 @@ public class RobotBrain : MonoBehaviour
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
+        ConfigureStateMachine();
+    }
+
+    private void ConfigureStateMachine()
+    {
         State patrolState = new PatrolState(
             _agent,
             _patrolWaypoints,
@@ -224,7 +229,11 @@ public class RobotBrain : MonoBehaviour
             foreach (Transition transition in _states[_currentState])
             {
                 if (transition.Condition() == true)
+                {
                     SetState(transition.TargetState);
+                    break;
+                }
+
             }
         }
         else
@@ -244,7 +253,7 @@ public class RobotBrain : MonoBehaviour
 
         if (_currentState == null)
             return;
-        
+
         bool isInAttackState = _currentState.GetType() == typeof(AttackState);
 
         _animator.SetBool("IsAttacking", isInAttackState);
