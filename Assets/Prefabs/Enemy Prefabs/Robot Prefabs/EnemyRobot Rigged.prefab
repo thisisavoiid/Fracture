@@ -221,11 +221,11 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 64
-  _viewDistance: 50
+  _viewDistance: 80
   _calmDownDistance: 35
   _minAttackDistance: 5
   _headTransform: {fileID: 4096318791881661578}
-  _patrolSpeed: 7.5
+  _patrolSpeed: 3.5
   _patrolAcceleration: 100
   _patrolWaypoints:
   - {fileID: 0}
@@ -233,7 +233,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  _chaseSpeed: 10
+  _chaseSpeed: 7.5
   _chaseAcceleration: 150
   _chargeStationTransform: {fileID: 0}
   _goToChargeStationSpeed: 10
@@ -243,7 +243,7 @@ MonoBehaviour:
     Seconds: 5
   _searchDuration:
     Minutes: 0
-    Seconds: 2
+    Seconds: 5
   _sound: {fileID: 11400000, guid: 30a5e4b1abeb72e4d8d1f4ab9be25deb, type: 2}
   _searchTimer: {fileID: 5952664135976882823}
   _reloadTimer: {fileID: 8976363979520206659}

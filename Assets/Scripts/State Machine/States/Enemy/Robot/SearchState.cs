@@ -9,24 +9,28 @@ public class SearchState : State
     private Timer _searchTimer;
     private TransformVariable _targetTransform;
     private bool _hasSearchTimerBeenStarted = false;
+    private Animator _animator;
 
     public SearchState(
         TransformVariable targetTransform,
         NavMeshAgent agent,
         Timer searchTimer,
-        TimeMS searchDuration
+        TimeMS searchDuration,
+        Animator animator
     )
     {
         _targetTransform = targetTransform;
         _agent = agent;
         _searchTimer = searchTimer;
         _searchDuration = searchDuration;
+        _animator = animator;
     }
 
     public override void Enter()
     {
         _searchTimer.Stop();
         _searchTimer.SetTime(_searchDuration);
+        _hasSearchTimerBeenStarted = false;
 
         _lastSeenPosition = _targetTransform.Value.position;
     }
@@ -35,22 +39,25 @@ public class SearchState : State
     {
         _searchTimer.Stop();
         _searchTimer.Reset();
-        _hasSearchTimerBeenStarted = false;
+        _animator.SetBool("IsSearching", false);
     }
 
     public override void Run()
     {
-        if (GetDistanceToLastSeenPosition() > _agent.stoppingDistance)
-        {
+        // Debug.Log($"{_searchTimer.GetRemainingTime().ToString()}\nTimer has been started already: {_hasSearchTimerBeenStarted}\nDistance To Target: {GetDistanceToLastSeenPosition()}");
+
+        if (GetDistanceToLastSeenPosition() > 0.25f)
             _agent.SetDestination(_lastSeenPosition);
-            return;
-        }
-            
-        if (!_hasSearchTimerBeenStarted)
+        else
         {
-            _hasSearchTimerBeenStarted = true;
-            _searchTimer.Start();
-        }   
+            if (!_hasSearchTimerBeenStarted)
+            {
+                _animator.SetBool("IsSearching", true);
+                _hasSearchTimerBeenStarted = true;
+                _searchTimer.Start();
+            }
+        }
+
     }
 
     private float GetDistanceToLastSeenPosition()

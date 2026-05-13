@@ -98,7 +98,7 @@ public class PlayerInputController : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        _gameInput.Enable();
+        _gameInput?.Enable();
     }
 
     /// <summary>
@@ -106,6 +106,6 @@ public class PlayerInputController : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        _gameInput.Disable();
+        _gameInput?.Disable();
     }
 }

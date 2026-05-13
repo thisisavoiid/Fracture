@@ -157,7 +157,8 @@ public class RobotBrain : MonoBehaviour
             _targetTransform,
             _agent,
             _searchTimer,
-            _searchDuration
+            _searchDuration,
+            _animator
         );
 
         _states.Add(

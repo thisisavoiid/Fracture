@@ -74,7 +74,6 @@ public class Timer : MonoBehaviour
 
     private void ResetTimerDelta()
     {
-        Debug.Log($"[TIMER] Interval Update (On object: {this.gameObject.name}), Time Left: {_timeLeft} -");
         _timeSecondDelta = 0.0f;
         OnTimerUpdate?.Invoke(new TimeMS(_timeLeft));
     }
