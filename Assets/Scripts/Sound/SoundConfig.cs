@@ -66,4 +66,50 @@ public class SoundConfig
     [Header("Loop Settings")]
     [Tooltip("Whether or not the sound should be played on loop.")]
     public bool Loop = false;
+
+    public void ApplyTo(AudioSource source)
+    {
+        if (Clip != source.clip)
+            source.clip = Clip;
+
+        source.loop = Loop;
+
+        if (MixerChannel != source.outputAudioMixerGroup)
+            source.outputAudioMixerGroup = MixerChannel;
+
+        if (DefaultVolume != source.volume)
+            source.volume = DefaultVolume;
+
+        if (UseRandomVolume)
+        {
+            source.volume = UnityEngine.Random.Range(
+                    DefaultVolume - RandomVolumeRange,
+                    DefaultVolume + RandomVolumeRange
+            );
+        }
+
+        if (DefaultPitch != source.pitch)
+            source.pitch = DefaultPitch;
+
+        if (UseRandomPitch)
+        {
+            source.pitch = UnityEngine.Random.Range(
+                    DefaultPitch - RandomPitchRange,
+                    DefaultPitch + RandomPitchRange
+            );
+        }
+
+        if (UseSpatialAudio)
+        {
+            source.spatialBlend = SpatialBlend;
+            source.rolloffMode = RolloffMode;
+            source.minDistance = MinDistance;
+            source.maxDistance = MaxDistance;
+            source.dopplerLevel = Doppler;
+            source.spread = Spread;
+            source.reverbZoneMix = ReverbZoneMix;
+        }
+        else
+            source.spatialBlend = 0.0f;
+    }
 }

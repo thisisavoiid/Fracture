@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 /// <summary>
 /// The central processing unit for the robot AI, implementing a Finite State Machine. 
@@ -75,12 +76,9 @@ public class RobotBrain : MonoBehaviour
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
     [SerializeField] private TimeMS _reloadDuration;
 
+    [SerializeField] private UnityEvent OnRobotInitialize;
+
     [SerializeField] private TimeMS _searchDuration;
-
-    [Header("Audio")]
-    [Tooltip("Ambient or initialization sound played by the robot.")]
-    [SerializeField] private Sound _sound;
-
     [SerializeField] private Timer _searchTimer;
     [SerializeField] private Timer _reloadTimer;
 
@@ -101,9 +99,6 @@ public class RobotBrain : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        if (AudioManager.Instance != null && _sound != null)
-            AudioManager.Instance.PlaySound(_sound, transform);
-
         _transform = transform;
 
         _agent = GetComponent<NavMeshAgent>();
@@ -115,6 +110,8 @@ public class RobotBrain : MonoBehaviour
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
         ConfigureStateMachine();
+
+        OnRobotInitialize?.Invoke();
     }
 
     private void ConfigureStateMachine()

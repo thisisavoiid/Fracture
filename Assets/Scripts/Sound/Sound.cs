@@ -15,5 +15,5 @@ public class Sound : ScriptableObject
     /// Provides access to the <see cref="SoundConfig"/> data.
     /// </summary>
     /// <returns>The <see cref="SoundConfig"/> associated with this sound.</returns>
-    public SoundConfig Data => _soundConfig;
+    public SoundConfig Config => _soundConfig;
 }

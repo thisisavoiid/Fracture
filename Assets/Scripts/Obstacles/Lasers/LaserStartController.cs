@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Controls a laser beam visual and logic, utilizing a <see cref="LineRenderer"/> for rendering 
@@ -21,8 +22,7 @@ public class LaserStartController : MonoBehaviour
     [Tooltip("Amount of damage dealt per hit to IShootable objects.")]
     [SerializeField] private float _damageToDeal = 10.0f;
 
-    [Tooltip("Sound settings played when the laser is initialized.")]
-    [SerializeField] private Sound _sound;
+    [SerializeField] private UnityEvent OnLaserObjectInitialize;
 
     private LineRenderer _lineRenderer;
     private RayCastDetector _rayCastDetector;
@@ -54,7 +54,7 @@ public class LaserStartController : MonoBehaviour
 
         RefreshLinePositions(_lastStartPosition, _lastEndPosition);
 
-        AudioManager.Instance.PlaySound(_sound, gameObject.transform);
+        OnLaserObjectInitialize?.Invoke();
     }
 
     /// <summary>

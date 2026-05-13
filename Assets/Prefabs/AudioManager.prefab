@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7448533738941006266}
-  - component: {fileID: 2350789938770858586}
+  - component: {fileID: 3591645257739442}
+  - component: {fileID: 6615361262345743922}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2350789938770858586
+--- !u!114 &3591645257739442
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +42,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6676980897470058902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 973dd1dfd58d3014cbce9ee5b950a829, type: 3}
+  m_Script: {fileID: 11500000, guid: a07b295f4be36184fa53ec1ad2d5d15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioChannelCount: 30
+  _defaultPoolSize: 25
+  _maxPoolSize: 50
+--- !u!114 &6615361262345743922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676980897470058902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b84f6a9e2065f641ae082639c0b083b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
