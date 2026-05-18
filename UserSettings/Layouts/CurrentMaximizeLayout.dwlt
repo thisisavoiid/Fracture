@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 11217
+  controlID: 17178
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 11140
+  controlID: 17179
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 11141
+  controlID: 17180
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -245,9 +245,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 5e0cffff
+      m_SelectedIDs: c8d90000
       m_LastClickedID: 0
-      m_ExpandedIDs: c2d5ffff2ed8ffff40d8ffff42d8ffff4edcffffe0e6ffff6aeaffff1cfbffff30ce0000
+      m_ExpandedIDs: 3ac4fdff60d8fdffe0d8fdff04f4fdffc2d5ffff2ed8ffff40d8ffff42d8ffff4edcffffe0e6ffff6aeaffff1cfbffff30ce0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -956,9 +956,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 7.8723316, y: 1.2072029, z: 29.843102}
+    m_Target: {x: -64.36018, y: 49.58759, z: 26.588106}
     speed: 2
-    m_Value: {x: -4.9324174, y: 1.3242176, z: -1.2494309}
+    m_Value: {x: -64.36018, y: 49.58759, z: 26.588106}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1004,13 +1004,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.18125938, y: -0.350536, z: 0.06934592, w: -0.91622686}
+    m_Target: {x: -0.18471545, y: -0.74613374, z: 0.23105939, w: -0.5964791}
     speed: 2
-    m_Value: {x: -0.18125838, y: -0.35053408, z: 0.06934554, w: -0.91622186}
+    m_Value: {x: -0.18471444, y: -0.74612963, z: 0.23105812, w: -0.59647584}
   m_Size:
     m_Target: 30.310888
     speed: 2
-    m_Value: 12.124355
+    m_Value: 30.310888
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: AudioMixerWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -1089,14 +1089,14 @@ MonoBehaviour:
     y: 552
     width: 1361
     height: 381
-  m_MinSize: {x: 51, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
-  m_ActualView: {fileID: 13}
+  m_MinSize: {x: 231, y: 276}
+  m_MaxSize: {x: 10001, y: 10026}
+  m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
   - {fileID: 13}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1142,9 +1142,9 @@ MonoBehaviour:
     m_SceneHandles: 
     m_ShowAllHits: 0
     m_SkipHidden: 0
-    m_SearchArea: 1
+    m_SearchArea: 0
     m_Folders:
-    - Assets/Sounds/Audio Mixers
+    - Assets/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1154,15 +1154,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Sounds/Audio Mixers
+  - Assets/Scenes
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\huber\Documents\Programmieren\Unity\Projekte\Fracture
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 113}
-    m_SelectedIDs: 2ad90000
-    m_LastClickedID: 55594
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 20d90000
+    m_LastClickedID: 55584
     m_ExpandedIDs: 000000006ad800006cd800006ed8000070d8000072d8000074d8000076d8000078d800007ad800007cd800007ed8000080d8000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1218,24 +1218,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 3ccc0000
-    m_LastClickedInstanceID: 52284
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: c8d90000
+    m_LastClickedInstanceID: 55752
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000d2d10000e2cf0000d4020000ccf50000000000002a6701008e6701007267010002ce0000623301009a4e010062ab0100367f010076e7000032e800002ae80000caf300003efe0000a0110100b0120100c01301000e360100dcf00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Audio Mixer
-      m_OriginalName: Audio Mixer
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 52284
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}
@@ -1288,7 +1288,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_MixersTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3ccc0000
+    m_SelectedIDs: 
     m_LastClickedID: 52284
     m_ExpandedIDs: 12eb343c
     m_RenameOverlay:
@@ -1406,7 +1406,7 @@ MonoBehaviour:
       oldMaxSizes: 
       oldSplitSize: 0
     m_HorizontalSplitter:
-      ID: 12364
+      ID: 12592
       splitterInitialOffset: 0
       currentActiveSplitter: -1
       realSizes:
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 11218
+  controlID: 17285
   draggingID: 0
 --- !u!114 &15
 MonoBehaviour:
@@ -1542,8 +1542,8 @@ MonoBehaviour:
     y: 276
     width: 559
     height: 657
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
