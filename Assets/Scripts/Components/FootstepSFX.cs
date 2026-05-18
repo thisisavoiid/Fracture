@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -81,8 +82,16 @@ public class FootstepSFX : MonoBehaviour
         return (_lastPosition - transform.position).magnitude;
     }
 
+    private Vector3 GetDirToPoint(Vector3 point) => point - transform.position;
+
     private void OnCollisionEnter(Collision collision)
     {
+        Vector3 collisionPointDir = GetDirToPoint(collision.contacts[0].point).normalized; 
+        float dotProduct = Vector3.Dot(collisionPointDir, -transform.up.normalized);
+
+        if (dotProduct < 0.95f)
+            return;
+        
         PhysicsMaterial colliderMaterial = collision.collider.sharedMaterial;
 
         if (colliderMaterial == null)
@@ -96,6 +105,12 @@ public class FootstepSFX : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        if (_currentPhysicsMaterial == null)
+            return;
+        
+        if (collision.collider.sharedMaterial != _currentPhysicsMaterial)
+            return;
+        
         _currentPhysicsMaterial = null;
     }
 }
