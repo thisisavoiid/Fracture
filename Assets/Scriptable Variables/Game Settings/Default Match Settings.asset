@@ -15,4 +15,4 @@ MonoBehaviour:
   _enemyCount: 1
   _matchTime:
     Minutes: 0
-    Seconds: 5
+    Seconds: 30

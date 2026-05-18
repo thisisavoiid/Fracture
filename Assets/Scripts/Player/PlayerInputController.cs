@@ -24,7 +24,7 @@ public class PlayerInputController : MonoBehaviour
     /// Checks if the jump button was pressed this frame.
     /// </summary>
     /// <returns>A <see cref="bool"/> indicating the jump state.</returns>
-    public bool Jump => _jump.WasPressedThisFrame();
+    public bool JumpPressed => _jump.WasPressedThisFrame();
 
     private InputAction _sprint;
     /// <summary>

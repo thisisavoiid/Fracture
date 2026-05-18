@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
         if (_isSliding)
             return;
 
-        bool jumpPressed = _inputController.Jump;
+        bool jumpPressed = _inputController.JumpPressed;
 
         if (!(jumpPressed && !_isJumpQueued))
             return;
@@ -357,8 +357,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        
         if (_itemAnimator != null)
-        {
+        {   
             _itemAnimator.SetFloat("Speed", Mathf.Round(_rbMovement.CurrentVelocity.magnitude));
             _itemAnimator.SetBool("IsInAir", !_isGrounded);
         }
@@ -367,6 +368,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         HandleMovement();
+
         _isGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
 
         if (_isJumpQueued)
