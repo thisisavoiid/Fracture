@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEngine;
+
+public class GameFlowManager : MonoBehaviour
+{
+    private static GameFlowManager _instance;
+    public static GameFlowManager Instance => _instance;
+
+    [SerializeField] private List<GameFlowEventsPair> _gameFlowList;
+
+    private Dictionary<FlowType, List<ScriptableEvent>> _gameFlowDict = new();
+    private FlowType _currentFlow = FlowType.Undefined;
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(_instance.gameObject);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+        LoadGameFlows();
+    }
+
+    private void LoadGameFlows()
+    {
+        if (_gameFlowList.Count == 0)
+            return;
+
+        foreach (GameFlowEventsPair gameFlow in _gameFlowList)
+        {
+            _gameFlowDict.Add(gameFlow.Type, gameFlow.InvokeEvents);
+            Debug.Log($"[GAME FLOW MANAGER] Successfully fetched game flow of type: {gameFlow.Type} -");
+        }
+
+        Debug.Log($"[GAME FLOW MANAGER] Fetched {_gameFlowDict.Keys.Count} game flows! -");
+    }
+
+    private void Start()
+    {
+        if (_currentFlow == FlowType.Undefined)
+            StartMatchFlow();
+    }
+
+    private void ChangeFlow(FlowType type)
+    {
+        if (!_gameFlowDict.ContainsKey(type))
+            return;
+
+        if (_gameFlowDict[type].Count == 0)
+            return;
+
+        _currentFlow = type;
+
+        foreach (ScriptableEvent flowEvent in _gameFlowDict[_currentFlow])
+            flowEvent?.Invoke();
+    }
+
+    [ContextMenu("Force Start: Start Match Flow")]
+    public void StartMatchFlow()
+    {
+        ChangeFlow(FlowType.MatchStart);
+    }
+
+    [ContextMenu("Force Start: End Match Flow")]
+    public void EndMatchFlow()
+    {
+        ChangeFlow(FlowType.MatchEnd);
+    }
+}

@@ -6612,6 +6612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1611730038}
+  - component: {fileID: 1611730039}
   m_Layer: 0
   m_Name: GameFlowManager
   m_TagString: Untagged
@@ -6634,6 +6635,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1611730039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611730037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b917aac2efbe6348be8e28e27f30725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameFlowList:
+  - Type: 1
+    InvokeEvents:
+    - {fileID: 11400000, guid: 0623c6b42ac46904b9180339173a9d0b, type: 2}
+  - Type: 2
+    InvokeEvents:
+    - {fileID: 11400000, guid: c2a24e0cad1387748a92af6ee597f949, type: 2}
 --- !u!1001 &1630545625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9898,6 +9918,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1611730039}
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndMatchFlow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameFlowManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626070544731000161, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
+      propertyPath: OnTimerEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5471995015446396722, guid: eba9b104f53df2144a3b7b04eec6eec7, type: 3}
       propertyPath: m_SizeDelta.x
       value: 135.812

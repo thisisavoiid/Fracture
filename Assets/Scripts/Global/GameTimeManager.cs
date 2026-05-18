@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameTimeManager : MonoBehaviour
 {
     [SerializeField] private MatchSettings _matchSettings;
-    [SerializeField] private ScriptableEvent _gameTimeEndEvent;
+    // [SerializeField] private ScriptableEvent _gameTimeEndEvent;
 
     private Timer _gameTimer;
 
@@ -35,13 +35,13 @@ public class GameTimeManager : MonoBehaviour
             _gameTimer.Start();
     }
 
-    public void InvokeGameTimeEndedEvent()
-    {
-        if (_gameTimeEndEvent == null)
-            return;
+    // public void InvokeGameTimeEndedEvent()
+    // {
+    //     if (_gameTimeEndEvent == null)
+    //         return;
 
-        Debug.Log($"[GAME TIME MANAGER] Invoking game time end event... -");
+    //     Debug.Log($"[GAME TIME MANAGER] Invoking game time end event... -");
 
-        _gameTimeEndEvent.Invoke();
-    }
+    //     _gameTimeEndEvent.Invoke();
+    // }
 }
