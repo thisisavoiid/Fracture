@@ -26,22 +26,19 @@ public class GameTimeManager : MonoBehaviour
     private void OnDisable()
     {
         if (_gameTimer.IsActive)
-            _gameTimer.Stop();
+            _gameTimer.StopTimer();
     }
 
     private void OnEnable()
     {
         if (!_gameTimer.IsActive)
-            _gameTimer.Start();
+            _gameTimer.StartTimer();
     }
 
-    // public void InvokeGameTimeEndedEvent()
-    // {
-    //     if (_gameTimeEndEvent == null)
-    //         return;
+    private void Start()
+    {
+        if (!_gameTimer.IsActive)
+            _gameTimer.StartTimer();
+    }
 
-    //     Debug.Log($"[GAME TIME MANAGER] Invoking game time end event... -");
-
-    //     _gameTimeEndEvent.Invoke();
-    // }
 }

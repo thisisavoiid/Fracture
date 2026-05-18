@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -76,6 +77,10 @@ public class RobotBrain : MonoBehaviour
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
     [SerializeField] private TimeMS _reloadDuration;
 
+    [Header("Game-Feel Settings")]
+    [Tooltip("The time required for the robot to turn to the target when being in attack state.")]
+    [SerializeField] private float _turnToTargetSpeed = 7.5f;
+
     [SerializeField] private UnityEvent OnRobotInitialize;
 
     [SerializeField] private TimeMS _searchDuration;
@@ -138,7 +143,8 @@ public class RobotBrain : MonoBehaviour
             _targetTransform.Value,
             _reloadDuration,
             _reloadTimer,
-            _battery
+            _battery,
+            _turnToTargetSpeed
         );
 
         State goToChargeStationState = new GoToChargeStationState(

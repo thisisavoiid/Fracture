@@ -29,7 +29,7 @@ public class GunController : Weapon
         _decalSpawner = GetComponent<DecalSpawner>();
 
         _timer.SetTime(new TimeMS(CalculateDurationAfterShot(_gun.Stats.ShotsPerMinute)));
-        _timer.Start();
+        _timer.StartTimer();
 
         SetHolder(transform.root.gameObject);
 
@@ -65,7 +65,7 @@ public class GunController : Weapon
             return;
 
         OnShoot?.Invoke(_gun);
-        _onGunShotEvent.Invoke(gunContext);
+        _onGunShotEvent?.Invoke(gunContext);
         
         if (hit.collider == null)
             return;

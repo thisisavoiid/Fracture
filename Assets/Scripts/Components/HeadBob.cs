@@ -8,6 +8,7 @@ public class HeadBob : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private bool _isActive = false;
+    [SerializeField] private bool _isLocked = false;
 
     private Vector3 _basePos;
 
@@ -15,15 +16,23 @@ public class HeadBob : MonoBehaviour
     {
         _basePos = _targetTransform.localPosition;
     }
-    
+
     private void Update()
     {
         if (!_isActive)
             return;
-        
+
+        if (_isLocked)
+        {
+            if (_basePos != _targetTransform.localPosition)
+                _targetTransform.localPosition = _basePos;
+
+            return;
+        }
+
         _targetTransform.localPosition = new Vector3(
-            _basePos.x, 
-            _basePos.y + Mathf.Sin(Time.time * _speed) * _strength, 
+            _basePos.x,
+            _basePos.y + Mathf.Sin(Time.time * _speed) * _strength,
             _basePos.z + Mathf.Cos(Time.time * _speed) * _strength
         );
     }
@@ -38,4 +47,5 @@ public class HeadBob : MonoBehaviour
         _strength = strength;
     }
 
+    public void SetLocked(bool value) => _isLocked = value;
 }

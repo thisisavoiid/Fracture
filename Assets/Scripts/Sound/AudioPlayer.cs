@@ -26,6 +26,13 @@ public class AudioPlayer : MonoBehaviour
             return;
 
         sound.Config.ApplyTo(_audioSource);
+
+        if (_audioSource.enabled == false)
+            return;
+
+        if (_audioSource.gameObject.activeInHierarchy == false)
+            return;
+
         _audioSource.Play();
     }
 }

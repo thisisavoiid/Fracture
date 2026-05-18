@@ -5,10 +5,9 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class RigidbodyMovement : MonoBehaviour
-{    
-    /// <summary>
-    /// Gets the current <see cref="Vector3"/> velocity of the physics body.
-    /// </summary>
+{
+    [SerializeField] private bool _isLocked = false;
+
     public Vector3 CurrentVelocity => _rb.linearVelocity;
 
     private Rigidbody _rb;
@@ -27,6 +26,9 @@ public class RigidbodyMovement : MonoBehaviour
     /// <param name="speed">The scalar speed applied to the direction.</param>
     public void Move(Vector3 dir, float speed, bool preserveYVelocity)
     {
+        if (_isLocked)
+            return;
+
         Vector3 currentVelocity = _rb.linearVelocity;
         Vector3 targetVelocity = dir.normalized * speed;
 
@@ -47,6 +49,9 @@ public class RigidbodyMovement : MonoBehaviour
     /// </remarks>
     public void Jump(float strength)
     {
+        if (_isLocked)
+            return;
+
         float currentVerticalForce = _rb.linearVelocity.y;
         float difference = Mathf.Max(0, strength - currentVerticalForce);
 
@@ -67,6 +72,9 @@ public class RigidbodyMovement : MonoBehaviour
     /// <param name="rotation">The target rotation.</param>
     public void SetRotation(Quaternion rotation)
     {
+        if (_isLocked)
+            return;
+
         _rb.MoveRotation(rotation);
     }
 
@@ -81,6 +89,11 @@ public class RigidbodyMovement : MonoBehaviour
     /// <param name="rotation">The target local rotation.</param>
     public void SetLocalRotation(Quaternion rotation)
     {
+        if (_isLocked)
+            return;
+
         _transform.localRotation = rotation;
     }
+
+    public void SetLocked(bool value) => _isLocked = value;
 }

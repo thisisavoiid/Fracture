@@ -8,8 +8,11 @@ public class ScriptableEvent : ScriptableObject
 
     public void Invoke()
     {
-        foreach (var listener in _listeners)
-            listener.Notify();
+        for (int i = _listeners.Count; i >= 0; i--)
+        {
+            if (i < _listeners.Count)
+                _listeners[i]?.Notify();
+        }
     }
 
     public void AddListener(ScriptableEventListener listener) => _listeners.Add(listener);

@@ -67,6 +67,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PhysicsMaterial _generalPhysicsMaterial;
     [SerializeField] private PhysicsMaterial _slidePhysicsMaterial;
 
+    [Header("Various")]
+    [SerializeField] private bool _isLocked = false;
+
     private PlayerInputController _inputController;
     private RigidbodyMovement _rbMovement;
     private CameraController _cameraController;
@@ -333,6 +336,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        if (_isLocked)
+            return;
+
         HandleJump();
         HandleSlide();
         HandleCameraLook();
@@ -351,6 +357,15 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        if (_itemAnimator != null)
+        {
+            _itemAnimator.SetFloat("Speed", Mathf.Round(_rbMovement.CurrentVelocity.magnitude));
+            _itemAnimator.SetBool("IsInAir", !_isGrounded);
+        }
+        
+        if (_isLocked)
+            return;
+
         HandleMovement();
         _isGrounded = _overlapBoxDetector.CheckForAnyObjects(_groundLayers);
 
@@ -360,11 +375,7 @@ public class PlayerController : MonoBehaviour
             _rbMovement.Jump(_jumpStrength);
             OnJump?.Invoke();
         }
-
-        if (_itemAnimator != null)
-        {
-            _itemAnimator.SetFloat("Speed", Mathf.Round(_rbMovement.CurrentVelocity.magnitude));
-            _itemAnimator.SetBool("IsInAir", !_isGrounded);
-        }
     }
+
+    public void SetLocked(bool value) => _isLocked = value;
 }

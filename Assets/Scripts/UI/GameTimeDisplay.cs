@@ -11,19 +11,13 @@ public class GameTimeDisplay : MonoBehaviour
     private void Awake()
     {
         _label = GetComponent<TextMeshProUGUI>();
-
-        _timer.OnTimerUpdate.AddListener(
-            timeRemaining =>
-            {
-                RefreshLabelText(
-                    $"{(int)timeRemaining.Minutes:D2}:{(int)timeRemaining.Seconds:D2}"
-                );
-            }
-        );
     }
 
-    private void RefreshLabelText(string text)
+    public void RefreshTimeLabel(TimeMS time)
     {
-        _label.text = text;
+        if (_label == null)
+            return;
+        
+        _label.text = $"{(int)time.Minutes:D2}:{(int)time.Seconds:D2}";
     }
 }

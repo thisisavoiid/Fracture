@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7765758993073093911}
   - component: {fileID: 8996157863745239495}
+  - component: {fileID: 3456084969620119421}
   - component: {fileID: 6824678464837416904}
   - component: {fileID: 4860943984525221803}
   m_Layer: 11
@@ -46,7 +47,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3aad7d0ce07d1f4d8ad6f3512191f3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 8
+--- !u!114 &3456084969620119421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: c2a24e0cad1387748a92af6ee597f949, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7989654029766163149}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &6824678464837416904
 SphereCollider:
   m_ObjectHideFlags: 0

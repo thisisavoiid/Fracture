@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// Executes combat logic, including aiming, firing items, and reloading.
-/// </summary>
 public class AttackState : State
 {
     private ItemSlotController _itemSlotController;
@@ -14,6 +11,7 @@ public class AttackState : State
     private TimeMS _reloadDuration;
     private Battery _battery;
     private bool _hasAlreadyAttackedBefore = false;
+    private float _rotateToTargetSnappiness;
 
     public AttackState(
         ItemSlotController slotController,
@@ -21,7 +19,8 @@ public class AttackState : State
         Transform targetTransform,
         TimeMS reloadDuration,
         Timer reloadTimer,
-        Battery battery
+        Battery battery,
+        float rotateToTargetSnappiness
     )
     {
         _itemSlotController = slotController;
@@ -30,14 +29,12 @@ public class AttackState : State
         _reloadTimer = reloadTimer;
         _battery = battery;
         _reloadDuration = reloadDuration;
+        _rotateToTargetSnappiness = rotateToTargetSnappiness;
 
         _reloadTimer.SetTime(_reloadDuration);
-        _reloadTimer.Start();
+        _reloadTimer.StartTimer();
     }
 
-    /// <summary>
-    /// Identifies the equipped weapon to track ammunition status.
-    /// </summary>
     public override void Enter()
     {
         if (_itemSlotController == null) return;
@@ -53,12 +50,8 @@ public class AttackState : State
 
     public override void Exit() { }
 
-    /// <summary>
-    /// Manages the look-at logic, item usage, and reload cycles.
-    /// </summary>
     public override void Run()
     {
-        // Debug Checks für kritische Referenzen
         if (_itemSlotController == null)
         {
             Debug.LogError("AttackState: _itemSlotController is null!");
@@ -87,9 +80,14 @@ public class AttackState : State
         Vector3 lookDir = (_targetTransform.position - _headTransform.position).normalized;
         lookDir.y = 0f;
 
-        _itemSlotController.transform.rotation = Quaternion.LookRotation(lookDir);
+        Quaternion targetRotation = Quaternion.LookRotation(lookDir);
 
-        // Handle firing frequency via timer
+        _itemSlotController.transform.rotation = Quaternion.Lerp(
+            _itemSlotController.transform.rotation, 
+            targetRotation, 
+            Time.deltaTime * _rotateToTargetSnappiness
+        );
+
         if (_reloadTimer != null)
         {
             if (_reloadTimer.GetRemainingTime().TotalSeconds <= 0 || !_hasAlreadyAttackedBefore)
@@ -111,7 +109,6 @@ public class AttackState : State
             Debug.LogError("AttackState: _reloadTimer is null!");
         }
 
-        // Handle reload logic for Weapons
         if (equippedItem is Weapon weapon)
         {
             if (_bulletTracker == null)

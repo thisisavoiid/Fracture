@@ -8,6 +8,8 @@ public class GadgetSway : MonoBehaviour
     [SerializeField] private float _swaySnappiness;
 
     [SerializeField] private float _lookSwayStrength;
+    [SerializeField] private bool _isLocked = false;
+
     private Vector3 _basePosition;
     private Vector3 _baseRotation;
     private Transform _transform;
@@ -24,7 +26,7 @@ public class GadgetSway : MonoBehaviour
 
     public void SetMoveValue(Vector3 move)
     {
-        _lastMoveValue = move;   
+        _lastMoveValue = move;
     }
 
     public void SetLookValue(Vector2 look)
@@ -32,14 +34,18 @@ public class GadgetSway : MonoBehaviour
         _lastLookDelta = look;
     }
 
+    public void SetLocked(bool value) => _isLocked = value;
+
     private void Update()
     {
-            
+        if (_isLocked)
+            return;
+
         Vector3 targetPosition = _basePosition;
         Vector3 targetRotation = _baseRotation;
 
         targetRotation.z = _baseRotation.z + _lastMoveValue.x * _moveSwayStrength * -1;
-        targetRotation.x = _baseRotation.x + _lastMoveValue.z * _moveSwayStrength ;
+        targetRotation.x = _baseRotation.x + _lastMoveValue.z * _moveSwayStrength;
 
         targetRotation.x = targetRotation.x + _lastLookDelta.y * _lookSwayStrength;
         targetRotation.y = _baseRotation.y + _lastLookDelta.x * _lookSwayStrength;

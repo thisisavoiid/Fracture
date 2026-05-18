@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 4613874664950632205}
   - component: {fileID: 5952664135976882823}
   - component: {fileID: 8976363979520206659}
+  - component: {fileID: 3330211497397873562}
   - component: {fileID: 3973428780255461413}
   - component: {fileID: 3576135094835255558}
   m_Layer: 9
@@ -243,6 +244,7 @@ MonoBehaviour:
   _reloadDuration:
     Minutes: 0
     Seconds: 5
+  _turnToTargetSpeed: 7.5
   OnRobotInitialize:
     m_PersistentCalls:
       m_Calls:
@@ -507,6 +509,34 @@ MonoBehaviour:
   OnTimerUpdate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3330211497397873562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967081138143782580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: c2a24e0cad1387748a92af6ee597f949, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5967081138143782580}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!195 &3973428780255461413
 NavMeshAgent:
   m_ObjectHideFlags: 0

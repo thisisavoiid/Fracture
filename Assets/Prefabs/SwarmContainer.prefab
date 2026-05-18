@@ -47,14 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _amount: 30
   _spawnContainerSize: {x: 1, y: 1, z: 1}
-  _swarmPrefab: {fileID: 245529128316309274, guid: 942c6fa5d68b26f4cb42fab7d347f79d, type: 3}
+  _followerBeePrefab: {fileID: 245529128316309274, guid: 942c6fa5d68b26f4cb42fab7d347f79d, type: 3}
+  _leaderBeePrefab: {fileID: 8996157863745239495, guid: 07d4794e0bc11f6489988234e2911174, type: 3}
   _targetTransform: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
   _attackTriggerLayers:
     serializedVersion: 2
     m_Bits: 64
-  _swarmLayers:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &2798876629290643563
 MonoBehaviour:
   m_ObjectHideFlags: 0

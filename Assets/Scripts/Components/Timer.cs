@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     public UnityEvent<TimeMS> OnTimerUpdate;
     public bool IsActive => _isActive;
     private float _timeLeft = 0.0f;
-    private float _timeSecondDelta = 0.0f;
+    private float _timeSecondDelta = 1.0f;
     private bool _isActive;
     private bool _hasTimerEndEventInvoked = false;
 
@@ -24,18 +24,20 @@ public class Timer : MonoBehaviour
     public void SetTime(TimeMS time)
     {
         _defaultTime = time;
+        OnTimerUpdate?.Invoke(_defaultTime);
+        
         _hasTimerEndEventInvoked = false;
         Debug.Log($"[TIMER] SetTime called (On object: {this.gameObject.name}), Value: {time.ToString()}s -");
         Reset();
     }
 
-    public void Start()
+    public void StartTimer()
     {
         Debug.Log($"[TIMER] Starting timer (On object: {this.gameObject.name}) -");
         _isActive = true;
     }
 
-    public void Stop()
+    public void StopTimer()
     {
         Debug.Log($"[TIMER] Stopping timer (On object: {this.gameObject.name}) -");
         _isActive = false;
@@ -55,7 +57,7 @@ public class Timer : MonoBehaviour
             if (!_hasTimerEndEventInvoked)
             {
                 Debug.Log($"[TIMER] Timer reached zero (On object: {this.gameObject.name}), Invoking OnTimerEnd -");
-                _hasTimerEndEventInvoked = true;    
+                _hasTimerEndEventInvoked = true;
                 OnTimerEnd?.Invoke();
             }
 

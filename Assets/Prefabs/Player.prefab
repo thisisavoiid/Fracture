@@ -313,6 +313,7 @@ MonoBehaviour:
   _moveSwaySpeed: 7
   _swaySnappiness: 15
   _lookSwayStrength: 0.12
+  _isLocked: 0
 --- !u!95 &135839061949802169
 Animator:
   serializedVersion: 7
@@ -586,10 +587,12 @@ GameObject:
   - component: {fileID: 8525804941694592617}
   - component: {fileID: 685308438115763218}
   - component: {fileID: 8797890699057594955}
+  - component: {fileID: 914802079214223401}
+  - component: {fileID: 5988905495631976818}
+  - component: {fileID: 5744305874958733262}
   - component: {fileID: 3993649210457972446}
   - component: {fileID: 5370506809992784433}
   - component: {fileID: 2152570397126749913}
-  - component: {fileID: 914802079214223401}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -685,6 +688,7 @@ MonoBehaviour:
       m_Calls: []
   _generalPhysicsMaterial: {fileID: 13400000, guid: 86dde7478db8d384a9c6291797adaf53, type: 2}
   _slidePhysicsMaterial: {fileID: 13400000, guid: f39adaf8dd747574aad338a48b1c719e, type: 2}
+  _isLocked: 0
 --- !u!114 &3829569383813201222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,6 +719,7 @@ MonoBehaviour:
   _camera: {fileID: 4302687206860350062}
   _baseFov: 0
   _fovLerpSpeed: 0
+  _isLocked: 0
 --- !u!114 &3850673831037293335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,6 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce8a5350dbe5e24e8a55595d75d2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isLocked: 1
 --- !u!114 &1106298265593718078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +761,7 @@ MonoBehaviour:
   _speed: 1.5
   _targetTransform: {fileID: 709831377854056543}
   _isActive: 1
+  _isLocked: 0
 --- !u!114 &8525804941694592617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,6 +807,146 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba2e6ea7826be74099a2afd41b795c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &914802079214223401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844992768335865853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a03ba1aedb8d9439fa0de7fbcc5e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5988905495631976818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844992768335865853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 0623c6b42ac46904b9180339173a9d0b, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2409212850851219203}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5732077199095150193}
+        m_TargetAssemblyTypeName: GadgetSway, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1106298265593718078}
+        m_TargetAssemblyTypeName: HeadBob, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3323122811258744869}
+        m_TargetAssemblyTypeName: RigidbodyMovement, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5744305874958733262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844992768335865853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: c2a24e0cad1387748a92af6ee597f949, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2409212850851219203}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5732077199095150193}
+        m_TargetAssemblyTypeName: GadgetSway, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1106298265593718078}
+        m_TargetAssemblyTypeName: HeadBob, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3323122811258744869}
+        m_TargetAssemblyTypeName: RigidbodyMovement, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!33 &3993649210457972446
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -858,15 +1005,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &914802079214223401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844992768335865853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a03ba1aedb8d9439fa0de7fbcc5e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

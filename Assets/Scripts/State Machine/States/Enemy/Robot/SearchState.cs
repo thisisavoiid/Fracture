@@ -28,7 +28,7 @@ public class SearchState : State
 
     public override void Enter()
     {
-        _searchTimer.Stop();
+        _searchTimer.StopTimer();
         _searchTimer.SetTime(_searchDuration);
         _hasSearchTimerBeenStarted = false;
 
@@ -37,7 +37,7 @@ public class SearchState : State
 
     public override void Exit()
     {
-        _searchTimer.Stop();
+        _searchTimer.StopTimer();
         _searchTimer.Reset();
         _animator.SetBool("IsSearching", false);
     }
@@ -54,7 +54,7 @@ public class SearchState : State
             {
                 _animator.SetBool("IsSearching", true);
                 _hasSearchTimerBeenStarted = true;
-                _searchTimer.Start();
+                _searchTimer.StartTimer();
             }
         }
 

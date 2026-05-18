@@ -56,10 +56,13 @@ public class GameFlowManager : MonoBehaviour
         if (_gameFlowDict[type].Count == 0)
             return;
 
+        Debug.Log($"[GAME FLOW MANAGER] Flow change: {_currentFlow} => {type} -");
+
         _currentFlow = type;
 
         foreach (ScriptableEvent flowEvent in _gameFlowDict[_currentFlow])
             flowEvent?.Invoke();
+
     }
 
     [ContextMenu("Force Start: Start Match Flow")]
