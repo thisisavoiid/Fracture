@@ -223,8 +223,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.71927637, y: 5.820915, z: 9.867375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -575,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5221584805826495876, guid: 1f388c233f8c05443a83bcf35e7cb523, type: 3}
       propertyPath: m_Name
-      value: Inventory Filler_1
+      value: Inventory Filler
       objectReference: {fileID: 0}
     - target: {fileID: 6950461345293838315, guid: 1f388c233f8c05443a83bcf35e7cb523, type: 3}
       propertyPath: _inventory
