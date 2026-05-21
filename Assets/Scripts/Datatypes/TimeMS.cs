@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using NaughtyAttributes;
 
 [Serializable]
 public struct TimeMS
@@ -9,7 +10,9 @@ public struct TimeMS
         Minutes = Mathf.Floor(totalSeconds / 60.0f);
         Seconds = totalSeconds % 60.0f;
     }
+
     public float Minutes;
+
     public float Seconds;
 
     public float TotalSeconds => (Minutes * 60) + Seconds;

@@ -17,7 +17,7 @@ MonoBehaviour:
     MixerChannel: {fileID: -124545690972253445, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
     DefaultVolume: 0.6
     DefaultPitch: 0.75
-    UseRandomVolume: 1
+    UseRandomVolume: 0
     RandomVolumeRange: 0.175
     UseRandomPitch: 1
     RandomPitchRange: 0.075

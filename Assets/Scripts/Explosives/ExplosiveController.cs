@@ -20,15 +20,6 @@ public class ExplosiveController : MonoBehaviour
         _sphereDetector = GetComponent<OverlapSphereDetector>();
     }
 
-    // private void OnEnable()
-    // {
-    //     if (_explosive.ExplodeSound != null && AudioManager.Instance != null)
-    //         OnExplode.AddListener(() => AudioManager.Instance.PlaySound(_explosive.ExplodeSound, transform.position));
-
-    //     if (_explosive.DetonationCycleStartSound != null && AudioManager.Instance != null)
-    //         OnDetonationCycleStart.AddListener(() => AudioManager.Instance.PlaySound(_explosive.DetonationCycleStartSound, transform.position));
-    // }
-
     private void OnDisable()
     {
         OnExplode.RemoveAllListeners();

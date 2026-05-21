@@ -4,14 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(IItemProvider))]
 public class ItemFactory : MonoBehaviour
 {
-    private List<Usable> _instantiatedItems = new();
+    private List<Item> _instantiatedItems = new();
     private IItemProvider _itemProvider;
     private void Awake()
     {
         _itemProvider = GetComponent<IItemProvider>();
     }
 
-    public GameObject InstantiateItem(Usable item, bool createAsEnabled)
+    public GameObject InstantiateItem(Item item, bool createAsEnabled)
     {
         if (item == null)
         {
@@ -19,7 +19,7 @@ public class ItemFactory : MonoBehaviour
             return null;
         }
 
-        Usable createdItemObject = Instantiate(item);
+        Item createdItemObject = Instantiate(item);
         createdItemObject.gameObject.SetActive(createAsEnabled);
         _instantiatedItems.Add(createdItemObject);
 
@@ -28,7 +28,7 @@ public class ItemFactory : MonoBehaviour
         return createdItemObject.gameObject;
     }
 
-    public GameObject InstantiateItem(Usable item, Transform transform, bool createAsEnabled)
+    public GameObject InstantiateItem(Item item, Transform transform, bool createAsEnabled)
     {
         if (item == null)
         {
@@ -36,7 +36,7 @@ public class ItemFactory : MonoBehaviour
             return null;
         }
         
-        Usable createdItemObject = Instantiate(item, transform, createAsEnabled);
+        Item createdItemObject = Instantiate(item, transform, createAsEnabled);
         createdItemObject.gameObject.SetActive(createAsEnabled);
         _instantiatedItems.Add(createdItemObject);
 
@@ -45,5 +45,5 @@ public class ItemFactory : MonoBehaviour
         return createdItemObject.gameObject;
     }
 
-    public List<Usable> GetAllItemInstances() => _instantiatedItems;
+    public List<Item> GetAllItemInstances() => _instantiatedItems;
 }

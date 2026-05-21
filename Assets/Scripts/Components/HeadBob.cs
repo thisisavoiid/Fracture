@@ -7,7 +7,6 @@ public class HeadBob : MonoBehaviour
     [SerializeField] private float _strength;
     [SerializeField] private float _speed;
     [SerializeField] private Transform _targetTransform;
-    [SerializeField] private bool _isActive = false;
     [SerializeField] private bool _isLocked = false;
 
     private Vector3 _basePos;
@@ -19,7 +18,7 @@ public class HeadBob : MonoBehaviour
 
     private void Update()
     {
-        if (!_isActive)
+        if (_isLocked)
             return;
 
         if (_isLocked)

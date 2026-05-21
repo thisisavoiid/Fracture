@@ -13,6 +13,9 @@ public class FootstepSFX : MonoBehaviour
     private PhysicsMaterial _currentPhysicsMaterial;
     private float _distanceTraveledDelta = 0.0f;
     private Vector3 _lastPosition;
+    private bool _isLocked = false;
+
+    public void SetLocked(bool value) => _isLocked = value;
 
     private void Awake()
     {
@@ -32,6 +35,9 @@ public class FootstepSFX : MonoBehaviour
 
     private void Update()
     {
+        if (_isLocked)
+            return;
+        
         if (_audioSource == null)
             return;
 

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class InventoryController : MonoBehaviour, IItemProvider
 {
-    [SerializeField] private List<Usable> _inventoryContent;
+    [SerializeField] private List<Item> _inventoryContent;
     [SerializeField] private InventoryVariable _inventoryVariable;
 
     private void Awake()
@@ -19,14 +19,14 @@ public class InventoryController : MonoBehaviour, IItemProvider
         _inventoryVariable.SetValue(_inventoryContent);
     }
 
-    public void AddItem(Usable item)
+    public void AddItem(Item item)
     {
         AddItem(item, _inventoryContent.Count);
 
         RefreshInventoryVariable();
     }
 
-    public void AddItem(Usable item, int index)
+    public void AddItem(Item item, int index)
     {
         if (!IsSlotUnoccupied(index))
             return;
@@ -36,7 +36,7 @@ public class InventoryController : MonoBehaviour, IItemProvider
         RefreshInventoryVariable();
     }
 
-    public List<Usable> GetItems() => _inventoryContent;
+    public List<Item> GetItems() => _inventoryContent;
     private bool IsSlotUnoccupied(int index) => _inventoryContent[index] == null;
 
 }

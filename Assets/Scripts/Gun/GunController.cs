@@ -43,18 +43,18 @@ public class GunController : Weapon
 
     private float CalculateDurationAfterShot(int shotsPerMinute) => 60.0f / (float)shotsPerMinute;
 
-    public override void Use(Vector3 origin, Vector3 dir, bool held, bool pressed)
+    public override void Use(ItemUsageData usageData)
     {
         GunContext gunContext = new GunContext()
         {
             Holder = _holder,
             Gun = _gun,
-            Direction = dir.normalized,
-            Origin = origin,
+            Direction = usageData.Direction.normalized,
+            Origin = usageData.Origin,
             RayCastDetector = _rayCastDetector,
             BulletTracker = _gunBulletTracker,
-            IsHeld = held,
-            IsPressed = pressed,
+            IsHeld = usageData.IsHeld,
+            IsPressed = usageData.IsPressed,
             Timer = _timer,
             ProjectileSpawnTransform = _projectileSpawnTransform
         };

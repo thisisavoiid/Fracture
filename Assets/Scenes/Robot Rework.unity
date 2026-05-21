@@ -1234,7 +1234,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1548572908}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 07d09cc4a3aa71a48881b3be97bfdc35, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1895,13 +1895,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1963015184305335767, guid: 405665a736494e74ba5e76907485194e, type: 3}
+      propertyPath: _currentBatteryLife
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4034662536239446213, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034662536239446213, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5815591306045240863, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: _chargeStationTransform
@@ -1947,9 +1951,17 @@ PrefabInstance:
       propertyPath: '_patrolWaypoints.Array.data[9]'
       value: 
       objectReference: {fileID: 106123135}
+    - target: {fileID: 5952664135976882823, guid: 405665a736494e74ba5e76907485194e, type: 3}
+      propertyPath: _defaultTime.Seconds
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5967081138143782580, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_Name
       value: EnemyRobot Rigged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5967081138143782580, guid: 405665a736494e74ba5e76907485194e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6814391531851964671, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1994,10 +2006,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8394891184566158756, guid: 405665a736494e74ba5e76907485194e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405665a736494e74ba5e76907485194e, type: 3}
 --- !u!1001 &8712024737289522296
 PrefabInstance:

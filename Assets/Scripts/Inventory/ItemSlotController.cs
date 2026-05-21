@@ -13,22 +13,22 @@ public class ItemSlotController : MonoBehaviour
     private ItemFactory _itemFactory;
     private int _currentSlot;
     public int CurrentSlot => _currentSlot;
-    public UnityEvent<Usable> OnItemEquipped;
+    public UnityEvent<Item> OnItemEquipped;
 
     private void Awake()
     {
         _itemProvider = GetComponent<IItemProvider>();
         _itemFactory = GetComponent<ItemFactory>();
 
-        List<Usable> items = _itemProvider.GetItems();
+        List<Item> items = _itemProvider.GetItems();
 
-        foreach (Usable item in items)
+        foreach (Item item in items)
             _itemFactory.InstantiateItem(item, _itemSlotTransform, false);
     }
 
     private void Start()
     {
-        List<Usable> items = _itemFactory.GetAllItemInstances();
+        List<Item> items = _itemFactory.GetAllItemInstances();
 
         if (_defaultSlot < 0 || _defaultSlot > items.Count - 1)
             return;
@@ -40,7 +40,7 @@ public class ItemSlotController : MonoBehaviour
     }
     public void SetSlot(int index)
     {
-        List<Usable> itemInstances = _itemFactory.GetAllItemInstances();
+        List<Item> itemInstances = _itemFactory.GetAllItemInstances();
 
         if (itemInstances.Count == 0)
             return;
@@ -51,7 +51,7 @@ public class ItemSlotController : MonoBehaviour
         if (index > itemInstances.Count - 1)
             index = 0;
 
-        Usable currentItem = itemInstances[_currentSlot];
+        Item currentItem = itemInstances[_currentSlot];
 
         if (currentItem != null)
             UnequipItem(currentItem);
@@ -61,7 +61,7 @@ public class ItemSlotController : MonoBehaviour
         EquipItem(_itemFactory.GetAllItemInstances()[_currentSlot]);
     }
 
-    private void EquipItem(Usable item)
+    private void EquipItem(Item item)
     {
         if (item.gameObject == null)
             return;
@@ -72,7 +72,7 @@ public class ItemSlotController : MonoBehaviour
         Debug.Log($"[ITEM SLOT CONTROLLER] Equipped now: {item.gameObject.name} -");
     }
 
-    private void UnequipItem(Usable item)
+    private void UnequipItem(Item item)
     {
         if (item.gameObject == null)
             return;
@@ -83,14 +83,14 @@ public class ItemSlotController : MonoBehaviour
         Debug.Log($"[ITEM SLOT CONTROLLER] Unequipped item: {item.gameObject.name} -");
     }
 
-    public Usable GetEquippedItem()
+    public Item GetEquippedItem()
     {
-        List<Usable> items = _itemFactory.GetAllItemInstances();
+        List<Item> items = _itemFactory.GetAllItemInstances();
 
         if (_currentSlot < 0 || _currentSlot > items.Count - 1)
             return null;
 
-        Usable item = items[_currentSlot];
+        Item item = items[_currentSlot];
         return item;
     }
 }

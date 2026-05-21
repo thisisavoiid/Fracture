@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +13,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(RigidbodyMovement))]
 [RequireComponent(typeof(CameraController))]
 [RequireComponent(typeof(OverlapBoxDetector))]
-[RequireComponent(typeof(ItemSlotController))]
+[RequireComponent(typeof(InventoryManager))]
 [RequireComponent(typeof(HeadBob))]
 [RequireComponent(typeof(PhysicsMaterialChanger))]
 public class PlayerController : MonoBehaviour
@@ -59,9 +60,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TransformVariable _transformVariable;
 
     [Header("Event Endpoints")]
-    public UnityEvent<Vector2> OnMouseLook;
-    public UnityEvent<Vector3> OnMove;
-    public UnityEvent OnJump;
+    [SerializeField] private UnityEvent<Vector2> _onMouseLook;
+    [SerializeField] private UnityEvent<Vector3> _onMove;
+    [SerializeField] private UnityEvent _onJump;
+    [SerializeField] private UnityEvent _onSlideStart;
+    [SerializeField] private UnityEvent _onSlideEnd;
+
 
     [Header("Phsyics Materials")]
     [SerializeField] private PhysicsMaterial _generalPhysicsMaterial;
@@ -70,11 +74,13 @@ public class PlayerController : MonoBehaviour
     [Header("Various")]
     [SerializeField] private bool _isLocked = false;
 
+    [Header("Event Endpoints")]
+
     private PlayerInputController _inputController;
     private RigidbodyMovement _rbMovement;
     private CameraController _cameraController;
     private OverlapBoxDetector _overlapBoxDetector;
-    private ItemSlotController _itemSlotController;
+    private InventoryManager _inventoryManager;
     private HeadBob _headbob;
     private PhysicsMaterialChanger _physicsMaterialChanger;
     private bool _isJumpQueued = false;
@@ -90,7 +96,7 @@ public class PlayerController : MonoBehaviour
         _rbMovement = GetComponent<RigidbodyMovement>();
         _cameraController = GetComponent<CameraController>();
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
-        _itemSlotController = GetComponent<ItemSlotController>();
+        _inventoryManager = GetComponent<InventoryManager>();
         _headbob = GetComponent<HeadBob>();
         _physicsMaterialChanger = GetComponent<PhysicsMaterialChanger>();
 
@@ -98,14 +104,6 @@ public class PlayerController : MonoBehaviour
             _transformVariable.SetValue(transform);
 
         _cameraController.SetFOVLerpSpeed(_lerpSpeed);
-    }
-
-    /// <summary>
-    /// Sets the initial inventory slot via the <see cref="ItemSlotController"/>.
-    /// </summary>
-    private void Start()
-    {
-        _itemSlotController.SetSlot(0);
     }
 
     /// <summary>
@@ -138,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
             _rbMovement.Move(transform.TransformDirection(_moveDir), targetSpeed, true);
 
-            OnMove?.Invoke(_moveDir);
+            _onMove?.Invoke(_moveDir);
         }
     }
 
@@ -180,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
         _cameraController.SetLocalRotation(Quaternion.Euler(pitch, 0f, 0f));
 
-        OnMouseLook?.Invoke(mouseDelta);
+        _onMouseLook?.Invoke(mouseDelta);
     }
 
     /// <summary>
@@ -231,7 +229,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks for gadget action inputs and triggers the <see cref="Usable.Use"/> method 
+    /// Checks for gadget action inputs and triggers the <see cref="Item.Use"/> method 
     /// on the currently equipped item from the <see cref="ItemSlotController"/>.
     /// </summary>
     private void HandleItemUse()
@@ -244,21 +242,14 @@ public class PlayerController : MonoBehaviour
 
         Transform cameraTransform = _cameraController.GetTransform();
 
-        Usable equippedItem = _itemSlotController.GetEquippedItem();
+        ItemUsageData usageData = new ItemUsageData(
+            cameraTransform.position,
+            cameraTransform.forward,
+            isPrimaryGadgetActionHeldDown,
+            wasPrimaryGadgetActionPressed
+        );
 
-        if (equippedItem != null)
-        {
-            equippedItem.Use(
-                cameraTransform.position,
-                cameraTransform.forward.normalized,
-                isPrimaryGadgetActionHeldDown,
-                wasPrimaryGadgetActionPressed
-            );
-        }
-        else
-        {
-            Debug.LogWarning("[PLAYER CONTROLLER] Active item is null! -");
-        }
+        _inventoryManager.UseActiveItem(usageData);
     }
 
     /// <summary>
@@ -267,7 +258,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void HandleGunReload()
     {
-        Usable equippedItem = _itemSlotController.GetEquippedItem();
+        Item equippedItem = _inventoryManager.ActiveItem;
 
         if (equippedItem == null)
             return;
@@ -287,14 +278,29 @@ public class PlayerController : MonoBehaviour
     /// Manages the inventory slot selection by calculating the target index 
     /// based on input and updating the <see cref="ItemSlotController"/>.
     /// </summary>
-    private void HandleInventory()
+    private void HandleInventoryShuffle()
     {
         if (_inputController.ShuffleInventorySlots == 0)
             return;
 
-        int currentIndex = _itemSlotController.CurrentSlot;
+        if (_inventoryManager.Capacity == 0)
+            return;
+
+        int currentIndex = _inventoryManager.ActiveSlot;
         int targetIndex = currentIndex + (int)_inputController.ShuffleInventorySlots;
-        _itemSlotController.SetSlot(targetIndex);
+        int inventoryCapactiy = _inventoryManager.Capacity;
+
+        if (targetIndex < 0)
+        {
+            targetIndex = inventoryCapactiy - 1;
+        } 
+
+        if (targetIndex >= inventoryCapactiy)
+        {
+            targetIndex = 0;
+        }
+
+        _inventoryManager.SetActiveSlot(targetIndex, out _);
     }
 
     /// <summary>
@@ -317,11 +323,15 @@ public class PlayerController : MonoBehaviour
                 targetCameraLocalPos.y -= _cameraYPosChange;
 
                 _cameraController.SetLocalPosition(targetCameraLocalPos);
+
+                _onSlideStart?.Invoke();
             }
             else
             {
                 targetCameraLocalPos.y += _cameraYPosChange;
                 _cameraController.SetLocalPosition(targetCameraLocalPos);
+
+                _onSlideEnd?.Invoke();
             }
 
             Vector3 _moveDir = _inputController.Move;
@@ -344,7 +354,7 @@ public class PlayerController : MonoBehaviour
         HandleCameraLook();
         HandleItemUse();
         HandleGunReload();
-        HandleInventory();
+        HandleInventoryShuffle();
         HandleCameraFOV();
         HandleHeadbob();
 
@@ -357,13 +367,13 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        
+
         if (_itemAnimator != null)
-        {   
+        {
             _itemAnimator.SetFloat("Speed", Mathf.Round(_rbMovement.CurrentVelocity.magnitude));
             _itemAnimator.SetBool("IsInAir", !_isGrounded);
         }
-        
+
         if (_isLocked)
             return;
 
@@ -375,7 +385,7 @@ public class PlayerController : MonoBehaviour
         {
             _isJumpQueued = false;
             _rbMovement.Jump(_jumpStrength);
-            OnJump?.Invoke();
+            _onJump?.Invoke();
         }
     }
 

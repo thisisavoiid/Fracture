@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using NaughtyAttributes;
 
 public class Battery : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class Battery : MonoBehaviour
     public UnityEvent<float> OnBatteryLifeUpdate;
     public UnityEvent OnBatteryDepleted;
     public UnityEvent OnBatteryChargedUp;
-    private float _currentBatteryLife = 100;
+
+    [ProgressBar("Battery Life", 100, EColor.Green), ReadOnly] 
+    [SerializeField] private float _currentBatteryLife = 100;
     private BatteryState _currentBatteryState = BatteryState.Charged;
 
     private enum BatteryState

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -24,68 +25,84 @@ public class RobotBrain : MonoBehaviour
     #endregion
 
     #region Dependencies
-    [Header("Detection Settings")]
+    [BoxGroup("Detection Settings")]
     [Tooltip("Reference to the TransformVariable of the target (e.g., the player).")]
     [SerializeField] private TransformVariable _targetTransform;
 
+    [BoxGroup("Detection Settings")]
     [Tooltip("LayerMask used to filter target objects during detection.")]
     [SerializeField] private LayerMask _targetMask;
 
+    [BoxGroup("Detection Settings")]
     [Tooltip("Maximum distance the robot can see.")]
     [SerializeField] private float _viewDistance;
 
+    [BoxGroup("Detection Settings")]
     [Tooltip("Distance at which the robot stops chasing and returns to patrol.")]
     [SerializeField] private float _calmDownDistance;
 
+    [BoxGroup("Detection Settings")]
     [Tooltip("Minimum distance required to initiate an attack.")]
     [SerializeField] private float _minAttackDistance;
 
+    [BoxGroup("Detection Settings")]
     [Tooltip("Transform of the head used for line-of-sight checks and attack aiming.")]
     [SerializeField] private Transform _headTransform;
 
-    [Header("State Settings")]
-    [Header("Patrol State")]
+    [BoxGroup("Patrol Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during patrol.")]
     [SerializeField] private float _patrolSpeed;
 
+    [BoxGroup("Patrol Settings")]
     [Tooltip("Acceleration of the NavMeshAgent during patrol.")]
     [SerializeField] private float _patrolAcceleration;
 
+    [BoxGroup("Patrol Settings")]
     [Tooltip("List of waypoints for the robot to follow in sequence.")]
     [SerializeField] private List<Transform> _patrolWaypoints;
 
-    [Header("Chase State")]
+    [BoxGroup("Chase Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during pursuit.")]
     [SerializeField] private float _chaseSpeed;
 
+    [BoxGroup("Chase Settings")]
     [Tooltip("Acceleration of the NavMeshAgent during pursuit.")]
     [SerializeField] private float _chaseAcceleration;
 
-    [Header("Go To Charge Station State")]
+    [BoxGroup("Charging Settings")]
     [Tooltip("Transform reference for the charging station location.")]
     [SerializeField] private Transform _chargeStationTransform;
 
+    [BoxGroup("Charging Settings")]
     [Tooltip("Movement speed when heading to the charging station.")]
     [SerializeField] private float _goToChargeStationSpeed;
 
+    [BoxGroup("Charging Settings")]
     [Tooltip("Acceleration when heading to the charging station.")]
     [SerializeField] private float _goToChargeAcceleration;
 
-    [Header("Reload Settings")]
+    [BoxGroup("Combat & Timers")]
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
     [SerializeField] private TimeMS _reloadDuration;
 
-    [Header("Game-Feel Settings")]
+    [BoxGroup("Combat & Timers")]
     [Tooltip("The time required for the robot to turn to the target when being in attack state.")]
     [SerializeField] private float _turnToTargetSpeed = 7.5f;
 
-    [SerializeField] private UnityEvent OnRobotInitialize;
-
+    [BoxGroup("Combat & Timers")]
     [SerializeField] private TimeMS _searchDuration;
+
+    [BoxGroup("Combat & Timers")]
     [SerializeField] private Timer _searchTimer;
+
+    [BoxGroup("Combat & Timers")]
     [SerializeField] private Timer _reloadTimer;
 
+    [BoxGroup("Combat & Timers")]
     [SerializeField] private Animator _animator;
+
+    [BoxGroup("Initialization Events")]
+    [SerializeField] private UnityEvent OnRobotInitialize;
 
     private Battery _battery;
     private NavMeshAgent _agent;

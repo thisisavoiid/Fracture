@@ -24,7 +24,7 @@ public class FollowerBee : Bee
     [SerializeField] protected float _separationForceWeight = 1.5f;
     [SerializeField] protected OverlapSphereDetector _separationSphereDetector;
     [SerializeField] protected OverlapSphereDetector _targetSearchSphereDetector;
-    [SerializeField] protected Usable _gun;
+    [SerializeField] protected Item _gun;
     [SerializeField] private float _deathZoneDistance;
 
     private RayCastDetector _rayCastDetector;
@@ -233,7 +233,15 @@ public class FollowerBee : Bee
                     if (canSeeTarget && _gun != null)
                     {
                         Debug.Log($"[{this.GetType().Name.ToUpper()}] {gameObject.name} is firing at {_targetTransform.Value.gameObject.name}! -");
-                        _gun.Use(transform.position, targetDir, true, false);
+                        
+                        ItemUsageData usageData = new ItemUsageData(
+                            transform.position,
+                            targetDir,
+                            true,
+                            false
+                        );
+
+                        _gun.Use(usageData);
                     }
                 }
 
