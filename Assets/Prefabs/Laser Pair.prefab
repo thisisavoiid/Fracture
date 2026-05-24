@@ -4730,7 +4730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 4800
+    m_Bits: 12992
 --- !u!120 &8370858025162722044
 LineRenderer:
   serializedVersion: 2
