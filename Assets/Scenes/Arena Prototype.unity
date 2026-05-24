@@ -316,11 +316,11 @@ PrefabInstance:
       objectReference: {fileID: 3147329875274025170, guid: 66f1e035207f4764a8f5cb63d2364a33, type: 3}
     - target: {fileID: 4034662536239446213, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4034662536239446213, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5815591306045240863, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: _chargeStationTransform
@@ -352,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5967081138143782580, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6814391531851964671, guid: 405665a736494e74ba5e76907485194e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -397,10 +397,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8394891184566158756, guid: 405665a736494e74ba5e76907485194e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 405665a736494e74ba5e76907485194e, type: 3}
 --- !u!1001 &311858547
 PrefabInstance:
@@ -485,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551268610733317324, guid: 3778ba6582ed14f4c8205235d65c0ccb, type: 3}
       propertyPath: _amount
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4551268610733317324, guid: 3778ba6582ed14f4c8205235d65c0ccb, type: 3}
       propertyPath: _leaderBeePrefab

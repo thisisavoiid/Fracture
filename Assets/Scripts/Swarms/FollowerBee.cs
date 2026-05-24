@@ -1,31 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
-using System.Transactions;
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.ProBuilder;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(RayCastDetector))]
 public class FollowerBee : Bee
 {
-    [SerializeField] protected float _speed;
-    [SerializeField] protected float _yOffset = 4.75f;
-    [SerializeField] protected float _separationCheckRadius = 2.5f;
-    [SerializeField] protected float _targetCheckRadius = 10.0f;
-    [SerializeField] protected LayerMask _beeLayers;
-    [SerializeField] protected float _separationForceMultiplier = 1.0f;
-    [SerializeField] protected float _perlinNoiseWeight = 0.35f;
-    [SerializeField] protected float _directionToLeaderSwarmWeight = 1.25f;
-    [SerializeField] protected float _leaderSwarmForwardWeight = 0.75f;
-    [SerializeField] protected float _separationForceWeight = 1.5f;
-    [SerializeField] protected OverlapSphereDetector _separationSphereDetector;
-    [SerializeField] protected OverlapSphereDetector _targetSearchSphereDetector;
-    [SerializeField] protected Item _gun;
-    [SerializeField] private float _deathZoneDistance;
+    [SerializeField] private FollowerBeeConfig _config;
+
+    [SerializeField]
+    [BoxGroup("Initialization Endpoint")]
+    private UnityEvent _onBeeInitialize;
 
     private RayCastDetector _rayCastDetector;
     private LeaderBee _leaderBee;
@@ -34,35 +22,42 @@ public class FollowerBee : Bee
     private List<FollowerBee> _followerBeeInstances;
     private Rigidbody _rb;
     private UnityAction<FollowerBee> _containerSwarmDeathEvent;
+    private Quaternion _targetRotation;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _rayCastDetector = GetComponent<RayCastDetector>();
 
-        if (_separationSphereDetector == null)
+        if (_config.SeparationSphereDetector == null)
         {
             Debug.LogError($"[{this.GetType().Name.ToUpper()}] Separation overlap sphere detector is not assigned in the inspector -");
         }
         else
         {
-            _separationSphereDetector.SetRadius(_separationCheckRadius);
+            _config.SeparationSphereDetector.SetRadius(_config.SeparationCheckRadius);
         }
 
-        if (_targetSearchSphereDetector == null)
+        if (_config.SeparationSphereDetector == null)
         {
             Debug.LogError($"[{this.GetType().Name.ToUpper()}] Target search overlap sphere detector is not assigned in the inspector -");
         }
         else
         {
-            _targetSearchSphereDetector.SetRadius(_targetCheckRadius);
+            _config.SeparationSphereDetector.SetRadius(_config.TargetCheckRadius);
         }
 
-        if (_gun == null)
+        if (_config.Gun == null)
         {
             Debug.LogWarning($"[{this.GetType().Name.ToUpper()}] No Gun (Usable) assigned to {gameObject.name}. Bee will not be able to attack. -");
         }
     }
 
+    private void Start()
+    {
+        _onBeeInitialize?.Invoke();
+    }
+    
     public override void SetPosition(Vector3 startPos)
     {
         transform.position = startPos;
@@ -79,6 +74,7 @@ public class FollowerBee : Bee
         _targetTransform = targetTransform;
         _containerSwarmDeathEvent = onSwarmDeathEvent;
         _leaderBee = leaderBee;
+
         Debug.Log($"[{this.GetType().Name.ToUpper()}] Data set for {gameObject.name}. Leader is: {(leaderBee != null ? leaderBee.name : "NULL")} -");
     }
 
@@ -126,16 +122,14 @@ public class FollowerBee : Bee
         if (_leaderBee == null) return Vector3.zero;
 
         Vector3 leaderBeePos = GetLeaderBeePosition();
-        leaderBeePos.y += _yOffset;
+        leaderBeePos.y += _config.YOffset;
 
         Vector3 leaderBeeDir = GetDirection(transform.position, leaderBeePos);
         Vector3 leaderBeeForward = GetLeaderBeeForward();
         Vector3 perlinNoise = CalculateVectorPerlinNoise();
         Vector3 separationForce = Vector3.zero;
 
-        List<Collider> beeColliders = _separationSphereDetector.GetColliders(_beeLayers);
-
-
+        List<Collider> beeColliders = _config.SeparationSphereDetector.GetColliders(_config.BeeLayers);
 
         if (beeColliders != null && beeColliders.Count != 0)
         {
@@ -154,14 +148,14 @@ public class FollowerBee : Bee
                     beeCollider.gameObject.transform.position
                 );
 
-                separationForce += _separationForceMultiplier * (diff.normalized * -1) / Mathf.Max(1.0f, distance);
+                separationForce += _config.SeparationForceMultiplier * (diff.normalized * -1) / Mathf.Max(1.0f, distance);
             }
         }
 
-        Vector3 targetForce = (leaderBeeDir.normalized * _directionToLeaderSwarmWeight) +
-                             (leaderBeeForward * _leaderSwarmForwardWeight) +
-                             (perlinNoise * _perlinNoiseWeight) +
-                             (separationForce * _separationForceWeight);
+        Vector3 targetForce = (leaderBeeDir.normalized * _config.DirectionToLeaderSwarmWeight) +
+                             (leaderBeeForward * _config.LeaderSwarmForwardWeight) +
+                             (perlinNoise * _config.PerlinNoiseWeight) +
+                             (separationForce * _config.SeparationForceWeight);
 
         return targetForce.normalized;
     }
@@ -180,7 +174,7 @@ public class FollowerBee : Bee
     private bool IsTargetInLineOfSight(TransformVariable targetTransform)
     {
         Vector3 targetDir = GetDirection(transform.position, targetTransform.Value.position);
-        bool isObjectInLineOfSight = _rayCastDetector.Check(transform.position, targetDir, out RaycastHit hit, _targetCheckRadius);
+        bool isObjectInLineOfSight = _rayCastDetector.Check(transform.position, targetDir, out RaycastHit hit, _config.TargetCheckRadius);
 
         if (!isObjectInLineOfSight || hit.collider == null)
             return false;
@@ -212,28 +206,47 @@ public class FollowerBee : Bee
                 break;
 
             case BeeState.Chase:
-                bool isBeeInsideDeathZone = GetDistance(transform.position, GetLeaderBeePosition()) <= _deathZoneDistance;
+                bool isBeeCloseToTarget = GetDistance(transform.position, _targetTransform.Value.position) <= _config.TargetCheckRadius;
+                bool isBeeInsideDeathZone = GetDistance(transform.position, GetLeaderBeePosition()) <= _config.DeathZoneDistance;
 
-                if (isBeeInsideDeathZone)
+                if (isBeeInsideDeathZone || isBeeCloseToTarget)
                     targetForce = CalculateVectorPerlinNoise();
                 else
-                    targetForce = CalculateSwarmForce() * _speed;
+                    targetForce = CalculateSwarmForce() * _config.Speed;
 
-                _rb.linearVelocity = targetForce;
+                _rb.linearVelocity = Vector3.Lerp(
+                    _rb.linearVelocity,
+                    targetForce,
+                    Time.deltaTime * _config.Acceleration
+                );
 
                 if (_targetTransform == null || _targetTransform.Value == null) break;
 
-                float distanceToTarget = GetDistance(transform.position, _targetTransform.Value.position);
                 Vector3 targetDir = GetDirection(transform.position, _targetTransform.Value.position);
 
-                if (distanceToTarget < _targetCheckRadius)
+                if (targetDir != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.Lerp(
+                        transform.rotation,
+                        Quaternion.LookRotation(targetDir),
+                        Time.deltaTime * _config.TurnToTargetSpeed
+                    );
+
+                    Vector3 rotationEuler = targetRotation.eulerAngles;
+
+                    rotationEuler.x = Mathf.Clamp(rotationEuler.x, -_config.ClampDegrees, _config.ClampDegrees);
+
+                    transform.rotation = Quaternion.Euler(rotationEuler);
+                }
+
+                if (isBeeCloseToTarget)
                 {
                     bool canSeeTarget = IsTargetInLineOfSight(_targetTransform);
 
-                    if (canSeeTarget && _gun != null)
+                    if (canSeeTarget && _config.Gun != null)
                     {
                         Debug.Log($"[{this.GetType().Name.ToUpper()}] {gameObject.name} is firing at {_targetTransform.Value.gameObject.name}! -");
-                        
+
                         ItemUsageData usageData = new ItemUsageData(
                             transform.position,
                             targetDir,
@@ -241,7 +254,7 @@ public class FollowerBee : Bee
                             false
                         );
 
-                        _gun.Use(usageData);
+                        _config.Gun.Use(usageData);
                     }
                 }
 
