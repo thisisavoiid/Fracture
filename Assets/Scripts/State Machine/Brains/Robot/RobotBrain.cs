@@ -13,11 +13,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(OverlapSphereDetector))]
 [RequireComponent(typeof(RayCastDetector))]
-[RequireComponent(typeof(InventoryController))]
-[RequireComponent(typeof(ItemFactory))]
-[RequireComponent(typeof(ItemSlotController))]
 [RequireComponent(typeof(Battery))]
 [RequireComponent(typeof(Timer))]
+[RequireComponent(typeof(InventoryManager))]
 public class RobotBrain : MonoBehaviour
 {
     #region FSM Variables
@@ -108,7 +106,7 @@ public class RobotBrain : MonoBehaviour
     private NavMeshAgent _agent;
     private OverlapSphereDetector _overlapSphereDetector;
     private RayCastDetector _raycastDetector;
-    private ItemSlotController _itemSlotController;
+    private InventoryManager _inventory;
     private Transform _transform;
     #endregion
 
@@ -124,7 +122,7 @@ public class RobotBrain : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _overlapSphereDetector = GetComponent<OverlapSphereDetector>();
         _raycastDetector = GetComponent<RayCastDetector>();
-        _itemSlotController = GetComponent<ItemSlotController>();
+        _inventory = GetComponent<InventoryManager>();
         _battery = GetComponent<Battery>();
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
@@ -153,7 +151,7 @@ public class RobotBrain : MonoBehaviour
         );
 
         State attackState = new AttackState(
-            _itemSlotController,
+            _inventory,
             _headTransform,
             _targetTransform.Value,
             _reloadDuration,

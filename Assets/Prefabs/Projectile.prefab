@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 2101114382918262052}
   - component: {fileID: 5025844486115582144}
   - component: {fileID: 3475471104609050530}
-  - component: {fileID: 1964809095986384232}
   m_Layer: 10
   m_Name: Projectile
   m_TagString: Projectile
@@ -51,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce8a5350dbe5e24e8a55595d75d2981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isLocked: 0
 --- !u!114 &4265047215336941440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,27 +273,6 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 0
   m_CollisionDetection: 3
---- !u!135 &1964809095986384232
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4622866683967470098}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 8063
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7875150828169431127
 GameObject:
   m_ObjectHideFlags: 0

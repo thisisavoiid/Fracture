@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 [Serializable]
@@ -13,6 +14,17 @@ public struct ExplosiveConfig
     [Range(0.0f, 1000.0f)]
     public float Damage;
 
+    [Tooltip("The relative force applied upon explosion.")]
+    [MinValue(0.0f)]
+    public float ExplosionForce;
+
+    [Tooltip("The weight of upwards motion upon explosion.")]
+    [MinValue(0.0f)]
+    public float UpwardsModifier;
+
+    [Tooltip("The force mode to use upon explosion.")]
+    public ForceMode ForceMode;
+
     [Header("Timing & Detection")]
     [Tooltip("Time in seconds from activation until the explosion occurs.")]
     [Range(0.0f, 10.0f)]
@@ -20,4 +32,5 @@ public struct ExplosiveConfig
 
     [Tooltip("Which layers will be affected by the explosion damage.")]
     public LayerMask TargetLayers;
+
 }

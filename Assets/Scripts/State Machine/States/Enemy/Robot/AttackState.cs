@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class AttackState : State
 {
-    private ItemSlotController _itemSlotController;
+    private InventoryManager _inventory;
     private Transform _headTransform;
     private Transform _targetTransform;
     private GunBulletTracker _bulletTracker;
@@ -14,7 +14,7 @@ public class AttackState : State
     private float _rotateToTargetSnappiness;
 
     public AttackState(
-        ItemSlotController slotController,
+        InventoryManager inventory,
         Transform headTransform,
         Transform targetTransform,
         TimeMS reloadDuration,
@@ -23,7 +23,7 @@ public class AttackState : State
         float rotateToTargetSnappiness
     )
     {
-        _itemSlotController = slotController;
+        _inventory = inventory;
         _headTransform = headTransform;
         _targetTransform = targetTransform;
         _reloadTimer = reloadTimer;
@@ -37,9 +37,9 @@ public class AttackState : State
 
     public override void Enter()
     {
-        if (_itemSlotController == null) return;
+        if (_inventory == null) return;
 
-        Item activeItem = _itemSlotController.GetEquippedItem();
+        Item activeItem = _inventory.ActiveItem;
 
         if (activeItem is Weapon weapon)
             _bulletTracker = weapon.GetComponent<GunBulletTracker>();
@@ -52,7 +52,7 @@ public class AttackState : State
 
     public override void Run()
     {
-        if (_itemSlotController == null)
+        if (_inventory == null)
             return;
 
         if (_headTransform == null)
@@ -61,15 +61,15 @@ public class AttackState : State
         if (_targetTransform == null)
             return;
 
-        Item equippedItem = _itemSlotController.GetEquippedItem();
+        Item equippedItem = _inventory.ActiveItem;
 
         Vector3 lookDir = (_targetTransform.position - _headTransform.position).normalized;
         lookDir.y = 0f;
 
         Quaternion targetRotation = Quaternion.LookRotation(lookDir);
 
-        _itemSlotController.transform.rotation = Quaternion.Lerp(
-            _itemSlotController.transform.rotation,
+        _inventory.transform.rotation = Quaternion.Lerp(
+            _inventory.transform.rotation,
             targetRotation,
             Time.deltaTime * _rotateToTargetSnappiness
         );
@@ -88,7 +88,7 @@ public class AttackState : State
                     false
                 );
 
-                equippedItem.Use(usageData);
+                _inventory.UseActiveItem(usageData);
 
                 if (_battery != null)
                     _battery.Drain();

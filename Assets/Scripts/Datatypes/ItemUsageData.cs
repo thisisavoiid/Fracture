@@ -4,10 +4,10 @@ using UnityEngine;
 [Serializable]
 public struct ItemUsageData
 {
-    public ItemUsageData(Vector3 origin, Vector3 forward, bool isHeld, bool isPressed)
+    public ItemUsageData(Vector3 origin, Vector3 dir, bool isHeld, bool isPressed)
     {
         Origin = origin;
-        Direction = forward;
+        Direction = dir;
         IsHeld = isHeld;
         IsPressed = isPressed;
     }

@@ -10,12 +10,27 @@ public class ExplosiveTankBehaviour : ExplosionBehaviour
 
         foreach (var obj in colliders)
         {
-            IShootable shootable = obj.GetComponent<IShootable>();
+            if (obj.gameObject == ctx.GameObject)
+                continue;
 
-            if (shootable != null && obj.gameObject != ctx.GameObject)
-            {
-                shootable.Hit(ctx.Explosive.Config.Damage, ctx.GameObject.transform.position);
-            }
+            if (obj.TryGetComponent(out IShootable shootable))
+                shootable.Hit(ctx.Explosive.Config.Damage, ctx.Transform.position);
+            
+            if (!obj.TryGetComponent(out Rigidbody rb))
+                continue;
+
+            rb.AddExplosionForce(
+                ctx.Explosive.Config.ExplosionForce,
+                ctx.Transform.position,
+                ctx.Explosive.Config.Radius,
+                ctx.Explosive.Config.UpwardsModifier,
+                ctx.Explosive.Config.ForceMode
+            );
+
+            Debug.Log("EXPLOSION FORCE");
+            Debug.Log(obj.name);
+            Debug.Log(ctx.Transform.position);
+            Debug.Log(ctx.Explosive.Config.Radius);
         }
     }
 }

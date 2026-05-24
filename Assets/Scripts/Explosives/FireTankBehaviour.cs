@@ -16,12 +16,13 @@ public class FireTankBehaviour : ExplosionBehaviour
 
         foreach (var obj in colliders)
         {
-            IShootable shootable = obj.GetComponent<IShootable>();
+            if (!obj.TryGetComponent(out IShootable shootable))
+                continue;
 
-            if (shootable != null && obj.gameObject != ctx.GameObject)
-            {
-                shootable.Hit(ctx.Explosive.Config.Damage, ctx.GameObject.transform.position);
-            }
+            if (obj.gameObject == ctx.GameObject)
+                continue;
+            
+            shootable.Hit(ctx.Explosive.Config.Damage, ctx.Transform.position);
         }
     }
 }
