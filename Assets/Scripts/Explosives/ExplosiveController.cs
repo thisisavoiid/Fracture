@@ -8,7 +8,6 @@ public class ExplosiveController : MonoBehaviour
 {
     [SerializeField] private ExplosionBehaviour _behaviour;
     [SerializeField] private Explosive _explosive;
-    [SerializeField] private bool _addDynamicDetonationTime;
     private OverlapSphereDetector _sphereDetector;
     private bool _isAlreadyExploded = false;
     public UnityEvent OnExplode;
@@ -52,9 +51,6 @@ public class ExplosiveController : MonoBehaviour
         OnDetonationCycleStart?.Invoke();
 
         float timeToWait = ctx.Explosive.Config.DetonationTime;
-
-        if (_addDynamicDetonationTime && ctx.Explosive.DetonationCycleStartSound != null)
-            timeToWait = ctx.Explosive.DetonationCycleStartSound.Config.Clip.length + timeToWait;
 
         Debug.Log($"[EXPLOSIVE CONTROLLER] Starting detonation cycle for {ctx.Explosive.name}. Delay: {timeToWait}s -");
 

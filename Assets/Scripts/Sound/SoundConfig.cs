@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// A data container class that defines the playback parameters for a sound. 
@@ -12,7 +14,7 @@ public class SoundConfig
 {
     [Header("Core Settings")]
     [Tooltip("The audio clip to be played.")]
-    public AudioClip Clip;
+    public List<AudioClip> Clips;
 
     [Tooltip("The output mixer group for this sound.")]
     public AudioMixerGroup MixerChannel;
@@ -67,11 +69,23 @@ public class SoundConfig
     [Tooltip("Whether or not the sound should be played on loop.")]
     public bool Loop = false;
 
+    public AudioClip GetRandomAudioClip()
+    {
+        if (Clips.Count == 0 || Clips == null)
+            return null;
+
+        AudioClip clip = Clips[Random.Range(0, Clips.Count)];
+        return clip;
+    }
+
     public void ApplyTo(AudioSource source)
     {
-        if (Clip != source.clip)
-            source.clip = Clip;
+        AudioClip clip = GetRandomAudioClip();
 
+        if (clip == null)
+            return;
+        
+        source.clip = clip;
         source.loop = Loop;
 
         if (MixerChannel != source.outputAudioMixerGroup)

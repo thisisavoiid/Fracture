@@ -643,7 +643,7 @@ PrefabInstance:
       objectReference: {fileID: 1716318066}
     - target: {fileID: 5806915247890339492, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -651,7 +651,7 @@ PrefabInstance:
       objectReference: {fileID: 1379355678}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 353
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -659,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 935646930}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6835284128634720596, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1164,7 +1164,7 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 30
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -1519,7 +1519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.333764
+      value: 19.322987
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1527,11 +1527,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.9234588
+      value: -38.31483
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3019285
+      value: -0.88760155
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1539,7 +1539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9533306
+      value: 0.46061212
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1551,7 +1551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -144.853
+      value: -54.853
       objectReference: {fileID: 0}
     - target: {fileID: 6725897809499763839, guid: 5197f5a46ebd9014983fcb36c883adac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2243,43 +2243,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0029428005
+      value: -0.0031671524
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.0006268
+      value: 3.000627
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.000960052
+      value: -0.0010194182
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.544975
+      value: 0.37032333
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.43319532
+      value: -0.3443854
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.31615368
+      value: -0.41069484
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.64450836
+      value: 0.7586758
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 183.706
+      value: 158.401
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 1195.193
+      value: 1197.231
       objectReference: {fileID: 0}
     - target: {fileID: 1424761579141771353, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -438.081
+      value: -425.31
       objectReference: {fileID: 0}
     - target: {fileID: 2754878209521901891, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3592,7 +3592,7 @@ PrefabInstance:
       objectReference: {fileID: 868618053}
     - target: {fileID: 5806915247890339492, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -3600,7 +3600,7 @@ PrefabInstance:
       objectReference: {fileID: 1773493848}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 353
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -3608,7 +3608,7 @@ PrefabInstance:
       objectReference: {fileID: 1071528994}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6835284128634720596, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3745,7 +3745,7 @@ PrefabInstance:
       objectReference: {fileID: 536466453}
     - target: {fileID: 5806915247890339492, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -3753,7 +3753,7 @@ PrefabInstance:
       objectReference: {fileID: 1560086092}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 353
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -3761,7 +3761,7 @@ PrefabInstance:
       objectReference: {fileID: 482757768}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6835284128634720596, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4667,7 +4667,7 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 30
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -5665,7 +5665,7 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 30
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -6164,7 +6164,7 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 30
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -6573,7 +6573,7 @@ PrefabInstance:
       objectReference: {fileID: 645805437}
     - target: {fileID: 5806915247890339492, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -6581,7 +6581,7 @@ PrefabInstance:
       objectReference: {fileID: 1740904492}
     - target: {fileID: 6363017610300814181, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 353
+      value: 356
       objectReference: {fileID: 0}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_Mesh
@@ -6589,7 +6589,7 @@ PrefabInstance:
       objectReference: {fileID: 759055602}
     - target: {fileID: 6368793115166516493, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_VersionIndex
-      value: 2880
+      value: 2883
       objectReference: {fileID: 0}
     - target: {fileID: 6835284128634720596, guid: 56feab3db8e9580498020f92f5ca5d7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7105,7 +7105,7 @@ MonoBehaviour:
     triggerAllowedTags: []
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 30
+    fragmentCount: 50
     xAxis: 1
     yAxis: 1
     zAxis: 1

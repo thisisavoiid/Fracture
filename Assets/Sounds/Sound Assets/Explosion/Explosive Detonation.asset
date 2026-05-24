@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb200b882c026434e8cef914fa2dd056, type: 3}
+  m_Name: Explosive Detonation
+  m_EditorClassIdentifier: 
+  _soundConfig:
+    Clips:
+    - {fileID: 8300000, guid: 356f1028e26333043b3bd4329f62c96e, type: 3}
+    - {fileID: 8300000, guid: 39606ec9ee8d97d4b95b769e8cf1eaa8, type: 3}
+    - {fileID: 8300000, guid: 1c3bf26b5e884244faa826cbc60d08f3, type: 3}
+    - {fileID: 8300000, guid: 276521dcabd061141b97673700209904, type: 3}
+    MixerChannel: {fileID: 6504823309962035962, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
+    DefaultVolume: 1.5
+    DefaultPitch: 1
+    UseRandomVolume: 1
+    RandomVolumeRange: 0.0075
+    UseRandomPitch: 1
+    RandomPitchRange: 0.075
+    UseSpatialAudio: 1
+    SpatialBlend: 1
+    RolloffMode: 0
+    MinDistance: 1
+    MaxDistance: 50
+    Doppler: 1
+    Spread: 0
+    ReverbZoneMix: 1
+    Loop: 0

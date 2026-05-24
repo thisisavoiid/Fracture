@@ -30,13 +30,13 @@ public class AudioManager : MonoBehaviour
         if (sound == null)
             return;
 
-        if (sound.Config.Clip == null)
+        if (sound.Config.Clips.Count == 0 || sound.Config.Clips == null)
             return;
 
         AudioSource source = _pool.Get();
 
         sound.Config.ApplyTo(source);
-        _pool.SetReleaseTime(source, sound.Config.Clip.length);
+        _pool.SetReleaseTime(source, source.clip.length);
 
         if (source.transform.parent != this.gameObject.transform)
             source.transform.parent = this.gameObject.transform;
