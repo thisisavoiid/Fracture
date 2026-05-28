@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyCount: 1
   _matchTime:
-    Minutes: 5
-    Seconds: 0
+    Minutes: 10
+    Seconds: 10

@@ -38,13 +38,13 @@ public class FollowerBee : Bee
             _config.SeparationSphereDetector.SetRadius(_config.SeparationCheckRadius);
         }
 
-        if (_config.SeparationSphereDetector == null)
+        if (_config.TargetSearchSphereDetector == null)
         {
             Debug.LogError($"[{this.GetType().Name.ToUpper()}] Target search overlap sphere detector is not assigned in the inspector -");
         }
         else
         {
-            _config.SeparationSphereDetector.SetRadius(_config.TargetCheckRadius);
+            _config.TargetSearchSphereDetector.SetRadius(_config.TargetCheckRadius);
         }
 
         if (_config.Gun == null)
@@ -232,11 +232,12 @@ public class FollowerBee : Bee
                         Time.deltaTime * _config.TurnToTargetSpeed
                     );
 
-                    Vector3 rotationEuler = targetRotation.eulerAngles;
+                    // Vector3 rotationEuler = targetRotation.eulerAngles;
 
-                    rotationEuler.x = Mathf.Clamp(rotationEuler.x, -_config.ClampDegrees, _config.ClampDegrees);
+                    // rotationEuler.x = Mathf.Clamp(rotationEuler.x, -_config.ClampDegrees, _config.ClampDegrees);
 
-                    transform.rotation = Quaternion.Euler(rotationEuler);
+                    // transform.rotation = Quaternion.Euler(rotationEuler);
+                    transform.rotation = targetRotation;
                 }
 
                 if (isBeeCloseToTarget)

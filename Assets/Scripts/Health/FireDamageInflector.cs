@@ -12,6 +12,7 @@ public class FireDamageInflector : LingeringDamageInflector
 
         _hasBeenInitiatedAlready = true;
         StartCoroutine(LingeringLifeCycle());
+        _onStart?.Invoke();
     }
 
     protected override IEnumerator LingeringLifeCycle()
@@ -32,6 +33,8 @@ public class FireDamageInflector : LingeringDamageInflector
 
             yield return null;
         }
+
+        _onEnd?.Invoke();
 
         Destroy(this.gameObject);
     }
