@@ -1,33 +1,32 @@
 using System;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour
 {
-    private static GameFlowManager _instance;
-    public static GameFlowManager Instance => _instance;
-
     [SerializeField] private List<GameFlowEventsPair> _gameFlowList;
-
+    [SerializeField] private bool _useAutoGameFlow;
+    [SerializeField] 
+    [ShowIf("_useAutoGameFlow")] 
+    private GameFlowEventsPair _autoGameFlow;
     private Dictionary<FlowType, List<ScriptableEvent>> _gameFlowDict = new();
     private FlowType _currentFlow = FlowType.Undefined;
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(_instance.gameObject);
-        }
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
         LoadGameFlows();
     }
 
+    private void Start()
+    {
+        if (!_useAutoGameFlow)
+            return;
+        
+        if (_currentFlow == FlowType.Undefined)
+            ChangeFlow(_autoGameFlow.Type);
+    }
     private void LoadGameFlows()
     {
         if (_gameFlowList.Count == 0)
@@ -40,12 +39,6 @@ public class GameFlowManager : MonoBehaviour
         }
 
         Debug.Log($"[GAME FLOW MANAGER] Fetched {_gameFlowDict.Keys.Count} game flows! -");
-    }
-
-    private void Start()
-    {
-        if (_currentFlow == FlowType.Undefined)
-            StartMatchFlow();
     }
 
     private void ChangeFlow(FlowType type)
@@ -75,5 +68,20 @@ public class GameFlowManager : MonoBehaviour
     public void EndMatchFlow()
     {
         ChangeFlow(FlowType.MatchEnd);
+    }
+
+    public void MainMenuEnterFlow()
+    {
+        ChangeFlow(FlowType.MainMenuEnter);
+    }
+
+    public void LoadoutSelectionEnterFlow()
+    {
+        ChangeFlow(FlowType.LoadoutSelectionEnter);
+    }
+
+    public void LoadoutSelectionDoneFlow()
+    {
+        ChangeFlow(FlowType.LoadoutSelectionDone);
     }
 }

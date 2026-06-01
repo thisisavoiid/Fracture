@@ -15,7 +15,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(RayCastDetector))]
 [RequireComponent(typeof(Battery))]
 [RequireComponent(typeof(Timer))]
-[RequireComponent(typeof(InventoryManager))]
+[RequireComponent(typeof(InventoryController))]
 public class RobotBrain : MonoBehaviour
 {
     #region FSM Variables
@@ -106,7 +106,7 @@ public class RobotBrain : MonoBehaviour
     private NavMeshAgent _agent;
     private OverlapSphereDetector _overlapSphereDetector;
     private RayCastDetector _raycastDetector;
-    private InventoryManager _inventory;
+    private InventoryController _inventory;
     private Transform _transform;
     #endregion
 
@@ -122,7 +122,7 @@ public class RobotBrain : MonoBehaviour
         _agent = GetComponent<NavMeshAgent>();
         _overlapSphereDetector = GetComponent<OverlapSphereDetector>();
         _raycastDetector = GetComponent<RayCastDetector>();
-        _inventory = GetComponent<InventoryManager>();
+        _inventory = GetComponent<InventoryController>();
         _battery = GetComponent<Battery>();
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);

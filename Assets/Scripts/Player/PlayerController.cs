@@ -13,7 +13,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(RigidbodyMovement))]
 [RequireComponent(typeof(CameraController))]
 [RequireComponent(typeof(OverlapBoxDetector))]
-[RequireComponent(typeof(InventoryManager))]
+[RequireComponent(typeof(InventoryController))]
 [RequireComponent(typeof(HeadBob))]
 [RequireComponent(typeof(PhysicsMaterialChanger))]
 public class PlayerController : MonoBehaviour
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     private RigidbodyMovement _rbMovement;
     private CameraController _cameraController;
     private OverlapBoxDetector _overlapBoxDetector;
-    private InventoryManager _inventoryManager;
+    private InventoryController _inventoryManager;
     private HeadBob _headbob;
     private PhysicsMaterialChanger _physicsMaterialChanger;
     private bool _isJumpQueued = false;
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         _rbMovement = GetComponent<RigidbodyMovement>();
         _cameraController = GetComponent<CameraController>();
         _overlapBoxDetector = GetComponent<OverlapBoxDetector>();
-        _inventoryManager = GetComponent<InventoryManager>();
+        _inventoryManager = GetComponent<InventoryController>();
         _headbob = GetComponent<HeadBob>();
         _physicsMaterialChanger = GetComponent<PhysicsMaterialChanger>();
 

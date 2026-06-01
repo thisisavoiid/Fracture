@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class AttackState : State
 {
-    private InventoryManager _inventory;
+    private InventoryController _inventory;
     private Transform _headTransform;
     private Transform _targetTransform;
     private GunBulletTracker _bulletTracker;
@@ -14,7 +14,7 @@ public class AttackState : State
     private float _rotateToTargetSnappiness;
 
     public AttackState(
-        InventoryManager inventory,
+        InventoryController inventory,
         Transform headTransform,
         Transform targetTransform,
         TimeMS reloadDuration,

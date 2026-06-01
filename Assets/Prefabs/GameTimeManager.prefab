@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 8876071809123740692}
   - component: {fileID: 7961702138492840487}
   - component: {fileID: 8526173369234522643}
+  - component: {fileID: 7506983020169361372}
   m_Layer: 5
   m_Name: TimerText
   m_TagString: Untagged
@@ -243,7 +244,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10:10
+  m_text: 00:00
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -314,6 +315,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7506983020169361372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655413059086528761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ff3eae38278f844ab8db9ed6735e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timer: {fileID: 1626070544731000161}
 --- !u!1 &8805175029967386296
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _matchSettings: {fileID: 11400000, guid: b9125dce9e400864190ec91d44036c54, type: 2}
-  _gameTimeEndEvent: {fileID: 11400000, guid: c2a24e0cad1387748a92af6ee597f949, type: 2}
 --- !u!114 &1626070544731000161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,11 +392,14 @@ MonoBehaviour:
     Seconds: 0
   OnTimerEnd:
     m_PersistentCalls:
+      m_Calls: []
+  OnTimerUpdate:
+    m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1911588622740425703}
-        m_TargetAssemblyTypeName: GameTimeManager, Assembly-CSharp
-        m_MethodName: InvokeGameTimeEndedEvent
-        m_Mode: 1
+      - m_Target: {fileID: 7506983020169361372}
+        m_TargetAssemblyTypeName: GameTimeDisplay, Assembly-CSharp
+        m_MethodName: RefreshTimeLabel
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -392,6 +408,3 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnTimerUpdate:
-    m_PersistentCalls:
-      m_Calls: []

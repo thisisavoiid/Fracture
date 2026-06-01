@@ -898,10 +898,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c37a702dc20f64a8d15512e40d8468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inventorySize: 3
+  _inventorySize: 1
   _defaultSlot: 0
   _itemContainerTransform: {fileID: 1386769795393428223}
   _enableDebugMode: 1
+  _inventoryVariable: {fileID: 11400000, guid: 982da4e3e8d93214e9e7cfbce04ed723, type: 2}
   _inventoryContent: []
   _targetIndex: 0
   _activeSlot: 0

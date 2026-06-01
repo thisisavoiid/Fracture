@@ -2,9 +2,9 @@ using UnityEngine;
 using NaughtyAttributes;
 using System.Collections.Generic;
 
-public class InventoryFiller : MonoBehaviour
+public class InventoryInjector : MonoBehaviour
 {
-    [SerializeField] private InventoryManager _inventory;
+    [SerializeField] private InventoryController _inventory;
     [SerializeField] private Item _itemToAdd;
     [SerializeField] private List<KeyItemPair> _itemTriggers = new();
 

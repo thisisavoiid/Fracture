@@ -2,7 +2,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using System.Collections.Generic;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
     [SerializeField] private int _inventorySize = 3;
     public int Capacity => _inventorySize;
@@ -10,6 +10,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField][MinValue(0)] private int _defaultSlot = 0;
     [SerializeField] private Transform _itemContainerTransform;
     [SerializeField] private bool _enableDebugMode = false;
+    [SerializeField] private InventoryVariable _inventoryVariable;
 
     [SerializeField]
     [ReorderableList]
@@ -180,6 +181,14 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         SetActiveSlot(_defaultSlot, out _);
+    }
+
+    private void OnEnable()
+    {
+        if (_inventoryVariable == null)
+            return;
+        
+        _inventoryVariable.SetValue(this);
     }
 
     public void UseActiveItem(ItemUsageData usageData)
