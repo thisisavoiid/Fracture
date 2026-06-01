@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 /// <summary>
@@ -12,7 +13,8 @@ public class TankSpawnerController : MonoBehaviour
     /// <summary>
     /// Selects and instantiates a random tank from the pool upon initialization.
     /// </summary>
-    private void Start()
+    [Button("Spawn Tank")]
+    public void SpawnTank()
     {
         if (_tankPool == null || _tankPool.Count == 0)
         {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6585990649973992945}
   - component: {fileID: 5071465131547231425}
   - component: {fileID: 3654555358454920446}
+  - component: {fileID: 8465340231184416696}
   m_Layer: 0
   m_Name: TankSpawner
   m_TagString: Untagged
@@ -62,3 +63,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _radius: 0.25
   _color: {r: 0.49827793, g: 0.4292453, b: 1, a: 0}
+--- !u!114 &8465340231184416696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8413427015558371861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 0623c6b42ac46904b9180339173a9d0b, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5071465131547231425}
+        m_TargetAssemblyTypeName: TankSpawnerController, Assembly-CSharp
+        m_MethodName: SpawnTank
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
