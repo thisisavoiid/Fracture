@@ -15,7 +15,6 @@ public class Timer : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log($"[TIMER] Resetting timer (On object: {this.gameObject.name}), New Time: {_defaultTime.ToString()} -");
         _timeLeft = _defaultTime.TotalSeconds;
         _hasTimerEndEventInvoked = false;
         ResetTimerDelta();
@@ -27,19 +26,16 @@ public class Timer : MonoBehaviour
         OnTimerUpdate?.Invoke(_defaultTime);
         
         _hasTimerEndEventInvoked = false;
-        Debug.Log($"[TIMER] SetTime called (On object: {this.gameObject.name}), Value: {time.ToString()}s -");
         Reset();
     }
 
     public void StartTimer()
     {
-        Debug.Log($"[TIMER] Starting timer (On object: {this.gameObject.name}) -");
         _isActive = true;
     }
 
     public void StopTimer()
     {
-        Debug.Log($"[TIMER] Stopping timer (On object: {this.gameObject.name}) -");
         _isActive = false;
     }
 
@@ -56,7 +52,6 @@ public class Timer : MonoBehaviour
 
             if (!_hasTimerEndEventInvoked)
             {
-                Debug.Log($"[TIMER] Timer reached zero (On object: {this.gameObject.name}), Invoking OnTimerEnd -");
                 _hasTimerEndEventInvoked = true;
                 OnTimerEnd?.Invoke();
             }
