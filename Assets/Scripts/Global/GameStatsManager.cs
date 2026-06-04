@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 public class GameStatsManager : MonoBehaviour
@@ -24,6 +25,16 @@ public class GameStatsManager : MonoBehaviour
         _gameStats.AddScore(value);
     }
 
+    public void LogKilledEnemy()
+    {
+        _gameStats.LogKilledEnemy();
+    }
+
+    public void LogExplosiveUsed()
+    {
+        _gameStats.LogExplosiveUsed();
+    }
+    
     public void ResetStats() => _gameStats.Reset();
     public GameStats GetStats() => _gameStats;
 }

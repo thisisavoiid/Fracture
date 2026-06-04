@@ -89,8 +89,6 @@ public class PlayerInputController : MonoBehaviour
         _reloadWeapon = _gameInput.Gadgets.Reload;
 
         _shuffleInventorySlots = _gameInput.Inventory.Shuffle;
-        
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     /// <summary>

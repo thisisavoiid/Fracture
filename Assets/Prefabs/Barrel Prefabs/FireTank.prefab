@@ -145,7 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _behaviour: {fileID: 11400000, guid: 1f929dee0acefb8428a4da3cf0930007, type: 2}
   _explosive: {fileID: 11400000, guid: 78bc647fc25b71444a0bf98757356d3e, type: 2}
-  _addDynamicDetonationTime: 0
   OnExplode:
     m_PersistentCalls:
       m_Calls:

@@ -4,9 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Explosives/Behaviours/Explosive Tank Behaviour", fileName = "Explosive Tank Behaviour")]
 public class ExplosiveTankBehaviour : ExplosionBehaviour
 {
+    [SerializeField] private ScriptableEvent _onTankExplodeEvent;
+
     public override void Explode(ExplosionContext ctx)
     {
         List<Collider> colliders = ctx.OverlapSphereDetector.GetColliders(ctx.Explosive.Config.TargetLayers);
+
+        _onTankExplodeEvent?.Invoke();
 
         foreach (var obj in colliders)
         {
@@ -15,7 +19,7 @@ public class ExplosiveTankBehaviour : ExplosionBehaviour
 
             if (obj.TryGetComponent(out IShootable shootable))
                 shootable.Hit(ctx.Explosive.Config.Damage, ctx.Transform.position);
-            
+
             if (!obj.TryGetComponent(out Rigidbody rb))
                 continue;
 

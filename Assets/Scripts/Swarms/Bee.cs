@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public abstract class Bee : MonoBehaviour, ICollectionMember
 {
@@ -7,23 +6,23 @@ public abstract class Bee : MonoBehaviour, ICollectionMember
     public abstract void SetPosition(Vector3 pos);
     public abstract void SetState(BeeState state);
 
+    public void OnEnable()
+    {
+        Subscribe();
+    }
+
+    public void OnDisable()
+    {
+        Unsubscribe();
+    }
+
     public void Subscribe()
     {
-        EnemyCollectionManager manager = EnemyCollectionManager.Instance;
-
-        if (manager == null)
-            return;
-        
-        manager.Subscribe(this);
+        EnemyCollectionManager.Instance?.Subscribe(this);
     }
 
     public void Unsubscribe()
     {
-        EnemyCollectionManager manager = EnemyCollectionManager.Instance;
-
-        if (manager == null)
-            return;
-        
-        manager.Unsubscribe(this);
+        EnemyCollectionManager.Instance?.Unsubscribe(this);
     }
 }

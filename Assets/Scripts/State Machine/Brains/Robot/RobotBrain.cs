@@ -128,9 +128,9 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
         ConfigureStateMachine();
-        
+
         Subscribe();
-        
+
         OnRobotInitialize?.Invoke();
     }
 
@@ -369,23 +369,22 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         return (_targetTransform.Value.position - transform.position).magnitude;
     }
 
+    private void OnEnable()
+    {
+        Subscribe();
+    }
+    private void OnDisable()
+    {
+        Unsubscribe();
+    }
+
     public void Subscribe()
     {
-        EnemyCollectionManager manager = EnemyCollectionManager.Instance;
-
-        if (manager == null)
-            return;
-
-        manager.Subscribe(this);
+        EnemyCollectionManager.Instance?.Subscribe(this);
     }
 
     public void Unsubscribe()
     {
-        EnemyCollectionManager manager = EnemyCollectionManager.Instance;
-
-        if (manager == null) 
-            return;
-
-        manager.Unsubscribe(this);
+        EnemyCollectionManager.Instance?.Unsubscribe(this);
     }
 }

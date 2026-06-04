@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(OverlapSphereDetector))]
-public class ExplosiveController : MonoBehaviour
+public class ExplosiveController : MonoBehaviour, ICollectionMember
 {
     [SerializeField] private ExplosionBehaviour _behaviour;
     [SerializeField] private Explosive _explosive;
@@ -17,12 +17,6 @@ public class ExplosiveController : MonoBehaviour
     private void Awake()
     {
         _sphereDetector = GetComponent<OverlapSphereDetector>();
-    }
-
-    private void OnDisable()
-    {
-        OnExplode.RemoveAllListeners();
-        OnDetonationCycleStart.RemoveAllListeners();
     }
 
     [ContextMenu("Trigger Explosion")]
@@ -64,5 +58,28 @@ public class ExplosiveController : MonoBehaviour
 
         // ctx.GameObject.SetActive(false);
         Destroy(this.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        Subscribe();
+    }
+
+    private void OnDisable()
+    {
+        OnExplode.RemoveAllListeners();
+        OnDetonationCycleStart.RemoveAllListeners();
+
+        Unsubscribe();
+    }
+
+    public void Subscribe()
+    {
+        ExplosiveCollectionManager.Instance?.Subscribe(this);
+    }
+
+    public void Unsubscribe()
+    {
+        ExplosiveCollectionManager.Instance?.Unsubscribe(this);
     }
 }
