@@ -344,9 +344,9 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5815591306045240863}
-        m_TargetAssemblyTypeName: RobotBrain, Assembly-CSharp
-        m_MethodName: Unsubscribe
+      - m_Target: {fileID: 7763593756989332933}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -356,9 +356,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7763593756989332933}
-        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
-        m_MethodName: ApplyScore
+      - m_Target: {fileID: 5815591306045240863}
+        m_TargetAssemblyTypeName: RobotBrain, Assembly-CSharp
+        m_MethodName: Unsubscribe
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1450,12 +1450,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 64898312226168761}
+    - targetCorrespondingSourceObject: {fileID: 1082271958561512970, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8957460227662979250}
     - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1951956952507544023}
     - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1677396068384240912}
+    - targetCorrespondingSourceObject: {fileID: -1781356600409242780, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2663518193955138165}
   m_SourcePrefab: {fileID: 100100000, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
 --- !u!1 &1042722035394554502 stripped
 GameObject:
@@ -1499,6 +1505,18 @@ MonoBehaviour:
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2663518193955138165}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6346798762603663659}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: TakeDamage
@@ -1511,6 +1529,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2663518193955138165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042722035394554502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 50
 --- !u!4 &4096318791881661578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3321919801592875672, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
@@ -1585,6 +1616,18 @@ MonoBehaviour:
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8957460227662979250}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6346798762603663659}
         m_TargetAssemblyTypeName: Health, Assembly-CSharp
         m_MethodName: TakeDamage
@@ -1597,6 +1640,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8957460227662979250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366243202816915432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 20
 --- !u!4 &7977456913964600841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
