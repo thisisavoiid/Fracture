@@ -373,10 +373,10 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     {
         Subscribe();
     }
-    private void OnDisable()
-    {
-        Unsubscribe();
-    }
+    // private void OnDisable()
+    // {
+    //     Unsubscribe();
+    // }
 
     public void Subscribe()
     {
