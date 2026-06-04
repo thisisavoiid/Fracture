@@ -16,7 +16,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Battery))]
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(InventoryController))]
-public class RobotBrain : MonoBehaviour
+public class RobotBrain : MonoBehaviour, ICollectionMember
 {
     #region FSM Variables
     private State _currentState;
@@ -128,7 +128,9 @@ public class RobotBrain : MonoBehaviour
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
 
         ConfigureStateMachine();
-
+        
+        Subscribe();
+        
         OnRobotInitialize?.Invoke();
     }
 
@@ -365,5 +367,25 @@ public class RobotBrain : MonoBehaviour
             return 0.0f;
 
         return (_targetTransform.Value.position - transform.position).magnitude;
+    }
+
+    public void Subscribe()
+    {
+        EnemyCollectionManager manager = EnemyCollectionManager.Instance;
+
+        if (manager == null)
+            return;
+
+        manager.Subscribe(this);
+    }
+
+    public void Unsubscribe()
+    {
+        EnemyCollectionManager manager = EnemyCollectionManager.Instance;
+
+        if (manager == null) 
+            return;
+
+        manager.Unsubscribe(this);
     }
 }

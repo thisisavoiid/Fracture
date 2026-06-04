@@ -26,11 +26,6 @@ public class ExplosiveTankBehaviour : ExplosionBehaviour
                 ctx.Explosive.Config.UpwardsModifier,
                 ctx.Explosive.Config.ForceMode
             );
-
-            Debug.Log("EXPLOSION FORCE");
-            Debug.Log(obj.name);
-            Debug.Log(ctx.Transform.position);
-            Debug.Log(ctx.Explosive.Config.Radius);
         }
     }
 }

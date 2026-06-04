@@ -6,9 +6,9 @@ public class ScoreEffector : MonoBehaviour
     
     public void ApplyScore()
     {
-        if (ScoreManager.Instance == null)
+        if (GameStatsManager.Instance == null)
             return;
         
-        ScoreManager.Instance.AddScore(_scoreEffect);
+        GameStatsManager.Instance.AddScore(_scoreEffect);
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameTimeManager : MonoBehaviour
 {
     [SerializeField] private MatchSettings _matchSettings;
-    // [SerializeField] private ScriptableEvent _gameTimeEndEvent;
 
     private Timer _gameTimer;
 
