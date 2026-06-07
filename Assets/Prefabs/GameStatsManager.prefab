@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1462323100620806467}
   - component: {fileID: 6239766365698650767}
+  - component: {fileID: 4131858039408104652}
+  - component: {fileID: 2315420826845880033}
   m_Layer: 0
   m_Name: GameStatsManager
   m_TagString: Untagged
@@ -44,3 +46,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c761a53d579b1cc4ca3d6c0eee78b60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4131858039408104652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255936240424953178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6239766365698650767}
+        m_TargetAssemblyTypeName: GameStatsManager, Assembly-CSharp
+        m_MethodName: LogKilledEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2315420826845880033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255936240424953178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _event: {fileID: 11400000, guid: 8576ebf6d19a4b745b9f7ca4d35082da, type: 2}
+  _onEventInvoked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6239766365698650767}
+        m_TargetAssemblyTypeName: GameStatsManager, Assembly-CSharp
+        m_MethodName: LogExplosiveUsed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

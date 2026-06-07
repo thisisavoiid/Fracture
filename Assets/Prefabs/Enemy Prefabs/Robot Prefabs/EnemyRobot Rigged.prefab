@@ -341,6 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultHealth: 350
   _autoInvokeDie: 1
+  _deathEvent: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -498,7 +499,7 @@ MonoBehaviour:
   _enableDebugMode: 1
   _inventoryVariable: {fileID: 0}
   _inventoryContent:
-  - {fileID: 3147329875274025170, guid: 3488832e32f342e4cb8cfb3cd45eae1f, type: 3}
+  - {fileID: 3147329875274025170, guid: 66f1e035207f4764a8f5cb63d2364a33, type: 3}
   _targetIndex: 0
   _activeSlot: 0
   _activeItem: {fileID: 0}

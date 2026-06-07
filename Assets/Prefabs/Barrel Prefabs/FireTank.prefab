@@ -228,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultHealth: 30
   _autoInvokeDie: 1
+  _deathEvent: {fileID: 11400000, guid: 8576ebf6d19a4b745b9f7ca4d35082da, type: 2}
   OnDeath:
     m_PersistentCalls:
       m_Calls:

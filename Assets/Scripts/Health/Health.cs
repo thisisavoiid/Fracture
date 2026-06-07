@@ -6,7 +6,10 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float _defaultHealth;
     [SerializeField] private bool _autoInvokeDie;
+    [SerializeField] private ScriptableEvent _deathEvent;
+
     private float _health;
+    private bool _hasAlreadyDied = false;
     public float CurrentHealth => _health;
     
     public UnityEvent OnDeath;
@@ -19,8 +22,13 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if (_hasAlreadyDied)
+            return;
+        
+        _hasAlreadyDied = true;
         Debug.Log($"[HEALTH SYSTEM] {gameObject.name} died -");
         _health = 0;
+        _deathEvent?.Invoke();
         OnDeath?.Invoke();
     }
 
