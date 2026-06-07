@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48bf0e22a3abcc5429bb917364172261, type: 3}
-  m_Name: Default Match Settings
+  m_Script: {fileID: 11500000, guid: 968e51658da79774b83b624c78fbd71b, type: 3}
+  m_Name: Low Gravity
   m_EditorClassIdentifier: 
-  _enemyCount: 1
-  _matchTime:
-    Minutes: 0
-    Seconds: 30
+  _name: Low Gravity

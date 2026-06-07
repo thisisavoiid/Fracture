@@ -10,16 +10,14 @@ using Random = UnityEngine.Random;
 
 public class GameEventManager : MonoBehaviour
 {
-    [SerializeField] private Range _timeRangeBetweenEvents;
-    [SerializeField] private Range _timeRangeEventDuration;
-    [SerializeField] private List<GameEventType> _validGameEvents;
-    [SerializeField] private UnityEvent _onGameEventStart;
+    [SerializeField] private GameSettings _gameSettings;
+    [SerializeField] private UnityEvent<GameEvent> _onGameEventStart;
     [SerializeField] private UnityEvent _onGameEventEnd;
 
     private static GameEventManager _instance;
     public static GameEventManager Instance => _instance;
-    private Dictionary<IGameEventListener, GameEventType> _listeners = new();
-    private GameEventType _currentEvent = GameEventType.None;
+    private Dictionary<IGameEventListener, GameEvent> _listeners = new();
+    private GameEvent _currentEvent = null;
     private float _ticks = 0;
     private float _nextEventStartTime = 0;
     private float _currentEventEndTime = 0;
@@ -33,95 +31,142 @@ public class GameEventManager : MonoBehaviour
         else
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
-    }
 
-    public void Subscribe(IGameEventListener listener, GameEventType eventType)
-    {
-        if (_listeners.ContainsKey(listener))
+        if (_gameSettings == null)
         {
-            Debug.Log($"[GAME EVENT CONTROLLER] Subscribe - Listener: {listener} | Already registered, skipping -");
+            Debug.LogWarning($"[GAME EVENT MANAGER] No game settings asset assigned. Therefore, no game events based logic will execute. -");
             return;
         }
 
-        _listeners.Add(listener, eventType);
+        _nextEventStartTime = GetRandomEventStartTime();
+    }
 
-        Debug.Log($"[GAME EVENT CONTROLLER] Subscribe - Listener: {listener} | EventType: {eventType} | Total: {_listeners.Count} -");
+    private List<GameEvent> GetValidGameEvents()
+    {
+        if (_gameSettings == null)
+            return null;
+        
+        if (_gameSettings.ValidGameEvents == null || _gameSettings.ValidGameEvents.Count == 0)
+            return null;
+        
+        return _gameSettings.ValidGameEvents;
+    }
+
+    public void Subscribe(IGameEventListener listener, GameEvent gameEvent)
+    {
+        if (_listeners.ContainsKey(listener))
+        {
+            Debug.Log($"[GAME EVENT MANAGER] Subscribe - Listener: {listener} | Already registered, skipping -");
+            return;
+        }
+
+        if (gameEvent == null)
+            return;
+
+        _listeners.Add(listener, gameEvent);
+
+        Debug.Log($"[GAME EVENT MANAGER] Subscribe - Listener: {listener} | EventType: {gameEvent} | Total: {_listeners.Count} -");
     }
 
     public void Unsubscribe(IGameEventListener listener)
     {
         if (!_listeners.ContainsKey(listener))
         {
-            Debug.Log($"[GAME EVENT CONTROLLER] Unsubscribe - Listener: {listener} | Not found, skipping -");
+            Debug.Log($"[GAME EVENT MANAGER] Unsubscribe - Listener: {listener} | Not found, skipping -");
             return;
         }
 
         _listeners.Remove(listener);
 
-        Debug.Log($"[GAME EVENT CONTROLLER] Unsubscribe - Listener: {listener} | Removed | Remaining: {_listeners.Count} -");
+        Debug.Log($"[GAME EVENT MANAGER] Unsubscribe - Listener: {listener} | Removed | Remaining: {_listeners.Count} -");
     }
 
-    private GameEventType GetRandomGameEventType()
+    private GameEvent GetRandomGameEvent()
     {
-        if (_validGameEvents == null || _validGameEvents.Count == 0)
+        if (_gameSettings == null)
+            return null;
+
+        List<GameEvent> validGameEvents = GetValidGameEvents();
+
+        if (validGameEvents == null || validGameEvents.Count == 0)
         {
-            Debug.LogWarning($"[GAME EVENT CONTROLLER] GetRandomGameEventType - No valid events configured, returning None -");
-            return GameEventType.None;
+            Debug.LogWarning($"[GAME EVENT MANAGER] GetRandomGameEventType - No valid events configured, returning None -");
+            return null;
         }
 
-        return _validGameEvents[Random.Range(0, _validGameEvents.Count)];
+        return validGameEvents[Random.Range(0, validGameEvents.Count)];
     }
 
     private void StartRandomEvent()
     {
-        _currentEvent = GetRandomGameEventType();
-        Debug.Log($"[GAME EVENT CONTROLLER] StartRandomEvent - EventType: {_currentEvent} | EndTime: {_currentEventEndTime} -");
+        _currentEvent = GetRandomGameEvent();
+        Debug.Log($"[GAME EVENT MANAGER] StartRandomEvent - EventType: {_currentEvent} | EndTime: {_currentEventEndTime} -");
         InvokeEventCallbacks(_currentEvent, GameEventCallbackType.Start);
-        _onGameEventStart?.Invoke();
+        _onGameEventStart?.Invoke(_currentEvent);
     }
 
     private void EndCurrentEvent()
     {
-        Debug.Log($"[GAME EVENT CONTROLLER] EndCurrentEvent - EventType: {_currentEvent} | NextEventAt: {_nextEventStartTime} -");
+        Debug.Log($"[GAME EVENT MANAGER] EndCurrentEvent - EventType: {_currentEvent} | NextEventAt: {_nextEventStartTime} -");
         InvokeEventCallbacks(_currentEvent, GameEventCallbackType.End);
-        _currentEvent = GameEventType.None;
+        _currentEvent = null;
         _onGameEventEnd?.Invoke();
     }
 
     private void Update()
     {
+        if (_gameSettings == null)
+            return;
+
         _ticks += Time.deltaTime;
 
-        if (_ticks >= _nextEventStartTime && _currentEvent == GameEventType.None)
+        if (_ticks >= _nextEventStartTime && _currentEvent == null)
         {
             StartRandomEvent();
-            _currentEventEndTime = _ticks + Random.Range(_timeRangeEventDuration.Min, _timeRangeEventDuration.Max);
+            _currentEventEndTime = GetRandomEventEndTime();
+            Debug.Log($"[GAME EVENT MANAGER] Starting new random event with determined end time: {_currentEventEndTime} -");
         }
 
-        if (_ticks >= _currentEventEndTime && _currentEvent != GameEventType.None)
+        if (_ticks >= _currentEventEndTime && _currentEvent != null)
         {
             EndCurrentEvent();
-            _nextEventStartTime = _ticks + Random.Range(_timeRangeBetweenEvents.Min, _timeRangeBetweenEvents.Max);
+            _nextEventStartTime = GetRandomEventStartTime();
+            Debug.Log($"[GAME EVENT MANAGER] Stopping current event ({_currentEvent.Name}) and proceeding with new event at determined time: {_nextEventStartTime} -");
         }
     }
 
-    private void InvokeEventCallbacks(GameEventType eventType, GameEventCallbackType callbackType)
+    private float GetRandomEventStartTime()
+    {
+        if (_gameSettings == null)
+            return 0.0f;
+
+        return _ticks + Random.Range(_gameSettings.TimeBetweenGameEvents.Min, _gameSettings.TimeBetweenGameEvents.Max);
+    }
+
+    private float GetRandomEventEndTime()
+    {
+        if (_gameSettings == null)
+            return 0.0f;
+
+        return _ticks + Random.Range(_gameSettings.GameEventDuration.Min, _gameSettings.GameEventDuration.Max);
+    }
+
+    private void InvokeEventCallbacks(GameEvent gameEvent, GameEventCallbackType callbackType)
     {
         if (_listeners == null || _listeners.Count == 0)
         {
-            Debug.Log($"[GAME EVENT CONTROLLER] InvokeEventCallbacks - No listeners registered, skipping -");
+            Debug.Log($"[GAME EVENT MANAGER] InvokeEventCallbacks - No listeners registered, skipping -");
             return;
         }
 
-        Debug.Log($"[GAME EVENT CONTROLLER] InvokeEventCallbacks - EventType: {eventType} | CallbackType: {callbackType} | Listeners: {_listeners.Count} -");
+        Debug.Log($"[GAME EVENT MANAGER] InvokeEventCallbacks - EventType: {gameEvent} | CallbackType: {callbackType} | Listeners: {_listeners.Count} -");
 
-        Dictionary<IGameEventListener, GameEventType> listeners = _listeners;
+        Dictionary<IGameEventListener, GameEvent> listeners = _listeners;
 
         foreach (var listenerEntry in listeners)
         {
-            if (listenerEntry.Value != eventType)
+            if (listenerEntry.Value != gameEvent)
                 continue;
 
             IGameEventListener currentListener = listenerEntry.Key;

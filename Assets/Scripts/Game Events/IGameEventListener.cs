@@ -1,6 +1,6 @@
 public interface IGameEventListener
 {
-    void Subscribe(IGameEventListener listener, GameEventType eventType);
+    void Subscribe(IGameEventListener listener, GameEvent eventType);
     void Unsubscribe(IGameEventListener listener);
     public void EventStartCallback();
     public void EventEndCallback();

@@ -3,19 +3,22 @@ using UnityEngine.Events;
 
 public class GameEventActor : MonoBehaviour, IGameEventListener
 {
-    [SerializeField] private GameEventType _eventType;
+    [SerializeField] private GameEvent _gameEvent;
     [SerializeField] private UnityEvent _onEventStarted;
     [SerializeField] private UnityEvent _onEventEnded;
 
     private void Start()
     {
-        Subscribe(this, _eventType);
+        if (_gameEvent == null)
+            return;
+        
+        Subscribe(this, _gameEvent);
     }
 
-    // private void OnDisable()
-    // {
-    //     Unsubscribe(this);
-    // }
+    private void OnDisable()
+    {
+        Unsubscribe(this);
+    }
 
     public void EventEndCallback()
     {
@@ -29,13 +32,13 @@ public class GameEventActor : MonoBehaviour, IGameEventListener
         Debug.Log($"[GAME EVENT ACTOR] {this.gameObject.name} just woke up! ");
     }
 
-    public void Subscribe(IGameEventListener listener, GameEventType eventType)
+    public void Subscribe(IGameEventListener listener, GameEvent gameEvent)
     {
-        GameEventManager.Instance.Subscribe(this, _eventType);
+        GameEventManager.Instance.Subscribe(listener, gameEvent);
     }
 
     public void Unsubscribe(IGameEventListener listener)
     {
-        GameEventManager.Instance.Unsubscribe(this);
+        GameEventManager.Instance.Unsubscribe(listener);
     }
 }

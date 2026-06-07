@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Timer))]
 public class GameTimeManager : MonoBehaviour
 {
-    [SerializeField] private MatchSettings _matchSettings;
+    [SerializeField] private GameSettings _matchSettings;
 
     private Timer _gameTimer;
 

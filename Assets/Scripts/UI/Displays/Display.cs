@@ -26,5 +26,20 @@ public class Display<T> : MonoBehaviour
         _label.text = FormatValue(value);
     }
 
+    public void ClearLabel()
+    {
+        if (_label == null)
+            return;
+        
+        _label.text = "";
+    }
+
+    public void SetLabelText(string text)
+    {
+        if (_label == null)
+            return;
+        
+        _label.text = text;
+    }
     protected virtual string FormatValue(T value) => value.ToString();
 }

@@ -45,9 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameFlowList:
-  - Type: 1
+  - Type: 4
     InvokeEvents:
     - {fileID: 11400000, guid: 0623c6b42ac46904b9180339173a9d0b, type: 2}
-  - Type: 2
+  - Type: 5
     InvokeEvents:
     - {fileID: 11400000, guid: c2a24e0cad1387748a92af6ee597f949, type: 2}
+  _useAutoGameFlow: 1
+  _autoGameFlow:
+    Type: 4
+    InvokeEvents:
+    - {fileID: 11400000, guid: 0623c6b42ac46904b9180339173a9d0b, type: 2}
