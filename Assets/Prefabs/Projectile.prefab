@@ -67,7 +67,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 665
   _killAfterTime: 2
-  _speed: 150
+  _speed: 250
 --- !u!33 &2650370432180346794
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -184,8 +184,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.08872556
       - serializedVersion: 3
-        time: 0.044367295
-        value: 0.46446294
+        time: 0.05
+        value: 0.8292428
         inSlope: 0.032556254
         outSlope: 0.032556254
         tangentMode: 0
@@ -193,7 +193,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.17661043
       - serializedVersion: 3
-        time: 0.62075806
+        time: 1
         value: 0
         inSlope: -0.035184924
         outSlope: -0.035184924
