@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(RayCastDetector))]
-public class FollowerBee : Bee
+public class FollowerBee : Bee, ICollectionMember
 {
     [SerializeField] private FollowerBeeConfig _config;
 
@@ -56,6 +55,7 @@ public class FollowerBee : Bee
     private void Start()
     {
         _onBeeInitialize?.Invoke();
+        Subscribe();
     }
     
     public override void SetPosition(Vector3 startPos)
@@ -82,6 +82,7 @@ public class FollowerBee : Bee
     {
         Debug.Log($"[{this.GetType().Name.ToUpper()}] InvokeDeathEvent called for {gameObject.name}. -");
         _containerSwarmDeathEvent?.Invoke(this);
+        Unsubscribe();
     }
 
     public override void SetState(BeeState state)
@@ -261,5 +262,15 @@ public class FollowerBee : Bee
 
                 break;
         }
+    }
+
+    public void Subscribe()
+    {
+        EnemyCollectionManager.Instance?.Subscribe(this);
+    }
+
+    public void Unsubscribe()
+    {
+        EnemyCollectionManager.Instance?.Unsubscribe(this);
     }
 }
