@@ -2744,6 +2744,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 28.818
       objectReference: {fileID: 0}
+    - target: {fileID: 3503382166374527414, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
+      propertyPath: m_VolumetricDimmer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7825727877694257991, guid: da6a454f4cc230848b08d483557a5c8e, type: 3}
       propertyPath: m_Name
       value: Environment
