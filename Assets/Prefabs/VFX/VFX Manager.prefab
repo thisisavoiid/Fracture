@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6676980897470058902
+--- !u!1 &7409932396549554022
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,55 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7448533738941006266}
-  - component: {fileID: 3591645257739442}
-  - component: {fileID: 6615361262345743922}
+  - component: {fileID: 8217395382463589893}
+  - component: {fileID: 4775538296646765670}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: VFX Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7448533738941006266
+--- !u!4 &8217395382463589893
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6676980897470058902}
+  m_GameObject: {fileID: 7409932396549554022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.785053, y: -18.2434, z: -29.904781}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3591645257739442
+--- !u!114 &4775538296646765670
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6676980897470058902}
+  m_GameObject: {fileID: 7409932396549554022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a07b295f4be36184fa53ec1ad2d5d15c, type: 3}
+  m_Script: {fileID: 11500000, guid: 463f02645a26f8c49bf141095de948c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultPoolSize: 50
-  _maxPoolSize: 50
-  _enableHardCap: 0
---- !u!114 &6615361262345743922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6676980897470058902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b84f6a9e2065f641ae082639c0b083b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _emitterPrefab: {fileID: 2516287007510270220, guid: a24f062c2707aa244b2ff29826093cc1, type: 3}
+  _vfxPoolTargets:
+  - _effectAsset: {fileID: 8926484042661614526, guid: 9e393e600e6a5754f9b7bfab882217c7, type: 3}
+    _vfxType: 0
+    _poolSize: 25
+  - _effectAsset: {fileID: 8926484042661614526, guid: 134eff85c2c5e494fab41b75d78c5203, type: 3}
+    _vfxType: 1
+    _poolSize: 25

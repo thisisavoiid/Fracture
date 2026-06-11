@@ -1,0 +1,1 @@
+public class TankSpawner : Spawner<ExplosiveController> {}

@@ -330,6 +330,7 @@ GameObject:
   - component: {fileID: 9200255548477020763}
   - component: {fileID: 3618009947577210035}
   - component: {fileID: 3147329875274025170}
+  - component: {fileID: -7954496055343911731}
   - component: {fileID: 5439490621770990076}
   - component: {fileID: 7014768826546004527}
   - component: {fileID: 6737102823447454592}
@@ -484,6 +485,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnObjectHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7686043781314596282, guid: ea54a201d8f8dac48b547acb6f18ef4e, type: 3}
+        m_TargetAssemblyTypeName: VFXPlayer, Assembly-CSharp
+        m_MethodName: PlayEffect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-7954496055343911731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862294826724661740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113379decd4754a40b4335be6fa372fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vfxType: 1
 --- !u!114 &5439490621770990076
 MonoBehaviour:
   m_ObjectHideFlags: 0

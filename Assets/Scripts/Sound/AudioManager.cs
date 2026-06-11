@@ -34,6 +34,9 @@ public class AudioManager : MonoBehaviour
 
         AudioSource source = _pool.Get();
 
+        if (source == null)
+            return;
+        
         sound.Config.ApplyTo(source);
         _pool.SetReleaseTime(source, source.clip.length);
 

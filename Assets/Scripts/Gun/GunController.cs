@@ -20,6 +20,7 @@ public class GunController : Weapon
     public UnityEvent<GunConfig> OnShoot;
     public UnityEvent<GunConfig> OnReload;
     public UnityEvent<GunConfig> OnGunInitialized;
+    public UnityEvent<Vector3> OnObjectHit;
 
     private void Awake()
     {
@@ -69,6 +70,8 @@ public class GunController : Weapon
         
         if (hit.collider == null)
             return;
+
+        OnObjectHit?.Invoke(hit.point);
 
         Debug.Log($"[GUN CONTROLLER] Shot object: {hit.collider.gameObject.name} at point: {hit.point.ToString()} -");
         _decalSpawner.SpawnDecal(hit.point, Quaternion.LookRotation(-hit.normal), hit.collider.gameObject.transform);

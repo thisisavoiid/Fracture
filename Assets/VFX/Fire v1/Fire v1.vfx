@@ -5837,7 +5837,7 @@ MonoBehaviour:
   - {fileID: 114350483966675719}
   m_ExposedName: Texture
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 2
   m_Category: 
   m_Min:
     m_Type:
@@ -5918,7 +5918,7 @@ MonoBehaviour:
   - {fileID: 114350483966675721}
   m_ExposedName: Flipbook Size
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 3
   m_Category: 
   m_Min:
     m_Type:
@@ -6067,7 +6067,7 @@ MonoBehaviour:
   - {fileID: 114350483966675725}
   m_ExposedName: Size Over Life
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 4
   m_Category: 
   m_Min:
     m_Type:
@@ -6148,7 +6148,7 @@ MonoBehaviour:
   - {fileID: 114350483966675727}
   m_ExposedName: Alpha Over Life
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 5
   m_Category: 
   m_Min:
     m_Type:
@@ -6229,7 +6229,7 @@ MonoBehaviour:
   - {fileID: 114350483966675729}
   m_ExposedName: Spawn Rate
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 6
   m_Category: 
   m_Min:
     m_Type:
@@ -6310,7 +6310,7 @@ MonoBehaviour:
   - {fileID: 114350483966675731}
   m_ExposedName: Spread
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 7
   m_Category: 
   m_Min:
     m_Type:
@@ -6394,7 +6394,7 @@ MonoBehaviour:
   - {fileID: 114350483966675733}
   m_ExposedName: Upwards Force
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 8
   m_Category: 
   m_Min:
     m_Type:
@@ -6478,7 +6478,7 @@ MonoBehaviour:
   - {fileID: 114350483966675735}
   m_ExposedName: Texture Color
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 9
   m_Category: 
   m_Min:
     m_Type:
@@ -6695,7 +6695,7 @@ MonoBehaviour:
   - {fileID: 114350483966675741}
   m_ExposedName: Frame Rate
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 10
   m_Category: 
   m_Min:
     m_Type:

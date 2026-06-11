@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter))]
@@ -251,6 +252,16 @@ public class Fracture : MonoBehaviour, IShootable
         // Copy rigid body properties to fragment
         var thisRigidBody = this.GetComponent<Rigidbody>();
         var fragmentRigidBody = obj.AddComponent<Rigidbody>();
+        
+        // Copy collision sound player
+        // if (this.TryGetComponent(out OnCollisionSoundPlayer soundPlayer))
+        // {
+        //     var onCollisionSoundPlayer = obj.AddComponent<OnCollisionSoundPlayer>();
+        //     onCollisionSoundPlayer.SetSound(soundPlayer.Sound);
+        // }
+
+        // obj.AddComponent<Fracture>();
+
         fragmentRigidBody.linearVelocity = thisRigidBody.linearVelocity;
         fragmentRigidBody.angularVelocity = thisRigidBody.angularVelocity;
         fragmentRigidBody.linearDamping = thisRigidBody.linearDamping;

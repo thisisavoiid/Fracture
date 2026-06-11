@@ -7,6 +7,7 @@ public class AudioSourcePool : MonoBehaviour
 {
     [SerializeField] [Range(1,250)] private int _defaultPoolSize;
     [SerializeField] [Range(1,250)] private int _maxPoolSize;
+    [SerializeField] private bool _enableHardCap = false;
     private ObjectPool<AudioSource> _objectPool;
 
     private void Awake()
@@ -45,7 +46,7 @@ public class AudioSourcePool : MonoBehaviour
 
     private void OnDestroyItem(AudioSource audioSource)
     {
-        Destroy(audioSource);
+        Destroy(audioSource.gameObject);
     }
 
     private IEnumerator ReturnAfter(AudioSource audioSource, float seconds)
@@ -61,6 +62,11 @@ public class AudioSourcePool : MonoBehaviour
 
     public AudioSource Get()
     {
+        if (_objectPool.CountActive >= _maxPoolSize && _enableHardCap)
+        {
+            return null;
+        }
+
         AudioSource source = _objectPool.Get();
         return source;
     }

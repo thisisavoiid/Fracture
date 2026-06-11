@@ -1,7 +1,6 @@
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(RectTransform))]
 public class UIResizeOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -14,6 +13,12 @@ public class UIResizeOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
     private Vector2 _defaultScale;
     private Vector2 _targetScale;
 
+    private void ResetSize()
+    {
+        _isBeingHoveredOver = false;
+        _rectTransform.localScale = _defaultScale;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         _isBeingHoveredOver = true;
@@ -22,6 +27,11 @@ public class UIResizeOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnPointerExit(PointerEventData eventData)
     {
         _isBeingHoveredOver = false;
+    }
+
+    private void OnDisable()
+    {
+        ResetSize();
     }
 
     private void Awake()

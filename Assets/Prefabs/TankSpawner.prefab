@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e57c4351d44954fa037c19e0e4652c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tankPool:
-  - {fileID: 3523894698881964607, guid: 357697b63c54f5e489bb183c61896f7f, type: 3}
+  _objectPool:
   - {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+  - {fileID: 3523894698881964607, guid: 357697b63c54f5e489bb183c61896f7f, type: 3}
 --- !u!114 &3654555358454920446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,13 +80,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5071465131547231425}
-        m_TargetAssemblyTypeName: TankSpawnerController, Assembly-CSharp
-        m_MethodName: SpawnTank
-        m_Mode: 1
+        m_TargetAssemblyTypeName: TankSpawner, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

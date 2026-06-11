@@ -1,28 +1,21 @@
-using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.VFX;
 
-[RequireComponent(typeof(VisualEffect))]
 public class VFXPlayer : MonoBehaviour
 {
-    [SerializeField] private VisualEffect _visualEffect;
-    [SerializeField] private bool _playOnAwake = false;
+    [SerializeField] private VFXType _vfxType;
 
-    [Button]
-    public void PlayVFX()
+    public void PlayEffect()
     {
-        _visualEffect.Play();
-    }
-    
-    [Button]
-    public void StopVFX()
-    {
-        _visualEffect.Stop();
+        PlayEffect(transform.position);
     }
 
-    private void Awake()
+    public void PlayEffect(Vector3 pos)
     {
-        if (!_playOnAwake)
-            _visualEffect.Stop();
+        VFXManager vfxManagerInstance = VFXManager.Instance;
+
+        if (vfxManagerInstance == null)
+            return;
+
+        vfxManagerInstance.PlayVFX(_vfxType, pos);
     }
 }
