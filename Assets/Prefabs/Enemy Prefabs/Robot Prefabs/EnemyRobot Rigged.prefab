@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 2879798464440869866}
   - component: {fileID: 3973428780255461413}
   - component: {fileID: 3576135094835255558}
+  - component: {fileID: 9131532296340605550}
   m_Layer: 9
   m_Name: EnemyRobot Rigged
   m_TagString: Untagged
@@ -227,12 +228,8 @@ MonoBehaviour:
   _headTransform: {fileID: 4096318791881661578}
   _patrolSpeed: 3.5
   _patrolAcceleration: 100
-  _patrolWaypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _waypointCount: 10
+  _radius: 50
   _chaseSpeed: 7.5
   _chaseAcceleration: 150
   _chargeStationTransform: {fileID: 0}
@@ -622,6 +619,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9131532296340605550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5967081138143782580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64af447d15f79a143814e30f587306e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6450847122699626428
 GameObject:
   m_ObjectHideFlags: 0

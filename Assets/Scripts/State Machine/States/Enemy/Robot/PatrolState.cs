@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class PatrolState : State
 {
     private NavMeshAgent _agent;
-    private List<Transform> _waypoints;
+    private List<Vector3> _waypoints;
     private int _currentWaypointIdx;
     private Battery _battery;
     private float _speed;
@@ -16,7 +16,7 @@ public class PatrolState : State
 
     public PatrolState(
         NavMeshAgent agent,
-        List<Transform> waypoints,
+        List<Vector3> waypoints,
         float speed,
         float acceleration,
         Battery battery
@@ -44,7 +44,7 @@ public class PatrolState : State
         _agent.acceleration = _acceleration;
         _agent.speed = _speed;
         _agent.ResetPath();
-        _agent.SetDestination(_waypoints[_currentWaypointIdx].position);
+        _agent.SetDestination(_waypoints[_currentWaypointIdx]);
     }
 
     public override void Exit() { }
@@ -56,8 +56,6 @@ public class PatrolState : State
     {
         if (_agent == null || _waypoints == null || _waypoints.Count == 0) return;
 
-        float distance = (_waypoints[_currentWaypointIdx].position - _agent.transform.position).magnitude;
-
         if (_agent.hasPath)
             _battery.Drain();
 
@@ -65,7 +63,7 @@ public class PatrolState : State
         {
             _currentWaypointIdx = (_currentWaypointIdx + 1) % _waypoints.Count;
 
-            Vector3 nextPos = _waypoints[_currentWaypointIdx].position;
+            Vector3 nextPos = _waypoints[_currentWaypointIdx];
             nextPos.y = _agent.transform.position.y;
 
             _agent.SetDestination(nextPos);

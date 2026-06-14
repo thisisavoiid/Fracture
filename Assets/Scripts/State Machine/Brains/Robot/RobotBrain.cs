@@ -16,6 +16,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Battery))]
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(InventoryController))]
+[RequireComponent(typeof(NavMeshPointGenerator))]
 public class RobotBrain : MonoBehaviour, ICollectionMember
 {
     #region FSM Variables
@@ -56,8 +57,13 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     [SerializeField] private float _patrolAcceleration;
 
     [BoxGroup("Patrol Settings")]
-    [Tooltip("List of waypoints for the robot to follow in sequence.")]
-    [SerializeField] private List<Transform> _patrolWaypoints;
+    [Tooltip("Amount of waypoints to be generated per robot instance.")]
+    [SerializeField] private int _waypointCount = 5;
+
+    [BoxGroup("Patrol Settings")]
+    [Tooltip("Radius around the robot instances which the waypoints are going to be placed in.")]
+    [SerializeField] private int _radius = 5;
+
 
     [BoxGroup("Chase Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during pursuit.")]
@@ -102,12 +108,15 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     [BoxGroup("Initialization Events")]
     [SerializeField] private UnityEvent OnRobotInitialize;
 
+    private List<Vector3> _patrolWaypoints = new();
     private Battery _battery;
     private NavMeshAgent _agent;
     private OverlapSphereDetector _overlapSphereDetector;
     private RayCastDetector _raycastDetector;
     private InventoryController _inventory;
     private Transform _transform;
+    private NavMeshPointGenerator _pointGenerator;
+
     #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
@@ -124,8 +133,11 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         _raycastDetector = GetComponent<RayCastDetector>();
         _inventory = GetComponent<InventoryController>();
         _battery = GetComponent<Battery>();
+        _pointGenerator = GetComponent<NavMeshPointGenerator>();
 
         _overlapSphereDetector.SetRadius(_viewDistance / 2);
+
+        GeneratePatrolWaypoints();
 
         ConfigureStateMachine();
 
@@ -227,6 +239,15 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         );
 
         SetState(patrolState);
+    }
+
+    private void GeneratePatrolWaypoints()
+    {
+        for (int i = 0; i < _waypointCount; i++)
+        {
+            Vector3 waypoint = _pointGenerator.FindPosition(_radius);
+            _patrolWaypoints.Add(waypoint);
+        }
     }
 
     /// <summary>
@@ -347,7 +368,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
 
         Gizmos.color = Color.blue;
 
-        Gizmos.DrawLineStrip(_patrolWaypoints.Select(waypoint => waypoint.position).ToArray(), true);
+        Gizmos.DrawLineStrip(_patrolWaypoints.Select(waypoint => waypoint).ToArray(), true);
 
         if (_chargeStationTransform == null)
             return;
