@@ -44,6 +44,14 @@ public class CameraController : MonoBehaviour
         );
     }
 
+    public void SetCameraActive(bool value)
+    {
+        if (_camera == null)
+            return;
+        
+        _camera.gameObject.SetActive(value);
+    }
+    
     public void SetTargetFOV(float fov)
     {
         if (_isLocked)

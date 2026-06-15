@@ -34,6 +34,9 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
+        if (_hasAlreadyDied)
+            return;
+        
         float targetHealth = Mathf.Max(0, _health - dmg);
         _health = targetHealth;
 

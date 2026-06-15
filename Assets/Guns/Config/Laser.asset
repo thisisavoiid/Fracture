@@ -15,10 +15,10 @@ MonoBehaviour:
   _name: Laser
   _sprite: {fileID: 21300000, guid: db2da91df2d19c34a8420c21028b67af, type: 3}
   Stats:
-    ShotsPerMinute: 175
+    ShotsPerMinute: 125
     DamagePerShot: 15
     TotalRounds: 1000
-    Range: 5
+    Range: 10
   RecoilConfig:
     IntensityY: 0
     RandomXRecoilRange:

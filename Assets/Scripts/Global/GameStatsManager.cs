@@ -18,6 +18,8 @@ public class GameStatsManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        DontDestroyOnLoad(this);
     }
 
     public void AddScore(int value)

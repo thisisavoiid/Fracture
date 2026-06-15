@@ -4688,7 +4688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserEnd: {fileID: 8387866142388550747}
   _laserRepositionDistance: 0.25
-  _damageToDeal: 15
+  _damageToDeal: 5
   OnLaserObjectInitialize:
     m_PersistentCalls:
       m_Calls:
@@ -5040,10 +5040,10 @@ MonoBehaviour:
   _onEventInvoked:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7042644588918734629}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Stop
-        m_Mode: 1
+      - m_Target: {fileID: 2714477241749824526}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

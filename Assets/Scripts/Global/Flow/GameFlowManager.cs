@@ -8,14 +8,26 @@ public class GameFlowManager : MonoBehaviour
 {
     [SerializeField] private List<GameFlowEventsPair> _gameFlowList;
     [SerializeField] private bool _useAutoGameFlow;
-    [SerializeField] 
-    [ShowIf("_useAutoGameFlow")] 
+    [SerializeField]
+    [ShowIf("_useAutoGameFlow")]
     private GameFlowEventsPair _autoGameFlow;
     private Dictionary<FlowType, List<ScriptableEvent>> _gameFlowDict = new();
     private FlowType _currentFlow = FlowType.Undefined;
 
+    private static GameFlowManager _instance;
+    public static GameFlowManager Instance => _instance;
+
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        else
+        {
+            _instance = this;
+        }
         LoadGameFlows();
     }
 
@@ -23,7 +35,7 @@ public class GameFlowManager : MonoBehaviour
     {
         if (!_useAutoGameFlow)
             return;
-        
+
         if (_currentFlow == FlowType.Undefined)
             ChangeFlow(_autoGameFlow.Type);
     }
