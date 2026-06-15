@@ -130,9 +130,9 @@ public class GameEventManager : MonoBehaviour
 
         if (_ticks >= _currentEventEndTime && _currentEvent != null)
         {
-            EndCurrentEvent();
             _nextEventStartTime = GetRandomEventStartTime();
             Debug.Log($"[GAME EVENT MANAGER] Stopping current event ({_currentEvent.Name}) and proceeding with new event at determined time: {_nextEventStartTime} -");
+            EndCurrentEvent();
         }
     }
 
