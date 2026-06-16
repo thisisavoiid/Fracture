@@ -224,8 +224,8 @@ MonoBehaviour:
     m_Bits: 64
   _viewDistance: 80
   _calmDownDistance: 35
-  _minAttackDistance: 5
-  _headTransform: {fileID: 4096318791881661578}
+  _minAttackDistance: 15
+  _headTransform: {fileID: 6814391531851964671}
   _patrolSpeed: 3.5
   _patrolAcceleration: 100
   _waypointCount: 10
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 350
+  _defaultHealth: 250
   _autoInvokeDie: 1
   _deathEvent: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
   OnDeath:
@@ -1372,6 +1372,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3853268898807207900, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853268898807207900, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d064c8e52404cd94786f9ebbd5d37fc2, type: 2}
+    - target: {fileID: 3853268898807207900, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fa2e9fb23b90a4445a543beba76a194c, type: 2}
     - target: {fileID: 3882815353823017779, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -1404,6 +1416,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6148737315974723067, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6148737315974723067, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d064c8e52404cd94786f9ebbd5d37fc2, type: 2}
+    - target: {fileID: 6148737315974723067, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fa2e9fb23b90a4445a543beba76a194c, type: 2}
     - target: {fileID: 6240733294840144465, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -1552,11 +1576,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreEffect: 50
---- !u!4 &4096318791881661578 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3321919801592875672, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}
-  m_PrefabInstance: {fileID: 7583823962323642850}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7349397847905162419 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a1d2d890432a574cb1d14e0d9b5603d, type: 3}

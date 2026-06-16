@@ -15,17 +15,17 @@ MonoBehaviour:
   _name: Stinger
   _sprite: {fileID: -112395526, guid: 61b7d4103cf07cd46b4a30a568d1db6c, type: 3}
   Stats:
-    ShotsPerMinute: 650
-    DamagePerShot: 35
-    TotalRounds: 45
-    Range: 50
+    ShotsPerMinute: 680
+    DamagePerShot: 22
+    TotalRounds: 40
+    Range: 35
   RecoilConfig:
-    IntensityY: 5
+    IntensityY: 3.5
     RandomXRecoilRange:
-      Min: -1.075
-      Max: 1.075
-    ForceBackToDefault: 4.25
-    ForceToTargetForce: 10
+      Min: -2.2
+      Max: 2.2
+    ForceBackToDefault: 6.5
+    ForceToTargetForce: 8
   UseRecoil: 1
   ShootSound: {fileID: 11400000, guid: 068d1d45b429301458eac960f31200f1, type: 2}
   ReloadSound: {fileID: 11400000, guid: 1511089e63010134a888d0b0ceb4b3ae, type: 2}

@@ -15,17 +15,17 @@ MonoBehaviour:
   _name: Vindicator
   _sprite: {fileID: 21300000, guid: 55e4f2815cc20ce45b11f90144eca963, type: 3}
   Stats:
-    ShotsPerMinute: 500
-    DamagePerShot: 30
-    TotalRounds: 12
-    Range: 40
+    ShotsPerMinute: 420
+    DamagePerShot: 58
+    TotalRounds: 14
+    Range: 60
   RecoilConfig:
-    IntensityY: 5
+    IntensityY: 8.5
     RandomXRecoilRange:
-      Min: -1.25
-      Max: 1.25
-    ForceBackToDefault: 5
-    ForceToTargetForce: 12
+      Min: -0.6
+      Max: 0.6
+    ForceBackToDefault: 3
+    ForceToTargetForce: 16
   UseRecoil: 1
   ShootSound: {fileID: 11400000, guid: e74540ffa0e81c9449403d3c85f1b800, type: 2}
   ReloadSound: {fileID: 11400000, guid: 1511089e63010134a888d0b0ceb4b3ae, type: 2}
