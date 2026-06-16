@@ -10,8 +10,19 @@ public class LoadoutInjector : MonoBehaviour
     {
         if (_inventory == null || _source == null)
             return;
-        
+
+        List<Item> items = _source.Value.GetItems();
+
+        if (items == null || items.Count == 0)
+            return;
+
         foreach (Item sourceItem in _source.Value.GetItems())
+        {
+            if (sourceItem == null)
+                continue;
+
             _inventory.AddItem(sourceItem);
+        }
+
     }
 }

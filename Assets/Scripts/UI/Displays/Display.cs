@@ -41,5 +41,6 @@ public class Display<T> : MonoBehaviour
         
         _label.text = text;
     }
+    
     protected virtual string FormatValue(T value) => value.ToString();
 }

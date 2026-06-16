@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// Updates a UI Slider to represent battery levels and dynamically changes 
 /// the fill color based on the current charge percentage.
 /// </summary>
-public class BatterySliderDisplay : MonoBehaviour
+public class BatteryDisplay : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
     [SerializeField] private Image _sliderFill;

@@ -18,8 +18,6 @@ public class GameStatsManager : MonoBehaviour
         {
             _instance = this;
         }
-
-        DontDestroyOnLoad(this);
     }
 
     public void AddScore(int value)
@@ -36,7 +34,7 @@ public class GameStatsManager : MonoBehaviour
     {
         _gameStats.LogExplosiveUsed();
     }
-    
+
     public void ResetStats() => _gameStats.Reset();
     public GameStats GetStats() => _gameStats;
 }
