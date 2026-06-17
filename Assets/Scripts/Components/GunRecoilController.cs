@@ -8,11 +8,14 @@ public class GunRecoilController : MonoBehaviour
     private Quaternion _baseRotation;
     private Quaternion _targetRotation;
     private RecoilConfig _recoilConfig;
+    private PlayerInputController _playerInputController;
 
     private void Awake()
     {
         _baseRotation = _gunRecoilTransform.localRotation;
         _targetRotation = _baseRotation;
+
+        _playerInputController = transform.root.GetComponent<PlayerInputController>();
     }
 
     public void ApplyRecoil(GunContext gunContext)
@@ -22,14 +25,27 @@ public class GunRecoilController : MonoBehaviour
 
         if (gunContext.Holder != transform.root.gameObject)
             return;
-        
+
         _recoilConfig = gunContext.Gun.RecoilConfig;
 
+        float intensityY = _recoilConfig.IntensityY;
+        float minX = _recoilConfig.RandomXRecoilRange.Min;
+        float maxX = _recoilConfig.RandomXRecoilRange.Max;
+
+        bool isScoped = _playerInputController != null && _playerInputController.SecondaryGadgetAction.IsPressed();
+
+        if (isScoped)
+        {
+            intensityY *= _recoilConfig.ScopeRecoilMultiplicator;
+            minX *= _recoilConfig.ScopeRecoilMultiplicator;
+            maxX *= _recoilConfig.ScopeRecoilMultiplicator;
+        }
+
         Quaternion additionalRotation = Quaternion.Euler(
-            -_recoilConfig.IntensityY,
+            -intensityY,
             Random.Range(
-                _recoilConfig.RandomXRecoilRange.Min,
-                _recoilConfig.RandomXRecoilRange.Max
+                minX,
+                maxX
             ),
             0f
         );

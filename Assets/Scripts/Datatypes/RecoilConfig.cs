@@ -18,4 +18,8 @@ public struct RecoilConfig
 
     [Tooltip("The force used to pull the recoil to its target rotation.")]
     public float ForceToTargetForce;
+
+    [Header("Scope Settings")]
+    [Tooltip("The amount of recoil reduced once scoping is active.")]
+    public float ScopeRecoilMultiplicator;
 }

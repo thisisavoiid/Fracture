@@ -551,6 +551,7 @@ MonoBehaviour:
   _baseFov: 90
   _walkFovMultiplicator: 1.075
   _sprintFovMultiplicator: 1.175
+  _scopeFovMultiplicator: 0.875
   _lerpSpeed: 10
   _groundLayers:
     serializedVersion: 2

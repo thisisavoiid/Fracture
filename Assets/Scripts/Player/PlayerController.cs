@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _baseFov;
     [SerializeField] private float _walkFovMultiplicator;
     [SerializeField] private float _sprintFovMultiplicator;
+    [SerializeField] private float _scopeFovMultiplicator;
     [SerializeField] private float _lerpSpeed;
 
     [Header("Ground Check")]
@@ -212,6 +213,15 @@ public class PlayerController : MonoBehaviour
     private void HandleCameraFOV()
     {
         Vector3 _moveDir = _inputController.Move;
+
+        if (_inputController.SecondaryGadgetAction.IsPressed())
+        {
+            if (_inventoryManager.ActiveItem != null && _inventoryManager.ActiveItem is Weapon)
+            {
+                _cameraController.SetTargetFOV(_baseFov * _scopeFovMultiplicator);
+                return;
+            }
+        }
 
         if (_moveDir == Vector3.zero)
         {
