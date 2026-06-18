@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 5596382549740364955}
   - component: {fileID: 754711309533952443}
   - component: {fileID: 674455307525930976}
+  - component: {fileID: 6401145456390989016}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -568,6 +569,12 @@ MonoBehaviour:
   _slideDeceleration: 12.5
   _cameraYPosChange: 0.5
   _jumpStrength: 30
+  _maxClimbHeight: 5
+  _climbSpeed: 15
+  _climbRange: 1.5
+  _verticalClimbTreshold: 0.2
+  _horizontalClimbTreshold: 0.2
+  _canClimb: 1
   _transformVariable: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
   _onMouseLook:
     m_PersistentCalls:
@@ -1152,6 +1159,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
+--- !u!114 &6401145456390989016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051677001377604337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fa40a3dc330694b97ad18ab7aa8f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7763468795387352067
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,5 +95,8 @@ public class RigidbodyMovement : MonoBehaviour
         _transform.localRotation = rotation;
     }
 
+    public void SetKinematic(bool value) => _rb.isKinematic = value;
+    public void SetUseGravity(bool value) => _rb.useGravity = value;
+    
     public void SetLocked(bool value) => _isLocked = value;
 }

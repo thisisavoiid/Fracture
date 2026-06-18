@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.UI;
 
 /// <summary>
 /// Central controller class responsible for managing player systems including movement, 
@@ -16,6 +18,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(InventoryController))]
 [RequireComponent(typeof(HeadBob))]
 [RequireComponent(typeof(PhysicsMaterialChanger))]
+[RequireComponent(typeof(Climber))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Camera")]
@@ -57,6 +60,14 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float _jumpStrength;
 
+    [Header("Climbing")]
+    [SerializeField] [Range(0.25f, 10.0f)] private float _maxClimbHeight = 2.5f;
+    [SerializeField] [Range(1.0f, 50.0f)] private float _climbSpeed = 20.0f;
+    [SerializeField] [Range(0.5f, 5.0f)] private float _climbRange = 1.5f;
+    [SerializeField] [Range(0.05f, 0.5f)] private float _verticalClimbTreshold = 0.1f;
+    [SerializeField] [Range(0.05f, 0.5f)] private float _horizontalClimbTreshold = 0.1f;
+    [SerializeField] private bool _canClimb = true;
+
     [Header("Scriptable Variables")]
     [SerializeField] private TransformVariable _transformVariable;
 
@@ -84,11 +95,13 @@ public class PlayerController : MonoBehaviour
     private InventoryController _inventoryManager;
     private HeadBob _headbob;
     private PhysicsMaterialChanger _physicsMaterialChanger;
+    private Climber _climber;
     private bool _isJumpQueued = false;
     private bool _isSliding = false;
     private float _currentSlideSpeed;
     private Vector3 _lastSlideDir;
     private Vector3 _moveDir;
+    private bool _isClimbing = false;
     private bool _isGrounded;
 
     private void Awake()
@@ -100,6 +113,7 @@ public class PlayerController : MonoBehaviour
         _inventoryManager = GetComponent<InventoryController>();
         _headbob = GetComponent<HeadBob>();
         _physicsMaterialChanger = GetComponent<PhysicsMaterialChanger>();
+        _climber = GetComponent<Climber>();
 
         if (_transformVariable != null)
             _transformVariable.SetValue(transform);
@@ -148,6 +162,9 @@ public class PlayerController : MonoBehaviour
     private void HandleJump()
     {
         if (_isSliding)
+            return;
+
+        if (_isClimbing)
             return;
 
         bool jumpPressed = _inputController.JumpPressed;
@@ -303,7 +320,7 @@ public class PlayerController : MonoBehaviour
         if (targetIndex < 0)
         {
             targetIndex = inventoryCapactiy - 1;
-        } 
+        }
 
         if (targetIndex >= inventoryCapactiy)
         {
@@ -351,6 +368,78 @@ public class PlayerController : MonoBehaviour
         _physicsMaterialChanger.SetPhysicsMaterial(isCrouchSlidePressed ? _slidePhysicsMaterial : _generalPhysicsMaterial);
     }
 
+    private void HandleClimb()
+    {
+        if (_isClimbing)
+            return;
+
+        if (!_canClimb) 
+            return;
+        
+        bool canClimb = _climber.CanClimb(
+            transform.position,
+            transform.forward,
+            _climbRange,
+            _maxClimbHeight,
+            out Vector3 climbPos
+        );
+
+        if (!canClimb)
+            return;
+
+        if (_inputController.JumpPressed)
+            StartCoroutine(ClimbCycle(climbPos));
+    }
+
+    private IEnumerator ClimbCycle(Vector3 targetPosition)
+    {
+        _isClimbing = true;
+
+        _rbMovement.SetUseGravity(false);
+        _rbMovement.SetKinematic(true);
+
+        while ((targetPosition.y - transform.position.y) > _verticalClimbTreshold)
+        {
+            Vector3 targetYPos = new Vector3(
+                transform.position.x,
+                targetPosition.y,
+                transform.position.z
+            );
+
+            transform.position = Vector3.Lerp(
+                transform.position,
+                targetYPos,
+                Time.deltaTime * _climbSpeed
+            );
+
+            yield return null;
+        }
+
+        transform.position = new Vector3(
+            transform.position.x,
+            targetPosition.y,
+            transform.position.z
+        );
+
+        while ((targetPosition - transform.position).magnitude > _horizontalClimbTreshold)
+        {
+            transform.position = Vector3.Lerp(
+                transform.position,
+                targetPosition,
+                Time.deltaTime * _climbSpeed
+            );
+
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+
+        _isClimbing = false;
+
+        _rbMovement.SetUseGravity(true);
+        _rbMovement.SetKinematic(false);
+    }
+
     /// <summary>
     /// Executes every player gameplay related method every frame. Also caches current move direction.
     /// </summary>
@@ -367,6 +456,7 @@ public class PlayerController : MonoBehaviour
         HandleInventoryShuffle();
         HandleCameraFOV();
         HandleHeadbob();
+        HandleClimb();
 
         _weaponAdsAnimator.SetBool("Scope", _inputController.SecondaryGadgetAction.IsPressed());
         _moveDir = _inputController.Move;
@@ -385,6 +475,9 @@ public class PlayerController : MonoBehaviour
         }
 
         if (_isLocked)
+            return;
+
+        if (_isClimbing)
             return;
 
         HandleMovement();
