@@ -19,18 +19,31 @@ public class Climber : MonoBehaviour
         return climbPos;
     }
 
-    public bool CanClimb(Vector3 origin, Vector3 direction, float range, float maxClimbHeight, out Vector3 climbPos)
+    public bool CanClimb(
+        Vector3 origin,
+        Vector3 direction,
+        float range,
+        float maxClimbHeight,
+        float minClimbHeight,
+        out Vector3 climbPos,
+        float pushDistance = 0.0f
+    )
     {
         RaycastHit climbHit = FindClimbablePoint(origin, direction, range);
-        
+
         climbPos = origin;
 
         if (climbHit.collider == null)
             return false;
 
-        Vector3 tempClimbPos = FindSuitableClimbPosition(climbHit);
+        Vector3 tempClimbPos = FindSuitableClimbPosition(climbHit) + (direction * pushDistance);
 
-        if ((tempClimbPos.y - origin.y) > maxClimbHeight)
+        float heightDifference = tempClimbPos.y - origin.y;
+
+        if (heightDifference > maxClimbHeight)
+            return false;
+
+        if (heightDifference < minClimbHeight)
             return false;
 
         climbPos = tempClimbPos;

@@ -994,7 +994,7 @@ MonoBehaviour:
   _defaultSlot: 0
   _itemContainerTransform: {fileID: 0}
   _enableDebugMode: 0
-  _inventoryVariable: {fileID: 0}
+  _inventoryVariable: {fileID: 11400000, guid: a450e173e0506ce40975e1a0426cfd3e, type: 2}
   _inventoryContent: []
   _targetIndex: 0
   _activeSlot: 0
@@ -1808,7 +1808,7 @@ MonoBehaviour:
   _defaultSlot: 0
   _itemContainerTransform: {fileID: 0}
   _enableDebugMode: 0
-  _inventoryVariable: {fileID: 0}
+  _inventoryVariable: {fileID: 11400000, guid: a450e173e0506ce40975e1a0426cfd3e, type: 2}
   _inventoryContent: []
   _targetIndex: 0
   _activeSlot: 0
@@ -4423,7 +4423,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 360484721}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

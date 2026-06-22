@@ -3,7 +3,6 @@ using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering.UI;
 
 /// <summary>
 /// Central controller class responsible for managing player systems including movement, 
@@ -61,11 +60,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpStrength;
 
     [Header("Climbing")]
-    [SerializeField] [Range(0.25f, 10.0f)] private float _maxClimbHeight = 2.5f;
-    [SerializeField] [Range(1.0f, 50.0f)] private float _climbSpeed = 20.0f;
-    [SerializeField] [Range(0.5f, 5.0f)] private float _climbRange = 1.5f;
-    [SerializeField] [Range(0.05f, 0.5f)] private float _verticalClimbTreshold = 0.1f;
-    [SerializeField] [Range(0.05f, 0.5f)] private float _horizontalClimbTreshold = 0.1f;
+    [SerializeField][Range(0.25f, 10.0f)] private float _maxClimbHeight = 2.5f;
+    [SerializeField][Range(0.25f, 5.0f)] private float _minClimbHeight = 1.0f;
+    [SerializeField][Range(1.0f, 50.0f)] private float _climbSpeed = 20.0f;
+    [SerializeField][Range(0.5f, 5.0f)] private float _climbRange = 1.5f;
+    [SerializeField][Range(0.05f, 0.5f)] private float _verticalClimbTreshold = 0.1f;
+    [SerializeField][Range(0.05f, 0.5f)] private float _horizontalClimbTreshold = 0.1f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float _climbPushForward = 0.5f;
+    [SerializeField] private Transform _climbTransform;
     [SerializeField] private bool _canClimb = true;
 
     [Header("Scriptable Variables")]
@@ -86,7 +88,8 @@ public class PlayerController : MonoBehaviour
     [Header("Various")]
     [SerializeField] private bool _isLocked = false;
 
-    [Header("Event Endpoints")]
+    [Header("Gizmos Settings")]
+    [SerializeField] private bool _showClimbGizmos = false;
 
     private PlayerInputController _inputController;
     private RigidbodyMovement _rbMovement;
@@ -96,6 +99,7 @@ public class PlayerController : MonoBehaviour
     private HeadBob _headbob;
     private PhysicsMaterialChanger _physicsMaterialChanger;
     private Climber _climber;
+
     private bool _isJumpQueued = false;
     private bool _isSliding = false;
     private float _currentSlideSpeed;
@@ -103,6 +107,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _moveDir;
     private bool _isClimbing = false;
     private bool _isGrounded;
+    private Vector3 _lastValidClimbPosition;
 
     private void Awake()
     {
@@ -373,19 +378,23 @@ public class PlayerController : MonoBehaviour
         if (_isClimbing)
             return;
 
-        if (!_canClimb) 
+        if (!_canClimb)
             return;
-        
+
         bool canClimb = _climber.CanClimb(
-            transform.position,
-            transform.forward,
+            _climbTransform.position,
+            _climbTransform.forward,
             _climbRange,
             _maxClimbHeight,
-            out Vector3 climbPos
+            _minClimbHeight,
+            out Vector3 climbPos,
+            _climbPushForward
         );
 
         if (!canClimb)
             return;
+
+        _lastValidClimbPosition = climbPos;
 
         if (_inputController.JumpPressed)
             StartCoroutine(ClimbCycle(climbPos));
@@ -493,4 +502,35 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetLocked(bool value) => _isLocked = value;
+
+    private void OnDrawGizmos()
+    {
+        if (_showClimbGizmos && _climber != null && _climbTransform != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(
+                _lastValidClimbPosition,
+                0.1f
+            );
+
+            Vector3 verticalSnapPos = _climbTransform.position + Vector3.up * (_lastValidClimbPosition.y - _climbTransform.position.y);
+
+            Gizmos.DrawSphere(
+                verticalSnapPos,
+                0.1f
+            );
+
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(
+                _climbTransform.position,
+                verticalSnapPos
+            );
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(
+                verticalSnapPos,
+                _lastValidClimbPosition
+            );
+        }
+    }
 }

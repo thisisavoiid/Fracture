@@ -1033,6 +1033,7 @@ GameObject:
   - component: {fileID: 1379366828824937198}
   - component: {fileID: 4860943984525221803}
   - component: {fileID: 3517167616983708738}
+  - component: {fileID: 6237647003321504594}
   m_Layer: 9
   m_Name: Follower Bee
   m_TagString: Untagged
@@ -1165,6 +1166,18 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 6237647003321504594}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 245529128316309274}
         m_TargetAssemblyTypeName: FollowerBee, Assembly-CSharp
         m_MethodName: InvokeDeathEvent
@@ -1598,6 +1611,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.86
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6237647003321504594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7989654029766163149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 25
 --- !u!1001 &1762076562331166012
 PrefabInstance:
   m_ObjectHideFlags: 0
