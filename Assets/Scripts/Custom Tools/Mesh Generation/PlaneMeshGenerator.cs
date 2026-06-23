@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
-using Unity.VisualScripting;
-using TMPro;
-using UnityEditor.ShaderGraph.Internal;
-using System.Linq;
+using System;
 
+/// <summary>
+/// A custom plane mesh generator.
+/// </summary>
 [RequireComponent(typeof(MeshRenderer), typeof(MeshFilter), typeof(MeshAssetSaver))]
 public class PlaneMeshGenerator : MonoBehaviour
 {
-    [SerializeField] private PlaneMeshGeneratorSettings _settings = new();
+    [SerializeField]
+    [Tooltip("Settings of the plane mesh generator.")]
+    private PlaneMeshGeneratorSettings _settings = new();
 
     [Button]
     public void BuildMesh()
@@ -34,6 +36,8 @@ public class PlaneMeshGenerator : MonoBehaviour
 
         Debug.Log("[PLANE MESH GENERATOR] Starting generation... -");
 
+        DateTime startTime = DateTime.Now;
+
         List<Vector3> vertices = GenerateVertices(_settings, out List<Vector2> uv);
         List<int> triangles = GenerateTriangles(vertices);
 
@@ -43,6 +47,7 @@ public class PlaneMeshGenerator : MonoBehaviour
             return;
         }
 
+        // This part actually creates a new Mesh object and assigns all the values needed to it.
         Mesh mesh = new();
 
         mesh.name = _settings.Name;
@@ -50,35 +55,61 @@ public class PlaneMeshGenerator : MonoBehaviour
         mesh.triangles = triangles.ToArray();
         mesh.uv = uv.ToArray();
 
+        // Since I'm too lazy to calculate normals, bounds and tangents myself (and frankly, I forgot how to...)
+        // I'm leaving it up to Unity and hope for the best.
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
         mesh.RecalculateTangents();
 
-
         _settings.MeshFilter.sharedMesh = mesh;
+
+        DateTime endTime = DateTime.Now;
+        TimeSpan timeUsed = endTime-startTime;
+
+        Debug.Log($"[PLANE MESH GENERATOR] Finished building the mesh. Process took {timeUsed.TotalMilliseconds}ms. -");
     }
 
     private List<Vector3> GenerateVertices(PlaneMeshGeneratorSettings settings, out List<Vector2> uv)
     {
         Debug.Log("[PLANE MESH GENERATOR] Generating vertices... -");
 
+        if (
+            settings.Size.x % settings.Resolution != 0 ||
+            settings.Size.y % settings.Resolution != 0
+        )
+        {
+            Debug.LogWarning($"[PLANE MESH GENERATOR] Entering values so their remainder is not equal to zero might cause the mesh to be slightly offset. -");
+        }
+
+        // This calculates the step distance between each iteration.
+        float xStep = (float)settings.Size.x / settings.Resolution;
+        float zStep = (float)settings.Size.y / settings.Resolution;
+
         List<Vector3> vertices = new();
         uv = new();
 
-        for (float x = 0; x < settings.Size.x; x += 1.0f / settings.Resolution)
+        for (int x = 0; x < settings.Resolution; x++)
         {
-            for (float z = 0; z < settings.Size.y; z += 1.0f / settings.Resolution)
+            for (int z = 0; z < settings.Resolution; z++)
             {
-                Vector3 vertex01 = new Vector3(x, 0, z);
-                Vector3 vertex02 = new Vector3(x, 0, z + (1.0f / settings.Resolution));
-                Vector3 vertex03 = new Vector3(x + (1.0f / settings.Resolution), 0, z + (1.0f / settings.Resolution));
-                Vector3 vertex04 = new Vector3(x + (1.0f / settings.Resolution), 0, z);
+                // Creates 4 vertices with local offsets => One vertex per quad corner!
+                // I'm multiplying the index of the current iteration (for both x and z axis) with the associated step distance
+                // in order to sort of "add" the distance and thus "move" the vertex. When applying offsets for the quad corner vertices,
+                // I'm simply adding "1" to the current iteration index which results in a offset which is being influenced by the 
+                // step distance.
+                Vector3 vertex01 = new Vector3(x * xStep, 0, z * zStep);
+                Vector3 vertex02 = new Vector3(x * xStep, 0, (z + 1) * zStep);
+                Vector3 vertex03 = new Vector3((x + 1) * xStep, 0, (z + 1) * zStep);
+                Vector3 vertex04 = new Vector3((x + 1) * xStep, 0, z * zStep);
 
+                // Adds all vertices to the vertex list
                 vertices.Add(vertex01);
                 vertices.Add(vertex02);
                 vertices.Add(vertex03);
                 vertices.Add(vertex04);
 
+                // This part generates UV coordinates based on the vertices position and the 
+                // specified plane dimensions.
                 uv.Add(
                     new Vector2(
                         vertex01.x / _settings.Size.x, vertex01.z / _settings.Size.y
@@ -115,6 +146,9 @@ public class PlaneMeshGenerator : MonoBehaviour
 
         List<int> triangles = new();
 
+        // Generated triangle indices by adding them to a new int array which serves as 
+        // an index list for each quads two triangle indices. Since I know what order I'm adding the 
+        // vertex positions, I just go ahead and use the individual indices in the vertex array.
         for (int i = 0; i <= vertices.Count - 4; i += 4)
         {
             int[] triangle = new int[6];
@@ -133,6 +167,9 @@ public class PlaneMeshGenerator : MonoBehaviour
         return triangles;
     }
 
+    /// <summary>
+    /// Saves the currently active mesh selected in the specified mesh filter component.
+    /// </summary>
     [Button]
     public void SaveMeshAsset()
     {

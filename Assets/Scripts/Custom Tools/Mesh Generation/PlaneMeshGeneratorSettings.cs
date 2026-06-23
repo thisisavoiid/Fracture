@@ -17,11 +17,11 @@ public class PlaneMeshGeneratorSettings
 
     [SerializeField] 
     [Tooltip("Size of the mesh to be generated.")]
-    private Vector2 _size = new Vector2(5, 5);
+    private Vector2Int _size = new Vector2Int(5, 5);
     /// <summary>
     /// Specified size of the mesh to be generated.
     /// </summary>
-    public Vector2 Size => _size;
+    public Vector2Int Size => _size;
 
     [SerializeField]
     [Tooltip("Resolution of the mesh to be generated. The higher this value, the more vertices will be generated.")]
