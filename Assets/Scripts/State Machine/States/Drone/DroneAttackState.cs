@@ -6,8 +6,7 @@ public class DroneAttackState : State
     private DroneBrain _brain;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
-    private Transform _target;
-    private float _speed;
+    private TransformVariable _target;
     private GunController _gunController;
     private Transform _bulletOrigin;
 
@@ -15,24 +14,22 @@ public class DroneAttackState : State
         DroneBrain brain,
         Rigidbody rb,
         NavMeshAgent agent,
-        Transform target,
+        TransformVariable target,
         Transform bulletOrigin,
-        GunController gunController,
-        float speed
-
+        GunController gunController
     )
     {
         _brain = brain;
         _rb = rb;
         _agent = agent;
         _target = target;
-        _speed = speed;
         _gunController = gunController;
         _bulletOrigin = bulletOrigin;
     }
 
     public override void Enter()
     {
+        Debug.Log("enter attack state");
         _agent.ResetPath();
     }
 
@@ -43,14 +40,13 @@ public class DroneAttackState : State
 
     public override void Run()
     {
-        Vector3 dir = _target.position - _rb.transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(dir);
-
-        _rb.rotation = Quaternion.Lerp(
-            _rb.rotation,
-            targetRotation,
-            Time.deltaTime * 15f
-        );
+        if (_target == null)
+            return;
+            
+        if (_target.Value == null) 
+            return;
+        
+        _brain.RotateTowardsTarget();
 
         ItemUsageData itemData = new ItemUsageData(
             _bulletOrigin.position,

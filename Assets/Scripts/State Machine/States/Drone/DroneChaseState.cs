@@ -6,14 +6,14 @@ public class DroneChaseState : State
     private DroneBrain _brain;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
-    private Transform _target;
+    private TransformVariable _target;
     private float _speed;
 
     public DroneChaseState(
         DroneBrain brain,
         Rigidbody rb,
         NavMeshAgent agent,
-        Transform target,
+        TransformVariable target,
         float speed
     )
     {
@@ -26,7 +26,8 @@ public class DroneChaseState : State
 
     public override void Enter()
     {
-
+        Debug.Log("enter chase state");
+        _brain.ResetRotation();
     }
 
     public override void Exit()
@@ -36,8 +37,16 @@ public class DroneChaseState : State
 
     public override void Run()
     {
+        if (_target == null)
+            return;
+
+        if (_target.Value == null) 
+            return;
+
+        _brain.RotateTowardsTarget();
+
         Vector3 force = _brain.CalculateForce();
         _rb.AddForce(force * _speed);
-        _agent.SetDestination(_target.position);
+        _agent.SetDestination(_target.Value.position);
     }
 }

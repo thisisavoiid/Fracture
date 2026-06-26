@@ -6,13 +6,16 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class FootstepSFX : MonoBehaviour
 {
+    [Header("Sounds based on Physics Material")]
     [SerializeField] private List<PhysicsMaterialSoundPair> _surfaceFootstepSounds;
+    [Header("Footstep Audio Source")]
     [SerializeField] private AudioSource _audioSource;
+    [Header("Distance Settings")]
     [SerializeField] private float _distanceTreshold = 2.5f;
     private Dictionary<PhysicsMaterial, Sound> _materialSoundDict = new();
     private PhysicsMaterial _currentPhysicsMaterial;
-    private float _distanceTraveledDelta = 0.0f;
     private Vector3 _lastPosition;
+    private float _distanceTraveledDelta = 0.0f;
     private bool _isLocked = false;
 
     public void SetLocked(bool value) => _isLocked = value;

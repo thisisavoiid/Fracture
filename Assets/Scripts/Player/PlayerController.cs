@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
         if (!(jumpPressed && !_isJumpQueued))
             return;
 
-        if (_isGrounded)
+        if (_isGrounded) 
             _isJumpQueued = true;
     }
 
@@ -476,7 +476,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-
         if (_itemAnimator != null)
         {
             _itemAnimator.SetFloat("Speed", Mathf.Round(_rbMovement.CurrentVelocity.magnitude));

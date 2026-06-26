@@ -23,6 +23,8 @@ public class DroneIdleState : State
 
     public override void Enter()
     {
+        Debug.Log("enter idle state");
+        _brain.ResetRotation();
         _agent.ResetPath();
     }
 

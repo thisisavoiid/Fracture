@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb200b882c026434e8cef914fa2dd056, type: 3}
-  m_Name: Bee Atmosphere
+  m_Name: Drone Atmosphere
   m_EditorClassIdentifier: 
   _soundConfig:
     Clips:

@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 118267919473728798}
   - component: {fileID: 1900531769250891170}
   m_Layer: 14
-  m_Name: Shoot Origin
+  m_Name: Bullet Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,10 +832,14 @@ GameObject:
   - component: {fileID: 1359156602306189424}
   - component: {fileID: 7971636296063762391}
   - component: {fileID: 4529378927431785552}
+  - component: {fileID: 1508381281980391238}
+  - component: {fileID: 220584874543157071}
+  - component: {fileID: 3252478660611172419}
   - component: {fileID: 8068202337176357480}
   - component: {fileID: 3014992473093421656}
   - component: {fileID: 3492647897496006767}
   - component: {fileID: 1529901361195307691}
+  - component: {fileID: 8452324885209940579}
   m_Layer: 14
   m_Name: Drone
   m_TagString: Untagged
@@ -872,23 +876,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d5dac2bf24904428c833b0a1721eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swarmDetector: {fileID: 2447341531510516024}
-  _targetDetector: {fileID: 2061697057988236989}
-  _rayCastDetector: {fileID: 4817580626828146484}
-  _viewDistance: 75
-  _selfMask:
-    serializedVersion: 2
-    m_Bits: 16384
-  _attackMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _target: {fileID: 0}
-  _rb: {fileID: 8068202337176357480}
-  _agent: {fileID: 3950978564849291154}
-  _gunController: {fileID: 7971636296063762391}
-  _bulletOrigin: {fileID: 5756618097802968572}
-  _attackDistance: 7.5
-  _speed: 12.5
+  _settings:
+    SwarmDetector: {fileID: 2061697057988236989}
+    TargetDetector: {fileID: 2447341531510516024}
+    RayCastDetector: {fileID: 4817580626828146484}
+    SelfMask:
+      serializedVersion: 2
+      m_Bits: 16384
+    AttackMask:
+      serializedVersion: 2
+      m_Bits: 64
+    Target: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
+    Rb: {fileID: 8068202337176357480}
+    Agent: {fileID: 3950978564849291154}
+    GunController: {fileID: 7971636296063762391}
+    BulletOrigin: {fileID: 118267919473728798}
+    ViewDistance: 75
+    AttackDistance: 15
+    FlockingCheckRadius: 15
+    TargetCheckRadius: 75
+    Speed: 12.5
+    RotateToTargetSpeed: 14.5
+    OnInitialize:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1508381281980391238}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlaySoundLocal
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 38f9346d21281a74b94b7302f477f52a, type: 2}
+            m_ObjectArgumentAssemblyTypeName: Sound, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &4817580626828146484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,7 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sphereRadius: 5
+  _sphereRadius: 75
   _sphereOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &2061697057988236989
 MonoBehaviour:
@@ -930,7 +953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sphereRadius: 20
+  _sphereRadius: 15
   _sphereOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1376119729598462376
 MonoBehaviour:
@@ -1039,6 +1062,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
+--- !u!114 &1508381281980391238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717151006540763968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a9e765c831e55a43933c19830d5fdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 8452324885209940579}
+--- !u!114 &220584874543157071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717151006540763968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultHealth: 250
+  _autoInvokeDie: 1
+  _deathEvent: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3252478660611172419}
+        m_TargetAssemblyTypeName: ScoreEffector, Assembly-CSharp
+        m_MethodName: ApplyScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7381027901212634459}
+        m_TargetAssemblyTypeName: DroneBrain, Assembly-CSharp
+        m_MethodName: Unsubscribe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2441571304997868061}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHealthRefresh:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3252478660611172419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717151006540763968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057d9cd3769d833479461c96afcde276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreEffect: 100
 --- !u!54 &8068202337176357480
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1142,6 +1248,103 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &8452324885209940579
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717151006540763968}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8493053694529891860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1385,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8493053694529891860}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
+  m_AgentTypeID: 0
   m_Radius: 2.5
   m_Speed: 10
   m_Acceleration: 50

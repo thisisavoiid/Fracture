@@ -1,25 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework.Constraints;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
-public class DroneBrain : Spawnable
+public class DroneBrain : Spawnable, ICollectionMember
 {
-    [SerializeField] private OverlapSphereDetector _swarmDetector;
-    [SerializeField] private OverlapSphereDetector _targetDetector;
-    [SerializeField] private RayCastDetector _rayCastDetector;
-    [SerializeField] private float _viewDistance;
-    [SerializeField] private LayerMask _selfMask;
-    [SerializeField] private LayerMask _attackMask;
-    [SerializeField] private Transform _target;
-    [SerializeField] private Rigidbody _rb;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private GunController _gunController;
-    [SerializeField] private Transform _bulletOrigin;
-    [SerializeField] private float _attackDistance;
-    [SerializeField] private float _speed;
+    [SerializeField]
+    [BoxGroup("Settings")]
+    private DroneSettings _settings;
 
     private Dictionary<State, List<Transition>> _states = new();
     private State _currentState;
@@ -34,7 +24,7 @@ public class DroneBrain : Spawnable
         Vector3 forceToAgent = new();
 
         Vector3 currentPosition = transform.position;
-        Vector3 currentAgentPosition = _agent.transform.position;
+        Vector3 currentAgentPosition = _settings.Agent.transform.position;
         currentAgentPosition.y = currentPosition.y;
 
         Vector3 agentDiff = (currentAgentPosition - currentPosition);
@@ -77,40 +67,52 @@ public class DroneBrain : Spawnable
 
     private List<Transform> GetSurroundingDroneTransforms()
     {
-        _swarmDetector.SetRadius(10);
-        List<Collider> colliders = _swarmDetector.GetColliders(_selfMask);
+        _settings.SwarmDetector.SetRadius(10);
+        List<Collider> colliders = _settings.SwarmDetector.GetColliders(_settings.SelfMask);
         return colliders.Select(collider => collider.gameObject.transform).ToList();
     }
 
     public override void Spawn()
     {
+        Subscribe();
+        SetDetectorValues();
         ConfigureStateMachine(); // temporary!!
+        _settings.OnInitialize?.Invoke();
     }
+
+    private void SetDetectorValues()
+    {
+        if (_settings.TargetDetector != null)
+            _settings.TargetDetector.SetRadius(_settings.TargetCheckRadius);
+
+        if (_settings.SwarmDetector != null)
+            _settings.SwarmDetector.SetRadius(_settings.FlockingCheckRadius);
+    }
+
     private void ConfigureStateMachine()
     {
         State chaseState = new DroneChaseState(
             this,
-            _rb,
-            _agent,
-            _target,
-            _speed
+            _settings.Rb,
+            _settings.Agent,
+            _settings.Target,
+            _settings.Speed
         );
 
         State attackState = new DroneAttackState(
             this,
-            _rb,
-            _agent,
-            _target,
-            _bulletOrigin,
-            _gunController,
-            _speed
+            _settings.Rb,
+            _settings.Agent,
+            _settings.Target,
+            _settings.BulletOrigin,
+            _settings.GunController
         );
 
         State idleState = new DroneIdleState(
             this,
-            _rb,
-            _agent,
-            _speed
+            _settings.Rb,
+            _settings.Agent,
+            _settings.Speed
         );
 
         _states.Add(
@@ -128,10 +130,13 @@ public class DroneBrain : Spawnable
             new List<Transition>
             {
                 new Transition(
-                    attackState, () => CanSeePlayer() && Vector3.Distance(_rb.position, _target.position) <= _attackDistance
+                    attackState, () => CanSeePlayer() && Vector3.Distance(
+                        _settings.Rb.position,
+                        _settings.Target.Value.position
+                    ) <= _settings.AttackDistance
                 ),
                 new Transition(
-                    idleState, () => !CanSeePlayer() && Vector3.Distance(_rb.position, _target.position) > _attackDistance
+                    idleState, () => !CanSeePlayer()
                 )
             }
         );
@@ -141,7 +146,7 @@ public class DroneBrain : Spawnable
             new List<Transition>
             {
                 new Transition(
-                    chaseState, () => Vector3.Distance(_rb.position, _target.position) > _attackDistance
+                    chaseState, () => Vector3.Distance(_settings.Rb.position, _settings.Target.Value.position) > _settings.AttackDistance
                 )
             }
         );
@@ -186,7 +191,7 @@ public class DroneBrain : Spawnable
 
     public bool CanSeePlayer()
     {
-        List<Collider> foundColliders = _targetDetector.GetColliders(_attackMask);
+        List<Collider> foundColliders = _settings.TargetDetector.GetColliders(_settings.AttackMask);
         Collider closestTargetCollider = GetClosestCollider(transform.position, foundColliders);
 
         if (closestTargetCollider == null)
@@ -194,7 +199,7 @@ public class DroneBrain : Spawnable
 
         Vector3 dir = closestTargetCollider.transform.position - transform.position;
 
-        bool isPlayerInSight = _rayCastDetector.Check(transform.position, dir, out RaycastHit hit, _viewDistance);
+        bool isPlayerInSight = _settings.RayCastDetector.Check(transform.position, dir, out RaycastHit hit, _settings.ViewDistance);
 
         if (!isPlayerInSight)
             return false;
@@ -213,6 +218,48 @@ public class DroneBrain : Spawnable
         return colliders
             .OrderBy(c => (c.transform.position - origin).sqrMagnitude)
             .FirstOrDefault();
+    }
+
+    public void RotateTowardsTarget()
+    {
+        if (_settings.Target == null)
+            return;
+
+        if (_settings.Target.Value == null)
+            return;
+
+        if (_settings.Agent == null)
+            return;
+
+        if (_settings.Rb == null)
+            return;
+
+        Vector3 dir = _settings.Target.Value.position - _settings.Rb.transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(dir);
+
+        _settings.Rb.rotation = Quaternion.Lerp(
+            _settings.Rb.rotation,
+            targetRotation,
+            Time.deltaTime * _settings.RotateToTargetSpeed
+        );
+    }
+
+    public void ResetRotation()
+    {
+        if (_settings.Rb == null)
+            return;
+
+        _settings.Rb.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);
+    }
+
+    public void Subscribe()
+    {
+        EnemyCollectionManager.Instance?.Subscribe(this);
+    }
+
+    public void Unsubscribe()
+    {
+        EnemyCollectionManager.Instance?.Unsubscribe(this);
     }
 }
 

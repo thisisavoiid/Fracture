@@ -138,7 +138,7 @@ public class RobotBrain : Spawnable, ICollectionMember
         ConfigureStateMachine();
 
         Subscribe();
-
+        
         OnRobotInitialize?.Invoke();
     }
 
