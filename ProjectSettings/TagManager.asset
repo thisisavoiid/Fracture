@@ -15,12 +15,12 @@ TagManager:
   - Player
   - Destructable
   - HandheldGadgets
-  - Enemy
+  - Robots
   - Projectile
   - Invincible
   - Explosives
   - Fragment
-  - 
+  - Drones
   - 
   - 
   - 

@@ -17,7 +17,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(InventoryController))]
 [RequireComponent(typeof(NavMeshPointGenerator))]
-public class RobotBrain : MonoBehaviour, ICollectionMember
+public class RobotBrain : Spawnable, ICollectionMember
 {
     #region FSM Variables
     private State _currentState;
@@ -74,10 +74,6 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     [SerializeField] private float _chaseAcceleration;
 
     [BoxGroup("Charging Settings")]
-    [Tooltip("Transform reference for the charging station location.")]
-    [SerializeField] private Transform _chargeStationTransform;
-
-    [BoxGroup("Charging Settings")]
     [Tooltip("Movement speed when heading to the charging station.")]
     [SerializeField] private float _goToChargeStationSpeed;
 
@@ -116,7 +112,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     private InventoryController _inventory;
     private Transform _transform;
     private NavMeshPointGenerator _pointGenerator;
-
+    private Vector3 _chargeStationPosition;
     #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
@@ -124,7 +120,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     /// <summary>
     /// Initializes dependencies, configures the state machine transitions, and sets the initial <see cref="PatrolState"/>.
     /// </summary>
-    private void Start()
+    public override void Spawn()
     {
         _transform = transform;
 
@@ -148,7 +144,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
 
     private void ConfigureStateMachine()
     {
-        State patrolState = new PatrolState(
+        State patrolState = new RobotPatrolState(
             _agent,
             _patrolWaypoints,
             _patrolSpeed,
@@ -156,7 +152,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
             _battery
         );
 
-        State chaseState = new ChaseState(
+        State chaseState = new RobotChaseState(
             _agent,
             _targetTransform.Value,
             _chaseSpeed,
@@ -164,7 +160,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
             _battery
         );
 
-        State attackState = new AttackState(
+        State attackState = new RobotAttackState(
             _inventory,
             _headTransform,
             _targetTransform.Value,
@@ -174,16 +170,16 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
             _turnToTargetSpeed
         );
 
-        State goToChargeStationState = new GoToChargeStationState(
-            _chargeStationTransform,
+        State goToChargeStationState = new RobotGoToChargeStationState(
+            _chargeStationPosition,
             _agent,
             _goToChargeStationSpeed,
             _goToChargeAcceleration
         );
 
-        State chargeBatteryState = new ChargeBatteryState(_battery);
+        State chargeBatteryState = new RobotChargeBatteryState(_battery);
 
-        State searchState = new SearchState(
+        State searchState = new RobotSearchState(
             _targetTransform,
             _agent,
             _searchTimer,
@@ -250,6 +246,12 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         }
     }
 
+    private void GenerateChargeStationPoint()
+    {
+        Vector3 point = _pointGenerator.FindPosition(_radius);
+        _chargeStationPosition = point;
+    }
+
     /// <summary>
     /// Executes the current state's logic and evaluates transitions to determine if a state switch is required.
     /// </summary>
@@ -264,7 +266,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         _currentState.Run();
         SetAnimatorValues();
 
-        if (_states.ContainsKey(_currentState))
+        if (_states.TryGetValue(_currentState, out List<Transition> transitions))
         {
             foreach (Transition transition in _states[_currentState])
             {
@@ -275,11 +277,6 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
                 }
 
             }
-        }
-        else
-        {
-            Debug.LogError($"[{this.GetType().Name.ToUpper()}] State {_currentState.GetType().Name} has no transitions -");
-            return;
         }
     }
 
@@ -294,7 +291,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         if (_currentState == null)
             return;
 
-        bool isInAttackState = _currentState.GetType() == typeof(AttackState);
+        bool isInAttackState = _currentState.GetType() == typeof(RobotAttackState);
 
         _animator.SetBool("IsAttacking", isInAttackState);
         _animator.SetFloat("Speed", _agent.velocity.magnitude);
@@ -370,12 +367,12 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
 
         Gizmos.DrawLineStrip(_patrolWaypoints.Select(waypoint => waypoint).ToArray(), true);
 
-        if (_chargeStationTransform == null)
+        if (_chargeStationPosition == null)
             return;
 
         Gizmos.color = Color.green;
 
-        Gizmos.DrawWireCube(_chargeStationTransform.position, Vector3.one);
+        Gizmos.DrawWireCube(_chargeStationPosition, Vector3.one);
     }
 
     /// <summary>

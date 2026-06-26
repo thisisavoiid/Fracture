@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AttackState : State
+public class RobotAttackState : State
 {
     private InventoryController _inventory;
     private Transform _headTransform;
@@ -13,7 +13,7 @@ public class AttackState : State
     private bool _hasAlreadyAttackedBefore = false;
     private float _rotateToTargetSnappiness;
 
-    public AttackState(
+    public RobotAttackState(
         InventoryController inventory,
         Transform headTransform,
         Transform targetTransform,

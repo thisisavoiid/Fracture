@@ -8,7 +8,7 @@ using UnityEngine.SocialPlatforms.Impl;
 /// leader assignment, and target tracking.
 /// </summary>
 [RequireComponent(typeof(OverlapSphereDetector))]
-public class SwarmContainer : MonoBehaviour
+public class SwarmContainer : Spawnable
 {
     [Range(1, 30)]
     [SerializeField] private int _amount;
@@ -25,7 +25,7 @@ public class SwarmContainer : MonoBehaviour
     private LeaderBee _leaderBeeInstance;
     private bool _hasSwarmBeenAlertedBefore = false;
 
-    private void Awake()
+    public override void Spawn()
     {
         OnSwarmDeath += (followerBee) => RemoveFollowerBee(followerBee);
         _targetCheckDetector = GetComponent<OverlapSphereDetector>();
@@ -47,7 +47,7 @@ public class SwarmContainer : MonoBehaviour
 
         for (int i = 0; i < _amount; i++)
         {
-            FollowerBee followerBeeInstance = Instantiate(_followerBeePrefab);
+            FollowerBee followerBeeInstance = Instantiate(_followerBeePrefab, transform);
             followerBeeInstance.gameObject.name = $"{_followerBeePrefab.gameObject.name}_{i + 1}";
             _followerBeeInstances.Add(followerBeeInstance);
         }

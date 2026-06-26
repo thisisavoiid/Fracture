@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
 /// Cycles the agent through a sequence of predefined waypoints.
 /// </summary>
-public class PatrolState : State
+public class RobotPatrolState : State
 {
     private NavMeshAgent _agent;
     private List<Vector3> _waypoints;
@@ -14,7 +15,7 @@ public class PatrolState : State
     private float _speed;
     private float _acceleration;
 
-    public PatrolState(
+    public RobotPatrolState(
         NavMeshAgent agent,
         List<Vector3> waypoints,
         float speed,
@@ -40,6 +41,12 @@ public class PatrolState : State
             Debug.LogError("[PATROL STATE] Missing dependencies or waypoints -");
             return;
         }
+        
+        if (!_agent.isOnNavMesh)
+            return;
+        
+        if (!_agent.isActiveAndEnabled)
+            return;
 
         _agent.acceleration = _acceleration;
         _agent.speed = _speed;

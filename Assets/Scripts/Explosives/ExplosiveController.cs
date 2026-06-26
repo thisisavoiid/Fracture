@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(OverlapSphereDetector))]
-public class ExplosiveController : MonoBehaviour
+public class ExplosiveController : Spawnable
 {
     [SerializeField] private ExplosionBehaviour _behaviour;
     [SerializeField] private Explosive _explosive;
@@ -15,7 +15,7 @@ public class ExplosiveController : MonoBehaviour
     public UnityEvent OnDetonationCycleStart;
 
 
-    private void Awake()
+    public override void Spawn()
     {
         _sphereDetector = GetComponent<OverlapSphereDetector>();
     }

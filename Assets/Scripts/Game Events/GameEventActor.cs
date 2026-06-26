@@ -34,11 +34,26 @@ public class GameEventActor : MonoBehaviour, IGameEventListener
 
     public void Subscribe(IGameEventListener listener, GameEvent gameEvent)
     {
+        if (!IsGameEventManagerExistant())
+            return;
+            
         GameEventManager.Instance.Subscribe(listener, gameEvent);
     }
 
     public void Unsubscribe(IGameEventListener listener)
     {
+        if (!IsGameEventManagerExistant())
+            return;
+        
         GameEventManager.Instance.Unsubscribe(listener);
+    }
+
+    private bool IsGameEventManagerExistant() {
+        bool exists = GameEventManager.Instance != null;
+
+        if (!exists)
+            Debug.LogWarning("[GAME EVENT ACTOR] There's no active GameEventManager instance in the current scene! -");
+
+        return GameEventManager.Instance != null;
     }
 }

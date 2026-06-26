@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SearchState : State
+public class RobotSearchState : State
 {
     private Vector3 _lastSeenPosition;
     private NavMeshAgent _agent;
@@ -11,7 +11,7 @@ public class SearchState : State
     private bool _hasSearchTimerBeenStarted = false;
     private Animator _animator;
 
-    public SearchState(
+    public RobotSearchState(
         TransformVariable targetTransform,
         NavMeshAgent agent,
         Timer searchTimer,

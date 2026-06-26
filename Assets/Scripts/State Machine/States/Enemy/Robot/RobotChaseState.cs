@@ -4,7 +4,7 @@ using UnityEngine.AI;
 /// <summary>
 /// Manages the pursuit logic, directing the agent to track a moving target.
 /// </summary>
-public class ChaseState : State
+public class RobotChaseState : State
 {
     private NavMeshAgent _agent;
     private Transform _targetTransform;
@@ -12,7 +12,7 @@ public class ChaseState : State
     private float _speed;
     private float _acceleration;
 
-    public ChaseState(
+    public RobotChaseState(
         NavMeshAgent agent,
         Transform targetTransform,
         float speed,

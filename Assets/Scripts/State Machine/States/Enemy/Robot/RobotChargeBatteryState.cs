@@ -3,11 +3,11 @@ using UnityEngine;
 /// <summary>
 /// Handles the battery charging logic while the robot is at a charging station.
 /// </summary>
-public class ChargeBatteryState : State
+public class RobotChargeBatteryState : State
 {
     private Battery _battery;
 
-    public ChargeBatteryState(Battery battery)
+    public RobotChargeBatteryState(Battery battery)
     {
         _battery = battery;
     }

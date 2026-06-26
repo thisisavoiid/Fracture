@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdef04e785bf3534fb8aea583c1bf01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amount: 30
+  _amount: 15
   _spawnContainerSize: {x: 1, y: 1, z: 1}
   _followerBeePrefab: {fileID: 245529128316309274, guid: 942c6fa5d68b26f4cb42fab7d347f79d, type: 3}
   _leaderBeePrefab: {fileID: 8996157863745239495, guid: 07d4794e0bc11f6489988234e2911174, type: 3}
@@ -65,5 +65,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576d70d01c7a46041bb03c50b4f579ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sphereRadius: 3
+  _sphereRadius: 20
   _sphereOffset: {x: 0, y: 0, z: 0}

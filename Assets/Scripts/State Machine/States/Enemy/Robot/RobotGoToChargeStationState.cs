@@ -4,21 +4,21 @@ using UnityEngine.AI;
 /// <summary>
 /// Directs the agent to a specific charging station location.
 /// </summary>
-public class GoToChargeStationState : State
+public class RobotGoToChargeStationState : State
 {
-    private Transform _chargeStationTransform;
+    private Vector3 _chargeStationPosition;
     private NavMeshAgent _agent;
     private float _speed;
     private float _acceleration;
 
-    public GoToChargeStationState(
-        Transform chargeStationTransform,
+    public RobotGoToChargeStationState(
+        Vector3 chargeStationPosition,
         NavMeshAgent agent,
         float speed,
         float acceleration
     )
     {
-        _chargeStationTransform = chargeStationTransform;
+        _chargeStationPosition = chargeStationPosition;
         _agent = agent;
         _speed = speed;
         _acceleration = acceleration;
@@ -29,12 +29,12 @@ public class GoToChargeStationState : State
     /// </summary>
     public override void Enter()
     {
-        if (_chargeStationTransform == null)
+        if (_chargeStationPosition == null)
             return;
 
         _agent.acceleration = _acceleration;
         _agent.speed = _speed;
-        _agent.SetDestination(_chargeStationTransform.position);
+        _agent.SetDestination(_chargeStationPosition);
     }
 
     public override void Exit() { }
