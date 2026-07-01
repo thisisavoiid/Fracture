@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Fire Tank
   Config:
-    Radius: 25
+    Radius: 10
     Damage: 50
     ExplosionForce: 25
     UpwardsModifier: 2.75

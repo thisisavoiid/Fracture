@@ -191,11 +191,16 @@ public class InventoryController : MonoBehaviour
         _inventoryVariable.SetValue(this);
     }
 
-    public void UseActiveItem(ItemUsageData usageData)
+    public bool UseActiveItem(ItemUsageData usageData)
     {
-        if (_activeItem == null)
-            return;
+        bool itemUseCallback = false;
 
-        _activeItem.Use(usageData);
+        if (_activeItem == null)
+            return itemUseCallback;
+
+        if(_activeItem.Use(usageData))
+            itemUseCallback = true;
+
+        return itemUseCallback;
     }
 }

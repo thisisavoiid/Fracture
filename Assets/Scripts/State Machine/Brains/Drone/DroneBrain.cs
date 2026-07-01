@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class DroneBrain : Spawnable, ICollectionMember
+public class DroneBrain : MonoBehaviour, ICollectionMember
 {
     [SerializeField]
     [BoxGroup("Settings")]
@@ -72,7 +72,7 @@ public class DroneBrain : Spawnable, ICollectionMember
         return colliders.Select(collider => collider.gameObject.transform).ToList();
     }
 
-    public override void Spawn()
+    private void Awake()
     {
         Subscribe();
         SetDetectorValues();
@@ -162,7 +162,7 @@ public class DroneBrain : Spawnable, ICollectionMember
             return;
         }
 
-        _currentState.Run();
+        _currentState.Run(Time.deltaTime);
 
         if (_states.TryGetValue(_currentState, out List<Transition> transitions))
         {

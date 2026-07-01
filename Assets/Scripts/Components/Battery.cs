@@ -45,9 +45,9 @@ public class Battery : MonoBehaviour
         Debug.Log($"[BATTERY] Battery state of {this.gameObject.name} has been set to: {_currentBatteryState} -");
     }
 
-    public void Drain()
+    public void Drain(float deltaTime)
     {
-        float targetBatteryLife = Mathf.Max(0, _currentBatteryLife - _drainRatePerSecond * Time.deltaTime);
+        float targetBatteryLife = Mathf.Max(0, _currentBatteryLife - _drainRatePerSecond * deltaTime);
         _currentBatteryLife = targetBatteryLife;
 
         OnBatteryLifeUpdate?.Invoke(_currentBatteryLife);
@@ -56,9 +56,9 @@ public class Battery : MonoBehaviour
             SetBatteryState(BatteryState.Drained);
     }
 
-    public void Charge()
+    public void Charge(float deltaTime)
     {
-        float targetBatteryLife = Mathf.Min(100, _currentBatteryLife + _chargeRatePerSecond * Time.deltaTime);
+        float targetBatteryLife = Mathf.Min(100, _currentBatteryLife + _chargeRatePerSecond * deltaTime);
         _currentBatteryLife = targetBatteryLife;
 
         OnBatteryLifeUpdate?.Invoke(_currentBatteryLife);

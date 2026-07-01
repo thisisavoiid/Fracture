@@ -3,5 +3,6 @@ using System;
 public enum VFXType
 {
     Explosion,
-    ObjectShot
+    ObjectShot,
+    Fire
 }

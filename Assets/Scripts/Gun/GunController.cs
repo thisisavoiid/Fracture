@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -44,7 +45,7 @@ public class GunController : Weapon
 
     private float CalculateDurationAfterShot(int shotsPerMinute) => 60.0f / (float)shotsPerMinute;
 
-    public override void Use(ItemUsageData usageData)
+    public override bool Use(ItemUsageData usageData)
     {
         GunContext gunContext = new GunContext()
         {
@@ -63,21 +64,26 @@ public class GunController : Weapon
         bool wasShotSuccessful = _gun.Behaviour.Shoot(gunContext, out RaycastHit hit);
 
         if (!wasShotSuccessful)
-            return;
+            return false;
 
         OnShoot?.Invoke(_gun);
         _onGunShotEvent?.Invoke(gunContext);
-        
-        if (hit.collider == null)
-            return;
 
-        OnObjectHit?.Invoke(hit.point);
+        if (hit.collider != null)
+        {
+            OnObjectHit?.Invoke(hit.point);
+            Debug.Log($"[GUN CONTROLLER] Shot object: {hit.collider.gameObject.name} at point: {hit.point.ToString()} -");
+            _decalSpawner.SpawnDecal(
+                hit.point, 
+                Quaternion.LookRotation(-hit.normal), 
+                hit.collider.gameObject.transform
+            );
+        }
 
-        Debug.Log($"[GUN CONTROLLER] Shot object: {hit.collider.gameObject.name} at point: {hit.point.ToString()} -");
-        _decalSpawner.SpawnDecal(hit.point, Quaternion.LookRotation(-hit.normal), hit.collider.gameObject.transform);
-
+        return true;
     }
 
+    [Button("Force Reload")]
     public override void Reload()
     {
         if (_gunBulletTracker.BulletsRemaining >= _gun.Stats.TotalRounds)

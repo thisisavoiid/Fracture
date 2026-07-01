@@ -37,7 +37,10 @@ public class RobotGoToChargeStationState : State
         _agent.SetDestination(_chargeStationPosition);
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        _agent.ResetPath();
+    }
 
-    public override void Run() { }
+    public override void Run(float deltaTime) {}
 }

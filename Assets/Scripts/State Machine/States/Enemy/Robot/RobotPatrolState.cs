@@ -36,11 +36,10 @@ public class RobotPatrolState : State
     /// </summary>
     public override void Enter()
     {
+        Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
+
         if (_agent == null || _waypoints == null || _waypoints.Count == 0)
-        {
-            Debug.LogError("[PATROL STATE] Missing dependencies or waypoints -");
             return;
-        }
         
         if (!_agent.isOnNavMesh)
             return;
@@ -54,17 +53,21 @@ public class RobotPatrolState : State
         _agent.SetDestination(_waypoints[_currentWaypointIdx]);
     }
 
-    public override void Exit() { }
+    public override void Exit()
+    {
+        Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
+        _agent.ResetPath();
+    }
 
     /// <summary>
     /// Handles waypoint switching logic and battery consumption.
     /// </summary>
-    public override void Run()
+    public override void Run(float deltaTime)
     {
         if (_agent == null || _waypoints == null || _waypoints.Count == 0) return;
 
         if (_agent.hasPath)
-            _battery.Drain();
+            _battery.Drain(deltaTime);
 
         if (_agent.remainingDistance <= 0.25f && !_agent.hasPath)
         {

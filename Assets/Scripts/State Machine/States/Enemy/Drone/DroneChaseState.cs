@@ -1,36 +1,33 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DroneAttackState : State
+public class DroneChaseState : State
 {
     private DroneBrain _brain;
     private Rigidbody _rb;
     private NavMeshAgent _agent;
     private TransformVariable _target;
-    private GunController _gunController;
-    private Transform _bulletOrigin;
+    private float _speed;
 
-    public DroneAttackState(
+    public DroneChaseState(
         DroneBrain brain,
         Rigidbody rb,
         NavMeshAgent agent,
         TransformVariable target,
-        Transform bulletOrigin,
-        GunController gunController
+        float speed
     )
     {
         _brain = brain;
         _rb = rb;
         _agent = agent;
         _target = target;
-        _gunController = gunController;
-        _bulletOrigin = bulletOrigin;
+        _speed = speed;
     }
 
     public override void Enter()
     {
-        Debug.Log("enter attack state");
-        _agent.ResetPath();
+        Debug.Log("enter chase state");
+        _brain.ResetRotation();
     }
 
     public override void Exit()
@@ -38,23 +35,18 @@ public class DroneAttackState : State
 
     }
 
-    public override void Run()
+    public override void Run(float deltaTime)
     {
         if (_target == null)
             return;
-            
+
         if (_target.Value == null) 
             return;
-        
+
         _brain.RotateTowardsTarget();
 
-        ItemUsageData itemData = new ItemUsageData(
-            _bulletOrigin.position,
-            _bulletOrigin.forward,
-            true,
-            false
-        );
-
-        _gunController.Use(itemData);
+        Vector3 force = _brain.CalculateForce();
+        _rb.AddForce(force * _speed);
+        _agent.SetDestination(_target.Value.position);
     }
 }

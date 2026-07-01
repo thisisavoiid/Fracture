@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
@@ -11,16 +12,16 @@ using UnityEngine.Events;
 /// environmental triggers, battery levels, and player visibility.
 /// </summary>
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(OverlapSphereDetector))]
 [RequireComponent(typeof(RayCastDetector))]
 [RequireComponent(typeof(Battery))]
 [RequireComponent(typeof(Timer))]
 [RequireComponent(typeof(InventoryController))]
 [RequireComponent(typeof(NavMeshPointGenerator))]
-public class RobotBrain : Spawnable, ICollectionMember
+public class RobotBrain : MonoBehaviour, ICollectionMember
 {
     #region FSM Variables
-    private State _currentState;
+    [BoxGroup("State Machine")]
+    [ReadOnly][SerializeField] private State _currentState;
     #endregion
 
     #region Dependencies
@@ -30,7 +31,10 @@ public class RobotBrain : Spawnable, ICollectionMember
 
     [BoxGroup("Detection Settings")]
     [Tooltip("LayerMask used to filter target objects during detection.")]
-    [SerializeField] private LayerMask _targetMask;
+    [SerializeField] private LayerMask _targetLayers;
+
+    [BoxGroup("Detection Settings")]
+    [SerializeField] private LayerMask _robotLayer;
 
     [BoxGroup("Detection Settings")]
     [Tooltip("Maximum distance the robot can see.")]
@@ -43,10 +47,6 @@ public class RobotBrain : Spawnable, ICollectionMember
     [BoxGroup("Detection Settings")]
     [Tooltip("Minimum distance required to initiate an attack.")]
     [SerializeField] private float _minAttackDistance;
-
-    [BoxGroup("Detection Settings")]
-    [Tooltip("Transform of the head used for line-of-sight checks and attack aiming.")]
-    [SerializeField] private Transform _headTransform;
 
     [BoxGroup("Patrol Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during patrol.")]
@@ -62,8 +62,22 @@ public class RobotBrain : Spawnable, ICollectionMember
 
     [BoxGroup("Patrol Settings")]
     [Tooltip("Radius around the robot instances which the waypoints are going to be placed in.")]
-    [SerializeField] private int _radius = 5;
+    [SerializeField] private float _patrolRadius = 30;
 
+    [BoxGroup("Flee Settings")]
+    [SerializeField] private float _fleeDistance = 15;
+
+    [BoxGroup("Flee Settings")]
+    [SerializeField] private float _fleeTriggerRadius = 5;
+
+    [BoxGroup("Flee Settings")]
+    [SerializeField] private float _fleeFallbackRadius = 30;
+
+    [BoxGroup("Flee Settings")]
+    [SerializeField] private float _fleePositionReachedThreshold = 1.25f;
+
+    [BoxGroup("Flee Settings")]
+    [SerializeField] private int _minNeighbourCount = 1;
 
     [BoxGroup("Chase Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during pursuit.")]
@@ -86,107 +100,81 @@ public class RobotBrain : Spawnable, ICollectionMember
     [SerializeField] private TimeMS _reloadDuration;
 
     [BoxGroup("Combat & Timers")]
-    [Tooltip("The time required for the robot to turn to the target when being in attack state.")]
-    [SerializeField] private float _turnToTargetSpeed = 7.5f;
-
-    [BoxGroup("Combat & Timers")]
     [SerializeField] private TimeMS _searchDuration;
 
-    [BoxGroup("Combat & Timers")]
-    [SerializeField] private Timer _searchTimer;
+    [SerializeField] private float _searchPositionReachedTreshold = 1.25f;
 
     [BoxGroup("Combat & Timers")]
-    [SerializeField] private Timer _reloadTimer;
+    [Tooltip("The time required for the robot to turn to the target when being in attack state.")]
+    [SerializeField] private float _turnSpeed = 7.5f;
 
-    [BoxGroup("Combat & Timers")]
+    [BoxGroup("Animator")]
     [SerializeField] private Animator _animator;
 
     [BoxGroup("Initialization Events")]
     [SerializeField] private UnityEvent OnRobotInitialize;
 
-    private List<Vector3> _patrolWaypoints = new();
-    private Battery _battery;
-    private NavMeshAgent _agent;
-    private OverlapSphereDetector _overlapSphereDetector;
-    private RayCastDetector _raycastDetector;
-    private InventoryController _inventory;
-    private Transform _transform;
-    private NavMeshPointGenerator _pointGenerator;
-    private Vector3 _chargeStationPosition;
+    [BoxGroup("Patrol Runtime Data")]
+    [ReadOnly][SerializeField] private List<Vector3> _patrolWaypoints = new();
+
+    [BoxGroup("Internal Components")]
+    [Required][SerializeField] private Battery _battery;
+
+    [BoxGroup("Internal Components")]
+    [Required][SerializeField] private NavMeshAgent _agent;
+
+    [BoxGroup("Internal Components")]
+    [Required][SerializeField] private RayCastDetector _raycastDetector;
+
+    [BoxGroup("Internal Components")]
+    [Required][SerializeField] private InventoryController _inventory;
+
+    [BoxGroup("Internal Components")]
+    [Required][SerializeField] private Transform _transform;
+
+    [BoxGroup("Internal Components")]
+    [Required][SerializeField] private NavMeshPointGenerator _pointGenerator;
+
+    [BoxGroup("Charging Runtime Data")]
+    [ReadOnly][SerializeField] private Vector3 _chargeStationPosition;
+
+    [BoxGroup("Debugging")]
+    [SerializeField] private bool _enableDebugMode = false;
+
+    [SerializeField] private float _robotScanRadius = 20.0f;
+
     #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
 
-    /// <summary>
-    /// Initializes dependencies, configures the state machine transitions, and sets the initial <see cref="PatrolState"/>.
-    /// </summary>
-    public override void Spawn()
+    private State chaseState;
+    private State chargeBatteryState;
+    private State goToChargeStationState;
+    private State patrolState;
+    private State goToClosestRobotState;
+    private State fleeState;
+    private State attackState;
+    private State searchState;
+
+    private void Awake()
     {
-        _transform = transform;
-
-        _agent = GetComponent<NavMeshAgent>();
-        _overlapSphereDetector = GetComponent<OverlapSphereDetector>();
-        _raycastDetector = GetComponent<RayCastDetector>();
-        _inventory = GetComponent<InventoryController>();
-        _battery = GetComponent<Battery>();
-        _pointGenerator = GetComponent<NavMeshPointGenerator>();
-
-        _overlapSphereDetector.SetRadius(_viewDistance / 2);
-
         GeneratePatrolWaypoints();
-
-        ConfigureStateMachine();
-
+        GenerateChargeStationPoint();
+        InitializeStates();
+        InitializeTransitions();
         Subscribe();
-        
         OnRobotInitialize?.Invoke();
     }
 
-    private void ConfigureStateMachine()
+    private void Start()
     {
-        State patrolState = new RobotPatrolState(
-            _agent,
-            _patrolWaypoints,
-            _patrolSpeed,
-            _patrolAcceleration,
-            _battery
-        );
+        SetInitialState();
+    }
 
-        State chaseState = new RobotChaseState(
-            _agent,
-            _targetTransform.Value,
-            _chaseSpeed,
-            _chaseAcceleration,
-            _battery
-        );
+    private void SetInitialState() => SetState(patrolState);
 
-        State attackState = new RobotAttackState(
-            _inventory,
-            _headTransform,
-            _targetTransform.Value,
-            _reloadDuration,
-            _reloadTimer,
-            _battery,
-            _turnToTargetSpeed
-        );
-
-        State goToChargeStationState = new RobotGoToChargeStationState(
-            _chargeStationPosition,
-            _agent,
-            _goToChargeStationSpeed,
-            _goToChargeAcceleration
-        );
-
-        State chargeBatteryState = new RobotChargeBatteryState(_battery);
-
-        State searchState = new RobotSearchState(
-            _targetTransform,
-            _agent,
-            _searchTimer,
-            _searchDuration,
-            _animator
-        );
-
+    private void InitializeTransitions()
+    {
         _states.Add(
             patrolState, new()
             {
@@ -196,9 +184,27 @@ public class RobotBrain : Spawnable, ICollectionMember
         );
 
         _states.Add(
+            chaseState, new()
+            {
+                new Transition(
+                    goToChargeStationState,
+                    () => _battery.IsDrained
+                ),
+                new Transition(
+                    attackState,
+                    () => GetDistanceToTarget() <= _minAttackDistance && CanSeePlayer()
+                ),
+                new Transition(
+                    searchState,
+                    () => !CanSeePlayer()
+                )
+            }
+        );
+
+        _states.Add(
             goToChargeStationState, new()
             {
-                new Transition(chargeBatteryState, () => _agent.remainingDistance <= 0.25f)
+                new Transition(chargeBatteryState, () => !_agent.pathPending && _agent.remainingDistance <= 0.25f)
             }
         );
 
@@ -210,45 +216,143 @@ public class RobotBrain : Spawnable, ICollectionMember
         );
 
         _states.Add(
-            chaseState, new()
+            goToClosestRobotState, new()
             {
-                new Transition(attackState, () => GetDistanceToTarget() <= _minAttackDistance),
-                new Transition(searchState, () => CanSeePlayer() == false),
-                new Transition(goToChargeStationState, () => _battery.IsDrained)
+                new Transition(
+                    attackState,
+                    () => (goToClosestRobotState as RobotGoToClosestRobotState).ClosestTargetReached
+                )
             }
         );
 
         _states.Add(
-           attackState, new()
-           {
-                new Transition(chaseState, () => GetDistanceToTarget() > _minAttackDistance),
-                new Transition(goToChargeStationState, () => _battery.IsDrained),
-           }
-       );
+            fleeState, new()
+            {
+                new Transition(
+                    attackState,
+                    () => CanSeePlayer() && (fleeState as RobotFleeState).IsFleePositionReached
+                ),
+                new Transition(
+                    patrolState,
+                    () => !CanSeePlayer() && (fleeState as RobotFleeState).IsFleePositionReached
+                )
+            }
+        );
+
+        _states.Add(
+            attackState, new()
+            {
+                new Transition(
+                    goToChargeStationState,
+                    () => _battery.IsDrained
+                ),
+                new Transition(
+                    searchState,
+                    () => !CanSeePlayer()
+                ),
+                new Transition(
+                    chaseState,
+                    () => GetDistanceToTarget() > _minAttackDistance &&
+                    CanSeePlayer()
+                ),
+                new Transition(
+                    goToClosestRobotState,
+                    () => GetSurroundingRobotColliders().Any() &&
+                    GetDistanceToTarget() <= _fleeTriggerRadius && 
+                    !(goToClosestRobotState as RobotGoToClosestRobotState).ClosestTargetReached
+                ),
+                new Transition(
+                    fleeState,
+                    () => !GetSurroundingRobotColliders().Any() &&
+                    GetDistanceToTarget() <= _fleeTriggerRadius
+                )
+            }
+        );
 
         _states.Add(
             searchState, new()
             {
-                new Transition(patrolState, () => IsSearchTimeOver()),
-                new Transition(chaseState, () => CanSeePlayer())
+                new Transition(
+                    chaseState,
+                    () => CanSeePlayer()
+                ),
+                new Transition(
+                    patrolState,
+                    () => !CanSeePlayer() && (searchState as RobotSearchState).IsSearchTimeOver
+                )
             }
         );
+    }
 
-        SetState(patrolState);
+    private void InitializeStates()
+    {
+        patrolState = new RobotPatrolState(
+            _agent,
+            _patrolWaypoints,
+            _patrolSpeed,
+            _patrolAcceleration,
+            _battery
+        );
+
+        chaseState = new RobotChaseState(
+            _agent,
+            _targetTransform,
+            _chaseSpeed,
+            _chaseAcceleration,
+            _battery
+        );
+
+        goToChargeStationState = new RobotGoToChargeStationState(
+            _chargeStationPosition,
+            _agent,
+            _goToChargeStationSpeed,
+            _goToChargeAcceleration
+        );
+
+        goToClosestRobotState = new RobotGoToClosestRobotState(
+            _agent,
+            this
+        );
+
+        chargeBatteryState = new RobotChargeBatteryState(_battery);
+
+        fleeState = new RobotFleeState(
+            _pointGenerator,
+            _agent,
+            _targetTransform,
+            _fleeFallbackRadius,
+            _fleeDistance,
+            _fleePositionReachedThreshold
+        );
+
+        attackState = new RobotAttackState(
+            _agent,
+            _inventory,
+            _targetTransform,
+            _turnSpeed
+        );
+
+        searchState = new RobotSearchState(
+            _targetTransform,
+            _searchDuration,
+            _agent,
+            _animator,
+            _searchPositionReachedTreshold
+        );
     }
 
     private void GeneratePatrolWaypoints()
     {
         for (int i = 0; i < _waypointCount; i++)
         {
-            Vector3 waypoint = _pointGenerator.FindPosition(_radius);
+            Vector3 waypoint = _pointGenerator.FindPosition(_patrolRadius);
             _patrolWaypoints.Add(waypoint);
         }
     }
 
     private void GenerateChargeStationPoint()
     {
-        Vector3 point = _pointGenerator.FindPosition(_radius);
+        Vector3 point = _pointGenerator.FindPosition(_patrolRadius);
         _chargeStationPosition = point;
     }
 
@@ -263,7 +367,8 @@ public class RobotBrain : Spawnable, ICollectionMember
             return;
         }
 
-        _currentState.Run();
+        _currentState.Run(Time.deltaTime);
+
         SetAnimatorValues();
 
         if (_states.TryGetValue(_currentState, out List<Transition> transitions))
@@ -275,7 +380,6 @@ public class RobotBrain : Spawnable, ICollectionMember
                     SetState(transition.TargetState);
                     break;
                 }
-
             }
         }
     }
@@ -291,15 +395,12 @@ public class RobotBrain : Spawnable, ICollectionMember
         if (_currentState == null)
             return;
 
-        bool isInAttackState = _currentState.GetType() == typeof(RobotAttackState);
+        if ((attackState as RobotAttackState).IsFiringAShot)
+            _animator.SetTrigger("ShotFired");
 
-        _animator.SetBool("IsAttacking", isInAttackState);
         _animator.SetFloat("Speed", _agent.velocity.magnitude);
     }
-    /// <summary>
-    /// Handles the transition logic by exiting the current <see cref="State"/> and entering the new target <see cref="State"/>.
-    /// </summary>
-    /// <param name="state">The new state to transition into.</param>
+
     public void SetState(State state)
     {
         if (_currentState != null)
@@ -311,14 +412,14 @@ public class RobotBrain : Spawnable, ICollectionMember
             _currentState.Enter();
     }
 
-    /// <summary>
-    /// Performs a combined check using <see cref="OverlapSphereDetector"/> and <see cref="RayCastDetector"/> 
-    /// to determine if the target is within sight and range.
-    /// </summary>
-    /// <returns>True if the player is detected and visible; otherwise, false.</returns>
     public bool CanSeePlayer()
     {
-        List<Collider> foundColliders = _overlapSphereDetector.GetColliders(_targetMask);
+        Collider[] foundColliders = Physics.OverlapSphere(
+            _agent.transform.position,
+            _viewDistance / 2,
+            _targetLayers
+        );
+
         Collider closestTargetCollider = GetClosestCollider(_transform.position, foundColliders);
 
         if (closestTargetCollider == null)
@@ -334,20 +435,12 @@ public class RobotBrain : Spawnable, ICollectionMember
         return hit.collider.gameObject == closestTargetCollider.gameObject;
     }
 
-    public bool IsSearchTimeOver() => _searchTimer.GetRemainingTime().TotalSeconds <= 0.0f;
-
-    /// <summary>
-    /// Filters a list of colliders to find the one closest to a specific origin point.
-    /// </summary>
-    /// <param name="origin">The starting point for the distance calculation.</param>
-    /// <param name="colliders">The list of colliders to evaluate.</param>
-    /// <returns>The closest <see cref="Collider"/> or null if the list is empty.</returns>
-    private Collider GetClosestCollider(Vector3 origin, List<Collider> colliders)
+    private Collider GetClosestCollider(Vector3 origin, Collider[] colliders)
     {
-        if (colliders == null || colliders.Count == 0)
+        if (colliders == null || colliders.Count() == 0)
             return null;
 
-        if (colliders.Count == 1)
+        if (colliders.Count() == 1)
             return colliders[0];
 
         return colliders
@@ -360,25 +453,51 @@ public class RobotBrain : Spawnable, ICollectionMember
     /// </summary>
     private void OnDrawGizmos()
     {
-        if (_patrolWaypoints.Count == 0 || _patrolWaypoints == null)
-            return;
+        GUIStyle labelStyle = new GUIStyle();
+        labelStyle.normal.textColor = Color.magenta;
+        labelStyle.fontStyle = FontStyle.Bold;
+
+        if (_patrolWaypoints.Count != 0 && _patrolWaypoints != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLineStrip(_patrolWaypoints.Select(waypoint => waypoint).ToArray(), true);
+        }
+
+        if (_chargeStationPosition != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(_chargeStationPosition, Vector3.one);
+        }
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawRay(transform.position, transform.forward * _viewDistance);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, _robotScanRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _minAttackDistance);
+        Gizmos.DrawRay(transform.position, transform.forward * _minAttackDistance);
 
         Gizmos.color = Color.blue;
-
-        Gizmos.DrawLineStrip(_patrolWaypoints.Select(waypoint => waypoint).ToArray(), true);
-
-        if (_chargeStationPosition == null)
-            return;
-
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawWireCube(_chargeStationPosition, Vector3.one);
+        Gizmos.DrawWireSphere(transform.position, _fleeTriggerRadius);
     }
 
-    /// <summary>
-    /// Calculates the distance between the robot and the target transform.
-    /// </summary>
-    /// <returns>The magnitude of the distance as a <see cref="float"/>.</returns>
+    public Collider[] GetSurroundingRobotColliders()
+    {
+        Collider[] robotColliders = Physics.OverlapSphere(
+            _agent.transform.position,
+            _robotScanRadius,
+            _robotLayer
+        )
+        .Where(
+            obj => obj.transform.root.gameObject != _agent.transform.root.gameObject
+        )
+        .ToArray();
+
+        return robotColliders;
+    }
+
     private float GetDistanceToTarget()
     {
         if (_targetTransform == null)
@@ -405,4 +524,26 @@ public class RobotBrain : Spawnable, ICollectionMember
     {
         EnemyCollectionManager.Instance?.Unsubscribe(this);
     }
+
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForcePatrolState() => SetState(patrolState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceChaseState() => SetState(chaseState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceGoToChargeStationState() => SetState(goToChargeStationState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceChargeBatteryState() => SetState(chargeBatteryState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceGoToClosestRobotState() => SetState(goToClosestRobotState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceFleeState() => SetState(fleeState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceAttackState() => SetState(attackState);
 }

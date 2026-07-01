@@ -33,7 +33,7 @@ public class DroneIdleState : State
 
     }
 
-    public override void Run()
+    public override void Run(float deltaTime)
     {
         Vector3 force = _brain.CalculateForce();
         _rb.AddForce(force * _speed);

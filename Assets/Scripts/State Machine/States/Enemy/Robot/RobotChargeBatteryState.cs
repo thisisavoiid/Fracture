@@ -1,8 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Handles the battery charging logic while the robot is at a charging station.
-/// </summary>
 public class RobotChargeBatteryState : State
 {
     private Battery _battery;
@@ -16,11 +13,8 @@ public class RobotChargeBatteryState : State
 
     public override void Exit() { }
 
-    /// <summary>
-    /// Executes the charging process every tick.
-    /// </summary>
-    public override void Run()
+    public override void Run(float deltaTime)
     {
-        _battery.Charge();
+        _battery.Charge(deltaTime);
     }
 }

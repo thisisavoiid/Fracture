@@ -7,14 +7,14 @@ using UnityEngine.AI;
 public class RobotChaseState : State
 {
     private NavMeshAgent _agent;
-    private Transform _targetTransform;
+    private TransformVariable _targetTransform;
     private Battery _battery;
     private float _speed;
     private float _acceleration;
 
     public RobotChaseState(
         NavMeshAgent agent,
-        Transform targetTransform,
+        TransformVariable targetTransform,
         float speed,
         float acceleration,
         Battery battery
@@ -47,14 +47,14 @@ public class RobotChaseState : State
     /// <summary>
     /// Updates the target destination and drains battery during movement.
     /// </summary>
-    public override void Run()
+    public override void Run(float deltaTime)
     {
         if (_targetTransform == null || _agent == null)
             return;
 
         if (_battery != null && _agent.hasPath)
-            _battery.Drain();
+            _battery.Drain(deltaTime);
 
-        _agent.SetDestination(_targetTransform.position);
+        _agent.SetDestination(_targetTransform.Value.position);
     }
 }

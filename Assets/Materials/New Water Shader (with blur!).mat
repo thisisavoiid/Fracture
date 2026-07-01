@@ -104,7 +104,7 @@ Material:
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 0
     - _Wave_Density: 9.37
-    - _Wave_Magnitude: -1.33
+    - _Wave_Magnitude: -0.09
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4

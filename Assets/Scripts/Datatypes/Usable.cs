@@ -8,6 +8,6 @@ public abstract class Item : MonoBehaviour
     public GameObject Holder => _holder;
     [SerializeField] protected ItemConfiguration _config;
     public ItemConfiguration Config => _config;
-    public abstract void Use(ItemUsageData usageData);
+    public abstract bool Use(ItemUsageData usageData);
     public void SetHolder(GameObject gameObject) => _holder = gameObject;
 }

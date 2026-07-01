@@ -165,7 +165,7 @@ MonoBehaviour:
   _jumpStrength: 30
   _maxClimbHeight: 5
   _minClimbHeight: 0.75
-  _climbSpeed: 15
+  _climbSpeed: 30
   _climbRange: 1.5
   _verticalClimbTreshold: 0.075
   _horizontalClimbTreshold: 0.075
@@ -557,7 +557,8 @@ MonoBehaviour:
   _itemContainerTransform: {fileID: 3141220090582298761}
   _enableDebugMode: 1
   _inventoryVariable: {fileID: 11400000, guid: 982da4e3e8d93214e9e7cfbce04ed723, type: 2}
-  _inventoryContent: []
+  _inventoryContent:
+  - {fileID: 7895095383120538967, guid: ea54a201d8f8dac48b547acb6f18ef4e, type: 3}
   _targetIndex: 0
   _activeSlot: 0
   _activeItem: {fileID: 0}

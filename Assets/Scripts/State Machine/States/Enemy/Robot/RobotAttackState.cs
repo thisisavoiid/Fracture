@@ -1,112 +1,70 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class RobotAttackState : State
 {
     private InventoryController _inventory;
-    private Transform _headTransform;
-    private Transform _targetTransform;
-    private GunBulletTracker _bulletTracker;
-    private Timer _reloadTimer;
-    private TimeMS _reloadDuration;
-    private Battery _battery;
-    private bool _hasAlreadyAttackedBefore = false;
-    private float _rotateToTargetSnappiness;
-
+    private NavMeshAgent _agent;
+    private TransformVariable _targetTransform;
+    private float _turnSpeed;
+    private bool _isFiringAShot;
+    public bool IsFiringAShot => _isFiringAShot;
     public RobotAttackState(
+        NavMeshAgent agent,
         InventoryController inventory,
-        Transform headTransform,
-        Transform targetTransform,
-        TimeMS reloadDuration,
-        Timer reloadTimer,
-        Battery battery,
-        float rotateToTargetSnappiness
+        TransformVariable targetTransform,
+        float turnSpeed
     )
     {
         _inventory = inventory;
-        _headTransform = headTransform;
+        _turnSpeed = turnSpeed;
         _targetTransform = targetTransform;
-        _reloadTimer = reloadTimer;
-        _battery = battery;
-        _reloadDuration = reloadDuration;
-        _rotateToTargetSnappiness = rotateToTargetSnappiness;
-
-        _reloadTimer.SetTime(_reloadDuration);
-        _reloadTimer.StartTimer();
+        _agent = agent;
     }
 
     public override void Enter()
     {
-        if (_inventory == null) return;
-
-        Item activeItem = _inventory.ActiveItem;
-
-        if (activeItem is Weapon weapon)
-            _bulletTracker = weapon.GetComponent<GunBulletTracker>();
-
-        if (_reloadTimer == null)
-            return;
+        Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
+        _agent.updateRotation = false;
     }
 
-    public override void Exit() { }
-
-    public override void Run()
+    public override void Exit()
     {
-        if (_inventory == null)
-            return;
+        Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
+        _agent.updateRotation = true;
+    }
 
-        if (_headTransform == null)
-            return;
-
-        if (_targetTransform == null)
-            return;
-
-        Item equippedItem = _inventory.ActiveItem;
-
-        Vector3 lookDir = (_targetTransform.position - _headTransform.position).normalized;
-        lookDir.y = 0f;
-
-        Quaternion targetRotation = Quaternion.LookRotation(lookDir);
-
-        _inventory.transform.rotation = Quaternion.Lerp(
-            _inventory.transform.rotation,
-            targetRotation,
-            Time.deltaTime * _rotateToTargetSnappiness
+    public override void Run(float deltaTime)
+    {
+        RotateToTarget(
+            _turnSpeed,
+            deltaTime
         );
 
-        if (equippedItem == null)
-            return;
-            
-        if (_reloadTimer != null)
-        {
-            if (_reloadTimer.GetRemainingTime().TotalSeconds <= 0 || !_hasAlreadyAttackedBefore)
-            {
-                ItemUsageData usageData = new ItemUsageData(
-                    _headTransform.position,
-                    _headTransform.forward.normalized,
-                    true,
-                    false
-                );
+        ItemUsageData itemUsageData = new ItemUsageData(
+            _agent.transform.position,
+            _agent.transform.forward,
+            true,
+            false
+        );
 
-                _inventory.UseActiveItem(usageData);
+        bool itemUseSuccessful = _inventory.UseActiveItem(itemUsageData);
+        _isFiringAShot = itemUseSuccessful;
+    }
 
-                if (_battery != null)
-                    _battery.Drain();
-            }
-        }
+    private void RotateToTarget(float turnSpeed, float deltaTime)
+    {
+        Vector3 directionToTarget = (_targetTransform.Value.position - _agent.transform.position);
+        directionToTarget.y = 0;
 
-
-        if (equippedItem is Weapon weapon)
-        {
-            if (_bulletTracker == null)
-                return;
-
-            if (!_bulletTracker.HasBulletsLeft())
-            {
-                weapon.Reload();
-                _reloadTimer?.Reset();
-                _hasAlreadyAttackedBefore = true;
-            }
-        }
+        Quaternion currentRotation = _agent.transform.rotation;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget.normalized);
+        
+        _agent.transform.rotation = Quaternion.Lerp(
+            currentRotation, 
+            targetRotation, 
+            deltaTime * turnSpeed
+        );
     }
 }
