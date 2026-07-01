@@ -97,7 +97,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
 
     [BoxGroup("Combat & Timers")]
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
-    [SerializeField] private TimeMS _reloadDuration;
+    [SerializeField] private TimeMS _cooldownTimeAfterReload;
 
     [BoxGroup("Combat & Timers")]
     [SerializeField] private TimeMS _searchDuration;
@@ -257,13 +257,13 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
                 ),
                 new Transition(
                     goToClosestRobotState,
-                    () => GetSurroundingRobotColliders().Any() &&
-                    GetDistanceToTarget() <= _fleeTriggerRadius && 
-                    !(goToClosestRobotState as RobotGoToClosestRobotState).ClosestTargetReached
+                    () => GetSurroundingRobotColliders().Count() >= _minNeighbourCount &&
+                    GetDistanceToTarget() <= _fleeTriggerRadius
+                    // !(goToClosestRobotState as RobotGoToClosestRobotState).ClosestTargetReached
                 ),
                 new Transition(
                     fleeState,
-                    () => !GetSurroundingRobotColliders().Any() &&
+                    () => GetSurroundingRobotColliders().Count() < _minNeighbourCount &&
                     GetDistanceToTarget() <= _fleeTriggerRadius
                 )
             }
@@ -329,7 +329,8 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
             _agent,
             _inventory,
             _targetTransform,
-            _turnSpeed
+            _turnSpeed,
+            _cooldownTimeAfterReload
         );
 
         searchState = new RobotSearchState(
