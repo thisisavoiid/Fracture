@@ -19,12 +19,24 @@ using UnityEngine.Events;
 [RequireComponent(typeof(NavMeshPointGenerator))]
 public class RobotBrain : MonoBehaviour, ICollectionMember
 {
+#region General Settings
+    [BoxGroup("General Settings")]
+    [SerializeField] private float _searchPositionReachedTreshold = 1.25f;
+
+    [BoxGroup("General Settings")]
+    [SerializeField] private float _robotRegroupPositionReachedTreshold = 2.5f;
+
+    [BoxGroup("General Settings")]
+    [Range(0f, 50f)]
+    [SerializeField] private float _robotScanRadius = 20.0f;
+    #endregion
+
     #region FSM Variables
     [BoxGroup("State Machine")]
     [ReadOnly][SerializeField] private State _currentState;
     #endregion
 
-    #region Dependencies
+    #region Detection Settings
     [BoxGroup("Detection Settings")]
     [Tooltip("Reference to the TransformVariable of the target (e.g., the player).")]
     [SerializeField] private TransformVariable _targetTransform;
@@ -38,85 +50,114 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
 
     [BoxGroup("Detection Settings")]
     [Tooltip("Maximum distance the robot can see.")]
-    [SerializeField] private float _viewDistance;
+    [Range(0f, 150f)]
+    [SerializeField] private float _viewDistance = 80f;
 
     [BoxGroup("Detection Settings")]
     [Tooltip("Distance at which the robot stops chasing and returns to patrol.")]
-    [SerializeField] private float _calmDownDistance;
+    [Range(0f, 100f)]
+    [SerializeField] private float _calmDownDistance = 35f;
 
     [BoxGroup("Detection Settings")]
     [Tooltip("Minimum distance required to initiate an attack.")]
-    [SerializeField] private float _minAttackDistance;
+    [Range(0f, 50f)]
+    [SerializeField] private float _minAttackDistance = 15f;
+    #endregion
 
+    #region Patrol Settings
     [BoxGroup("Patrol Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during patrol.")]
-    [SerializeField] private float _patrolSpeed;
+    [Range(0f, 20f)]
+    [SerializeField] private float _patrolSpeed = 3.5f;
 
     [BoxGroup("Patrol Settings")]
     [Tooltip("Acceleration of the NavMeshAgent during patrol.")]
-    [SerializeField] private float _patrolAcceleration;
+    [Range(0f, 200f)]
+    [SerializeField] private float _patrolAcceleration = 100f;
 
     [BoxGroup("Patrol Settings")]
     [Tooltip("Amount of waypoints to be generated per robot instance.")]
-    [SerializeField] private int _waypointCount = 5;
+    [Range(1, 25)]
+    [SerializeField] private int _waypointCount = 10;
 
     [BoxGroup("Patrol Settings")]
     [Tooltip("Radius around the robot instances which the waypoints are going to be placed in.")]
-    [SerializeField] private float _patrolRadius = 30;
+    [Range(0f, 100f)]
+    [SerializeField] private float _patrolRadius = 30f;
+    #endregion
+
+    #region Flee Settings
+    [BoxGroup("Flee Settings")]
+    [Range(0f, 100f)]
+    [SerializeField] private float _fleeDistance = 25f;
 
     [BoxGroup("Flee Settings")]
-    [SerializeField] private float _fleeDistance = 15;
+    [Range(0f, 20f)]
+    [SerializeField] private float _fleeTriggerRadius = 2.5f;
 
     [BoxGroup("Flee Settings")]
-    [SerializeField] private float _fleeTriggerRadius = 5;
-
-    [BoxGroup("Flee Settings")]
-    [SerializeField] private float _fleeFallbackRadius = 30;
+    [Range(0f, 100f)]
+    [SerializeField] private float _fleeFallbackRadius = 30f;
 
     [BoxGroup("Flee Settings")]
     [SerializeField] private float _fleePositionReachedThreshold = 1.25f;
 
     [BoxGroup("Flee Settings")]
+    [Range(1, 10)]
     [SerializeField] private int _minNeighbourCount = 1;
 
+    [BoxGroup("Flee Settings")]
+    [Range(0f, 30f)]
+    [SerializeField] private float _fleeSpeed = 20f;
+    #endregion
+
+    #region Chase Settings
     [BoxGroup("Chase Settings")]
     [Tooltip("Movement speed of the NavMeshAgent during pursuit.")]
-    [SerializeField] private float _chaseSpeed;
+    [Range(0f, 25f)]
+    [SerializeField] private float _chaseSpeed = 7.5f;
 
     [BoxGroup("Chase Settings")]
     [Tooltip("Acceleration of the NavMeshAgent during pursuit.")]
-    [SerializeField] private float _chaseAcceleration;
+    [Range(0f, 300f)]
+    [SerializeField] private float _chaseAcceleration = 150f;
+    #endregion
 
+    #region Charging Settings
     [BoxGroup("Charging Settings")]
     [Tooltip("Movement speed when heading to the charging station.")]
-    [SerializeField] private float _goToChargeStationSpeed;
+    [Range(0f, 25f)]
+    [SerializeField] private float _goToChargeStationSpeed = 10f;
 
     [BoxGroup("Charging Settings")]
     [Tooltip("Acceleration when heading to the charging station.")]
-    [SerializeField] private float _goToChargeAcceleration;
+    [Range(0f, 200f)]
+    [SerializeField] private float _goToChargeAcceleration = 10f;
+    #endregion
 
+    #region Combat & Timers
     [BoxGroup("Combat & Timers")]
     [Tooltip("Time in seconds between reload and another attack. (Only applied if the currently active item is Weapon child!)")]
-    [SerializeField] private TimeMS _cooldownTimeAfterReload;
+    [SerializeField] private TimeMS _cooldownTimeAfterReload; // Standardwerte (0m, 5s) werden in der Klasse 'TimeMS' oder im Inspektor gesetzt
 
     [BoxGroup("Combat & Timers")]
     [SerializeField] private TimeMS _searchDuration;
 
-    [SerializeField] private float _searchPositionReachedTreshold = 1.25f;
-
     [BoxGroup("Combat & Timers")]
     [Tooltip("The time required for the robot to turn to the target when being in attack state.")]
-    [SerializeField] private float _turnSpeed = 7.5f;
+    [Range(0f, 100f)]
+    [SerializeField] private float _turnSpeed = 30f;
+    #endregion
 
+    #region Animator & Events
     [BoxGroup("Animator")]
     [SerializeField] private Animator _animator;
 
     [BoxGroup("Initialization Events")]
     [SerializeField] private UnityEvent OnRobotInitialize;
+    #endregion
 
-    [BoxGroup("Patrol Runtime Data")]
-    [ReadOnly][SerializeField] private List<Vector3> _patrolWaypoints = new();
-
+    #region Internal Components & Runtime Data
     [BoxGroup("Internal Components")]
     [Required][SerializeField] private Battery _battery;
 
@@ -135,14 +176,16 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
     [BoxGroup("Internal Components")]
     [Required][SerializeField] private NavMeshPointGenerator _pointGenerator;
 
+    [BoxGroup("Patrol Runtime Data")]
+    [ReadOnly][SerializeField] private List<Vector3> _patrolWaypoints = new();
+
     [BoxGroup("Charging Runtime Data")]
     [ReadOnly][SerializeField] private Vector3 _chargeStationPosition;
+    #endregion
 
+    #region Debugging
     [BoxGroup("Debugging")]
     [SerializeField] private bool _enableDebugMode = false;
-
-    [SerializeField] private float _robotScanRadius = 20.0f;
-
     #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
@@ -257,10 +300,19 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
                 ),
                 new Transition(
                     goToClosestRobotState,
-                    () => GetSurroundingRobotColliders().Count() >= _minNeighbourCount &&
-                    GetDistanceToTarget() <= _fleeTriggerRadius
-                    // !(goToClosestRobotState as RobotGoToClosestRobotState).ClosestTargetReached
-                ),
+                    () => {
+                        Transform closestRobot = GetClosestRobot();
+
+                        if (closestRobot == null)
+                            return false;
+
+                        bool hasReachedClosestRobot = Vector3.Distance(
+                            _agent.transform.position, closestRobot.position
+                        ) <= _robotRegroupPositionReachedTreshold;
+
+                        return !hasReachedClosestRobot && GetDistanceToTarget() <= _fleeTriggerRadius;
+                    }
+                    ),
                 new Transition(
                     fleeState,
                     () => GetSurroundingRobotColliders().Count() < _minNeighbourCount &&
@@ -322,7 +374,8 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
             _targetTransform,
             _fleeFallbackRadius,
             _fleeDistance,
-            _fleePositionReachedThreshold
+            _fleePositionReachedThreshold,
+            _fleeSpeed
         );
 
         attackState = new RobotAttackState(
@@ -499,6 +552,30 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         return robotColliders;
     }
 
+    public Transform GetClosestRobot()
+    {
+        Collider[] surroundingRobotColliders = GetSurroundingRobotColliders();
+        Transform closestTarget = GetClosestTransform(surroundingRobotColliders);
+
+        return closestTarget;
+    }
+
+    public Transform GetClosestTransform(Collider[] colliders)
+    {
+        if (colliders.Count() == 0 || colliders == null)
+            return null;
+
+        Collider[] collidersSortedByDistance = colliders
+        .OrderBy(
+            obj => Vector3.Distance(obj.transform.root.position, _agent.transform.root.position)
+        ).ToArray();
+
+        if (collidersSortedByDistance == null || collidersSortedByDistance.Count() == 0)
+            return null;
+
+        Transform closestTransform = collidersSortedByDistance[0].transform;
+        return closestTransform;
+    }
     private float GetDistanceToTarget()
     {
         if (_targetTransform == null)

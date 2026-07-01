@@ -8,10 +8,10 @@ public class LoadoutInjector : MonoBehaviour
     [SerializeField] private InventoryVariable _source;
     public void InjectItems()
     {
-        if (_inventory == null || _source.Value == null)
+        if (_inventory == null || _source == null)
             return;
 
-        List<Item> items = _source.Value.GetItems();
+        List<Item> items = _source.Value?.GetItems();
 
         if (items == null || items.Count == 0)
             return;

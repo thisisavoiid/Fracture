@@ -2,6 +2,7 @@ using System.IO;
 using UnityEditor.Analytics;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.UI;
 
 public class RobotFleeState : State
 {
@@ -11,6 +12,7 @@ public class RobotFleeState : State
     private float _fleeFallbackRadius;
     private float _fleeDistance;
     private float _fleePositionReachedThreshold;
+    private float _fleeSpeed;
     private Vector3 _fleePosition;
 
     public bool IsFleePositionReached => Vector3.Distance(
@@ -24,7 +26,8 @@ public class RobotFleeState : State
         TransformVariable targetTransform,
         float fleeFallbackRadius,
         float fleeDistance,
-        float fleePositionReachedThreshold
+        float fleePositionReachedThreshold,
+        float fleeSpeed
     )
     {
         _pointGenerator = pointGenerator;
@@ -33,12 +36,16 @@ public class RobotFleeState : State
         _fleeFallbackRadius = fleeFallbackRadius;
         _fleeDistance = fleeDistance;
         _fleePositionReachedThreshold = fleePositionReachedThreshold;
+        _fleeSpeed = fleeSpeed;
     }
 
     public override void Enter()
     {
         Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
 
+        if (_agent != null) 
+            _agent.speed = _fleeSpeed;
+            
         Vector3 fleeDirection = GetFleeDirection(
             _targetTransform.Value.position,
             _agent.transform.position
@@ -57,6 +64,7 @@ public class RobotFleeState : State
     public override void Exit()
     {
         Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
+        _fleePosition = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
         _agent.ResetPath();
     }
 

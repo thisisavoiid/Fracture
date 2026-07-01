@@ -36,6 +36,7 @@ public class RobotSearchState : State
 
     public override void Exit()
     {
+        _searchTimePassed = 0f;
         _agent.ResetPath();
         _animator.SetBool("IsSearching", false);
     }

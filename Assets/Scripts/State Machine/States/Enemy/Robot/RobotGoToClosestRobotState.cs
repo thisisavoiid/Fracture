@@ -35,20 +35,21 @@ public class RobotGoToClosestRobotState : State
 
     public override void Enter()
     {
+        _closestTarget = null;
         Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
     }
 
     public override void Exit()
     {
+        _closestTarget = null;
         Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
         _agent.ResetPath();
     }
 
     public override void Run(float deltaTime)
     {
-        Collider[] surroundingRobotColliders = _brain.GetSurroundingRobotColliders();
-        _closestTarget = GetClosestTransform(surroundingRobotColliders);
-
+        _closestTarget = _brain.GetClosestRobot();
+        
         if (_closestTarget == null)
             return;
 
@@ -65,20 +66,5 @@ public class RobotGoToClosestRobotState : State
         }
     }
 
-    private Transform GetClosestTransform(Collider[] colliders)
-    {
-        if (colliders.Count() == 0 || colliders == null)
-            return null;
-        
-        Collider[] collidersSortedByDistance = colliders
-        .OrderBy(
-            obj => Vector3.Distance(obj.transform.root.position, _agent.transform.root.position)
-        ).ToArray();
-
-        if (collidersSortedByDistance == null || collidersSortedByDistance.Count() == 0)
-            return null;
-        
-        Transform closestTransform = collidersSortedByDistance[0].transform;
-        return closestTransform;
-    }
+    
 }

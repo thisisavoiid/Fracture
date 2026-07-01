@@ -249,7 +249,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8767711789955364775}
-  - component: {fileID: 8901498568534593520}
   m_Layer: 0
   m_Name: Drone Agent Pair
   m_TagString: Untagged
@@ -274,19 +273,6 @@ Transform:
   - {fileID: 6655973929532629910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8901498568534593520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441571304997868061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acdb17e2a745514c8b6f612be0dd673, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnable: {fileID: 7381027901212634459}
 --- !u!1 &4317146447080268239
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +824,7 @@ GameObject:
   - component: {fileID: 8068202337176357480}
   - component: {fileID: 3014992473093421656}
   - component: {fileID: 3492647897496006767}
+  - component: {fileID: 1323391831726728033}
   - component: {fileID: 1529901361195307691}
   - component: {fileID: 8452324885209940579}
   m_Layer: 14
@@ -1087,7 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 250
+  _defaultHealth: 100
   _autoInvokeDie: 1
   _deathEvent: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
   OnDeath:
@@ -1225,6 +1212,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1323391831726728033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717151006540763968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ab2ebfb0e7ed14798af11bb2c02a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageMultiplier: 1
+  OnDamageTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 220584874543157071}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &1529901361195307691
 CapsuleCollider:
   m_ObjectHideFlags: 0

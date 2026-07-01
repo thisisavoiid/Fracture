@@ -26,7 +26,6 @@ public class DroneChaseState : State
 
     public override void Enter()
     {
-        Debug.Log("enter chase state");
         _brain.ResetRotation();
     }
 

@@ -129,11 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3217855432309135475, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.593426
+      value: 15.3
       objectReference: {fileID: 0}
     - target: {fileID: 3217855432309135475, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4388771
+      value: 3.65
       objectReference: {fileID: 0}
     - target: {fileID: 3217855432309135475, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
       propertyPath: m_LocalPosition.z
@@ -177,6 +177,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
       propertyPath: _spawnables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[0].Key
+      value: 
+      objectReference: {fileID: 6338992377827216811, guid: 5cc5468525329624696700ccf94ffa84, type: 3}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[1].Key
+      value: 
+      objectReference: {fileID: 2441571304997868061, guid: 4c0a3fb8e33808944a4e7a763ee0ddd6, type: 3}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[0].Value
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -244,7 +256,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.31666666
+  m_VoxelSize: 0.33333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 2b3e55e5f9800714791990cf9496277d, type: 2}
   m_BuildHeightMesh: 0
@@ -467,6 +479,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4541856296660924636, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[0].Key
+      value: 
+      objectReference: {fileID: 6338992377827216811, guid: 5cc5468525329624696700ccf94ffa84, type: 3}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[1].Key
+      value: 
+      objectReference: {fileID: 2441571304997868061, guid: 4c0a3fb8e33808944a4e7a763ee0ddd6, type: 3}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[0].Value
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5830,6 +5858,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4541856296660924636, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[0].Key
+      value: 
+      objectReference: {fileID: 6338992377827216811, guid: 5cc5468525329624696700ccf94ffa84, type: 3}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[1].Key
+      value: 
+      objectReference: {fileID: 2441571304997868061, guid: 4c0a3fb8e33808944a4e7a763ee0ddd6, type: 3}
+    - target: {fileID: 9011293760104727051, guid: 1f634e1ac3c4688439450a2fbc93fd65, type: 3}
+      propertyPath: _spawnables.Array.data[0].Value
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
