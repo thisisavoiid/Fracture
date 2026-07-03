@@ -5,14 +5,221 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
+/// <summary>
+/// The central processing unit for the drone AI, implementing a Finite State Machine.
+/// It manages transitions between states like Idle, Chase, and Attack based on
+/// player visibility and distance, while also applying flocking (boid) behavior
+/// to maintain swarm cohesion with surrounding drones.
+/// </summary>
 public class DroneBrain : MonoBehaviour, ICollectionMember
 {
-    [SerializeField]
+    #region Settings
     [BoxGroup("Settings")]
-    private DroneSettings _settings;
+    [SerializeField] private DroneSettings _settings;
+    #endregion
+
+    #region FSM Variables
+    [BoxGroup("State Machine")]
+    [ReadOnly][SerializeField] private State _currentState;
+    #endregion
+
+    #region Debugging
+    [BoxGroup("Debugging")]
+    [SerializeField] private bool _enableDebugMode = false;
+    #endregion
 
     private Dictionary<State, List<Transition>> _states = new();
-    private State _currentState;
+
+    private State patrolState;
+    private State chaseState;
+    private State attackState;
+    private State searchState;
+    
+    private void Awake()
+    {
+        Subscribe();
+        SetDetectorValues();
+        InitializeStates();
+        InitializeTransitions();
+        SetInitialState();
+        _settings.OnInitialize?.Invoke();
+    }
+
+    private void OnEnable()
+    {
+        Subscribe();
+    }
+
+    private void SetInitialState() => SetState(patrolState);
+
+    private void SetDetectorValues()
+    {
+        if (_settings.TargetDetector != null)
+            _settings.TargetDetector.SetRadius(_settings.TargetCheckRadius);
+
+        if (_settings.SwarmDetector != null)
+            _settings.SwarmDetector.SetRadius(_settings.FlockingCheckRadius);
+    }
+
+    private void InitializeStates()
+    {
+        patrolState = new DronePatrolState(
+            this,
+            _settings.Rb,
+            _settings.Agent,
+            _settings.Speed,
+            _settings.NavMeshPointGenerator
+        );
+
+        chaseState = new DroneChaseState(
+            this,
+            _settings.Rb,
+            _settings.Agent,
+            _settings.Target,
+            _settings.Speed
+        );
+
+        attackState = new DroneAttackState(
+            this,
+            _settings.Rb,
+            _settings.Agent,
+            _settings.Target,
+            _settings.BulletOrigin,
+            _settings.GunController
+        );
+
+        searchState = new DroneSearchState(
+            this,
+            _settings.Rb,
+            _settings.Target,
+            _settings.SearchDuration,
+            _settings.Agent,
+            _settings.searchPositionReachedThreshold
+        );
+    }
+
+    private void InitializeTransitions()
+    {
+        _states.Add(
+            patrolState, new()
+            {
+                new Transition(
+                    chaseState, 
+                    () => CanSeePlayer()
+                )
+            }
+        );
+
+        _states.Add(
+            chaseState, new()
+            {
+                new Transition(
+                    attackState, 
+                    () => CanSeePlayer() && Vector3.Distance(
+                        _settings.Rb.position,
+                        _settings.Target.Value.position
+                    ) <= _settings.AttackDistance
+                ),
+                new Transition(
+                    searchState,
+                    () => !CanSeePlayer()
+                )
+            }
+        );
+
+        _states.Add(
+            attackState, new()
+            {
+                new Transition(
+                    chaseState, 
+                    () => Vector3.Distance(_settings.Rb.position, _settings.Target.Value.position) > _settings.AttackDistance
+                ),
+                new Transition(
+                    searchState,
+                    () => !CanSeePlayer()
+                )
+            }
+        );
+
+        _states.Add(
+            searchState, new()
+            {
+                new Transition(
+                    chaseState,
+                    () => CanSeePlayer()
+                ),
+                new Transition(
+                    patrolState,
+                    () => !CanSeePlayer() && (searchState as DroneSearchState).IsSearchTimeOver
+                )
+            }
+        );
+    }
+
+    private void Update()
+    {
+        if (_currentState == null)
+        {
+            Debug.LogError($"[{this.GetType().Name.ToUpper()}] Couldn't execute current state on GameObject '{gameObject.name}' because the current state is null -");
+            return;
+        }
+
+        _currentState.Run(Time.deltaTime);
+
+        if (_states.TryGetValue(_currentState, out List<Transition> transitions))
+        {
+            foreach (Transition transition in _states[_currentState])
+            {
+                if (transition.Condition() == true)
+                {
+                    SetState(transition.TargetState);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void SetState(State state)
+    {
+        if (_currentState != null)
+            _currentState.Exit();
+
+        _currentState = state;
+
+        if (_currentState != null)
+            _currentState.Enter();
+    }
+
+    public bool CanSeePlayer()
+    {
+        List<Collider> foundColliders = _settings.TargetDetector.GetColliders(_settings.AttackMask);
+        Collider closestTargetCollider = GetClosestCollider(transform.position, foundColliders);
+
+        if (closestTargetCollider == null)
+            return false;
+
+        Vector3 dir = closestTargetCollider.transform.position - transform.position;
+
+        bool isPlayerInSight = _settings.RayCastDetector.Check(transform.position, dir, out RaycastHit hit, _settings.ViewDistance);
+
+        if (!isPlayerInSight)
+            return false;
+
+        return hit.collider.gameObject == closestTargetCollider.gameObject;
+    }
+
+    private Collider GetClosestCollider(Vector3 origin, List<Collider> colliders)
+    {
+        if (colliders == null || colliders.Count == 0)
+            return null;
+
+        if (colliders.Count == 1)
+            return colliders[0];
+
+        return colliders
+            .OrderBy(c => (c.transform.position - origin).sqrMagnitude)
+            .FirstOrDefault();
+    }
 
     public Vector3 CalculateForce()
     {
@@ -72,154 +279,6 @@ public class DroneBrain : MonoBehaviour, ICollectionMember
         return colliders.Select(collider => collider.gameObject.transform).ToList();
     }
 
-    private void Awake()
-    {
-        Subscribe();
-        SetDetectorValues();
-        ConfigureStateMachine(); // temporary!!
-        _settings.OnInitialize?.Invoke();
-    }
-
-    private void SetDetectorValues()
-    {
-        if (_settings.TargetDetector != null)
-            _settings.TargetDetector.SetRadius(_settings.TargetCheckRadius);
-
-        if (_settings.SwarmDetector != null)
-            _settings.SwarmDetector.SetRadius(_settings.FlockingCheckRadius);
-    }
-
-    private void ConfigureStateMachine()
-    {
-        State chaseState = new DroneChaseState(
-            this,
-            _settings.Rb,
-            _settings.Agent,
-            _settings.Target,
-            _settings.Speed
-        );
-
-        State attackState = new DroneAttackState(
-            this,
-            _settings.Rb,
-            _settings.Agent,
-            _settings.Target,
-            _settings.BulletOrigin,
-            _settings.GunController
-        );
-
-        State idleState = new DroneIdleState(
-            this,
-            _settings.Rb,
-            _settings.Agent,
-            _settings.Speed
-        );
-
-        _states.Add(
-            idleState,
-            new List<Transition>
-            {
-                new Transition(
-                    chaseState, () => CanSeePlayer()
-                )
-            }
-        );
-
-        _states.Add(
-            chaseState,
-            new List<Transition>
-            {
-                new Transition(
-                    attackState, () => CanSeePlayer() && Vector3.Distance(
-                        _settings.Rb.position,
-                        _settings.Target.Value.position
-                    ) <= _settings.AttackDistance
-                ),
-                new Transition(
-                    idleState, () => !CanSeePlayer()
-                )
-            }
-        );
-
-        _states.Add(
-            attackState,
-            new List<Transition>
-            {
-                new Transition(
-                    chaseState, () => Vector3.Distance(_settings.Rb.position, _settings.Target.Value.position) > _settings.AttackDistance
-                )
-            }
-        );
-
-        SetState(idleState);
-    }
-
-    private void Update()
-    {
-        if (_currentState == null)
-        {
-            Debug.LogError($"[{this.GetType().Name.ToUpper()}] Couldn't execute current state on GameObject '{gameObject.name}' because the current state is null -");
-            return;
-        }
-
-        _currentState.Run(Time.deltaTime);
-
-        if (_states.TryGetValue(_currentState, out List<Transition> transitions))
-        {
-            foreach (Transition transition in _states[_currentState])
-            {
-                if (transition.Condition() == true)
-                {
-                    SetState(transition.TargetState);
-                    break;
-                }
-
-            }
-        }
-    }
-
-    public void SetState(State state)
-    {
-        if (_currentState != null)
-            _currentState.Exit();
-
-        _currentState = state;
-
-        if (_currentState != null)
-            _currentState.Enter();
-    }
-
-    public bool CanSeePlayer()
-    {
-        List<Collider> foundColliders = _settings.TargetDetector.GetColliders(_settings.AttackMask);
-        Collider closestTargetCollider = GetClosestCollider(transform.position, foundColliders);
-
-        if (closestTargetCollider == null)
-            return false;
-
-        Vector3 dir = closestTargetCollider.transform.position - transform.position;
-
-        bool isPlayerInSight = _settings.RayCastDetector.Check(transform.position, dir, out RaycastHit hit, _settings.ViewDistance);
-
-        if (!isPlayerInSight)
-            return false;
-
-        return hit.collider.gameObject == closestTargetCollider.gameObject;
-    }
-
-    private Collider GetClosestCollider(Vector3 origin, List<Collider> colliders)
-    {
-        if (colliders == null || colliders.Count == 0)
-            return null;
-
-        if (colliders.Count == 1)
-            return colliders[0];
-
-        return colliders
-            .OrderBy(c => (c.transform.position - origin).sqrMagnitude)
-            .FirstOrDefault();
-    }
-
     public void RotateTowardsTarget()
     {
         if (_settings.Target == null)
@@ -261,5 +320,17 @@ public class DroneBrain : MonoBehaviour, ICollectionMember
     {
         EnemyCollectionManager.Instance?.Unsubscribe(this);
     }
-}
 
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceIdleState() => SetState(patrolState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceChaseState() => SetState(chaseState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceAttackState() => SetState(attackState);
+    [Button]
+    [ShowIf("_enableDebugMode")]
+    public void ForceSearchState() => SetState(searchState);
+}

@@ -824,6 +824,7 @@ GameObject:
   - component: {fileID: 8068202337176357480}
   - component: {fileID: 3014992473093421656}
   - component: {fileID: 3492647897496006767}
+  - component: {fileID: 8922287741183627927}
   - component: {fileID: 1323391831726728033}
   - component: {fileID: 1529901361195307691}
   - component: {fileID: 8452324885209940579}
@@ -878,12 +879,17 @@ MonoBehaviour:
     Agent: {fileID: 3950978564849291154}
     GunController: {fileID: 7971636296063762391}
     BulletOrigin: {fileID: 118267919473728798}
+    NavMeshPointGenerator: {fileID: 8922287741183627927}
     ViewDistance: 75
     AttackDistance: 15
     FlockingCheckRadius: 15
     TargetCheckRadius: 75
     Speed: 12.5
     RotateToTargetSpeed: 14.5
+    SearchDuration:
+      Minutes: 0
+      Seconds: 5
+    searchPositionReachedThreshold: 1.25
     OnInitialize:
       m_PersistentCalls:
         m_Calls:
@@ -899,6 +905,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  _enableDebugMode: 0
 --- !u!114 &4817580626828146484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,7 +920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerMask:
     serializedVersion: 2
-    m_Bits: 12480
+    m_Bits: 4294967295
 --- !u!114 &2447341531510516024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,6 +1219,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8922287741183627927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6717151006540763968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64af447d15f79a143814e30f587306e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1323391831726728033
 MonoBehaviour:
   m_ObjectHideFlags: 0

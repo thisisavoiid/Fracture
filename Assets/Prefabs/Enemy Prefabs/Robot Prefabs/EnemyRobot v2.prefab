@@ -1764,7 +1764,7 @@ MonoBehaviour:
   _fleeTriggerRadius: 2.5
   _fleeFallbackRadius: 30
   _fleePositionReachedThreshold: 1.25
-  _minNeighbourCount: 1
+  _minNeighbourCount: 2
   _fleeSpeed: 20
   _chaseSpeed: 7.5
   _chaseAcceleration: 150

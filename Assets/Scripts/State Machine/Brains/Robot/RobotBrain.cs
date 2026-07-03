@@ -306,6 +306,9 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
                         if (closestRobot == null)
                             return false;
 
+                        if (GetSurroundingRobotTransforms().Count() < _minNeighbourCount)  
+                            return false;
+                        
                         bool hasReachedClosestRobot = Vector3.Distance(
                             _agent.transform.position, closestRobot.position
                         ) <= _robotRegroupPositionReachedTreshold;
@@ -315,7 +318,7 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
                     ),
                 new Transition(
                     fleeState,
-                    () => GetSurroundingRobotColliders().Count() < _minNeighbourCount &&
+                    () => GetSurroundingRobotTransforms().Count() < _minNeighbourCount &&
                     GetDistanceToTarget() <= _fleeTriggerRadius
                 )
             }
@@ -537,43 +540,44 @@ public class RobotBrain : MonoBehaviour, ICollectionMember
         Gizmos.DrawWireSphere(transform.position, _fleeTriggerRadius);
     }
 
-    public Collider[] GetSurroundingRobotColliders()
+    public HashSet<Transform> GetSurroundingRobotTransforms()
     {
-        Collider[] robotColliders = Physics.OverlapSphere(
+        HashSet<Transform> transforms = Physics.OverlapSphere(
             _agent.transform.position,
             _robotScanRadius,
             _robotLayer
         )
-        .Where(
-            obj => obj.transform.root.gameObject != _agent.transform.root.gameObject
-        )
-        .ToArray();
+        .Select(c => c.gameObject.transform)
+        .Where(c => c.transform.root.gameObject != this.transform.root.gameObject)
+        .GroupBy(t => t.root)
+        .Select(g => g.Key)
+        .ToHashSet();
 
-        return robotColliders;
+        return transforms;
     }
 
     public Transform GetClosestRobot()
     {
-        Collider[] surroundingRobotColliders = GetSurroundingRobotColliders();
-        Transform closestTarget = GetClosestTransform(surroundingRobotColliders);
+        HashSet<Transform> surroundingRobotTransforms = GetSurroundingRobotTransforms();
+        Transform closestTarget = GetClosestTransform(surroundingRobotTransforms);
 
         return closestTarget;
     }
 
-    public Transform GetClosestTransform(Collider[] colliders)
+    public Transform GetClosestTransform(HashSet<Transform> transforms)
     {
-        if (colliders.Count() == 0 || colliders == null)
+        if (transforms.Count() == 0 || transforms == null)
             return null;
 
-        Collider[] collidersSortedByDistance = colliders
+        Transform[] transformsSortedByDistance = transforms
         .OrderBy(
             obj => Vector3.Distance(obj.transform.root.position, _agent.transform.root.position)
         ).ToArray();
 
-        if (collidersSortedByDistance == null || collidersSortedByDistance.Count() == 0)
+        if (transformsSortedByDistance == null || transformsSortedByDistance.Count() == 0)
             return null;
 
-        Transform closestTransform = collidersSortedByDistance[0].transform;
+        Transform closestTransform = transformsSortedByDistance[0].transform;
         return closestTransform;
     }
     private float GetDistanceToTarget()

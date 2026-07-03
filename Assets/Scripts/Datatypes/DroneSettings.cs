@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using NaughtyAttributes;
 
 [Serializable]
 public class DroneSettings
@@ -24,38 +25,62 @@ public class DroneSettings
     public LayerMask AttackMask;
 
     [Header("References")]
+    [Required] // Funktioniert in Subklassen, solange das Haupt-Skript von MonoBehaviour erbt
     [Tooltip("The ScriptableObject or variable tracking the target's transform.")]
     public TransformVariable Target;
     
+    [Required]
     [Tooltip("The Rigidbody attached to this drone.")]
     public Rigidbody Rb;
     
+    [Required]
     [Tooltip("The NavMeshAgent used for pathfinding or reference calculations.")]
     public NavMeshAgent Agent;
     
+    [Required]
     [Tooltip("The weapon controller managing weapon firing mechanics.")]
     public GunController GunController;
     
+    [Required]
     [Tooltip("The precise spawn point where projectiles leave the drone.")]
     public Transform BulletOrigin;
 
+    public NavMeshPointGenerator NavMeshPointGenerator;
+    
     [Header("Movement & Combat")]
+    [Min(0f)] 
     [Tooltip("Maximum distance the drone can visually acquire a player.")]
-    [Min(0f)] public float ViewDistance = 75f;
+    public float ViewDistance = 75f;
     
+    [Min(0f)] 
     [Tooltip("The distance at which the drone transitions from chasing to attacking.")]
-    [Min(0f)] public float AttackDistance = 7.5f;
+    public float AttackDistance = 7.5f;
     
-    [Min(0)] public float FlockingCheckRadius = 15.0f;
-    [Min(0)] public float TargetCheckRadius = 30.0f;
+    [Min(0f)] 
+    [Tooltip("Radius used to check for nearby flocking partners.")]
+    public float FlockingCheckRadius = 15.0f;
     
+    [Min(0f)] 
+    [Tooltip("Radius used to scan for potential targets.")]
+    public float TargetCheckRadius = 30.0f;
+    
+    [Range(0f, 25f)] 
     [Tooltip("The regular locomotion velocity of the drone.")]
-    [Range(0f, 25f)] public float Speed = 12.5f;
+    public float Speed = 12.5f;
     
+    [Range(0f, 30f)] 
     [Tooltip("How snappy the drone snaps its orientation to look at the target.")]
-    [Range(0f, 30f)] public float RotateToTargetSpeed = 12.5f;
+    public float RotateToTargetSpeed = 12.5f;
+
+    [Tooltip("Duration the drone will search for a target before giving up.")]
+    public TimeMS SearchDuration = new();
+
+    [Label("Search Position Reached Threshold")]
+    [Min(0f)]
+    [Tooltip("Distance threshold to consider the search position as reached.")]
+    public float searchPositionReachedThreshold = 1.25f;
 
     [Header("Events")]
     [Tooltip("Event fired right after initialization logic runs on spawn.")]
-    public UnityEvent OnInitialize;
+    public UnityEvent OnInitialize; 
 }

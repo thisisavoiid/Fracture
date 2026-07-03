@@ -29,24 +29,25 @@ public class DroneAttackState : State
 
     public override void Enter()
     {
-        Debug.Log("enter attack state");
         _agent.ResetPath();
     }
 
     public override void Exit()
     {
-
+        _agent.ResetPath();
     }
 
     public override void Run(float deltaTime)
     {
         if (_target == null)
             return;
-            
-        if (_target.Value == null) 
+
+        if (_target.Value == null)
             return;
-        
+
         _brain.RotateTowardsTarget();
+        Vector3 force = _brain.CalculateForce();
+        _rb.AddForce(force);
 
         ItemUsageData itemData = new ItemUsageData(
             _bulletOrigin.position,
