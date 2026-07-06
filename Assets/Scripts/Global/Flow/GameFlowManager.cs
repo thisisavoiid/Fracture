@@ -82,16 +82,19 @@ public class GameFlowManager : MonoBehaviour
         ChangeFlow(FlowType.MatchEnd);
     }
 
+    [ContextMenu("Force Start: Main Menu Enter")]
     public void MainMenuEnterFlow()
     {
         ChangeFlow(FlowType.MainMenuEnter);
     }
 
+    [ContextMenu("Force Start: Loadout Selection Enter Flow")]
     public void LoadoutSelectionEnterFlow()
     {
         ChangeFlow(FlowType.LoadoutSelectionEnter);
     }
 
+    [ContextMenu("Force Start: Loudout Selection Done Flow")]
     public void LoadoutSelectionDoneFlow()
     {
         ChangeFlow(FlowType.LoadoutSelectionDone);
