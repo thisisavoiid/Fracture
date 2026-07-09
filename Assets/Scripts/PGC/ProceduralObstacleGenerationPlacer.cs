@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 using Random = UnityEngine.Random;
 
-public class ArenaGenerator : MonoBehaviour
+public class ProceduralObstacleGenerationPlacer : MonoBehaviour
 {
     [SerializeField]
     private Vector2Int _gridDimensions;
