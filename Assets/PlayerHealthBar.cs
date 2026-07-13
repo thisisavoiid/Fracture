@@ -79,14 +79,6 @@ public class PlayerHealthBar : MonoBehaviour
     private Vector3 _primaryBarStartPosition;
     private Vector3 _secondaryBarStartPosition;
 
-    [Button]
-    public void ResetTest()
-    {
-        ClearTweens();
-        ResetPositions();
-        ResetColors();
-    }
-
     public void PerformHealthBarUpdate()
     {
         ClearTweens();
@@ -110,12 +102,23 @@ public class PlayerHealthBar : MonoBehaviour
         ClearTweens();
     }
 
+    private void OnDestroy()
+    {
+        UnsubscribeFromHealthEvents();
+    }
+
     private void SubscribeToHealthEvents() {
         _health.OnHealthRefresh.AddListener(
             (_) => PerformHealthBarUpdate()
         );
     }
 
+    private void UnsubscribeFromHealthEvents()
+    {
+        _health.OnHealthRefresh.RemoveListener(
+            (_) => PerformHealthBarUpdate()
+        );
+    }
     private void InitializeSliderValues(float maxHealth, bool useIntegersOnly)
     {
         _primarySlider.wholeNumbers = useIntegersOnly;
@@ -135,7 +138,7 @@ public class PlayerHealthBar : MonoBehaviour
     }
 
     private void ResetSliderValues() {
-        float maxValue = _primarySlider.maxValue;
+        float maxValue = _health.DefaultHealth;
         _primarySlider.value = maxValue;
         _secondarySlider.value = maxValue;
     }
@@ -183,7 +186,7 @@ public class PlayerHealthBar : MonoBehaviour
         Color targetColor = Color.Lerp(
             _lowHealthColor,
             _fullHealthColor,
-            _primarySlider.value / _primarySlider.maxValue
+            _primarySlider.value / _health.DefaultHealth
         );
 
         _primaryFill.DOColor(
