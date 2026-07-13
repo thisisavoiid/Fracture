@@ -22,6 +22,7 @@ public class ObjectSpawner : MonoBehaviour
         for (int i=0; i<_spawnables[index].Value; i++)
         {
             GameObject instance = Instantiate(obj, transform);
+            instance.transform.localPosition = Vector3.zero;
             instance.name = $"{obj.name} {i+1}";
         }
     }

@@ -218,32 +218,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ff4e76fb7ef99408b97d1e3b1eac5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _searchPositionReachedTreshold: 1.25
+  _robotRegroupPositionReachedTreshold: 2.5
+  _robotScanRadius: 20
   _targetTransform: {fileID: 11400000, guid: af122b6fa3ed0da459cccae850a227cf, type: 2}
-  _targetMask:
+  _targetLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
+  _robotLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _viewDistance: 80
   _calmDownDistance: 35
   _minAttackDistance: 15
-  _headTransform: {fileID: 6814391531851964671}
   _patrolSpeed: 3.5
   _patrolAcceleration: 100
   _waypointCount: 10
-  _radius: 50
+  _patrolRadius: 30
+  _fleeDistance: 25
+  _fleeTriggerRadius: 2.5
+  _fleeFallbackRadius: 30
+  _fleePositionReachedThreshold: 1.25
+  _minNeighbourCount: 1
+  _fleeSpeed: 20
   _chaseSpeed: 7.5
   _chaseAcceleration: 150
-  _chargeStationTransform: {fileID: 0}
   _goToChargeStationSpeed: 10
   _goToChargeAcceleration: 10
-  _reloadDuration:
+  _cooldownTimeAfterReload:
     Minutes: 0
-    Seconds: 5
-  _turnToTargetSpeed: 7.5
+    Seconds: 0
   _searchDuration:
     Minutes: 0
     Seconds: 5
-  _searchTimer: {fileID: 5952664135976882823}
-  _reloadTimer: {fileID: 8976363979520206659}
+  _turnSpeed: 30
   _animator: {fileID: 62347114096322955}
   OnRobotInitialize:
     m_PersistentCalls:
@@ -260,6 +268,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _battery: {fileID: 1963015184305335767}
+  _agent: {fileID: 3973428780255461413}
+  _raycastDetector: {fileID: 5893352571803436718}
+  _inventory: {fileID: 2879798464440869866}
+  _transform: {fileID: 6814391531851964671}
+  _pointGenerator: {fileID: 9131532296340605550}
+  _patrolWaypoints: []
+  _chargeStationPosition: {x: 0, y: 0, z: 0}
+  _enableDebugMode: 0
 --- !u!114 &5893352571803436718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +356,7 @@ MonoBehaviour:
   _defaultHealth: 250
   _autoInvokeDie: 1
   _deathEvent: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
+  _damageTakenEvent: {fileID: 11400000, guid: 649c6fe3d06b3224d95fb5d8fe6dfb4e, type: 2}
   OnDeath:
     m_PersistentCalls:
       m_Calls:

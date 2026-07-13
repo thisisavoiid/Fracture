@@ -38,7 +38,7 @@ public class FireDamageInflector : LingeringDamageInflector
 
         Destroy(this.gameObject);
     }
-
+    
     protected override void InflictDamage()
     {
         List<Collider> damageColliders = _sphereDetector.GetColliders(_damageableLayers);

@@ -40,6 +40,11 @@ public abstract class CollectionManager : MonoBehaviour
             _onLastMemberRemoved?.Invoke();
     }
 
+    public ICollectionMember[] GetCollectionMembers()
+    {
+        return _members.ToArray();
+    }
+    
     [Button]
     public void GetMemberCount()
     {

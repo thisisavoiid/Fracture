@@ -24,18 +24,18 @@ public class AudioManager : MonoBehaviour
         _pool = GetComponent<AudioSourcePool>();
     }
 
-    public void PlaySound(Sound sound, Vector3 position)
+    public AudioSource PlaySound(Sound sound, Vector3 position)
     {
         if (sound == null)
-            return;
+            return null;
 
         if (sound.Config.Clips.Count == 0 || sound.Config.Clips == null)
-            return;
+            return null;
 
         AudioSource source = _pool.Get();
 
         if (source == null)
-            return;
+            return null;
         
         sound.Config.ApplyTo(source);
         _pool.SetReleaseTime(source, source.clip.length);
@@ -46,6 +46,8 @@ public class AudioManager : MonoBehaviour
         source.gameObject.transform.position = position;
         
         source.Play();
+
+        return source;
     }
 
 }

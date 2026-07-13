@@ -1084,6 +1084,7 @@ MonoBehaviour:
   _defaultHealth: 100
   _autoInvokeDie: 1
   _deathEvent: {fileID: 11400000, guid: dd8162fe3d034c043bcaac0f5c6b8445, type: 2}
+  _damageTakenEvent: {fileID: 11400000, guid: 649c6fe3d06b3224d95fb5d8fe6dfb4e, type: 2}
   OnDeath:
     m_PersistentCalls:
       m_Calls:
