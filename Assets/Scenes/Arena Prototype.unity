@@ -4853,7 +4853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4703873232961976427, guid: a95e2f9b6dcca9541bb006a51eb2812f, type: 3}
       propertyPath: _defaultHealth
-      value: 50000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4703873232961976427, guid: a95e2f9b6dcca9541bb006a51eb2812f, type: 3}
       propertyPath: OnHealthRefresh.m_PersistentCalls.m_Calls.Array.data[1].m_Target
