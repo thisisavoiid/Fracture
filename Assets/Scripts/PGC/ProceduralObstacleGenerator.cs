@@ -5,74 +5,67 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-public enum CellType
-{
-    Wall,
-    Laser,
-    Spawner
-}
-
 public class Cell
 {
     public Cell()
     {
-        foreach (int cellType in typeof(CellType).GetEnumValues())
+        foreach (int arenaItemType in typeof(ArenaItemType).GetEnumValues())
         {
-            Types.Add((CellType)cellType);
+            Types.Add((ArenaItemType)arenaItemType);
         }
     }
 
-    public List<CellType> Types = new();
+    public List<ArenaItemType> Types = new();
 
-    private Dictionary<CellType, float> _cellWeightMap = new()
+    private Dictionary<ArenaItemType, float> _cellWeightMap = new()
     {
-        {CellType.Laser, 0.25f},
-        {CellType.Wall, 0.3f},
-        {CellType.Spawner, 0.1f}
+        {ArenaItemType.Laser, 0.25f},
+        {ArenaItemType.Wall, 0.3f},
+        {ArenaItemType.Spawner, 0.1f}
     };
 
     public void Collapse()
     {
         float totalWeight = 0.0f;
 
-        foreach (CellType cellType in this.Types)
-            totalWeight += _cellWeightMap[cellType];
+        foreach (ArenaItemType arenaItemType in this.Types)
+            totalWeight += _cellWeightMap[arenaItemType];
 
         float randomIndex = Random.Range(0.0f, totalWeight);
 
-        CellType targetCellType = this.Types[0];
+        ArenaItemType targetArenaItemType = this.Types[0];
 
-        foreach (CellType cellType in this.Types)
+        foreach (ArenaItemType arenaItemType in this.Types)
         {
-            totalWeight -= _cellWeightMap[cellType];
+            totalWeight -= _cellWeightMap[arenaItemType];
 
             if (randomIndex >= totalWeight)
             {
-                targetCellType = cellType;
+                targetArenaItemType = arenaItemType;
                 break;
             }
         }
 
         Types.Clear();
-        Types.Add(targetCellType);
+        Types.Add(targetArenaItemType);
     }
 
-    public void Update(CellType otherType)
+    public void Update(ArenaItemType otherType)
     {
         if (this.Types.Count <= 1)
             return;
 
         switch (otherType)
         {
-            case CellType.Wall:
-                this.Types.Remove(CellType.Wall);
+            case ArenaItemType.Wall:
+                this.Types.Remove(ArenaItemType.Wall);
                 break;
 
-            case CellType.Laser:
+            case ArenaItemType.Laser:
                 break;
 
-            case CellType.Spawner:
-                this.Types.Remove(CellType.Laser);
+            case ArenaItemType.Spawner:
+                this.Types.Remove(ArenaItemType.Laser);
                 break;
         }
     }
@@ -363,19 +356,19 @@ public class ProceduralObstacleGenerator : MonoBehaviour
                     continue;
                 }
 
-                CellType cellType = cell.Types[0];
+                ArenaItemType arenaItemType = cell.Types[0];
 
-                switch (cellType)
+                switch (arenaItemType)
                 {
-                    case CellType.Wall:
+                    case ArenaItemType.Wall:
                         sr.color = _wallColor;
                         break;
 
-                    case CellType.Laser:
+                    case ArenaItemType.Laser:
                         sr.color = _laserColor;
                         break;
 
-                    case CellType.Spawner:
+                    case ArenaItemType.Spawner:
                         sr.color = Color.green;
                         break;
                 }

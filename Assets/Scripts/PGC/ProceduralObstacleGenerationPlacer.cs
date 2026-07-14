@@ -20,7 +20,7 @@ public class ProceduralObstacleGenerationPlacer : MonoBehaviour
     [SerializeField]
     private Vector3 _globalGenerationOffset = Vector3.zero;
 
-    [SerializeField] 
+    [SerializeField]
     private Transform _proceduralGenerationContentParent;
 
     [Space(10)]
@@ -68,7 +68,7 @@ public class ProceduralObstacleGenerationPlacer : MonoBehaviour
 
             if (instance == null)
                 continue;
-            
+
             Transform instanceTransform = instance.transform;
             Vector3 worldPosition = GridPositionToWorldPosition(arenaGridItemEntry.Value.GridPosition);
 
@@ -185,7 +185,12 @@ public class ProceduralObstacleGenerationPlacer : MonoBehaviour
             if (!_generationAssetMap.TryGetValue(arenaGridItemEntry.Value.Type, out ProceduralGenerationAsset asset))
                 continue;
 
-            Transform instanceTransform = arenaGridItemEntry.Value.Instance.transform;
+            GameObject instance = arenaGridItemEntry.Value.Instance;
+
+            if (instance == null)
+                continue;
+
+            Transform instanceTransform = instance.transform;
 
             if (instanceTransform == null)
                 continue;
@@ -224,11 +229,8 @@ public class ProceduralObstacleGenerationPlacer : MonoBehaviour
 
                 GameObject wall = wallTilePrefabs[Random.Range(0, wallTilePrefabs.Count)];
 
-                if (!_arenaGrid.ContainsKey(gridPosition) || _arenaGrid[gridPosition] == null)
-                {
-                    ArenaGridItem wallGridItem = new ArenaGridItem(wall, ArenaItemType.Wall, gridPosition);
-                    SetGridItem(gridPosition, wallGridItem);
-                }
+                ArenaGridItem wallGridItem = new ArenaGridItem(wall, ArenaItemType.Wall, gridPosition);
+                SetGridItem(gridPosition, wallGridItem);
             }
         }
     }
@@ -276,7 +278,7 @@ public class ProceduralObstacleGenerationPlacer : MonoBehaviour
                 Vector3 pointDrawPosition = new Vector3(
                     transform.position.x + x * _cellSize + offset.x + _globalGenerationOffset.x,
                     transform.position.y,
-                    transform.position.z + z * _cellSize + offset.z + _globalGenerationOffset.x
+                    transform.position.z + z * _cellSize + offset.z + _globalGenerationOffset.z
                 );
 
                 Gizmos.color = Color.cyan;
