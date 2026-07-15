@@ -1,4 +1,5 @@
 using System;
+using NaughtyAttributes;
 using UnityEngine;
 
 [Serializable]
@@ -9,6 +10,9 @@ public class BetterKeyValuePair<TKey, TValue>
         this.Value = value;
     }
     
+    [ShowAssetPreview]
     public TKey Key;
+
+    [ShowAssetPreview]
     public TValue Value;
 }

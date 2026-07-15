@@ -3,9 +3,6 @@ using System;
 [Serializable]
 public enum ArenaItemType
 {
-    None,
-    Wall,
-    Spawner,
-    PlayerSpawnPoint,
-    Laser
+    None = 0,
+    Wall_01
 }
