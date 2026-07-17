@@ -15,3 +15,7 @@ MonoBehaviour:
   _tilePrefabs:
   - Key: 1
     Value: {fileID: 8243676409222554320, guid: 16f3115414d4ec74a89ef38f10e4773a, type: 3}
+  - Key: 2
+    Value: {fileID: 5986140420203793548, guid: 15cb8c63b1d67a14bb4c12568a58af9f, type: 3}
+  - Key: 3
+    Value: {fileID: 9204353315204837201, guid: 075a9cac532d2eb49a4b4c3fe09341fe, type: 3}

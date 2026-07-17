@@ -47,9 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnables:
-  - Key: {fileID: 8901498568534593520, guid: 4c0a3fb8e33808944a4e7a763ee0ddd6, type: 3}
-    Value: 2
-  - Key: {fileID: 5815591306045240863, guid: 405665a736494e74ba5e76907485194e, type: 3}
+  - Key: {fileID: 6338992377827216811, guid: 5cc5468525329624696700ccf94ffa84, type: 3}
     Value: 1
 --- !u!114 &4434767921103481199
 MonoBehaviour:

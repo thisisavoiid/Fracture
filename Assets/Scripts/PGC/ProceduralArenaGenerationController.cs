@@ -55,6 +55,9 @@ public class ProceduralArenaGenerationController : MonoBehaviour
     [ReadOnly]
     private int _currentSeed;
 
+    // [SerializeField]
+    // private AnimationCurve _curve;
+
     [Button("Delete all generated assets")]
     public void Clear()
     {

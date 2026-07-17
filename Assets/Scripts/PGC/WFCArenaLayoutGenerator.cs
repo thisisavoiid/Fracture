@@ -1,4 +1,6 @@
+using NUnit.Framework.Internal;
 using Unity.VisualScripting;
+using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
 public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
@@ -50,10 +52,10 @@ public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
                 {
                     ArenaCellData cellData = arenaCellData[y, x];
 
-                    foreach (int arenaItemType in typeof(ArenaItemType).GetEnumValues()) 
+                    foreach (int arenaItemType in typeof(ArenaItemType).GetEnumValues())
                         cellData.Types.Add((ArenaItemType)arenaItemType);
                 }
-        
+
                 if (arenaCellData[y, x] == null || arenaCellData[y, x].Types.Count == 0)
                     arenaCellData[y, x].Types.Add(ArenaItemType.None);
             }
@@ -98,25 +100,54 @@ public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
 
             float randomIndex = Random.Range(0.0f, totalWeight);
 
+            // Debug.Log($"Random idx: {randomIndex}");
+
             ArenaItemType targetArenaItemType = cellDataWithLowestEntropy.Types[0];
 
-            foreach (ArenaItemType arenaItemType in cellDataWithLowestEntropy.Types)
+            // Debug.Log(string.Join(",", cellDataWithLowestEntropy.Types));
+
+            bool isTargetTypeFound = false;
+
+            for (int i = cellDataWithLowestEntropy.Types.Count - 1; i >= 0; i--)
             {
+                if (isTargetTypeFound)
+                    break;
+
                 foreach (TypeRule typeRule in this._rules.Rules)
                 {
-                    if (typeRule.Type == arenaItemType)
+                    if (typeRule.Type == cellDataWithLowestEntropy.Types[i])
                     {
                         totalWeight -= typeRule.Weight;
+                        Debug.Log($"Total weight: {totalWeight}");
 
                         if (randomIndex >= totalWeight)
                         {
-                            targetArenaItemType = arenaItemType;
+                            targetArenaItemType = cellDataWithLowestEntropy.Types[i];
+                            isTargetTypeFound = true;
                             break;
                         }
                     }
                 }
-
             }
+            
+            // foreach (ArenaItemType arenaItemType in cellDataWithLowestEntropy.Types)
+            // {
+            //     foreach (TypeRule typeRule in this._rules.Rules)
+            //     {
+            //         if (typeRule.Type == arenaItemType)
+            //         {
+            //             totalWeight -= typeRule.Weight;
+
+            //             if (randomIndex >= totalWeight)
+            //             {
+            //                 targetArenaItemType = arenaItemType;
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // }
+
+            Debug.Log($"Target type: {targetArenaItemType}");
 
             cellDataWithLowestEntropy.Types.Clear();
             cellDataWithLowestEntropy.Types.Add(targetArenaItemType);

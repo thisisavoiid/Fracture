@@ -45,17 +45,12 @@ public class ArenaContentInstantiator : MonoBehaviour, IArenaContentInstantiator
 
                 if (!typePrefabMap.ContainsKey(cellData.Types[0]) || typePrefabMap[cellData.Types[0]] == null)
                 {
-                    if (cellData.Types[0] != 0)
-                        Debug.LogWarning($"[ARENA CONTENT INSTANTIATOR] Prefab at position: {cellData.Position} is null! Make sure to assign it within the tile prefab asset! -");
-                    
                     continue;
                 }
 
                 Vector3 tilePositionInWorldSpace = GridPositionToWorldPosition(cellData.Position, data);
 
                 GameObject targetPrefab = typePrefabMap[cellData.Types[0]];
-
-                Debug.Log($"[ARENA CONTENT INSTANTIATOR] Placing prefab {typePrefabMap[cellData.Types[0]]} at position: [world] {tilePositionInWorldSpace} | [grid] {cellData.Position} -");
 
                 GameObject tileObj = Instantiate(targetPrefab);
                 tileObj.transform.parent = _generatedObjectsParent.transform;
