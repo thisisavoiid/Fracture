@@ -53,12 +53,13 @@ MonoBehaviour:
   _primarySlider: {fileID: 345370414965889307}
   _primaryFill: {fileID: 7315689310447171615}
   _secondarySlider: {fileID: 6903594210214943527}
+  _healthBarParent: {fileID: 5026021499159881524}
   _health: {fileID: 0}
-  _shakeDuration: 0.5
+  _shakeDuration: 1
   _shakeIntensity: 12.5
   _primaryBarReductionDuration: 1
-  _secondaryBarReductionDelay: 0.25
-  _secondaryBarReductionDuration: 0.2
+  _secondaryBarReductionDelay: 0.3
+  _secondaryBarReductionDuration: 0.3
   _fullHealthColor: {r: 0.6556604, g: 1, b: 0.6556604, a: 1}
   _lowHealthColor: {r: 1, g: 0.4198113, b: 0.4198113, a: 1}
   _colorFillChangeDuration: 0.75
@@ -1383,7 +1384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3158529591756923432
 RectTransform:
   m_ObjectHideFlags: 0

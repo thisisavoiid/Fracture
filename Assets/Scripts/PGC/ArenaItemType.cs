@@ -4,7 +4,10 @@ using System;
 public enum ArenaItemType
 {
     None = 0,
-    Wall_01,
-    Wall_02,
-    Wall_03,
+    Stairs_01,
+    Laser_Horizontal_01,
+    Laser_Horizontal_02,
+    Laser_Vertical_01,
+    Wall_Straight_01,
+    Wall_Straight_02
 }

@@ -134,7 +134,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 _moveDir = _inputController.Move;
 
-        if (_isSliding)
+        if (_isSliding && _isGrounded)
         {
             _currentSlideSpeed -= Time.fixedDeltaTime * _slideDeceleration;
             _currentSlideSpeed = Mathf.Max(0.0f, _currentSlideSpeed);
@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_isSliding)
             return;
-
+            
         if (_isClimbing)
             return;
 

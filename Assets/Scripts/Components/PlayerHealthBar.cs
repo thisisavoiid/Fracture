@@ -21,6 +21,11 @@ public class PlayerHealthBar : MonoBehaviour
     [SerializeField]
     private Slider _secondarySlider;
 
+    [BoxGroup("UI References")]
+    [Tooltip("The background slider that catches up slowly to visualize the lost health chunk.")]
+    [SerializeField]
+    private RectTransform _healthBarParent;
+    
     [Header("Core System Setup")]
     [BoxGroup("Setup")]
     [Tooltip("Reference to the underlying health system data script.")]
@@ -166,19 +171,12 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void PerformTweenShakes()
     {
-        _primarySlider.transform.DOShakePosition(
+        _healthBarParent.transform.DOShakePosition(
             duration: _primaryBarReductionDuration,
             strength: _shakeIntensity,
             snapping: true,
             fadeOut: true
         );
-
-        _secondarySlider.transform.DOShakePosition(
-            duration: _secondaryBarReductionDuration,
-            strength: _shakeIntensity,
-            snapping: true,
-            fadeOut: true
-        ).SetDelay(_secondaryBarReductionDelay);
     }
 
     private void LerpFillColors()

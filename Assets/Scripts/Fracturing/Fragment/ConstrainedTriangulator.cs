@@ -160,11 +160,33 @@ public sealed class ConstrainedTriangulator : Triangulator
         int edgeIndex = startEdge.t1Edge;
         int lastTriangle = t;
         bool finalTriangleFound = false;
+
+        // Safety net: a valid walk visits each triangle at most once, so it can never legitimately
+        // take more steps than there are triangles. Degenerate/near-collinear geometry (e.g. re-fracturing
+        // an already-fractured, sliver-heavy fragment) can make MathUtils.LinesIntersect flip-flop and
+        // send this walk bouncing between the same triangles forever, growing intersectingEdges without
+        // bound until Queue<T>.SetCapacity throws OutOfMemoryException. Cap it and bail out gracefully,
+        // same as the existing "shouldn't reach this point" branch below.
+        int maxIterations = triangulation.GetLength(0) + 1;
+        int iterations = 0;
+
         while (!finalTriangleFound)
         {
+            if (++iterations > maxIterations)
+            {
+                Debug.LogWarning("FindIntersectingEdges exceeded max iterations (likely degenerate/near-collinear constraint geometry). Exiting early.");
+                break;
+            }
+
             // Cross the last intersecting edge and inspect the next triangle
             lastTriangle = t;
             t = triangulation[t, edgeIndex];
+
+            if (t == OUT_OF_BOUNDS)
+            {
+                Debug.LogWarning("FindIntersectingEdges walked off the triangulation boundary. Exiting early.");
+                break;
+            }
 
             // Get coordinates of constraint end points and triangle vertices
             Vector2 v_i = points[constraint.v1].coords;
