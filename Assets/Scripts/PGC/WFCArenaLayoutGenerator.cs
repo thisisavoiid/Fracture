@@ -1,5 +1,3 @@
-using NUnit.Framework.Internal;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
@@ -99,11 +97,7 @@ public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
 
             float randomIndex = Random.Range(0.0f, totalWeight);
 
-            // Debug.Log($"Random idx: {randomIndex}");
-
             ArenaItemType targetArenaItemType = cellDataWithLowestEntropy.Types[0];
-
-            // Debug.Log(string.Join(",", cellDataWithLowestEntropy.Types));
 
             bool isTargetTypeFound = false;
 
@@ -117,7 +111,6 @@ public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
                     if (typeRule.Type == cellDataWithLowestEntropy.Types[i])
                     {
                         totalWeight -= typeRule.Weight;
-                        Debug.Log($"Total weight: {totalWeight}");
 
                         if (randomIndex >= totalWeight)
                         {
@@ -128,25 +121,6 @@ public class WFCArenaLayoutGenerator : IArenaLayoutGenerator
                     }
                 }
             }
-            
-            // foreach (ArenaItemType arenaItemType in cellDataWithLowestEntropy.Types)
-            // {
-            //     foreach (TypeRule typeRule in this._rules.Rules)
-            //     {
-            //         if (typeRule.Type == arenaItemType)
-            //         {
-            //             totalWeight -= typeRule.Weight;
-
-            //             if (randomIndex >= totalWeight)
-            //             {
-            //                 targetArenaItemType = arenaItemType;
-            //                 break;
-            //             }
-            //         }
-            //     }
-            // }
-
-            Debug.Log($"Target type: {targetArenaItemType}");
 
             cellDataWithLowestEntropy.Types.Clear();
             cellDataWithLowestEntropy.Types.Add(targetArenaItemType);

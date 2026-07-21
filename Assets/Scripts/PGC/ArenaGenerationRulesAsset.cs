@@ -10,6 +10,14 @@ public class ArenaGenerationRulesAsset : ScriptableObject
 
     public List<TypeRule> Rules => _rules;
 
+    public void RemoveRule(TypeRule typeRule)
+    {
+        if (!_rules.Contains(typeRule))
+            return;
+        
+        _rules.Remove(typeRule);
+    }
+    
     private void Reset()
     {
         foreach (int arenaItemType in typeof(ArenaItemType).GetEnumValues())

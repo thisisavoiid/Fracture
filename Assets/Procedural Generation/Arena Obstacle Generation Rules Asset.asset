@@ -13,21 +13,9 @@ MonoBehaviour:
   m_Name: Arena Obstacle Generation Rules Asset
   m_EditorClassIdentifier: 
   _rules:
-  - Type: 1
-    Weight: 0
-    ExcludesFromNeighbors: 00000000
+  - Type: 0
+    Weight: 0.5
+    ExcludesFromNeighbors: 
   - Type: 2
-    Weight: 0.172
+    Weight: 0.5
     ExcludesFromNeighbors: 02000000
-  - Type: 3
-    Weight: 0.137
-    ExcludesFromNeighbors: 03000000
-  - Type: 4
-    Weight: 0.211
-    ExcludesFromNeighbors: 04000000
-  - Type: 5
-    Weight: 0.5
-    ExcludesFromNeighbors: 06000000
-  - Type: 6
-    Weight: 0.5
-    ExcludesFromNeighbors: 05000000

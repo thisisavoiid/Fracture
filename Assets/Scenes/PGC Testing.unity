@@ -8028,6 +8028,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameFlowManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6151986366275858362, guid: 7fc42dd2717dd974aa018d88f103da4f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9165406302671412091, guid: 7fc42dd2717dd974aa018d88f103da4f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -78556,6 +78560,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1393295379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1393295381}
+  - component: {fileID: 1393295380}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1393295380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393295379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47660f304f409d4790be63af8113cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test:
+    amount: 5
+--- !u!4 &1393295381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393295379}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.297785, y: 28.422758, z: -39.927235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1396922082
 GameObject:
   m_ObjectHideFlags: 0
@@ -117659,3 +117709,4 @@ SceneRoots:
   - {fileID: 1149279525}
   - {fileID: 2153753284540975274}
   - {fileID: 123167677}
+  - {fileID: 1393295381}

@@ -5,16 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Procedural Generation/Tile Prefab Asset/New Tile Prefab Asset")]
 public class TilePrefabAsset : ScriptableObject
 {
-    [SerializeField]
     [ReorderableList]
     [BoxGroup("Tile Prefab List")]
-    private List<BetterKeyValuePair<ArenaItemType, GameObject>> _tilePrefabs = new();
+    public List<BetterKeyValuePair<ArenaItemType, GameObject>> TilePrefabs = new();
 
     public Dictionary<ArenaItemType, GameObject> GetTilePrefabMap()
     {
         Dictionary<ArenaItemType, GameObject> tilePrefabMap = new();
 
-        foreach (BetterKeyValuePair<ArenaItemType, GameObject> typePrefabPair in _tilePrefabs)
+        foreach (BetterKeyValuePair<ArenaItemType, GameObject> typePrefabPair in TilePrefabs)
         {
             tilePrefabMap[typePrefabPair.Key] = typePrefabPair.Value;
         }
@@ -29,7 +28,7 @@ public class TilePrefabAsset : ScriptableObject
             if (arenaItemType == 0)
                 continue;
                 
-            _tilePrefabs.Add(
+            TilePrefabs.Add(
                 new BetterKeyValuePair<ArenaItemType, GameObject>(
                     key: (ArenaItemType)arenaItemType,
                     value: null
