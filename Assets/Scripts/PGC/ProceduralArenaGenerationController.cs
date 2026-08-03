@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using NaughtyAttributes;
+using NaughtyAttributes.Test;
 using UnityEngine;
 
 public class ProceduralArenaGenerationController : MonoBehaviour
@@ -7,6 +9,11 @@ public class ProceduralArenaGenerationController : MonoBehaviour
     [SerializeField]
     [Expandable]
     private ArenaGenerationRulesAsset _rules;
+
+    [BoxGroup("Core References")]
+    [SerializeField]
+    [Expandable]
+    private ArenaGenerationConstraintsAsset _generationConstraints;
 
     [BoxGroup("Core References")]
     [SerializeField]
@@ -54,9 +61,6 @@ public class ProceduralArenaGenerationController : MonoBehaviour
     [ReadOnly]
     private int _currentSeed;
 
-    // [SerializeField]
-    // private AnimationCurve _curve;
-
     [Button("Delete all generated assets")]
     public void Clear()
     {
@@ -80,7 +84,7 @@ public class ProceduralArenaGenerationController : MonoBehaviour
             _noiseOffset
         );
 
-        Debug.Log($"Requesting arena generation with seed: {_currentSeed}");
+        Debug.Log($"[PROCEDURAL ARENA GENERATION CONTROLLER] Requesting arena generation with seed: {_currentSeed}");
 
         ArenaCellData[,] layout = generator.Generate(_arenaSize, _currentSeed);
 
@@ -89,11 +93,22 @@ public class ProceduralArenaGenerationController : MonoBehaviour
         if (instantiator == null)
             return;
 
+        if (_generationConstraints == null)
+        {
+            Debug.LogWarning($"[PROCEDURAL ARENA GENERATION CONTROLLER] No generation constraint asset has been selected! -");
+        }
+        else
+        {
+            GenerationConstraintsApplicator constraintsApplicator = new GenerationConstraintsApplicator();
+            constraintsApplicator.ApplyConstraints(layout, _generationConstraints.Constraints);
+        }
+
         ArenaGenerationData data = new ArenaGenerationData(
             layout,
             _cellSize,
             _globalOffset
         );
+
         instantiator.Clear();
         instantiator.Build(data);
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8413427015558371861
+--- !u!1 &4541856296660924636
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,68 +8,71 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6585990649973992945}
-  - component: {fileID: 5071465131547231425}
-  - component: {fileID: 3654555358454920446}
-  - component: {fileID: 8465340231184416696}
+  - component: {fileID: 3217855432309135475}
+  - component: {fileID: 9011293760104727051}
+  - component: {fileID: 4434767921103481199}
+  - component: {fileID: 1149283973238256768}
   m_Layer: 0
-  m_Name: TankSpawner
+  m_Name: Enemy Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6585990649973992945
+--- !u!4 &3217855432309135475
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8413427015558371861}
+  m_GameObject: {fileID: 4541856296660924636}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.491266, y: 1, z: -33.5}
+  m_LocalPosition: {x: -19.406574, y: 1.4388771, z: 5.819298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5071465131547231425
+--- !u!114 &9011293760104727051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8413427015558371861}
+  m_GameObject: {fileID: 4541856296660924636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e57c4351d44954fa037c19e0e4652c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dced2e7087272542a83ca061bb39f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectPool:
-  - {fileID: 3523894698881964607, guid: a06ee08862053644aab4c329699c60cb, type: 3}
-  - {fileID: 3523894698881964607, guid: 357697b63c54f5e489bb183c61896f7f, type: 3}
---- !u!114 &3654555358454920446
+  _spawnables:
+  - Key: {fileID: 6338992377827216811, guid: 5cc5468525329624696700ccf94ffa84, type: 3}
+    Value: 1
+  - Key: {fileID: 2441571304997868061, guid: 4c0a3fb8e33808944a4e7a763ee0ddd6, type: 3}
+    Value: 1
+--- !u!114 &4434767921103481199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8413427015558371861}
+  m_GameObject: {fileID: 4541856296660924636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0576dde06f6cf04f9625633c3f06a4e, type: 3}
+  m_Script: {fileID: 11500000, guid: f304bd9381d91dd4eba9c21d772af69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radius: 0.25
-  _color: {r: 0.49827793, g: 0.4292453, b: 1, a: 0}
---- !u!114 &8465340231184416696
+  _dimensions: {x: 0.25, y: 0.25, z: 0.25}
+  _offset: {x: 0, y: 0, z: 0}
+  _color: {r: 0.0047169924, g: 1, b: 0.43536115, a: 0}
+--- !u!114 &1149283973238256768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8413427015558371861}
+  m_GameObject: {fileID: 4541856296660924636}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
@@ -79,14 +82,14 @@ MonoBehaviour:
   _onEventInvoked:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5071465131547231425}
-        m_TargetAssemblyTypeName: TankSpawner, Assembly-CSharp
+      - m_Target: {fileID: 9011293760104727051}
+        m_TargetAssemblyTypeName: ObjectSpawner, Assembly-CSharp
         m_MethodName: Spawn
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

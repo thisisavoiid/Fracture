@@ -507,9 +507,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04991ec5691475342a9d50d89b62abee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultHealth: 500
+  _defaultHealth: 2000
   _autoInvokeDie: 1
   _deathEvent: {fileID: 11400000, guid: fc60c2e73a9469343b4985afb459144f, type: 2}
+  _damageTakenEvent: {fileID: 0}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

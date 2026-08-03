@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4434767921103481199}
   - component: {fileID: 1149283973238256768}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Tank Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,8 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnables:
-  - Key: {fileID: 6338992377827216811, guid: 5cc5468525329624696700ccf94ffa84, type: 3}
-    Value: 1
+  - Key: {fileID: 2456031327218277800, guid: 357697b63c54f5e489bb183c61896f7f, type: 3}
+    Value: 2
+  - Key: {fileID: 2456031327218277800, guid: a06ee08862053644aab4c329699c60cb, type: 3}
+    Value: 2
 --- !u!114 &4434767921103481199
 MonoBehaviour:
   m_ObjectHideFlags: 0

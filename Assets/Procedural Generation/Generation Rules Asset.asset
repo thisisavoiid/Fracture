@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5944e9ba3203b224e869fece38618b77, type: 3}
+  m_Name: Generation Rules Asset
+  m_EditorClassIdentifier: 
+  _rules:
+  - Type: 1
+    Weight: 0.145
+    ExcludesFromNeighbors: 00000000
+  - Type: 7
+    Weight: 0.148
+    ExcludesFromNeighbors: 00000000
+  - Type: 2
+    Weight: 0.224
+    ExcludesFromNeighbors: 02000000
+  - Type: 5
+    Weight: 0.5
+    ExcludesFromNeighbors: 05000000
+  - Type: 6
+    Weight: 0.5
+    ExcludesFromNeighbors: 06000000
+  - Type: 6
+    Weight: 0.5
+    ExcludesFromNeighbors: 06000000

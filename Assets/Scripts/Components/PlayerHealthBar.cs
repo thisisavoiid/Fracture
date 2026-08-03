@@ -113,14 +113,14 @@ public class PlayerHealthBar : MonoBehaviour
     }
 
     private void SubscribeToHealthEvents() {
-        _health.OnHealthRefresh.AddListener(
+        _health?.OnHealthRefresh.AddListener(
             (_) => PerformHealthBarUpdate()
         );
     }
 
     private void UnsubscribeFromHealthEvents()
     {
-        _health.OnHealthRefresh.RemoveListener(
+        _health?.OnHealthRefresh.RemoveListener(
             (_) => PerformHealthBarUpdate()
         );
     }
