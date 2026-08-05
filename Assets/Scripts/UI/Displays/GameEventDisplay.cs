@@ -1,4 +1,6 @@
-public class GameEventDisplay : Display<GameEvent>
+using ToolkitByJonathan;
+
+public class GameEventDisplay : UIDisplay<GameEvent>
 {
     protected override string FormatValue(GameEvent value)
     {

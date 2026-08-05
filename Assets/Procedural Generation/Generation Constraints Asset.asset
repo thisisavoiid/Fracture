@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3512c1324c6f56b489b0c1f60e568236, type: 3}
   m_Name: Generation Constraints Asset
   m_EditorClassIdentifier: 
-  _constraints:
-  - Type: 1
-    MinQuota: 5
+  Constraints:
   - Type: 7
     MinQuota: 5
+  - Type: 1
+    MinQuota: 3

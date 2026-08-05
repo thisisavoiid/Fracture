@@ -1548,6 +1548,7 @@ GameObject:
   - component: {fileID: 733547520}
   - component: {fileID: 733547522}
   - component: {fileID: 733547521}
+  - component: {fileID: 733547523}
   m_Layer: 0
   m_Name: Quit Button
   m_TagString: Untagged
@@ -1627,6 +1628,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733547519}
   m_CullTransparentMesh: 1
+--- !u!114 &733547523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733547519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6918e5b3bd641742b3e26f85831e7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resizeMultiplier: 1.25
+  _resizeSpeed: 15
 --- !u!1 &779616328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,6 +1789,7 @@ GameObject:
   - component: {fileID: 863656544}
   - component: {fileID: 863656546}
   - component: {fileID: 863656545}
+  - component: {fileID: 863656547}
   m_Layer: 0
   m_Name: Settings Button
   m_TagString: Untagged
@@ -1853,6 +1869,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 863656543}
   m_CullTransparentMesh: 1
+--- !u!114 &863656547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863656543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6918e5b3bd641742b3e26f85831e7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resizeMultiplier: 1.25
+  _resizeSpeed: 15
 --- !u!1 &895486602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,6 +2558,7 @@ GameObject:
   - component: {fileID: 1300041868}
   - component: {fileID: 1300041870}
   - component: {fileID: 1300041869}
+  - component: {fileID: 1300041871}
   m_Layer: 0
   m_Name: Play Button
   m_TagString: Untagged
@@ -2619,6 +2650,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300041867}
   m_CullTransparentMesh: 1
+--- !u!114 &1300041871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300041867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6918e5b3bd641742b3e26f85831e7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resizeMultiplier: 1.25
+  _resizeSpeed: 15
 --- !u!1 &1369123697
 GameObject:
   m_ObjectHideFlags: 0

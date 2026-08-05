@@ -1,4 +1,6 @@
-public class TimeMSDisplay : Display<TimeMS>
+using ToolkitByJonathan;
+
+public class TimeMSDisplay : UIDisplay<TimeMS>
 {
     protected override string FormatValue(TimeMS value)
     {

@@ -1,1 +1,3 @@
-public class FloatDisplay : Display<float> {}
+using ToolkitByJonathan;
+
+public class FloatDisplay : UIDisplay<float> {}

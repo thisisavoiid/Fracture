@@ -1,1 +1,3 @@
-public class IntDisplay : Display<int> {}
+using ToolkitByJonathan;
+
+public class IntDisplay : UIDisplay<int> {}

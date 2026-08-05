@@ -28,6 +28,3 @@ MonoBehaviour:
   - Type: 6
     Weight: 0.5
     ExcludesFromNeighbors: 06000000
-  - Type: 6
-    Weight: 0.5
-    ExcludesFromNeighbors: 06000000
