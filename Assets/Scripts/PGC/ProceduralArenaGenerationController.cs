@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using NaughtyAttributes.Test;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ProceduralArenaGenerationController : MonoBehaviour
 {
@@ -61,6 +62,10 @@ public class ProceduralArenaGenerationController : MonoBehaviour
     [ReadOnly]
     private int _currentSeed;
 
+    [BoxGroup("Events")]
+    [SerializeField]
+    private UnityEvent _onGenerationFinished;
+
     [Button("Delete all generated assets")]
     public void Clear()
     {
@@ -111,6 +116,8 @@ public class ProceduralArenaGenerationController : MonoBehaviour
 
         instantiator.Clear();
         instantiator.Build(data);
+
+        _onGenerationFinished?.Invoke();
     }
 
     private void CheckForValidInstantiatorInstance()

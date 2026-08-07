@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2327592197605947518}
   - component: {fileID: 7351494855264200084}
-  - component: {fileID: 2471763847439705349}
   m_Layer: 0
   m_Name: Arena Generator
   m_TagString: Untagged
@@ -48,35 +47,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rules: {fileID: 11400000, guid: bf6374d0b4467b5439123061d73033d0, type: 2}
+  _generationConstraints: {fileID: 11400000, guid: fb28750d2e7aba7468d03b8aa16e2b3c, type: 2}
   _instantiator: {fileID: 2289331252757381839}
   _arenaSize: {x: 15, y: 15}
   _cellSize: 6
   _globalOffset: {x: 0, y: 2, z: 0}
-  _noiseScale: 7.33
+  _noiseScale: 5.85
   _noiseOffset: {x: 3.64, y: 1.2}
-  _threshold: 0.344
+  _threshold: 0.521
   _useCustomSeed: 0
   _customSeed: 2145887972
-  _currentSeed: 1772552378
---- !u!114 &2471763847439705349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80491321222482395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37e36e614624f3c489525261bb8522f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _event: {fileID: 11400000, guid: 0623c6b42ac46904b9180339173a9d0b, type: 2}
-  _onEventInvoked:
+  _currentSeed: -1262374478
+  _onGenerationFinished:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7351494855264200084}
-        m_TargetAssemblyTypeName: ProceduralArenaGenerationController, Assembly-CSharp
-        m_MethodName: Generate
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: NavMeshBaker, Assembly-CSharp
+        m_MethodName: BakeNavMesh
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

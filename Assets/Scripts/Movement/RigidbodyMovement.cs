@@ -56,8 +56,6 @@ public class RigidbodyMovement : MonoBehaviour
         float difference = Mathf.Max(0, strength - currentVerticalForce);
 
         _rb.AddForce(_transform.up * difference, ForceMode.Impulse);
-
-        Debug.Log($"[RIGIDBODY MOVEMENT] Applying jump force to {gameObject.name} with force: {_transform.up * difference} -");
     }
 
     /// <summary>

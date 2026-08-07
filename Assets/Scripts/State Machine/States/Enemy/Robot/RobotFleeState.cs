@@ -41,8 +41,6 @@ public class RobotFleeState : State
 
     public override void Enter()
     {
-        Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
-
         if (_agent != null) 
             _agent.speed = _fleeSpeed;
             
@@ -63,7 +61,6 @@ public class RobotFleeState : State
 
     public override void Exit()
     {
-        Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
         _fleePosition = new Vector3(Mathf.Infinity, Mathf.Infinity, Mathf.Infinity);
         _agent.ResetPath();
     }

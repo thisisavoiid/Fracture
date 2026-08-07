@@ -166,7 +166,7 @@ MonoBehaviour:
   _timeAfterTick: 0.35
   _damageableLayers:
     serializedVersion: 2
-    m_Bits: 21184
+    m_Bits: 21056
   _onStart:
     m_PersistentCalls:
       m_Calls:

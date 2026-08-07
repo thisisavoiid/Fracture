@@ -36,8 +36,6 @@ public class RobotPatrolState : State
     /// </summary>
     public override void Enter()
     {
-        Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
-
         if (_agent == null || _waypoints == null || _waypoints.Count == 0)
             return;
         
@@ -55,7 +53,6 @@ public class RobotPatrolState : State
 
     public override void Exit()
     {
-        Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
         _agent.ResetPath();
     }
 

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyCount: 1
   _matchTime:
-    Minutes: 3
-    Seconds: 5
+    Minutes: 2
+    Seconds: 30
   _validGameEvents:
   - {fileID: 11400000, guid: a48698bdbae812141a37ee8580cac059, type: 2}
   _timeBetweenGameEvents:

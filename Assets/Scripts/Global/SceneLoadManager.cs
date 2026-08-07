@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -5,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class SceneLoadManager : MonoBehaviour
 {
     [SerializeField] private UnityEvent _onSceneLoadFinished;
-    
     private void Awake()
     {
         SceneManager.sceneLoaded += InvokeOnSceneLoadFinishedEvent;
@@ -22,7 +22,7 @@ public class SceneLoadManager : MonoBehaviour
     {
         if (!IsSceneValid(index, out _))
             return;
-    
+
         SceneManager.LoadScene(index);
     }
 

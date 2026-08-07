@@ -40,8 +40,8 @@ public class AudioManager : MonoBehaviour
         sound.Config.ApplyTo(source);
         _pool.SetReleaseTime(source, source.clip.length);
 
-        if (source.transform.parent != this.gameObject.transform)
-            source.transform.parent = this.gameObject.transform;
+        // if (source.transform.parent != this.gameObject.transform)
+        //     source.transform.parent = this.gameObject.transform;
 
         source.gameObject.transform.position = position;
         

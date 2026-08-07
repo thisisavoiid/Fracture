@@ -119,6 +119,9 @@ public class GameEventManager : MonoBehaviour
         if (_gameSettings == null)
             return;
 
+        if (_gameSettings.ValidGameEvents == null || _gameSettings.ValidGameEvents.Count == 0)
+            return;
+        
         _ticks += Time.deltaTime;
 
         if (_ticks >= _nextEventStartTime && _currentEvent == null)

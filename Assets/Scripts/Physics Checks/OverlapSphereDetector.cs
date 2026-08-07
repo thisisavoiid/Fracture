@@ -13,6 +13,16 @@ public class OverlapSphereDetector : MonoBehaviour
     [Tooltip("The local offset from the Transform position where the sphere center is located.")]
     [SerializeField] private Vector3 _sphereOffset;
 
+    public int GetCollidersNonAlloc(LayerMask layerMask, Collider[] buffer)
+    {
+        return Physics.OverlapSphereNonAlloc(
+            transform.position + _sphereOffset,
+            _sphereRadius,
+            buffer,
+            layerMask
+        );
+    }
+    
     /// <summary>
     /// Checks if any colliders within the sphere contain a specific component type.
     /// </summary>
@@ -78,6 +88,7 @@ public class OverlapSphereDetector : MonoBehaviour
 
         return results;
     }
+
 
     /// <summary>
     /// Draws a wireframe sphere in the Scene view to visualize the detection area.

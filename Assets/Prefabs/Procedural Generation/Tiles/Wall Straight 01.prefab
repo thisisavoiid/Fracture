@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 228728035611058010}
   - component: {fileID: 4767104191871492399}
   - component: {fileID: 3093276211670214849}
+  - component: {fileID: 3036215103764296280}
   m_Layer: 7
   m_Name: Wall Straight 01
   m_TagString: Untagged
@@ -362,7 +363,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823292883055778806}
   serializedVersion: 4
-  m_Mass: 30
+  m_Mass: 60
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -401,7 +402,7 @@ MonoBehaviour:
     - Projectile
     triggerKey: 0
   fractureOptions:
-    fragmentCount: 10
+    fragmentCount: 15
     xAxis: 1
     yAxis: 1
     zAxis: 1
@@ -427,3 +428,19 @@ MonoBehaviour:
   _impactRadius: 15
   _canBeShot: 1
   currentRefractureCount: 0
+--- !u!208 &3036215103764296280
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8823292883055778806}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3, y: 2, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

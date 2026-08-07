@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class FireDamageInflector : LingeringDamageInflector
 {
+    private const int MaxColliders = 16;
+    private Collider[] _colliderCache;
+    private Dictionary<GameObject, IShootable> _shootableCache = new(MaxColliders);
+
+    [ContextMenu("Force Init")]
     public override void Init()
     {
         if (_hasBeenInitiatedAlready)
@@ -41,17 +47,32 @@ public class FireDamageInflector : LingeringDamageInflector
     
     protected override void InflictDamage()
     {
-        List<Collider> damageColliders = _sphereDetector.GetColliders(_damageableLayers);
-
-        if (damageColliders == null || damageColliders.Count == 0)
+        _colliderCache = new Collider[MaxColliders];
+        
+        int colliderCount = _sphereDetector.GetCollidersNonAlloc(_damageableLayers, _colliderCache);
+        
+        if (colliderCount == 0)
             return;
 
-        foreach (Collider collider in damageColliders)
-        {
-            IShootable shootable = collider.gameObject.GetComponent<IShootable>();
+        _shootableCache.Clear();
 
-            if (shootable == null)
-                continue;
+        for (int i=0; i<colliderCount; i++)
+        {
+            Collider collider = _colliderCache[i];
+            
+            if (collider == null) continue;
+
+            GameObject go = collider.gameObject;
+            
+            Debug.Log(go.name);
+
+            if (!_shootableCache.TryGetValue(go, out IShootable shootable))
+            {
+                if (!go.TryGetComponent(out shootable))
+                    continue;
+                
+                _shootableCache.Add(go, shootable);
+            }
 
             shootable.Hit(_damagePerTick, transform.position);
         }

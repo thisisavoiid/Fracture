@@ -36,13 +36,11 @@ public class RobotGoToClosestRobotState : State
     public override void Enter()
     {
         _closestTarget = null;
-        Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
     }
 
     public override void Exit()
     {
         _closestTarget = null;
-        Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
         _agent.ResetPath();
     }
 

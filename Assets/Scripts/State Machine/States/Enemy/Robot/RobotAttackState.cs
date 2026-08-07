@@ -34,7 +34,6 @@ public class RobotAttackState : State
 
     public override void Enter()
     {
-        Debug.Log($"[STATE MACHINE] Entering state: {this.GetType().Name.ToUpper()}.");
         _agent.updateRotation = false;
 
         _isFiringAShot = false;
@@ -47,7 +46,6 @@ public class RobotAttackState : State
 
     public override void Exit()
     {
-        Debug.Log($"[STATE MACHINE] Exiting state: {this.GetType().Name.ToUpper()}.");
         _agent.updateRotation = true;
         _isFiringAShot = false;
     }

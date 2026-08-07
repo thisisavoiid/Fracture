@@ -31,7 +31,6 @@ public class DroneSearchState : State
 
     public override void Enter()
     {
-        Debug.Log("entering search state");
         _lastSeenPos = _targetTransform.Value.position;
         _agent.ResetPath();
         _agent.SetDestination(_lastSeenPos);
