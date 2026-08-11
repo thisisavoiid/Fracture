@@ -81,7 +81,7 @@ Material:
     - _EnableBlendModePreserveSpecularLighting: 0
     - _EnableFogOnTransparent: 1
     - _ExcludeFromTUAndAA: 0
-    - _Line_Thickness: 0.107
+    - _Line_Thickness: 0.084
     - _MaterialID: 1
     - _MaterialTypeMask: 34
     - _OpaqueCullMode: 2
@@ -123,7 +123,7 @@ Material:
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Grid_Color: {r: 0.0070498213, g: 0, b: 0.3207547, a: 0}
+    - _Grid_Color: {r: 0.78048706, g: 0, b: 32, a: 0}
     - _Grid_SIze: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
