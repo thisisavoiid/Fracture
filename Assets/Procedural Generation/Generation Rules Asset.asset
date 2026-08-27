@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rules:
   - Type: 1
-    Weight: 0.223
+    Weight: 0.058
     ExcludesFromNeighbors: 00000000
   - Type: 7
     Weight: 0.055

@@ -17,7 +17,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: dfe812d02585bb04d8b2212f8925eed7, type: 3}
     MixerChannel: {fileID: 3959177507691844587, guid: 6e01f1a9246cebe4294207261809cade, type: 2}
     DefaultVolume: 1
-    DefaultPitch: 1
+    DefaultPitch: 2
     UseRandomVolume: 0
     RandomVolumeRange: 0.1
     UseRandomPitch: 0

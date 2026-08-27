@@ -16,9 +16,9 @@ MonoBehaviour:
   _sprite: {fileID: -112395526, guid: 61b7d4103cf07cd46b4a30a568d1db6c, type: 3}
   Stats:
     ShotsPerMinute: 680
-    DamagePerShot: 22
-    TotalRounds: 40
-    Range: 35
+    DamagePerShot: 45
+    TotalRounds: 32
+    Range: 50
   RecoilConfig:
     IntensityY: 3.5
     RandomXRecoilRange:
